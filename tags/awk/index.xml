@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>awk on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/awk/</link>
+    <description>Recent content in awk on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 14 Jul 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/awk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux三剑客（grep、awk、sed）</title>
+      <link>https://blog.xmlwch.cn/2021/07/14/chlinux/command.html</link>
+      <pubDate>Wed, 14 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/14/chlinux/command.html</guid>
+      <description>0、 引言 在Linux下一切皆文件，所以Linux下的操作就是对文件的操作。出于对文件更好的操作，下面给大家介绍一下常用的文本操作“三剑客”命令。 1、 grep 简介：文本过滤工具,用于查找文件里符合条件的字符串 语法： grep [-abcEFGhHilLnqrsvVwxy][-A&amp;lt;显示行数&amp;g</description>
+    </item>
+    
+  </channel>
+</rss>

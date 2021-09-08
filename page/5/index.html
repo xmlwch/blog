@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta name="generator" content="Hugo 0.83.1" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>xmlwch的博客 | 未经他人事，莫劝他人善！</title>
+    <meta property="og:title" content="xmlwch的博客 | 未经他人事，莫劝他人善！">
+    <meta property="og:type" content="website">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta property="og:url" content="https://blog.xmlwch.cn/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <link rel="alternate" type="application/rss+xml" href="https://blog.xmlwch.cn/index.xml" title="xmlwch的博客" />
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <h1>
+                        <a id="logo" href="https://blog.xmlwch.cn/">
+                            xmlwch的博客
+                        </a>
+                    </h1>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html" title="Vsftpd 虚拟用户配置">Vsftpd 虚拟用户配置</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月15日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/FTP'>FTP</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            1.安装（有几率已安装） 查看是否已经安装 ，以下命令有返回表示已安装即可跳过该步骤 # rpm -qa |grep vsftpd vsftpd-3.0.2-22.ns7_4.mips64el # 安装 # yum install -y vsftpd 2.Vsftpd服务及配置 Vsftpd服务配置 # cat /etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=YES listen=YES listen_ipv6=NO pam_service_name=vsftpd userlist_enable=YES tcp_wrappers=YES guest_enable=YES #启用虚拟用户 virtual_use_local_privs=YES user_sub_token=$USER local_root=/data2/KyApps/ftp/$USER #/data2/KyApps/ftp需要提前创建好 hide_ids=YES allow_writeable_chroot=YES #避免客户端50……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html" title="chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作">chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月12日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            root用户执行 # chmod 755 redis-server 时报错： chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作 解决方法： # 使用lsattr命令显示文件属性 lsattr redis-server ----i--------------- redis-server # 修改文件属性 chattr -i redis-server # 修改文件执行权限(此时就可以了) chmod 777 redis-server chattr +i redis-server 相关知识引用： chattr命令： https://www.runoob.com/linux/linux-comm-chattr.html lsattr命令： https://www.runoob.com/linux/linux-comm-lsattr.html 由于时间仓促，错误与疏忽之处在所难免，希望各……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html" title="Failed to allocate directory watch: Too many open files">Failed to allocate directory watch: Too many open files</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月9日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            uos上运行systemctl启动服务时报错： Failed to allocate directory watch: Too many open files 解决方法： vi /etc/sysctl.conf cat /etc/sysctl.conf # 添加一下配置 fs.inotify.max_user_instances=512 fs.inotify.max_user_watches=262144 生效 sysctl -p 分析： 可能是 inotify 数量限制了，修改后服务可以正常启动 inotify介绍： 它是一个内核用于通知用户空间程序文件系统变化的机制。 众所周知，Linux 桌面系统与 MAC 或 Windows 相比有许多不如人……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/port-listening.html" title="查看端口监听状态">查看端口监听状态</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月9日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            netstat命令 使用netstat命令可查看端口占用情况 netstat命令各个参数说明如下: -t : 指明显示TCP端口 -u : 指明显示UDP端口 -l : 仅显示监听套接字(所谓套接字就是使应用程序能够读写与收发通讯协议(protocol)与资料的程序) -p : 显示进程标识符和程序名称，每一个套接……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/09/chlinux/port-listening.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html" title="fpm打包">fpm打包</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月8日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            a）环境准备 安装ruby环境和gem命令 yum -y install ruby rubygems ruby-devel gem命令是从rubygem仓库安装软件类似yum从yum仓库安装软件 查看当前源： gem source list *** CURRENT SOURCES *** https://rubygems.org/ 添加国内源： gem sources -a http://mirrors.aliyun.com/rubygems/ 移除国外源： gem sources --remove https://rubygems.org/ 安装FPM工具： gem install fpm 提示ruby版本过低时请自行百度 b）fpm打包 fpm -s dir -a aarch64 -t rpm -n KySofts-withDev -v 1.0.0……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html" title="防火墙（firewalld）的操作命令">防火墙（firewalld）的操作命令</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月7日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            1、基本使用 启动： systemctl start firewalld 查看状态：systemctl status firewalld 禁用，禁止开机启动： systemctl disable firewalld 停止运行： systemctl stop firewalld 2、firewalld-cmd 查看版本： firewall-cmd --version 查看帮助： firewall-cmd --help 显示状态： firewall-cmd --state 查看所有打开的端口： firewall-cmd --zone=public --list-ports 更新防火墙规则： firewall-cmd --reload 更新防火墙规则，重启服务： firewall-cmd --completely-reload 查看已激活的Zone信息: firewall-cmd --get-active-zones 查看……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html" title="Go语言开发环境搭建">Go语言开发环境搭建</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年5月21日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Golang'>Golang</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            下载 要搭建Go语言开发环境，第一步要下载go的开发工具包，目前最新稳定版本是go1.16.6。Go为我们所熟知的所有平台架构提供了开发工具包，比如熟知的Linux、Mac和Windows，其他的还有FreeBSD等。 根据自己的机器操作系统选择相应的开发工具包，比如我的是Windo……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html" title="Linux添加新硬盘后操作记录">Linux添加新硬盘后操作记录</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年5月21日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查看新硬盘标识 lsblk NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT vda 252:0 0 100G 0 disk ├─vda1 252:1 0 1G 0 part /boot └─vd……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/05/10/hello-word.html" title="Hello Word!">Hello Word!</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年5月10日
+        </date>
+        
+        <div class="post-content">
+            作为一个技术开发人员，当然希望建立一个自己的小小平台。此平台主要用于记录工作笔记和生活。……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/10/hello-word.html">阅读全文</a></p>
+    </article>
+    
+    
+
+
+
+<ol class="page-navigator">
+    
+    <li class="prev">
+        <a href="https://blog.xmlwch.cn/page/4/">上一页</a>
+    </li>
+    
+
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/">1</a>
+    </li>
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/page/2/">2</a>
+    </li>
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/page/3/">3</a>
+    </li>
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/page/4/">4</a>
+    </li>
+    
+    <li  class="current">
+        <a href="https://blog.xmlwch.cn/page/5/">5</a>
+    </li>
+    
+
+    
+</ol>
+
+
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

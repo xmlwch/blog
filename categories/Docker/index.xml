@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/categories/Docker/</link>
+    <description>Recent content in Docker on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jul 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> Docker Compose 模板文件</title>
+      <link>https://blog.xmlwch.cn/2021/07/16/chlinux/docker-compose-yml.html</link>
+      <pubDate>Fri, 16 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/16/chlinux/docker-compose-yml.html</guid>
+      <description>Docker Compose 跟 Dockerfile 类似的文件是 docker-compose.yml 根据后缀我们知道使用的是 YAML 语法； version docker-compose.yml 的第一行是用来定义版本的； 允许的值我们可以从官网查询；https://docs.docker.com/compose/compose-file version: &amp;#34;3.7&amp;#34; service 定义完版本接下来就是 service 了； service 部分是我们的核心；定义了要使用那些服务； version:&amp;#34;3.7&amp;#34;services:redis:# 服务</description>
+    </item>
+    
+    <item>
+      <title> Docker简单使用</title>
+      <link>https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html</link>
+      <pubDate>Thu, 08 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html</guid>
+      <description>Docker常见命令 容器相关操作 docker create # 创建一个容器但是不启动它 docker run # 创建并启动一个容器 docker stop # 停止容器运行，发送信号SIGTERM docker start # 启动一个停止状态的容器 docker restart # 重启一个容器 docker rm # 删除一个容器 docker kill # 发送信号给容器，默认SIGKILL docker attach # 连接(进入)到一个正在运行的容器 docker wait # 阻塞</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>regexp on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/regexp/</link>
+    <description>Recent content in regexp on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 27 Jul 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/regexp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PHP常用正则验证</title>
+      <link>https://blog.xmlwch.cn/2021/07/27/php/regexp.html</link>
+      <pubDate>Tue, 27 Jul 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/27/php/regexp.html</guid>
+      <description>正则表达式在匹配字符串时，遵循以下2个基本原则： 1.最左原则：正则表达式总是从目标字符串的最左侧开始，依次匹配，直到匹配到符合表达式要求的部分，或直到匹配目标字符串的结束。 2.最长原则：对于匹配到的目标字符串，正则表达式总是会匹配到符合正则表达式要求的最长的部分 正则验证手机号 //</description>
+    </item>
+    
+  </channel>
+</rss>

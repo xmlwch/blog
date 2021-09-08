@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Header on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/Header/</link>
+    <description>Recent content in Header on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 20 Jun 2021 09:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Header/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>四种常见的 POST 提交数据方式</title>
+      <link>https://blog.xmlwch.cn/2021/06/20/http/post-data-in-http.html</link>
+      <pubDate>Sun, 20 Jun 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/20/http/post-data-in-http.html</guid>
+      <description>HTTP/1.1 协议规定的 HTTP 请求方法有 OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE、CONNECT 这几种。其中 POST 一般用来向服务端提交数据，本文主要讨论 POST 提交数据的几种方式。 我们知道，HTTP 协议是以 ASCII 码传输，建立在 TCP/IP 协议之上的应用层规范。规范把 HTTP 请求分为三个部分</description>
+    </item>
+    
+  </channel>
+</rss>

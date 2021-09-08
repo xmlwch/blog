@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title> Vagrantfile详解 | xmlwch的博客</title>
+    <meta property="og:title" content=" Vagrantfile详解 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-07-21T15:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-07-21T15:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title"> Vagrantfile详解</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月21日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/Vagrant'>Vagrant</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共3255字</span>，阅读约<span class="more-meta"> 7 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#998;font-style:italic">## vagrantfile详解</span>
+
+<span style="color:#998;font-style:italic"># 定义虚拟机的各种配置，主要包括三个方面的配置：虚拟机的配置、SSH配置、Vagrant的一些基础配置。</span>
+
+<span style="color:#998;font-style:italic"># Vagrant是使用Ruby开发的，所以它的配置语法也是Ruby的，每个项目都需要有一个Vagrantfile，在执行vagrant init xxx 的目录下可以找到该文件。当然也可以复制其他项目的vagrantfile来使用。</span>
+<span style="color:#998;font-style:italic"># Vagrant.configure(&#34;2&#34;) do |config|</span>
+<span style="color:#998;font-style:italic">#	...</span>
+<span style="color:#998;font-style:italic">#	...</span>
+<span style="color:#998;font-style:italic"># end</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic"># 配置详解</span>
+<span style="color:#998;font-style:italic">#	1、config.vm.hostname = &#34;node1&#34;</span>
+<span style="color:#998;font-style:italic">#		配置虚拟机主机名，设置hostname非常重要，因为当我们有很多台虚拟服务器的时候，都是依靠hostname來做识别的。比如，我安装了centos1,centos2 两台虚拟机，再启动时，我可以通过vagrant up centos1来指定只启动哪一台。</span>
+<span style="color:#998;font-style:italic">#	</span>
+<span style="color:#998;font-style:italic">#	2、config.vm.synced_folder</span>
+<span style="color:#998;font-style:italic">#		共享文件夹</span>
+<span style="color:#998;font-style:italic">#		 config.vm.synced_folder &#34;D:/xxx/code&#34;, &#34;/home/www/&#34; </span>
+<span style="color:#998;font-style:italic">#	</span>
+<span style="color:#998;font-style:italic">#	3、config.ssh.username</span>
+<span style="color:#998;font-style:italic">#		默认的用户是vagrant，从官方下载的box往往使用的是这个用户名。如果是自定制的box，所使用的用户名可能会有所不同，通过这个配置设定所用的用户名。</span>
+<span style="color:#998;font-style:italic">#	</span>
+<span style="color:#998;font-style:italic">#	4、config.vm.provision</span>
+<span style="color:#998;font-style:italic">#		我们可以通过这个配置在虚拟机第一次启动的时候进行一些安装配置</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		需要注意的是，Vagrantfile文件只会在第一次执行vagrant up时调用执行，其后如果不明确使用</span>
+<span style="color:#998;font-style:italic">#		vagrant reload进行重新加载，否则不会被强制重新加载。</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		其次，如果改变了辅助脚本，需要 vagrant reload --provision</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#	5、config.vm.box</span>
+<span style="color:#998;font-style:italic">#		box设置，该名称是再使用 vagrant init xxx 中后面跟的名字。</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#	6、config.vm.network</span>
+<span style="color:#998;font-style:italic">#		这是配置虚拟机网络，</span>
+<span style="color:#998;font-style:italic">#		config.vm.network &#34;private_network&#34;, ip: &#34;192.168.10.11&#34;  //Host-only模式</span>
+<span style="color:#998;font-style:italic">#		 </span>
+<span style="color:#998;font-style:italic">#		config.vm.network &#34;public_network&#34;, ip: &#34;10.1.2.61&#34;  //Bridge模式</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		Vagrant的网络连接方式有三种：</span>
+<span style="color:#998;font-style:italic">#		NAT: 缺省创建，用于让vm可以通过host转发访问局域网甚至互联网。</span>
+<span style="color:#998;font-style:italic">#		host-only: 只有主机可以访问vm，其他机器无法访问它。</span>
+<span style="color:#998;font-style:italic">#		bridge: 此模式下vm就像局域网中的一台独立的机器，可以被其他机器访问。</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		host-only 模式的IP可以不指定，而是采用dhcp自动生成的方式，如: config.vm.network &#34;private_network&#34;, type: &#34;dhcp&#34;</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		创建一个bridge桥接网络，指定IP</span>
+<span style="color:#998;font-style:italic">#		config.vm.network &#34;public_network&#34;, ip: &#34;192.168.0.17&#34;</span>
+<span style="color:#998;font-style:italic">#		</span>
+<span style="color:#998;font-style:italic">#		创建一个bridge桥接网络，指定桥接适配器</span>
+<span style="color:#998;font-style:italic">#		config.vm.network &#34;public_network&#34;, bridge: &#34;en1: Wi-Fi (AirPort)&#34;</span>
+<span style="color:#998;font-style:italic">#		</span>
+<span style="color:#998;font-style:italic">#		创建一个bridge桥接网络，不指定桥接适配器</span>
+<span style="color:#998;font-style:italic">#		config.vm.network &#34;public_network&#34;</span>
+<span style="color:#998;font-style:italic">#		</span>
+<span style="color:#998;font-style:italic">#	7、配置端口转发</span>
+<span style="color:#998;font-style:italic">#		一个一个配置host(本机),guest(虚拟机)</span>
+<span style="color:#998;font-style:italic">#		config.vm.network &#34;forwarded_port&#34;, guest: 80, host: 8080</span>
+<span style="color:#998;font-style:italic">#		config.vm.network &#34;forwarded_port&#34;, guest: 8181, host: 8181</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#	8、定义vm的configure配置节点(一个节点就是一个虚拟机)</span>
+<span style="color:#998;font-style:italic">#		如果在一个vagrantfile文件中想定义多个虚拟机，需要添加以下节点：</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		Vagrant.configure(&#34;2&#34;) do |config|</span>
+<span style="color:#998;font-style:italic">#		 </span>
+<span style="color:#998;font-style:italic">#		  config.vm.define &#34;web&#34; do |web|</span>
+<span style="color:#998;font-style:italic">#		    web.vm.box = &#34;apache&#34;</span>
+<span style="color:#998;font-style:italic">#		  end</span>
+<span style="color:#998;font-style:italic">#		 </span>
+<span style="color:#998;font-style:italic">#		  config.vm.define &#34;db&#34; do |db|</span>
+<span style="color:#998;font-style:italic">#		    db.vm.box = &#34;mysql&#34;</span>
+<span style="color:#998;font-style:italic">#		  end</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		end</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		定义了两个虚拟机 web 和 db，他们的配置变量分别是 web 和 db。</span>
+<span style="color:#998;font-style:italic">#		当定义了多主机之后，在使用vagrant命令的时候，就需要加上主机名，例如vagrant ssh web；</span>
+<span style="color:#998;font-style:italic">#		也有一些命令，如果你不指定特定的主机，那么将会对所有的主机起作用，比如vagrant up；</span>
+<span style="color:#998;font-style:italic">#		你也可以使用表达式指定特定的主机名，例如vagrant up /follower[0-9]/。</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		参数&#34;2&#34;的含义：</span>
+<span style="color:#998;font-style:italic">#		表示的是当前配置文件使用的vagrant configure版本号为Vagrant 1.1+,如果取值为1，表示为Vagrant 1.0.x Vagrantfiles，旧版本暂不考虑，记住就写2即可。</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		do … end 为配置的开始结束符，所有配置信息都写在这两段代码之间。 config是为当前配置命名，你可以指定任意名称，如myvmconfig，在后面引用的时候，改为自己的名字即可。</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#	9、在vagrantfile中定义变量</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		VAGRANTFILE_API_VERSION ||= &#34;2&#34;</span>
+<span style="color:#998;font-style:italic">#		confDir = $confDir ||= File.expand_path(File.dirname(__FILE__))</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		homesteadYamlPath = confDir + &#34;/Homestead.yaml&#34;</span>
+<span style="color:#998;font-style:italic">#		homesteadJsonPath = confDir + &#34;/Homestead.json&#34;</span>
+<span style="color:#998;font-style:italic">#		afterScriptPath = confDir + &#34;/after.sh&#34;</span>
+<span style="color:#998;font-style:italic">#		customizationScriptPath = confDir + &#34;/user-customizations.sh&#34;</span>
+<span style="color:#998;font-style:italic">#		aliasesPath = confDir + &#34;/aliases&#34;</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		require File.expand_path(File.dirname(__FILE__) + &#39;/scripts/homestead.rb&#39;)</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		Vagrant.require_version &#39;&gt;= 2.1.0&#39;</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|</span>
+<span style="color:#998;font-style:italic">#			...</span>
+<span style="color:#998;font-style:italic">#			...</span>
+<span style="color:#998;font-style:italic">#		end</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#	10、vm提供者配置</span>
+<span style="color:#998;font-style:italic">#		config.vm.provider &#34;virtualbox&#34; do |vb|</span>
+<span style="color:#998;font-style:italic">#		    vb.memory = &#34;2048&#34;</span>
+<span style="color:#998;font-style:italic">#		end</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		虚机容器提供者配置，对于不同的provider，特有的一些配置，此处配置信息是针对virtualbox定义一个提供者，命名为vb，跟前面一样，这个名字随意取，只要节点内部调用一致即可。</span>
+<span style="color:#998;font-style:italic">#		配置信息又分为通用配置和个性化配置，通用配置对于不同provider是通用的，</span>
+<span style="color:#998;font-style:italic">#		1、常用的通用配置如下：</span>
+<span style="color:#998;font-style:italic">#			vb.name = &#34;centos7&#34;</span>
+<span style="color:#998;font-style:italic">#			#指定vm-name，也就是virtualbox管理控制台中的虚机名称。如果不指定该选项会生成一个随机的名字，不容易区分。</span>
+<span style="color:#998;font-style:italic">#			vb.gui = true</span>
+<span style="color:#998;font-style:italic">#			# vagrant up启动时，是否自动打开virtual box的窗口，缺省为false</span>
+<span style="color:#998;font-style:italic">#			vb.memory = &#34;1024&#34;</span>
+<span style="color:#998;font-style:italic">#			#指定vm内存，单位为MB</span>
+<span style="color:#998;font-style:italic">#			vb.cpus = 2</span>
+<span style="color:#998;font-style:italic">#			#设置CPU个数</span>
+<span style="color:#998;font-style:italic">#		2、个性化配置(virtualbox)</span>
+<span style="color:#998;font-style:italic">#			#修改vb.name的值</span>
+<span style="color:#998;font-style:italic">#			vb.customize [&#34;modifyvm&#34;, :id, &#34;--name&#34;, &#34;mfsmaster2&#34;]</span>
+<span style="color:#998;font-style:italic">#			 </span>
+<span style="color:#998;font-style:italic">#			#如修改显存，缺省为8M，如果启动桌面，至少需要10M，如下修改为16M：</span>
+<span style="color:#998;font-style:italic">#			vb.customize [&#34;modifyvm&#34;, :id, &#34;--vram&#34;, &#34;16&#34;]</span>
+<span style="color:#998;font-style:italic">#			 </span>
+<span style="color:#998;font-style:italic">#			#调整虚拟机的内存</span>
+<span style="color:#998;font-style:italic">#			vb.customize [&#34;modifyvm&#34;, :id, &#34;--memory&#34;, &#34;1024&#34;]</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#			#指定虚拟CPU个数</span>
+<span style="color:#998;font-style:italic">#			vb.customize [&#34;modifyvm&#34;, :id, &#34;--cpus&#34;, &#34;2&#34;]</span>
+<span style="color:#998;font-style:italic">#			 </span>
+<span style="color:#998;font-style:italic">#			#增加光驱：</span>
+<span style="color:#998;font-style:italic">#			vb.customize [&#34;storageattach&#34;,:id,&#34;--storagectl&#34;, &#34;IDE Controller&#34;,&#34;--port&#34;,&#34;0&#34;,&#34;--device&#34;,&#34;0&#34;,&#34;--type&#34;,&#34;dvddrive&#34;,&#34;--medium&#34;,&#34;/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso&#34;]</span>
+<span style="color:#998;font-style:italic">#			#注：meduim参数不可以为空，如果只挂载驱动器不挂在iso，指定为“emptydrive”。如果要卸载光驱，medium传入none即可。</span>
+<span style="color:#998;font-style:italic">#			#从这个指令可以看出，customize方法传入一个json数组，按照顺序传入参数即可。</span>
+<span style="color:#998;font-style:italic">#			 </span>
+<span style="color:#998;font-style:italic">#			#json数组传入多个参数</span>
+<span style="color:#998;font-style:italic">#			vb.customize [&#34;modifyvm&#34;, :id, &#34;--name&#34;, “mfsserver3&#34;, &#34;--memory&#34;, “2048&#34;]</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#	11、provision任务</span>
+<span style="color:#998;font-style:italic">#		你可以编写一些命令，让vagrant在启动虚拟机的时候自动执行，这样你就可以省去手动配置环境的时间了。</span>
+<span style="color:#998;font-style:italic">#		</span>
+<span style="color:#998;font-style:italic">#		脚本何时会被执行</span>
+<span style="color:#998;font-style:italic">#			第一次执行vagrant up命令</span>
+<span style="color:#998;font-style:italic">#			执行vagrant provision命令</span>
+<span style="color:#998;font-style:italic">#			执行vagrant reload --provision或者vagrant up --provision命令</span>
+<span style="color:#998;font-style:italic">#			你也可以在启动虚拟机的时候添加--no-provision参数以阻止脚本被执行</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		因为脚本一般用来安装一些软件等操作，其实在第一次启动虚拟机时安装就好了，以后就不用装了，不用每次启动都安装，所以vagrant做了这样的设计。当然如果该了脚本内容是需要强迫vagrant去执行的。</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		注意：如果只是该了vagrantfile文件的内容（没有改动provision），vagrant up / vagrant reload 会应用最新的配置来启动的，不用操心。</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		provision任务是什么？</span>
+<span style="color:#998;font-style:italic">#		provision任务是预先设置的一些操作指令，格式：config.vm.provision 命令字 代码段</span>
+<span style="color:#998;font-style:italic">#		provisioner可以分为：</span>
+<span style="color:#998;font-style:italic">#			Shell，执行shell脚本</span>
+<span style="color:#998;font-style:italic">#			File，复制本机文件到VM，config.vm.provision &#34;file&#34;, source: aliasesPath, destination: &#34;/tmp/bash_aliases&#34;</span>
+<span style="color:#998;font-style:italic">#			Ansible，</span>
+<span style="color:#998;font-style:italic">#			CFEngine，</span>
+<span style="color:#998;font-style:italic">#			Chef，</span>
+<span style="color:#998;font-style:italic">#			Docker，</span>
+<span style="color:#998;font-style:italic">#			Puppet，</span>
+<span style="color:#998;font-style:italic">#			Salt</span>
+<span style="color:#998;font-style:italic">#		根据作用域：configure级，vm级   （先执行configure级任务，再执行vm级任务）</span>
+<span style="color:#998;font-style:italic">#		实例：</span>
+<span style="color:#998;font-style:italic">#		Vagrant.configure(&#34;2&#34;) do |config|</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		  config.vm.provision &#34;shell&#34;, inline: &#34;echo 1&#34;</span>
+<span style="color:#998;font-style:italic">#		 </span>
+<span style="color:#998;font-style:italic">#		  config.vm.define &#34;web&#34; do |web|</span>
+<span style="color:#998;font-style:italic">#		    web.vm.provision &#34;shell&#34;, inline: &#34;echo 2&#34;</span>
+<span style="color:#998;font-style:italic">#		  end</span>
+<span style="color:#998;font-style:italic">#		 </span>
+<span style="color:#998;font-style:italic">#		  config.vm.provision &#34;shell&#34;, inline: &#34;echo 3&#34;</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		end</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		一次执行：echo 1, echo 3, echo 2</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		1、单行脚本：</span>
+<span style="color:#998;font-style:italic">#		config.vm.provision &#34;shell&#34;, inline: &#34;echo fendo&#34;</span>
+<span style="color:#998;font-style:italic">#		或者</span>
+<span style="color:#998;font-style:italic">#		config.vm.provision &#34;shell&#34; do |s|</span>
+<span style="color:#998;font-style:italic">#		  s.inline = &#34;echo hello provision&#34;</span>
+<span style="color:#998;font-style:italic">#		end</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		2、内联脚本：</span>
+<span style="color:#998;font-style:italic">#		在config外面定义好变量</span>
+<span style="color:#998;font-style:italic">#			$script = &lt;&lt;SCRIPT</span>
+<span style="color:#998;font-style:italic">#			echo I am provisioning...</span>
+<span style="color:#998;font-style:italic">#			echo hello provision.</span>
+<span style="color:#998;font-style:italic">#			SCRIPT</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		在config里面</span>
+<span style="color:#998;font-style:italic">#		config.vm.provision &#34;shell&#34;, inline: $script</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		3、外部脚本</span>
+<span style="color:#998;font-style:italic">#		也可以把代码写入代码文件，并保存在一个shell里，进行调用：</span>
+<span style="color:#998;font-style:italic">#		config.vm.provision &#34;shell&#34;, path: &#34;script.sh&#34;</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		script.sh的内容：</span>
+<span style="color:#998;font-style:italic">#			echo hello provision.</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#		注意:</span>
+<span style="color:#998;font-style:italic">#		如果使用provision来yum安装程序，加上-y参数，如：yum install -y lrzsz</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic"># 一个实例</span>
+
+<span style="color:#998;font-style:italic"># -*- mode: ruby -*-</span>
+<span style="color:#998;font-style:italic"># vi: set ft=ruby :</span>
+
+<span style="color:#0086b3">require</span> <span style="color:#d14">&#39;json&#39;</span>
+<span style="color:#0086b3">require</span> <span style="color:#d14">&#39;yaml&#39;</span>
+
+<span style="color:#008080">VAGRANTFILE_API_VERSION</span> <span style="color:#000;font-weight:bold">||=</span> <span style="color:#d14">&#34;2&#34;</span>
+confDir <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$confDir</span> <span style="color:#000;font-weight:bold">||=</span> <span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>expand_path(<span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>dirname(<span style="color:#999">__FILE__</span>))
+
+homesteadYamlPath <span style="color:#000;font-weight:bold">=</span> confDir <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;/Homestead.yaml&#34;</span>
+homesteadJsonPath <span style="color:#000;font-weight:bold">=</span> confDir <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;/Homestead.json&#34;</span>
+afterScriptPath <span style="color:#000;font-weight:bold">=</span> confDir <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;/after.sh&#34;</span>
+customizationScriptPath <span style="color:#000;font-weight:bold">=</span> confDir <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;/user-customizations.sh&#34;</span>
+aliasesPath <span style="color:#000;font-weight:bold">=</span> confDir <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;/aliases&#34;</span>
+
+<span style="color:#0086b3">require</span> <span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>expand_path(<span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>dirname(<span style="color:#999">__FILE__</span>) <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39;/scripts/homestead.rb&#39;</span>)
+
+<span style="color:#008080">Vagrant</span><span style="color:#000;font-weight:bold">.</span>require_version <span style="color:#d14">&#39;&gt;= 2.1.0&#39;</span>
+
+<span style="color:#008080">Vagrant</span><span style="color:#000;font-weight:bold">.</span>configure(<span style="color:#008080">VAGRANTFILE_API_VERSION</span>) <span style="color:#000;font-weight:bold">do</span> <span style="color:#000;font-weight:bold">|</span>config<span style="color:#000;font-weight:bold">|</span>
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>exist? aliasesPath <span style="color:#000;font-weight:bold">then</span>
+        config<span style="color:#000;font-weight:bold">.</span>vm<span style="color:#000;font-weight:bold">.</span>provision <span style="color:#d14">&#34;file&#34;</span>, <span style="color:#990073">source</span>: aliasesPath, <span style="color:#990073">destination</span>: <span style="color:#d14">&#34;/tmp/bash_aliases&#34;</span>
+        config<span style="color:#000;font-weight:bold">.</span>vm<span style="color:#000;font-weight:bold">.</span>provision <span style="color:#d14">&#34;shell&#34;</span> <span style="color:#000;font-weight:bold">do</span> <span style="color:#000;font-weight:bold">|</span>s<span style="color:#000;font-weight:bold">|</span>
+            s<span style="color:#000;font-weight:bold">.</span>inline <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;awk &#39;{ sub(</span><span style="color:#d14">\&#34;\r</span><span style="color:#d14">$</span><span style="color:#d14">\&#34;</span><span style="color:#d14">, </span><span style="color:#d14">\&#34;\&#34;</span><span style="color:#d14">); print }&#39; /tmp/bash_aliases &gt; /home/vagrant/.bash_aliases&#34;</span>
+        <span style="color:#000;font-weight:bold">end</span>
+    <span style="color:#000;font-weight:bold">end</span>
+
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>exist? homesteadYamlPath <span style="color:#000;font-weight:bold">then</span>
+        settings <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">YAML</span><span style="color:#000;font-weight:bold">::</span><span style="color:#0086b3">load</span>(<span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>read(homesteadYamlPath))
+    <span style="color:#000;font-weight:bold">elsif</span> <span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>exist? homesteadJsonPath <span style="color:#000;font-weight:bold">then</span>
+        settings <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">JSON</span><span style="color:#000;font-weight:bold">::</span>parse(<span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>read(homesteadJsonPath))
+    <span style="color:#000;font-weight:bold">else</span>
+        <span style="color:#0086b3">abort</span> <span style="color:#d14">&#34;Homestead settings file not found in </span><span style="color:#d14">#{</span>confDir<span style="color:#d14">}</span><span style="color:#d14">&#34;</span>
+    <span style="color:#000;font-weight:bold">end</span>
+
+    <span style="color:#008080">Homestead</span><span style="color:#000;font-weight:bold">.</span>configure(config, settings)
+
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>exist? afterScriptPath <span style="color:#000;font-weight:bold">then</span>
+        config<span style="color:#000;font-weight:bold">.</span>vm<span style="color:#000;font-weight:bold">.</span>provision <span style="color:#d14">&#34;shell&#34;</span>, <span style="color:#990073">path</span>: afterScriptPath, <span style="color:#990073">privileged</span>: <span style="color:#000;font-weight:bold">false</span>, <span style="color:#990073">keep_color</span>: <span style="color:#000;font-weight:bold">true</span>
+    <span style="color:#000;font-weight:bold">end</span>
+
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#008080">File</span><span style="color:#000;font-weight:bold">.</span>exist? customizationScriptPath <span style="color:#000;font-weight:bold">then</span>
+        config<span style="color:#000;font-weight:bold">.</span>vm<span style="color:#000;font-weight:bold">.</span>provision <span style="color:#d14">&#34;shell&#34;</span>, <span style="color:#990073">path</span>: customizationScriptPath, <span style="color:#990073">privileged</span>: <span style="color:#000;font-weight:bold">false</span>, <span style="color:#990073">keep_color</span>: <span style="color:#000;font-weight:bold">true</span>
+    <span style="color:#000;font-weight:bold">end</span>
+
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#008080">Vagrant</span><span style="color:#000;font-weight:bold">.</span>has_plugin?(<span style="color:#d14">&#39;vagrant-hostsupdater&#39;</span>)
+        config<span style="color:#000;font-weight:bold">.</span>hostsupdater<span style="color:#000;font-weight:bold">.</span>aliases <span style="color:#000;font-weight:bold">=</span> settings<span style="color:#000;font-weight:bold">[</span><span style="color:#d14">&#39;sites&#39;</span><span style="color:#000;font-weight:bold">].</span>map { <span style="color:#000;font-weight:bold">|</span>site<span style="color:#000;font-weight:bold">|</span> site<span style="color:#000;font-weight:bold">[</span><span style="color:#d14">&#39;map&#39;</span><span style="color:#000;font-weight:bold">]</span> }
+    <span style="color:#000;font-weight:bold">elsif</span> <span style="color:#008080">Vagrant</span><span style="color:#000;font-weight:bold">.</span>has_plugin?(<span style="color:#d14">&#39;vagrant-hostmanager&#39;</span>)
+        config<span style="color:#000;font-weight:bold">.</span>hostmanager<span style="color:#000;font-weight:bold">.</span>enabled <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>
+        config<span style="color:#000;font-weight:bold">.</span>hostmanager<span style="color:#000;font-weight:bold">.</span>manage_host <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>
+        config<span style="color:#000;font-weight:bold">.</span>hostmanager<span style="color:#000;font-weight:bold">.</span>aliases <span style="color:#000;font-weight:bold">=</span> settings<span style="color:#000;font-weight:bold">[</span><span style="color:#d14">&#39;sites&#39;</span><span style="color:#000;font-weight:bold">].</span>map { <span style="color:#000;font-weight:bold">|</span>site<span style="color:#000;font-weight:bold">|</span> site<span style="color:#000;font-weight:bold">[</span><span style="color:#d14">&#39;map&#39;</span><span style="color:#000;font-weight:bold">]</span> }
+    <span style="color:#000;font-weight:bold">end</span>
+<span style="color:#000;font-weight:bold">end</span>
+</code></pre></div><blockquote>
+<p>由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</p>
+</blockquote>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html">https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">知识共享署名4.0 国际许可协议</a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/07/16/chlinux/docker-compose-yml.html"> Docker Compose 模板文件</a></li>
+        
+        <li><a href="/2021/07/08/chlinux/docker.html"> Docker简单使用</a></li>
+        
+        <li><a href="/2021/07/06/chlinux/supervisord.html">Supervisord 使用</a></li>
+        
+        <li><a href="/2021/06/21/chlinux/question4.html">UOS普通用户可以ssh但是root不行</a></li>
+        
+        <li><a href="/2021/06/18/chlinux/question3.html">MySQL服务启不了</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Vagrant'>Vagrant</a></li>
+                
+                <li><a href='/tags/Linux'>Linux</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

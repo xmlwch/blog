@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>请求头 on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/</link>
+    <description>Recent content in 请求头 on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 02 Aug 2021 19:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTTP 请求头</title>
+      <link>https://blog.xmlwch.cn/2021/08/02/http/http-request-headers.html</link>
+      <pubDate>Mon, 02 Aug 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/02/http/http-request-headers.html</guid>
+      <description>请求头字段名 说明 示例 Accept 能够接受的回应内容类型（Content-Types）。 Accept: text/plain Accept-Charset 能够接受的字符集 Accept-Charset: utf-8 Accept-Datetime 能够接受的按照时间来表示的版本 Accept-Datetime: Thu, 31 May 2007 20:35:00 GMT Accept-Encoding 能够接受的编码方式列表。参考HTTP压缩。 Accept-Encoding: gzip, deflate Accept-Language 能够接受的回应内容的自然语言列表。 Accept-Language: en-US Authorization 用于超文本传输协议的认证的认证信息 Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</description>
+    </item>
+    
+  </channel>
+</rss>

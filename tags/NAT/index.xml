@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NAT on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/NAT/</link>
+    <description>Recent content in NAT on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 11 Aug 2021 11:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/NAT/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>网络地址转换 (NAT) | NAT 特征</title>
+      <link>https://blog.xmlwch.cn/2021/08/11/network/nat.html</link>
+      <pubDate>Wed, 11 Aug 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/11/network/nat.html</guid>
+      <description>0、私有地址 私有地址主要用于在局域网中进行分配，在 Internet上是无效的。这样可以很好地隔离局域网和 Internet。私有地址在公网上是不能被识别的，必须通过NAT将内部IP地址转换成公网上可用的IP地址，从而实现内部IP地址与外部公网的通信。 Tips： IPv4 私有地址空间（如下表</description>
+    </item>
+    
+  </channel>
+</rss>

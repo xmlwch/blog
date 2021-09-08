@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/</link>
+    <description>Recent content on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 07 Sep 2021 13:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM 使用 | 在kp920机器上使用KVM虚拟机</title>
+      <link>https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html</link>
+      <pubDate>Tue, 07 Sep 2021 13:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html</guid>
+      <description>说明 本文所提及的方法仅供参考学习，请尊重网络资源原作者的劳动成果，尊重知识版权，合法取得资料使用权。 宿主机（物理机）： 机器配置： CPU：8核 鲲鹏920 / 内存：16G / 硬盘：1T 操作系统：银河麒麟v10（Arm版本） 系统镜像： Kylin-Server-10-SP1-Release-Build20-20210518-aarch64.iso 虚拟机： 虚拟配置：内存：4G / 硬盘：320G 操作系统：</description>
+    </item>
+    
+    <item>
+      <title>解决Redis的一些报错</title>
+      <link>https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html</link>
+      <pubDate>Fri, 03 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html</guid>
+      <description>错误1： MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error. Redis被配置为保存数据库快照，但它目前不能持久化到硬盘。用来修改集合数据的命令不能用。请查看Redis日志的详细错误信息。 解决方案 将stop-writes-on-bgsave-error设置为no 127.0.0.1:6379&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>查看 SELinux状态及关闭SELinux</title>
+      <link>https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html</link>
+      <pubDate>Thu, 02 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html</guid>
+      <description>查看SELinux状态： ## 如果SELinux status参数为enabled即为开启状态 /usr/sbin/sestatus -v SELinux status: enabled ... ## 也可以用这个命令检查 getenforce 关闭SELinux： ## 临时关闭（不用重启机器） setenforce 0 ##设置SELinux 成为permissive模式 #setenforce 1 设置SELinux 成为enforcing模式 ## 永久关</description>
+    </item>
+    
+    <item>
+      <title>Python实现TP的Model层</title>
+      <link>https://blog.xmlwch.cn/2021/08/30/python/model.html</link>
+      <pubDate>Mon, 30 Aug 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/30/python/model.html</guid>
+      <description>项目用到了python，习惯了TP的链式操作，自己动手写了一个python的Model层 实现了Pymysql的原生连接和dbutils的连接池连接 模型基类： # coding: utf-8 import pymysql import threading from Include.Logger import get_logger from Include.Setting import app_settings from dbutils.pooled_db import PooledDB class MysqlPool: config = { &amp;#39;creator&amp;#39;: pymysql, &amp;#39;host&amp;#39;: app_settings.get(&amp;#39;ManagerHost&amp;#39;, &amp;#39;127.0.0.1&amp;#39;), &amp;#39;port&amp;#39;: int(app_settings.get(&amp;#39;DBPort&amp;#39;, 3306)), &amp;#39;user&amp;#39;: app_settings.get(&amp;#39;DBUser&amp;#39;, &amp;#39;root&amp;#39;), &amp;#39;password&amp;#39;: app_settings.get(&amp;#39;DBPwd&amp;#39;, &amp;#39;&amp;#39;), &amp;#39;db&amp;#39;: app_settings.get(&amp;#39;DBName&amp;#39;, &amp;#39;&amp;#39;), &amp;#39;charset&amp;#39;: app_settings.get(&amp;#39;DBCharSet&amp;#39;, &amp;#39;utf8&amp;#39;), &amp;#39;maxconnections&amp;#39;: 30, # 连接池最大连接数 &amp;#39;cursorclass&amp;#39;: pymysql.cursors.DictCursor } pool = PooledDB(**config) def</description>
+    </item>
+    
+    <item>
+      <title>Vue之日常踩坑记</title>
+      <link>https://blog.xmlwch.cn/2021/08/25/html/question2.html</link>
+      <pubDate>Wed, 25 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/25/html/question2.html</guid>
+      <description>在我们使用Vue框架的时候，我们不免会遇到各种各样的问题，话不多说。我们直接扔出我们的问题 1. JSON对象数据值拷贝 先JSON.stringify() 转为json字符串， 再JSON.parse() 转为json数组 方法缺点： 如果你的对象里有函数, 函数无法被拷贝下来 无法拷贝copyOb</description>
+    </item>
+    
+    <item>
+      <title>Vue之大文件分片上传</title>
+      <link>https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html</link>
+      <pubDate>Fri, 20 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html</guid>
+      <description>记录一次项目中用到的大文件分片上传vue解决实例如下 首先是封装的请求方法(文件...Sentlas.js部分内容)如下： 这里加了上传进度展示，请求包和数据包主体展示，所以传入了回调及vue实体 import axios from &amp;#39;axios&amp;#39; const Sentlas = { // ...放置了axios方法和具体的请求方法 uploadFragmentResourceFile: function(data) { this.beforeRequest() return this.request({ url: &amp;#39;...&amp;#39;, params: { token: this.Token }, method:</description>
+    </item>
+    
+    <item>
+      <title>[转]WebSocket 教程</title>
+      <link>https://blog.xmlwch.cn/2021/08/13/network/websocket.html</link>
+      <pubDate>Fri, 13 Aug 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/13/network/websocket.html</guid>
+      <description>原文地址：WebSocket 教程 作者： 阮一峰 WebSocket 是一种网络通信协议，很多高级功能都需要它。 本文介绍 WebSocket 协议的使用方法。 一、为什么需要 WebSocket？ 初次接触 WebSocket 的人，都会问同样的问题：我们已经有了 HTTP 协议，为什么还需要另一个协议？它能带来什么好处？ 答案很简单，因为 HTTP 协议有一个缺陷：通</description>
+    </item>
+    
+    <item>
+      <title>一次完整的HTTP请求</title>
+      <link>https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html</link>
+      <pubDate>Thu, 12 Aug 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html</guid>
+      <description>当我们在浏览器的地址栏输入 www.xmlwch.cn ，然后回车，回车这一瞬间到看到页面到底发生了什么呢？ 个人理解至少需要经历以下步骤： 域名解析 建立TCP连接 浏览器向Web服务器发送请求命令 Web服务器应答 Web服务器关闭TCP连接 浏览器解析html代码 浏览器对页面进行渲染呈现给用户 1、域名解析 客户端根据</description>
+    </item>
+    
+    <item>
+      <title>网络地址转换 (NAT) | NAT 特征</title>
+      <link>https://blog.xmlwch.cn/2021/08/11/network/nat.html</link>
+      <pubDate>Wed, 11 Aug 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/11/network/nat.html</guid>
+      <description>0、私有地址 私有地址主要用于在局域网中进行分配，在 Internet上是无效的。这样可以很好地隔离局域网和 Internet。私有地址在公网上是不能被识别的，必须通过NAT将内部IP地址转换成公网上可用的IP地址，从而实现内部IP地址与外部公网的通信。 Tips： IPv4 私有地址空间（如下表</description>
+    </item>
+    
+    <item>
+      <title>Vue之axios请求踩坑记</title>
+      <link>https://blog.xmlwch.cn/2021/08/10/html/question.html</link>
+      <pubDate>Tue, 10 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/10/html/question.html</guid>
+      <description>在我们使用Vue框架的时候，我们不免会遇到各种各样的问题，话不多说。我们直接扔出我们的问题 Q1：POST请求时，后端无法接受到请求参数的问题 axios.post(&amp;#39;/user&amp;#39;, { id: &amp;#39;2&amp;#39;, username: &amp;#39;4&amp;#39; }).then(function(response) { console.log(response) }).catch(function(error) { console.log(error) }) 从后台取数据发现没有取到数据，我们从请求头中发现，请求头为application/json 参数的格式是Reques</description>
+    </item>
+    
+    <item>
+      <title>TCP 三次握手与四次挥手</title>
+      <link>https://blog.xmlwch.cn/2021/08/09/network/3_handshakes_4_waves.html</link>
+      <pubDate>Mon, 09 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/09/network/3_handshakes_4_waves.html</guid>
+      <description>TCP 简介 传输控制协议（TCP，Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由RFC 793定义。 TCP 一旦 建立会话，它便可以跟踪该会话中的对话。 由于 TCP 能够跟踪实际对话，它被视为状态协议。 状态协议是跟踪通信会话状态的协议。 例如，当使用 TCP</description>
+    </item>
+    
+    <item>
+      <title>网络模型</title>
+      <link>https://blog.xmlwch.cn/2021/08/08/network/reference-models.html</link>
+      <pubDate>Sun, 08 Aug 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/08/network/reference-models.html</guid>
+      <description>1、分层模型的优点 分层模型，例如 TCP/IP 模型，通常用于形象化展现各种协议之间的交互。 分层模型形象地说明了各层内协议的工作方式，及其与上下层之间的交互。 使用分层模型来说明网络协议及其工作方式有很多优点。 使用分层模型的优点： 有助于协议设计，因为对于在特定层工作的协议而言，它们的工作方式及其</description>
+    </item>
+    
+    <item>
+      <title>HTML 字符实体</title>
+      <link>https://blog.xmlwch.cn/2021/08/06/html/html-entities.html</link>
+      <pubDate>Fri, 06 Aug 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/06/html/html-entities.html</guid>
+      <description>HTML 中有用的字符实体 注释： 实体名称对大小写敏感！ 显示结果 描述 实体名称 实体编号 空格 &amp;amp;nbsp; &amp;amp;#160; &amp;lt; 小于号 &amp;amp;lt; &amp;amp;#60; &amp;gt; 大于号 &amp;amp;gt; &amp;amp;#62; &amp;amp; 和号 &amp;amp;amp; &amp;amp;#38; &amp;quot; 引号 &amp;amp;quot; &amp;amp;#34; &#39; 撇号 &amp;amp;apos; (IE不支持) &amp;amp;#39; ￠ 分（cent） &amp;amp;cent; &amp;amp;#162; £ 镑（pound） &amp;amp;pound; &amp;amp;#163; ¥ 元（yen） &amp;amp;yen; &amp;amp;#165; € 欧元（euro） &amp;amp;euro; &amp;amp;#8364; § 小节 &amp;amp;sect; &amp;amp;#167; © 版权（copyright） &amp;amp;copy; &amp;amp;#169; ® 注册</description>
+    </item>
+    
+    <item>
+      <title>systemd详解</title>
+      <link>https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html</link>
+      <pubDate>Thu, 05 Aug 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html</guid>
+      <description>说明 systemd 是 Linux 系统工具，用来启动守护进程，已成为大多数发行版的标准配置；主要用于服务管理和自定义服务的管理，方便运维工作管理。 systemctl systemctl是 Systemd 的主命令，用于管理系统 # 重启系统 sudo systemctl reboot # 关闭系统，切断电源 sudo systemctl poweroff # CPU停止工作 sudo systemctl halt # 暂停系统 sudo systemctl suspend # 让系统进入冬眠状态 sudo systemctl hibernate # 让系</description>
+    </item>
+    
+    <item>
+      <title>vue集成汉字转拼音插件</title>
+      <link>https://blog.xmlwch.cn/2021/08/04/html/pinyin.html</link>
+      <pubDate>Wed, 04 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/04/html/pinyin.html</guid>
+      <description>缘由 项目需求 要实现创建账号时，默认分配登陆账号为姓名拼音。于是整理了一下实现方法。 在转换过程中，这里保留了数字和字母，空格转为- ，其他特殊字符将会被去掉。如 测试 会被转换成 CeShi。（可自行修改 chineseToPinYin() 方法实现其他需求） 参考博文: vue集成汉字转拼音插件 JS中文转换拼音的实现 pinyin.js 文件，文</description>
+    </item>
+    
+    <item>
+      <title>HTTP Content Type | HTTP Media Type</title>
+      <link>https://blog.xmlwch.cn/2021/08/03/http/http-content-type.html</link>
+      <pubDate>Tue, 03 Aug 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/03/http/http-content-type.html</guid>
+      <description>文件扩展名 Content-Type 文件扩展名 Content-Type .* application/octet-stream .tif image/tiff .001 application/x-001 .301 application/x-301 .323 text/h323 .906 application/x-906 .907 drawing/907 .a11 application/x-a11 .acp audio/x-mei-aac .ai application/postscript .aif audio/aiff .aifc audio/aiff .aiff audio/aiff .anv application/x-anv .asa text/asa .asf video/x-ms-asf .asp text/asp .asx video/x-ms-asf .au audio/basic .avi video/avi .awf application/vnd.adobe.workflow .biz text/xml .bmp application/x-bmp .bot application/x-bot .c4t application/x-c4t .c90 application/x-c90 .cal application/x-cals .cat application/vnd.ms-pki.seccat .cdf application/x-netcdf .cdr application/x-cdr .cel application/x-cel .cer application/x-x509-ca-cert .cg4 application/x-g4 .cgm application/x-cgm .cit application/x-cit .class java/* .cml text/xml .cmp application/x-cmp .cmx application/x-cmx .cot application/x-cot .crl application/pkix-crl .crt application/x-x509-ca-cert .csi application/x-csi .css text/css .cut application/x-cut .dbf application/x-dbf .dbm application/x-dbm .dbx application/x-dbx .dcd text/xml .dcx application/x-dcx .der application/x-x509-ca-cert .dgn application/x-dgn .dib application/x-dib .dll application/x-msdownload .doc application/msword .dot application/msword .drw application/x-drw .dtd text/xml .dwf Model/vnd.dwf .dwf application/x-dwf .dwg application/x-dwg .dxb application/x-dxb .dxf application/x-dxf .edn application/vnd.adobe.edn</description>
+    </item>
+    
+    <item>
+      <title>HTTP 请求头</title>
+      <link>https://blog.xmlwch.cn/2021/08/02/http/http-request-headers.html</link>
+      <pubDate>Mon, 02 Aug 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/02/http/http-request-headers.html</guid>
+      <description>请求头字段名 说明 示例 Accept 能够接受的回应内容类型（Content-Types）。 Accept: text/plain Accept-Charset 能够接受的字符集 Accept-Charset: utf-8 Accept-Datetime 能够接受的按照时间来表示的版本 Accept-Datetime: Thu, 31 May 2007 20:35:00 GMT Accept-Encoding 能够接受的编码方式列表。参考HTTP压缩。 Accept-Encoding: gzip, deflate Accept-Language 能够接受的回应内容的自然语言列表。 Accept-Language: en-US Authorization 用于超文本传输协议的认证的认证信息 Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</description>
+    </item>
+    
+    <item>
+      <title>HTTP 请求方法</title>
+      <link>https://blog.xmlwch.cn/2021/08/02/http/http-request-method.html</link>
+      <pubDate>Mon, 02 Aug 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/02/http/http-request-method.html</guid>
+      <description>请求方法 说明 GET GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据. HEAD HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体. POST POST方法用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用. PUT PUT方法用请求有效载荷替换目标资源的所有</description>
+    </item>
+    
+    <item>
+      <title>PHP中数学相关的函数</title>
+      <link>https://blog.xmlwch.cn/2021/07/30/php/math-func.html</link>
+      <pubDate>Fri, 30 Jul 2021 14:30:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/30/php/math-func.html</guid>
+      <description>函数 作用 用法 abs( ) 绝对值 abs(mixed $number): number 返回参数 number 的绝对值。 acos( ) 反余弦 acos(float $arg): float 返回 arg 的反余弦值，单位是弧度。acos() 是 cos() 的反函数，它的意思是在 acos() 范围里的每个值都是 a==cos(acos(a)) 。 acosh( ) 反双曲余弦 acosh(float $arg): float 返回 arg 的反双曲余弦值，即，其双曲余弦为 arg 的那个值。 asin( ) 反正弦 asin(float $arg): float 返回 arg 的反正弦值，单位是弧度。asin</description>
+    </item>
+    
+    <item>
+      <title>[转]PHP规范PSR-0和PSR-4的理解</title>
+      <link>https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html</link>
+      <pubDate>Wed, 28 Jul 2021 20:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html</guid>
+      <description>一、PSR0简介 下文描述了若要使用一个通用的自动加载器(autoloader)，你所需要遵守的规范： 一个完全标准的命名空间(namespace)和类(class)的结构是这样的：\&amp;lt;Vendor Name&amp;gt;\(&amp;lt;Namespace&amp;gt;\)*&amp;lt;Class Name&amp;gt; 每个命名空间(namespace)都必须有一个顶级的空间名(namespac</description>
+    </item>
+    
+    <item>
+      <title>Composer命令</title>
+      <link>https://blog.xmlwch.cn/2021/07/28/php/composer.html</link>
+      <pubDate>Wed, 28 Jul 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/28/php/composer.html</guid>
+      <description>composer是PHP的包管理、包依赖关系管理工具，有了它，我们就很轻松一个命令就可以把他人优秀的代码用到我们的项目中来，而且很容易管理依赖关系，更新删除等操作也很轻易的实现。 1 显示可用命令 composer composer list 2 查看当前镜像源 composer config -l -g [repositories.packagist.org.type] composer [repositories.packagist.org.url] https://packagist.org # 或者 composer config -g repo {&amp;#34;packagist.org&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;composer&amp;#34;,&amp;#34;url&amp;#34;:&amp;#34;https://packagist.org&amp;#34;}} 3 配置镜像源 # 删除镜像 composer config -g --unset repos.packagist #</description>
+    </item>
+    
+    <item>
+      <title>PHP常用正则验证</title>
+      <link>https://blog.xmlwch.cn/2021/07/27/php/regexp.html</link>
+      <pubDate>Tue, 27 Jul 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/27/php/regexp.html</guid>
+      <description>正则表达式在匹配字符串时，遵循以下2个基本原则： 1.最左原则：正则表达式总是从目标字符串的最左侧开始，依次匹配，直到匹配到符合表达式要求的部分，或直到匹配目标字符串的结束。 2.最长原则：对于匹配到的目标字符串，正则表达式总是会匹配到符合正则表达式要求的最长的部分 正则验证手机号 //</description>
+    </item>
+    
+    <item>
+      <title>[转]PHPWord中文手册整理</title>
+      <link>https://blog.xmlwch.cn/2021/07/26/php/phpword.html</link>
+      <pubDate>Mon, 26 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/26/php/phpword.html</guid>
+      <description>修正 中文支持的问题，使用前如果发现乱码，需要进行一些修正： 解决编码问题，PHPword 会对输入的文字进行utf8_encode编码转化，如果你使用GBK、GB2312或者utf8编码的话就会出现乱码，如果你用utf8编码，就查找类库中所有方法中的 utf8_encode 转码将其删除，如果你采用GBK或</description>
+    </item>
+    
+    <item>
+      <title> 前端常见跨域解决方案</title>
+      <link>https://blog.xmlwch.cn/2021/07/25/html/cross-domain.html</link>
+      <pubDate>Sun, 25 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/25/html/cross-domain.html</guid>
+      <description>0、 什么是跨域？ 跨域是指一个域下的文档或脚本试图去请求另一个域下的资源，这里跨域是广义的。 广义的跨域： 1) 资源跳转： A链接、重定向、表单提交 2) 资源嵌入： &amp;lt;link&amp;gt;、&amp;lt;script&amp;gt;、&amp;lt;img&amp;gt;、&amp;lt;frame&amp;gt;等dom标签，还有样式中</description>
+    </item>
+    
+    <item>
+      <title>FileZilla读取目录列表失败</title>
+      <link>https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html</link>
+      <pubDate>Thu, 22 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html</guid>
+      <description>错误1： 错误: 无法连接到服务器 状态: 正在等待重试... 解决办法 在阿里云的安全策略里开放21号端口 错误2： 状态: 连接建立，等待欢迎消息... 状态: 不安全的服务器，不支持 FTP over TLS。 状态: 已登录 状态: 读取目录列表... 命令: PWD 响应: 257 &amp;#34;/&amp;#34; is current directory. 命令: TYPE I 响应: 200 Type set to I 命令: PORT 182,32,16,212,217,163 响应:</description>
+    </item>
+    
+    <item>
+      <title> Vagrantfile详解</title>
+      <link>https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html</link>
+      <pubDate>Wed, 21 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html</guid>
+      <description>## vagrantfile详解 # 定义虚拟机的各种配置，主要包括三个方面的配置：虚拟机的配置、SSH配置、Vagrant的一些基础配置。 # Vagrant是使用Ruby开发的，所以它的配置语法也是Ruby的，每个项目都需要有一个Vagrantfile，在执行vagrant init xxx 的目录下可</description>
+    </item>
+    
+    <item>
+      <title>HTTP状态码</title>
+      <link>https://blog.xmlwch.cn/2021/07/20/http/http-status-codes.html</link>
+      <pubDate>Tue, 20 Jul 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/20/http/http-status-codes.html</guid>
+      <description>状态码 状态码英文名称 中文描述 1** - 信息，服务器收到请求，需要请求者继续执行操作 100 Continue 继续。客户端应继续其请求 101 Switching Protocols 切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到HTTP的新版本协议 102 Processing 由WebDAV（RFC 2518）扩展的状态码，代表处理将被继续执行 2**</description>
+    </item>
+    
+    <item>
+      <title> Docker Compose 模板文件</title>
+      <link>https://blog.xmlwch.cn/2021/07/16/chlinux/docker-compose-yml.html</link>
+      <pubDate>Fri, 16 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/16/chlinux/docker-compose-yml.html</guid>
+      <description>Docker Compose 跟 Dockerfile 类似的文件是 docker-compose.yml 根据后缀我们知道使用的是 YAML 语法； version docker-compose.yml 的第一行是用来定义版本的； 允许的值我们可以从官网查询；https://docs.docker.com/compose/compose-file version: &amp;#34;3.7&amp;#34; service 定义完版本接下来就是 service 了； service 部分是我们的核心；定义了要使用那些服务； version:&amp;#34;3.7&amp;#34;services:redis:# 服务</description>
+    </item>
+    
+    <item>
+      <title>git “warning: LF will be replaced by CRLF”的解决办法</title>
+      <link>https://blog.xmlwch.cn/2021/07/15/git/question1.html</link>
+      <pubDate>Thu, 15 Jul 2021 20:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/15/git/question1.html</guid>
+      <description>一、引言 windows平台下使用git add，git deploy 文件时经常出现“warning: LF will be replaced by CRLF” 的提示。 网上很多解决办法提到：设置core.autocrlf=false，windows也用LF换行。 二、分析 格式化与多余的空白字符，特别是在跨平台情况下，有时候是一个令人发</description>
+    </item>
+    
+    <item>
+      <title>MySQL遗忘Root密码</title>
+      <link>https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html</link>
+      <pubDate>Thu, 15 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html</guid>
+      <description># systemctl stop mariadb #关闭服务 # cat /etc/my.cnf #修改/etc/my.cnf文件, ... [mysqld] skip-grant-tables #在[mysqld]下添加 skip-grant-tables , 再启动mysql ... # systemctl start mariadb #启动服务 # mysql -u root #连接MySql(MariaDB) 并修改root密码为123654 MariaDB [(none)]&amp;gt; update mysql.user set Password=password(&amp;#39;123654&amp;#39;) where User=&amp;#39;root&amp;#39;; Query OK, 1 row affected (0.01 sec) Rows matched: 4 Changed: 1 Warnings: 0 MariaDB [(none)]&amp;gt; flush privileges; Query OK, 0 rows affected (0.00 sec) MariaDB [(none)]&amp;gt; quit; Bye #</description>
+    </item>
+    
+    <item>
+      <title>Linux三剑客（grep、awk、sed）</title>
+      <link>https://blog.xmlwch.cn/2021/07/14/chlinux/command.html</link>
+      <pubDate>Wed, 14 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/14/chlinux/command.html</guid>
+      <description>0、 引言 在Linux下一切皆文件，所以Linux下的操作就是对文件的操作。出于对文件更好的操作，下面给大家介绍一下常用的文本操作“三剑客”命令。 1、 grep 简介：文本过滤工具,用于查找文件里符合条件的字符串 语法： grep [-abcEFGhHilLnqrsvVwxy][-A&amp;lt;显示行数&amp;g</description>
+    </item>
+    
+    <item>
+      <title> 批量抓取全国GeoJSON数据（DataV.GeoAtlas）方法</title>
+      <link>https://blog.xmlwch.cn/2021/07/13/html/capture-geojson.html</link>
+      <pubDate>Tue, 13 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/13/html/capture-geojson.html</guid>
+      <description>抓取思路 DataV.GeoAtlas网站 我们先观察一下数据结构，如下： 全国数据： https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json # 或 https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full 省级数据： https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json # 或 https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=320000_full 地级市数据： https://geo.datav.aliyun.com/areas_v3/bound/320100_full.json # 或 https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=320100_full 全国数据： 下载全图的数据只有一个，直接下载就好。即：https://geo.datav.aliyun.com/areas_v3/bound/100000_</description>
+    </item>
+    
+    <item>
+      <title> Docker简单使用</title>
+      <link>https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html</link>
+      <pubDate>Thu, 08 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html</guid>
+      <description>Docker常见命令 容器相关操作 docker create # 创建一个容器但是不启动它 docker run # 创建并启动一个容器 docker stop # 停止容器运行，发送信号SIGTERM docker start # 启动一个停止状态的容器 docker restart # 重启一个容器 docker rm # 删除一个容器 docker kill # 发送信号给容器，默认SIGKILL docker attach # 连接(进入)到一个正在运行的容器 docker wait # 阻塞</description>
+    </item>
+    
+    <item>
+      <title>Supervisord 使用</title>
+      <link>https://blog.xmlwch.cn/2021/07/06/chlinux/supervisord.html</link>
+      <pubDate>Tue, 06 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/06/chlinux/supervisord.html</guid>
+      <description>0.Supervisor说明 Supervisor（http://supervisord.org/）是用Python开发的一个client/server服务，是Linux/Unix系统下的一个进程管理工具，不支持Windows系统。它可以很方便的监听、启动、停止、重启一个或多个进程</description>
+    </item>
+    
+    <item>
+      <title>PHP Session浅析</title>
+      <link>https://blog.xmlwch.cn/2021/06/28/php/session.html</link>
+      <pubDate>Mon, 28 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/28/php/session.html</guid>
+      <description>缘由 配合客户做一个免密登录跳转接口，因为双方均采用独立的php环境，且部署在一台服务器上。出现了先登录我方系统后不可登录对方系统，先登录对方系统后登录不了我方系统，怀疑为会话机制出现问题。故重新梳理Session会话机制。 声明与使用 Session的设置不同于Cookie，必须先启</description>
+    </item>
+    
+    <item>
+      <title>UOS普通用户可以ssh但是root不行</title>
+      <link>https://blog.xmlwch.cn/2021/06/21/chlinux/question4.html</link>
+      <pubDate>Mon, 21 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/21/chlinux/question4.html</guid>
+      <description>sudo vim /etc/ssh/sshd_config 找到 #PermitRootLogin prohibit-password 修改为PermitRootLogin yes，将前面的#注释删除 然后 wq 退出 修改成功以后，重启ssh服务： systemctl restart ssh 由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</description>
+    </item>
+    
+    <item>
+      <title>四种常见的 POST 提交数据方式</title>
+      <link>https://blog.xmlwch.cn/2021/06/20/http/post-data-in-http.html</link>
+      <pubDate>Sun, 20 Jun 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/20/http/post-data-in-http.html</guid>
+      <description>HTTP/1.1 协议规定的 HTTP 请求方法有 OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE、CONNECT 这几种。其中 POST 一般用来向服务端提交数据，本文主要讨论 POST 提交数据的几种方式。 我们知道，HTTP 协议是以 ASCII 码传输，建立在 TCP/IP 协议之上的应用层规范。规范把 HTTP 请求分为三个部分</description>
+    </item>
+    
+    <item>
+      <title>MySQL服务启不了</title>
+      <link>https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html</link>
+      <pubDate>Fri, 18 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html</guid>
+      <description>情况1：存在socket lock file root用户执行 # systemctl restart kymysql 时不报错，但服务也没启动，查看错误日志 cat /opt/KY/Softs/log/mysql/mysql-error.log ... 2021-06-18T01:28:47.783821Z 0 [Note] Server hostname (bind-address): &amp;#39;0.0.0.0&amp;#39;; port: 20001 2021-06-18T01:28:47.783838Z 0 [Note] - &amp;#39;0.0.0.0&amp;#39; resolves to &amp;#39;0.0.0.0&amp;#39;; 2021-06-18T01:28:47.783867Z 0 [Note] Server socket created on IP: &amp;#39;0.0.0.0&amp;#39;. 2021-06-18T01:28:47.783925Z 0 [ERROR] Another process with pid 2663 is using unix socket file. 2021-06-18T01:28:47.783932Z 0 [ERROR] Unable to setup unix socket lock file. 2021-06-18T01:28:47.783937Z 0 [ERROR] Aborting 解决办法： # 删除sock锁文件 rm -rf /opt/KY/Softs/mysql/var/mysql.sock.lock # 重启服务 systemctl restart kymysql 情况2：缺少lib包 roo</description>
+    </item>
+    
+    <item>
+      <title>Shell中括号场景总结</title>
+      <link>https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html</link>
+      <pubDate>Thu, 17 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html</guid>
+      <description>前言 最近在学习Shell脚本编程时，发现别人程序的 if-then代码块 中if的条件语句中存在 双括号(())、双中括号[[]] 的使用，因而查阅了相关资料，同时也看到了一篇不错的博文，对Shell脚本中括号的使用作出了总结 1、括号( ) 括号一般在命令替换时与美元符号$配合使用，用于获取</description>
+    </item>
+    
+    <item>
+      <title>清空表数据</title>
+      <link>https://blog.xmlwch.cn/2021/06/16/mysql/empty-table.html</link>
+      <pubDate>Wed, 16 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/16/mysql/empty-table.html</guid>
+      <description>方式1：DELETE 逐行删除速度极慢，不适合大量数据删除 Deletefromtablenamewhere1=1方式2：TRUNCATE 删除所有数据，保留表结构，不能撤消还原 TRUNCATETABLEtablename方式3：DROP 删除表，数据和表结构一起删除，快速 DROPTAB</description>
+    </item>
+    
+    <item>
+      <title>Vsftpd 虚拟用户配置</title>
+      <link>https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html</link>
+      <pubDate>Tue, 15 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html</guid>
+      <description>1.安装（有几率已安装） 查看是否已经安装 ，以下命令有返回表示已安装即可跳过该步骤 # rpm -qa |grep vsftpd vsftpd-3.0.2-22.ns7_4.mips64el # 安装 # yum install -y vsftpd 2.Vsftpd服务及配置 Vsftpd服务配置 # cat /etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=YES listen=YES listen_ipv6=NO pam_service_name=vsftpd userlist_enable=YES tcp_wrappers=YES guest_enable=YES #启用虚拟用户 virtual_use_local_privs=YES user_sub_token=$USER local_root=/data2/KyApps/ftp/$USER #/data2/KyApps/ftp需要提前创建好 hide_ids=YES allow_writeable_chroot=YES #避免客户端50</description>
+    </item>
+    
+    <item>
+      <title>chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</title>
+      <link>https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html</link>
+      <pubDate>Sat, 12 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html</guid>
+      <description>root用户执行 # chmod 755 redis-server 时报错： chmod: 正在更改 &amp;#39;redis-server&amp;#39; 的权限: 不允许的操作 解决方法： # 使用lsattr命令显示文件属性 lsattr redis-server ----i--------------- redis-server # 修改文件属性 chattr -i redis-server # 修改文件执行权限(此时就可以了) chmod 777 redis-server chattr +i redis-server 相关知识引用： chattr命令： https://www.runoob.com/linux/linux-comm-chattr.html lsattr命令： https://www.runoob.com/linux/linux-comm-lsattr.html 由于时间仓促，错误与疏忽之处在所难免，希望各</description>
+    </item>
+    
+    <item>
+      <title>Failed to allocate directory watch: Too many open files</title>
+      <link>https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html</link>
+      <pubDate>Wed, 09 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html</guid>
+      <description>uos上运行systemctl启动服务时报错： Failed to allocate directory watch: Too many open files 解决方法： vi /etc/sysctl.conf cat /etc/sysctl.conf # 添加一下配置 fs.inotify.max_user_instances=512 fs.inotify.max_user_watches=262144 生效 sysctl -p 分析： 可能是 inotify 数量限制了，修改后服务可以正常启动 inotify介绍： 它是一个内核用于通知用户空间程序文件系统变化的机制。 众所周知，Linux 桌面系统与 MAC 或 Windows 相比有许多不如人</description>
+    </item>
+    
+    <item>
+      <title>查看端口监听状态</title>
+      <link>https://blog.xmlwch.cn/2021/06/09/chlinux/port-listening.html</link>
+      <pubDate>Wed, 09 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/09/chlinux/port-listening.html</guid>
+      <description>netstat命令 使用netstat命令可查看端口占用情况 netstat命令各个参数说明如下: -t : 指明显示TCP端口 -u : 指明显示UDP端口 -l : 仅显示监听套接字(所谓套接字就是使应用程序能够读写与收发通讯协议(protocol)与资料的程序) -p : 显示进程标识符和程序名称，每一个套接</description>
+    </item>
+    
+    <item>
+      <title>fpm打包</title>
+      <link>https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html</link>
+      <pubDate>Tue, 08 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html</guid>
+      <description>a）环境准备 安装ruby环境和gem命令 yum -y install ruby rubygems ruby-devel gem命令是从rubygem仓库安装软件类似yum从yum仓库安装软件 查看当前源： gem source list *** CURRENT SOURCES *** https://rubygems.org/ 添加国内源： gem sources -a http://mirrors.aliyun.com/rubygems/ 移除国外源： gem sources --remove https://rubygems.org/ 安装FPM工具： gem install fpm 提示ruby版本过低时请自行百度 b）fpm打包 fpm -s dir -a aarch64 -t rpm -n KySofts-withDev -v 1.0.0</description>
+    </item>
+    
+    <item>
+      <title>防火墙（firewalld）的操作命令</title>
+      <link>https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html</link>
+      <pubDate>Mon, 07 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html</guid>
+      <description>1、基本使用 启动： systemctl start firewalld 查看状态：systemctl status firewalld 禁用，禁止开机启动： systemctl disable firewalld 停止运行： systemctl stop firewalld 2、firewalld-cmd 查看版本： firewall-cmd --version 查看帮助： firewall-cmd --help 显示状态： firewall-cmd --state 查看所有打开的端口： firewall-cmd --zone=public --list-ports 更新防火墙规则： firewall-cmd --reload 更新防火墙规则，重启服务： firewall-cmd --completely-reload 查看已激活的Zone信息: firewall-cmd --get-active-zones 查看</description>
+    </item>
+    
+    <item>
+      <title>Go语言开发环境搭建</title>
+      <link>https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html</link>
+      <pubDate>Fri, 21 May 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html</guid>
+      <description>下载 要搭建Go语言开发环境，第一步要下载go的开发工具包，目前最新稳定版本是go1.16.6。Go为我们所熟知的所有平台架构提供了开发工具包，比如熟知的Linux、Mac和Windows，其他的还有FreeBSD等。 根据自己的机器操作系统选择相应的开发工具包，比如我的是Windo</description>
+    </item>
+    
+    <item>
+      <title>Linux添加新硬盘后操作记录</title>
+      <link>https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html</link>
+      <pubDate>Fri, 21 May 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html</guid>
+      <description>一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查看新硬盘标识 lsblk NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT vda 252:0 0 100G 0 disk ├─vda1 252:1 0 1G 0 part /boot └─vd</description>
+    </item>
+    
+    <item>
+      <title>Hello Word!</title>
+      <link>https://blog.xmlwch.cn/2021/05/10/hello-word.html</link>
+      <pubDate>Mon, 10 May 2021 21:55:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/05/10/hello-word.html</guid>
+      <description>作为一个技术开发人员，当然希望建立一个自己的小小平台。此平台主要用于记录工作笔记和生活。</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>https://blog.xmlwch.cn/about/</link>
+      <pubDate>Mon, 10 May 2021 00:13:27 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/about/</guid>
+      <description>人间非净土，各有各的苦。 同是红尘悲秋客，莫笑谁是可怜人。 我是谁 昵称：xmlwch 坐标：025 / 0371 邮箱：admin@xmlwch.cn 我干啥 熟悉 LNMP（Linux/Nginx/MySql/PHP）环境开发 熟悉自动化（vagrant,docker） 熟悉国产化服务器操作系统（Kyli</description>
+    </item>
+    
+    <item>
+      <title>归档</title>
+      <link>https://blog.xmlwch.cn/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/archives/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>搜索</title>
+      <link>https://blog.xmlwch.cn/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/search/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

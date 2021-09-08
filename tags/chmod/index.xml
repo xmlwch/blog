@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>chmod on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/chmod/</link>
+    <description>Recent content in chmod on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 12 Jun 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/chmod/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</title>
+      <link>https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html</link>
+      <pubDate>Sat, 12 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html</guid>
+      <description>root用户执行 # chmod 755 redis-server 时报错： chmod: 正在更改 &amp;#39;redis-server&amp;#39; 的权限: 不允许的操作 解决方法： # 使用lsattr命令显示文件属性 lsattr redis-server ----i--------------- redis-server # 修改文件属性 chattr -i redis-server # 修改文件执行权限(此时就可以了) chmod 777 redis-server chattr +i redis-server 相关知识引用： chattr命令： https://www.runoob.com/linux/linux-comm-chattr.html lsattr命令： https://www.runoob.com/linux/linux-comm-lsattr.html 由于时间仓促，错误与疏忽之处在所难免，希望各</description>
+    </item>
+    
+  </channel>
+</rss>

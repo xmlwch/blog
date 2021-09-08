@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>socket lock file on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/socket-lock-file/</link>
+    <description>Recent content in socket lock file on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 18 Jun 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/socket-lock-file/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL服务启不了</title>
+      <link>https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html</link>
+      <pubDate>Fri, 18 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html</guid>
+      <description>情况1：存在socket lock file root用户执行 # systemctl restart kymysql 时不报错，但服务也没启动，查看错误日志 cat /opt/KY/Softs/log/mysql/mysql-error.log ... 2021-06-18T01:28:47.783821Z 0 [Note] Server hostname (bind-address): &amp;#39;0.0.0.0&amp;#39;; port: 20001 2021-06-18T01:28:47.783838Z 0 [Note] - &amp;#39;0.0.0.0&amp;#39; resolves to &amp;#39;0.0.0.0&amp;#39;; 2021-06-18T01:28:47.783867Z 0 [Note] Server socket created on IP: &amp;#39;0.0.0.0&amp;#39;. 2021-06-18T01:28:47.783925Z 0 [ERROR] Another process with pid 2663 is using unix socket file. 2021-06-18T01:28:47.783932Z 0 [ERROR] Unable to setup unix socket lock file. 2021-06-18T01:28:47.783937Z 0 [ERROR] Aborting 解决办法： # 删除sock锁文件 rm -rf /opt/KY/Softs/mysql/var/mysql.sock.lock # 重启服务 systemctl restart kymysql 情况2：缺少lib包 roo</description>
+    </item>
+    
+  </channel>
+</rss>

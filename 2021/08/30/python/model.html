@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Python实现TP的Model层 | xmlwch的博客</title>
+    <meta property="og:title" content="Python实现TP的Model层 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-08-30T16:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-08-30T16:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/08/30/python/model.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">Python实现TP的Model层</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年8月30日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Python'>Python</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共1516字</span>，阅读约<span class="more-meta"> 4 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>项目用到了python，习惯了TP的链式操作，自己动手写了一个python的Model层</p>
+<p>实现了<code>Pymysql</code>的原生连接和<code>dbutils</code>的连接池连接</p>
+<p>模型基类：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># coding: utf-8</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">pymysql</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">threading</span>
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">Include.Logger</span> <span style="color:#000;font-weight:bold">import</span> get_logger
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">Include.Setting</span> <span style="color:#000;font-weight:bold">import</span> app_settings
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">dbutils.pooled_db</span> <span style="color:#000;font-weight:bold">import</span> PooledDB
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">MysqlPool</span>:
+    config <span style="color:#000;font-weight:bold">=</span> {
+        <span style="color:#d14">&#39;creator&#39;</span>: pymysql,
+        <span style="color:#d14">&#39;host&#39;</span>: app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;ManagerHost&#39;</span>, <span style="color:#d14">&#39;127.0.0.1&#39;</span>),
+        <span style="color:#d14">&#39;port&#39;</span>: <span style="color:#0086b3">int</span>(app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBPort&#39;</span>, <span style="color:#099">3306</span>)),
+        <span style="color:#d14">&#39;user&#39;</span>: app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBUser&#39;</span>, <span style="color:#d14">&#39;root&#39;</span>),
+        <span style="color:#d14">&#39;password&#39;</span>: app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBPwd&#39;</span>, <span style="color:#d14">&#39;&#39;</span>),
+        <span style="color:#d14">&#39;db&#39;</span>: app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBName&#39;</span>, <span style="color:#d14">&#39;&#39;</span>),
+        <span style="color:#d14">&#39;charset&#39;</span>: app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBCharSet&#39;</span>, <span style="color:#d14">&#39;utf8&#39;</span>),
+        <span style="color:#d14">&#39;maxconnections&#39;</span>: <span style="color:#099">30</span>,  <span style="color:#998;font-style:italic"># 连接池最大连接数</span>
+        <span style="color:#d14">&#39;cursorclass&#39;</span>: pymysql<span style="color:#000;font-weight:bold">.</span>cursors<span style="color:#000;font-weight:bold">.</span>DictCursor
+    }
+    pool <span style="color:#000;font-weight:bold">=</span> PooledDB(<span style="color:#000;font-weight:bold">**</span>config)
+
+    <span style="color:#000;font-weight:bold">def</span> __enter__(<span style="color:#999">self</span>):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>conn <span style="color:#000;font-weight:bold">=</span> MysqlPool<span style="color:#000;font-weight:bold">.</span>pool<span style="color:#000;font-weight:bold">.</span>connection()
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>cursor <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>conn<span style="color:#000;font-weight:bold">.</span>cursor(pymysql<span style="color:#000;font-weight:bold">.</span>cursors<span style="color:#000;font-weight:bold">.</span>DictCursor)
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#999">self</span>
+
+    <span style="color:#000;font-weight:bold">def</span> __exit__(<span style="color:#999">self</span>, exc_type, exc_val, exc_tb):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>cursor<span style="color:#000;font-weight:bold">.</span>close()
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>conn<span style="color:#000;font-weight:bold">.</span>close()
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Base</span>(<span style="color:#0086b3">object</span>):
+    <span style="color:#998;font-style:italic"># 单实例锁</span>
+    _instance_lock <span style="color:#000;font-weight:bold">=</span> threading<span style="color:#000;font-weight:bold">.</span>Lock()
+    __tablename__ <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&#39;</span>
+    __fields__ <span style="color:#000;font-weight:bold">=</span> []
+
+    <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>, data<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>, <span style="color:#000;font-weight:bold">*</span>args, <span style="color:#000;font-weight:bold">**</span>kwargs):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(data, <span style="color:#0086b3">dict</span>):
+            <span style="color:#000;font-weight:bold">for</span> key <span style="color:#000;font-weight:bold">in</span> data:
+                <span style="color:#0086b3">setattr</span>(<span style="color:#999">self</span>, key, data[key])
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__fields__ <span style="color:#000;font-weight:bold">=</span> [name <span style="color:#000;font-weight:bold">for</span> name <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">dir</span>(<span style="color:#999">self</span>) <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(<span style="color:#0086b3">getattr</span>(<span style="color:#999">self</span>, name), Column)]
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__pk__ <span style="color:#000;font-weight:bold">=</span> [name <span style="color:#000;font-weight:bold">for</span> name <span style="color:#000;font-weight:bold">in</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__fields__ <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">hasattr</span>(<span style="color:#0086b3">getattr</span>(<span style="color:#999">self</span>, name), <span style="color:#d14">&#39;pk&#39;</span>)]
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_logger <span style="color:#000;font-weight:bold">=</span> get_logger(<span style="color:#d14">&#39;Mysql&#39;</span>)
+
+    <span style="color:#3c5d5d;font-weight:bold">@classmethod</span>
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">instance</span>(<span style="color:#999">cls</span>, <span style="color:#000;font-weight:bold">*</span>args, <span style="color:#000;font-weight:bold">**</span>kwargs):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        获取一个Model实例
+</span><span style="color:#d14">        :return:Model实例
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#0086b3">hasattr</span>(<span style="color:#999">cls</span>, <span style="color:#d14">&#39;_instance&#39;</span>):
+            <span style="color:#000;font-weight:bold">with</span> <span style="color:#999">cls</span><span style="color:#000;font-weight:bold">.</span>_instance_lock:
+                <span style="color:#999">cls</span><span style="color:#000;font-weight:bold">.</span>_instance <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">cls</span>(<span style="color:#000;font-weight:bold">*</span>args, <span style="color:#000;font-weight:bold">**</span>kwargs)
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#999">cls</span><span style="color:#000;font-weight:bold">.</span>_instance
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_try_connect</span>(<span style="color:#999">self</span>):
+        <span style="color:#000;font-weight:bold">try</span>:
+            <span style="color:#000;font-weight:bold">if</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn <span style="color:#000;font-weight:bold">is</span> <span style="color:#999">None</span>:
+                <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn <span style="color:#000;font-weight:bold">=</span> pymysql<span style="color:#000;font-weight:bold">.</span>connect(app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;ManagerHost&#39;</span>, <span style="color:#d14">&#39;127.0.0.1&#39;</span>),
+                                                 app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBUser&#39;</span>, <span style="color:#d14">&#39;root&#39;</span>),
+                                                 app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBPwd&#39;</span>, <span style="color:#d14">&#39;&#39;</span>),
+                                                 app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBName&#39;</span>, <span style="color:#d14">&#39;&#39;</span>),
+                                                 <span style="color:#0086b3">int</span>(app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBPort&#39;</span>, <span style="color:#099">3306</span>)), autocommit<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>)
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn<span style="color:#000;font-weight:bold">.</span>ping()
+        <span style="color:#000;font-weight:bold">except</span>:
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn <span style="color:#000;font-weight:bold">=</span> pymysql<span style="color:#000;font-weight:bold">.</span>connect(app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;ManagerHost&#39;</span>, <span style="color:#d14">&#39;127.0.0.1&#39;</span>),
+                                             app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBUser&#39;</span>, <span style="color:#d14">&#39;root&#39;</span>),
+                                             app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBPwd&#39;</span>, <span style="color:#d14">&#39;&#39;</span>),
+                                             app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBName&#39;</span>, <span style="color:#d14">&#39;&#39;</span>),
+                                             <span style="color:#0086b3">int</span>(app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;DBPort&#39;</span>, <span style="color:#099">3306</span>)), autocommit<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">close</span>(<span style="color:#999">self</span>):
+        <span style="color:#000;font-weight:bold">if</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn <span style="color:#000;font-weight:bold">is</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#999">None</span>:
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn<span style="color:#000;font-weight:bold">.</span>close()
+        <span style="color:#000;font-weight:bold">pass</span>
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">fetchone</span>(<span style="color:#999">self</span>, sql):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        查询单条记录
+</span><span style="color:#d14">        :param sql:查询的sql语句
+</span><span style="color:#d14">        :return:结果集或 None
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        data <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">with</span> MysqlPool() <span style="color:#000;font-weight:bold">as</span> db:
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_logger<span style="color:#000;font-weight:bold">.</span>info(sql)
+            db<span style="color:#000;font-weight:bold">.</span>cursor<span style="color:#000;font-weight:bold">.</span>execute(sql)
+            data <span style="color:#000;font-weight:bold">=</span> db<span style="color:#000;font-weight:bold">.</span>cursor<span style="color:#000;font-weight:bold">.</span>fetchone()
+        <span style="color:#000;font-weight:bold">return</span> data
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">fetchone_not_pool</span>(<span style="color:#999">self</span>, sql):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        查询单条记录
+</span><span style="color:#d14">        :param sql:查询的sql语句
+</span><span style="color:#d14">        :return:结果集或 None
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_try_connect()
+        cursor <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">try</span>:
+            cursor <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn<span style="color:#000;font-weight:bold">.</span>cursor(pymysql<span style="color:#000;font-weight:bold">.</span>cursors<span style="color:#000;font-weight:bold">.</span>DictCursor)
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_logger<span style="color:#000;font-weight:bold">.</span>info(sql)
+            cursor<span style="color:#000;font-weight:bold">.</span>execute(sql)
+            data <span style="color:#000;font-weight:bold">=</span> cursor<span style="color:#000;font-weight:bold">.</span>fetchone()
+        <span style="color:#000;font-weight:bold">except</span> <span style="color:#900;font-weight:bold">Exception</span> <span style="color:#000;font-weight:bold">as</span> e:
+            data <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">if</span> cursor <span style="color:#000;font-weight:bold">is</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#999">None</span>:
+            cursor<span style="color:#000;font-weight:bold">.</span>close()
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>close()
+        <span style="color:#000;font-weight:bold">return</span> data
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">fetchall</span>(<span style="color:#999">self</span>, sql):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">       查询多条记录
+</span><span style="color:#d14">       :param sql:查询的sql语句
+</span><span style="color:#d14">       :return:结果集或 None
+</span><span style="color:#d14">       &#34;&#34;&#34;</span>
+        data <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">with</span> MysqlPool() <span style="color:#000;font-weight:bold">as</span> db:
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_logger<span style="color:#000;font-weight:bold">.</span>info(sql)
+            db<span style="color:#000;font-weight:bold">.</span>cursor<span style="color:#000;font-weight:bold">.</span>execute(sql)
+            data <span style="color:#000;font-weight:bold">=</span> db<span style="color:#000;font-weight:bold">.</span>cursor<span style="color:#000;font-weight:bold">.</span>fetchall()
+        <span style="color:#000;font-weight:bold">return</span> data
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">fetchall_not_pool</span>(<span style="color:#999">self</span>, sql):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        查询多条记录
+</span><span style="color:#d14">        :param sql:查询的sql语句
+</span><span style="color:#d14">        :return:结果集或 None
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_try_connect()
+        cursor <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">try</span>:
+            cursor <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn<span style="color:#000;font-weight:bold">.</span>cursor(pymysql<span style="color:#000;font-weight:bold">.</span>cursors<span style="color:#000;font-weight:bold">.</span>DictCursor)
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_logger<span style="color:#000;font-weight:bold">.</span>info(sql)
+            cursor<span style="color:#000;font-weight:bold">.</span>execute(sql)
+            data <span style="color:#000;font-weight:bold">=</span> cursor<span style="color:#000;font-weight:bold">.</span>fetchall()
+        <span style="color:#000;font-weight:bold">except</span> <span style="color:#900;font-weight:bold">Exception</span> <span style="color:#000;font-weight:bold">as</span> e:
+            data <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">if</span> cursor <span style="color:#000;font-weight:bold">is</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#999">None</span>:
+            cursor<span style="color:#000;font-weight:bold">.</span>close()
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>close()
+        <span style="color:#000;font-weight:bold">return</span> data
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">execute</span>(<span style="color:#999">self</span>, sql):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        执行sql语句
+</span><span style="color:#d14">        :param sql: 执行的sql语句
+</span><span style="color:#d14">        :return: True|False
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        ret <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">False</span>
+        <span style="color:#000;font-weight:bold">with</span> MysqlPool() <span style="color:#000;font-weight:bold">as</span> db:
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_logger<span style="color:#000;font-weight:bold">.</span>info(sql)
+            db<span style="color:#000;font-weight:bold">.</span>cursor<span style="color:#000;font-weight:bold">.</span>execute(sql)
+            db<span style="color:#000;font-weight:bold">.</span>conn<span style="color:#000;font-weight:bold">.</span>commit()
+            ret <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">True</span>
+        <span style="color:#000;font-weight:bold">return</span> ret
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">execute_not_pool</span>(<span style="color:#999">self</span>, sql):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        执行sql语句
+</span><span style="color:#d14">        :param sql: 执行的sql语句
+</span><span style="color:#d14">        :return: True|False
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_try_connect()
+        cursor <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">try</span>:
+            cursor <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn<span style="color:#000;font-weight:bold">.</span>cursor(pymysql<span style="color:#000;font-weight:bold">.</span>cursors<span style="color:#000;font-weight:bold">.</span>DictCursor)
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_logger<span style="color:#000;font-weight:bold">.</span>info(sql)
+            cursor<span style="color:#000;font-weight:bold">.</span>execute(sql)
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn<span style="color:#000;font-weight:bold">.</span>commit()
+            data <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">True</span>
+        <span style="color:#000;font-weight:bold">except</span> <span style="color:#900;font-weight:bold">Exception</span> <span style="color:#000;font-weight:bold">as</span> e:
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__db_conn<span style="color:#000;font-weight:bold">.</span>rollback()
+            data <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">False</span>
+        <span style="color:#000;font-weight:bold">if</span> cursor <span style="color:#000;font-weight:bold">is</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#999">None</span>:
+            cursor<span style="color:#000;font-weight:bold">.</span>close()
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>close()
+        <span style="color:#000;font-weight:bold">return</span> data
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_parse_fields</span>(<span style="color:#999">self</span>, _fields):
+        <span style="color:#000;font-weight:bold">if</span> _fields <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;*&#39;</span>:
+            <span style="color:#000;font-weight:bold">return</span> _fields
+        <span style="color:#000;font-weight:bold">else</span>:
+            <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#39;,&#39;</span><span style="color:#000;font-weight:bold">.</span>join(_fields)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_parse_field</span>(<span style="color:#999">self</span>, field):
+        <span style="color:#000;font-weight:bold">if</span> <span style="color:#d14">&#34;.&#34;</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#000;font-weight:bold">in</span> field:
+            <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#34;`{}`&#34;</span><span style="color:#000;font-weight:bold">.</span>format(field)
+        <span style="color:#000;font-weight:bold">else</span>:
+            tmp <span style="color:#000;font-weight:bold">=</span> field<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#39;.&#39;</span>)
+            <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#34;`{}`&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#d14">&#34;`.`&#34;</span><span style="color:#000;font-weight:bold">.</span>join(tmp))
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_parse_value</span>(<span style="color:#999">self</span>, sv, key<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>):
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#34;&#39;{}&#39;&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#0086b3">str</span>(sv)) <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(sv, <span style="color:#0086b3">str</span>) <span style="color:#000;font-weight:bold">else</span> <span style="color:#0086b3">str</span>(sv)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_parse_where</span>(<span style="color:#999">self</span>, where):
+        whereStr <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&#39;</span>
+        <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(where, <span style="color:#0086b3">str</span>):
+            <span style="color:#998;font-style:italic"># 直接使用字符串条件</span>
+            whereStr <span style="color:#000;font-weight:bold">=</span> where
+        <span style="color:#000;font-weight:bold">else</span>:
+            whereStrItem <span style="color:#000;font-weight:bold">=</span> [];
+            <span style="color:#000;font-weight:bold">for</span> key <span style="color:#000;font-weight:bold">in</span> where:
+                val <span style="color:#000;font-weight:bold">=</span> where[key]
+                <span style="color:#000;font-weight:bold">if</span> key<span style="color:#000;font-weight:bold">.</span>startswith(<span style="color:#d14">&#39;_&#39;</span>):
+                    whereStrItem<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parseThinkWhere(key, val))
+                <span style="color:#000;font-weight:bold">else</span>:
+                    <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(val, <span style="color:#0086b3">str</span>):
+                        whereStrItem<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#d14">&#34;{}={}&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(key), <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(val, key)))
+                    <span style="color:#000;font-weight:bold">elif</span> <span style="color:#0086b3">isinstance</span>(val, <span style="color:#0086b3">int</span>):
+                        whereStrItem<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#d14">&#34;{}={}&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(key), <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(val, key)))
+                    <span style="color:#000;font-weight:bold">elif</span> <span style="color:#0086b3">isinstance</span>(val, <span style="color:#0086b3">list</span>):
+                        <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(val[<span style="color:#099">0</span>], <span style="color:#0086b3">str</span>):
+                            <span style="color:#000;font-weight:bold">if</span> val[<span style="color:#099">0</span>]<span style="color:#000;font-weight:bold">.</span>lower() <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;exp&#39;</span>:
+                                whereStrItem<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#d14">&#39; ({} {}) &#39;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(key), val[<span style="color:#099">1</span>]))
+                            <span style="color:#000;font-weight:bold">elif</span> val[<span style="color:#099">0</span>]<span style="color:#000;font-weight:bold">.</span>lower() <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;in&#39;</span>:
+                                val_1 <span style="color:#000;font-weight:bold">=</span> val[<span style="color:#099">1</span>]
+                                <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(val_1, <span style="color:#0086b3">str</span>):
+                                    val_1 <span style="color:#000;font-weight:bold">=</span> val_1<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#39;,&#39;</span>)
+                                val_11 <span style="color:#000;font-weight:bold">=</span> [<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(xval) <span style="color:#000;font-weight:bold">for</span> xval <span style="color:#000;font-weight:bold">in</span> val_1]
+                                whereStrItem<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#d14">&#39; {} IN ({}) &#39;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(key), <span style="color:#d14">&#39;,&#39;</span><span style="color:#000;font-weight:bold">.</span>join(val_11)))
+                            <span style="color:#000;font-weight:bold">elif</span> val[<span style="color:#099">0</span>]<span style="color:#000;font-weight:bold">.</span>lower() <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;not in&#39;</span>:
+                                <span style="color:#998;font-style:italic"># 跟上边一样换成not in</span>
+                                val_1 <span style="color:#000;font-weight:bold">=</span> val[<span style="color:#099">1</span>]
+                                <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(val_1, <span style="color:#0086b3">str</span>):
+                                    val_1 <span style="color:#000;font-weight:bold">=</span> val_1<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#39;,&#39;</span>)
+                                val_11 <span style="color:#000;font-weight:bold">=</span> [<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(xval) <span style="color:#000;font-weight:bold">for</span> xval <span style="color:#000;font-weight:bold">in</span> val_1]
+                                whereStrItem<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#d14">&#39; {} NOT IN ({}) &#39;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(key), <span style="color:#d14">&#39;,&#39;</span><span style="color:#000;font-weight:bold">.</span>join(val_11)))
+                            <span style="color:#000;font-weight:bold">elif</span> val[<span style="color:#099">0</span>]<span style="color:#000;font-weight:bold">.</span>lower() <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;like&#39;</span>:
+                                <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(val[<span style="color:#099">1</span>], <span style="color:#0086b3">str</span>):
+                                    whereStrItem<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#d14">&#39;({} LIKE {})&#39;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(key),
+                                                                              <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(val[<span style="color:#099">1</span>])))
+                            <span style="color:#000;font-weight:bold">elif</span> val[<span style="color:#099">0</span>]<span style="color:#000;font-weight:bold">.</span>lower() <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;between&#39;</span>:  <span style="color:#998;font-style:italic"># BETWEEN运算</span>
+                                val_1 <span style="color:#000;font-weight:bold">=</span> val[<span style="color:#099">1</span>]
+                                <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(val_1, <span style="color:#0086b3">str</span>):
+                                    val_1 <span style="color:#000;font-weight:bold">=</span> val_1<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#39;,&#39;</span>)
+                                <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">len</span>(val_1) <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">2</span>:
+                                    whereStrItem<span style="color:#000;font-weight:bold">.</span>append(
+                                        <span style="color:#d14">&#39;({} BETWEEN {} AND {}) &#39;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(key),
+                                                                         <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(val_1[<span style="color:#099">0</span>]),
+                                                                         <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(val_1[<span style="color:#099">1</span>])))
+            whereStr <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34; ({}) &#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#d14">&#34; AND &#34;</span><span style="color:#000;font-weight:bold">.</span>join(whereStrItem))
+        <span style="color:#000;font-weight:bold">return</span> whereStr
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_parse_with_pkwhere</span>(<span style="color:#999">self</span>):
+        ret <span style="color:#000;font-weight:bold">=</span> {}
+        <span style="color:#000;font-weight:bold">for</span> field <span style="color:#000;font-weight:bold">in</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__pk__:
+            sv <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">getattr</span>(<span style="color:#999">self</span>, field)
+            <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#0086b3">isinstance</span>(sv, Column):
+                ret[field] <span style="color:#000;font-weight:bold">=</span> sv
+        <span style="color:#000;font-weight:bold">return</span> ret
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_parseThinkWhere</span>(<span style="color:#999">self</span>, key, val):
+        whereStr <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&#39;</span>;
+        <span style="color:#000;font-weight:bold">if</span> key <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#34;_string&#34;</span>:
+            whereStr <span style="color:#000;font-weight:bold">=</span> val
+        <span style="color:#000;font-weight:bold">return</span> whereStr
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">make_select_sql</span>(<span style="color:#999">self</span>, fields<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;*&#34;</span>, where<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;&#39;</span>, table<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        拼接 SELECT 语句
+</span><span style="color:#d14">        :param fields: 查询的字段，可以是list 或 ,分割的str
+</span><span style="color:#d14">        :param where: 查询字段，字典
+</span><span style="color:#d14">        :param table: 表名，默认为Model定义的__tablename__
+</span><span style="color:#d14">        :return:
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">isinstance</span>(fields, <span style="color:#0086b3">str</span>):
+            _fields <span style="color:#000;font-weight:bold">=</span> fields<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#34;,&#34;</span>)
+        <span style="color:#000;font-weight:bold">elif</span> <span style="color:#0086b3">isinstance</span>(fields, <span style="color:#0086b3">list</span>):
+            _fields <span style="color:#000;font-weight:bold">=</span> fields
+        <span style="color:#000;font-weight:bold">else</span>:
+            _fields <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;*&#39;</span>
+        <span style="color:#000;font-weight:bold">if</span> table <span style="color:#000;font-weight:bold">is</span> <span style="color:#999">None</span>:
+            table <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;`{}`&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__tablename__)
+        sql <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;SELECT {} FROM {}&#39;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_fields(_fields), table);
+        _pkwhere <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_with_pkwhere()
+        <span style="color:#0086b3">dict</span>(where, <span style="color:#000;font-weight:bold">**</span>_pkwhere)
+        <span style="color:#000;font-weight:bold">if</span> where <span style="color:#000;font-weight:bold">is</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#999">None</span>:
+            sql <span style="color:#000;font-weight:bold">+=</span> <span style="color:#d14">&#39; WHERE &#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_where(where)
+        <span style="color:#000;font-weight:bold">return</span> sql
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_parse_set</span>(<span style="color:#999">self</span>, set_dict):
+        StrItem <span style="color:#000;font-weight:bold">=</span> [];
+        <span style="color:#000;font-weight:bold">for</span> key <span style="color:#000;font-weight:bold">in</span> set_dict:
+            <span style="color:#998;font-style:italic"># update set 不能修改主键</span>
+            <span style="color:#000;font-weight:bold">if</span> (key <span style="color:#000;font-weight:bold">in</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__pk__):
+                <span style="color:#000;font-weight:bold">continue</span>
+            val <span style="color:#000;font-weight:bold">=</span> set_dict[key]
+            StrItem<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#d14">&#34;{}={}&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(key), <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(val)))
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#34;{}&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#d14">&#34;,&#34;</span><span style="color:#000;font-weight:bold">.</span>join(StrItem))
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">make_updata_sql</span>(<span style="color:#999">self</span>, where, table<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        拼接 UPDATE 语句
+</span><span style="color:#d14">        :param where:查询字段，字典
+</span><span style="color:#d14">        :param table:表名，默认为Model定义的__tablename__
+</span><span style="color:#d14">        :return:sql语句
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        sql <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;UPDATE {} SET {}&#34;</span>
+        set_val <span style="color:#000;font-weight:bold">=</span> {}
+        <span style="color:#000;font-weight:bold">for</span> field <span style="color:#000;font-weight:bold">in</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__fields__:
+            sv <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">getattr</span>(<span style="color:#999">self</span>, field)
+            <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#0086b3">isinstance</span>(sv, Column):
+                set_val[field] <span style="color:#000;font-weight:bold">=</span> sv
+        <span style="color:#000;font-weight:bold">if</span> table <span style="color:#000;font-weight:bold">is</span> <span style="color:#999">None</span>:
+            table <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;`{}`&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__tablename__)
+        sql <span style="color:#000;font-weight:bold">=</span> sql<span style="color:#000;font-weight:bold">.</span>format(table, <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_set(set_val))
+        _pkwhere <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_with_pkwhere()
+        <span style="color:#0086b3">dict</span>(where, <span style="color:#000;font-weight:bold">**</span>_pkwhere)
+        <span style="color:#000;font-weight:bold">if</span> where <span style="color:#000;font-weight:bold">is</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#999">None</span>:
+            sql <span style="color:#000;font-weight:bold">+=</span> <span style="color:#d14">&#39; WHERE &#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_where(where)
+        <span style="color:#000;font-weight:bold">return</span> sql <span style="color:#000;font-weight:bold">if</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_set(set_val) <span style="color:#000;font-weight:bold">!=</span> <span style="color:#d14">&#34;&#34;</span> <span style="color:#000;font-weight:bold">else</span> <span style="color:#999">None</span>
+        <span style="color:#000;font-weight:bold">pass</span>
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">make_insert_sql</span>(<span style="color:#999">self</span>):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">         拼接 INSERT 语句
+</span><span style="color:#d14">        :return: sql语句，默认拼接Model字段
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+
+        sql <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;INSERT INTO `{}` ({}) VALUES ({})&#34;</span>
+        fields <span style="color:#000;font-weight:bold">=</span> [];
+        vals <span style="color:#000;font-weight:bold">=</span> [];
+        <span style="color:#000;font-weight:bold">for</span> field <span style="color:#000;font-weight:bold">in</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__fields__:
+            sv <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">getattr</span>(<span style="color:#999">self</span>, field)
+            <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#0086b3">isinstance</span>(sv, Column):
+                fields<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_field(field))
+                vals<span style="color:#000;font-weight:bold">.</span>append(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_value(sv))
+        fields_str <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;,&#39;</span><span style="color:#000;font-weight:bold">.</span>join(fields)
+        vals_str <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;,&#39;</span><span style="color:#000;font-weight:bold">.</span>join(vals)
+        <span style="color:#000;font-weight:bold">return</span> sql<span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__tablename__, fields_str, vals_str)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">make_delete_sql</span>(<span style="color:#999">self</span>, where, table<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>):
+        <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">        拼接 DELETE 语句
+</span><span style="color:#d14">        :param where:查询字段，字典
+</span><span style="color:#d14">        :param table:表名，默认为Model定义的__tablename__
+</span><span style="color:#d14">        :return:sql语句
+</span><span style="color:#d14">        &#34;&#34;&#34;</span>
+        <span style="color:#000;font-weight:bold">if</span> table <span style="color:#000;font-weight:bold">is</span> <span style="color:#999">None</span>:
+            table <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;`{}`&#34;</span><span style="color:#000;font-weight:bold">.</span>format(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__tablename__)
+        sql <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;DELETE FROM {}&#34;</span><span style="color:#000;font-weight:bold">.</span>format(table)
+        _pkwhere <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_with_pkwhere()
+        <span style="color:#0086b3">dict</span>(where, <span style="color:#000;font-weight:bold">**</span>_pkwhere)
+        <span style="color:#000;font-weight:bold">if</span> where <span style="color:#000;font-weight:bold">is</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#999">None</span>:
+            sql <span style="color:#000;font-weight:bold">+=</span> <span style="color:#d14">&#39; WHERE &#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>_parse_where(where)
+        <span style="color:#000;font-weight:bold">return</span> sql
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Column</span>(<span style="color:#0086b3">object</span>):
+    <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>, <span style="color:#000;font-weight:bold">*</span>args, <span style="color:#000;font-weight:bold">**</span>kwargs):
+        <span style="color:#000;font-weight:bold">if</span> <span style="color:#d14">&#39;pk&#39;</span> <span style="color:#000;font-weight:bold">in</span> kwargs<span style="color:#000;font-weight:bold">.</span>keys():
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>pk <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">True</span>
+
+
+<span style="color:#998;font-style:italic"># 下边再写下去就真的是orm了暂时不需要，先不写吧</span>
+<span style="color:#998;font-style:italic"># 未验证</span>
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">StrColumn</span>(Column):
+    <span style="color:#000;font-weight:bold">pass</span>
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">IntColumn</span>(Column):
+    <span style="color:#000;font-weight:bold">pass</span>
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">DateColumn</span>(Column):
+    <span style="color:#000;font-weight:bold">pass</span>
+
+</code></pre></div><p>使用实例：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># coding: utf-8</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">json</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">uuid</span>
+
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">Include.Setting</span> <span style="color:#000;font-weight:bold">import</span> app_settings
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">Model.Base</span> <span style="color:#000;font-weight:bold">import</span> Base, Column
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">TaskResult</span>(Base):
+    __tablename__ <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;taskresult&#34;</span>
+    mkey <span style="color:#000;font-weight:bold">=</span> Column(pk<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>)
+    taskID <span style="color:#000;font-weight:bold">=</span> Column()
+    node <span style="color:#000;font-weight:bold">=</span> Column()
+    taskFinished <span style="color:#000;font-weight:bold">=</span> Column()
+    subID <span style="color:#000;font-weight:bold">=</span> Column()
+    elements <span style="color:#000;font-weight:bold">=</span> Column()
+    reuslt <span style="color:#000;font-weight:bold">=</span> Column()
+    description <span style="color:#000;font-weight:bold">=</span> Column()
+
+    <span style="color:#000;font-weight:bold">def</span> __str__(<span style="color:#999">self</span>):
+        desc <span style="color:#000;font-weight:bold">=</span> {
+            <span style="color:#d14">&#39;mkey&#39;</span>: <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>mkey,
+            <span style="color:#d14">&#39;taskID&#39;</span>: <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>taskID,
+            <span style="color:#d14">&#39;node&#39;</span>: <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>node,
+            <span style="color:#d14">&#39;subID&#39;</span>: <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>subID
+        }
+        <span style="color:#000;font-weight:bold">return</span> json<span style="color:#000;font-weight:bold">.</span>dumps(desc)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">make_new_mkey</span>(<span style="color:#999">self</span>):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>mkey <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">str</span>(uuid<span style="color:#000;font-weight:bold">.</span>uuid4())
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>mkey
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_result_by_id</span>(<span style="color:#999">self</span>, taskID):
+        <span style="color:#998;font-style:italic"># SELECT * FROM taskresult WHERE taskID=&#39;{}&#39; AND node=&#39;{}&#39; ORDER BY subID ASC</span>
+        sql <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>make_select_sql(<span style="color:#d14">&#34;*&#34;</span>, {<span style="color:#d14">&#39;node&#39;</span>: app_settings<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;NodeName&#39;</span>, <span style="color:#d14">&#39;main&#39;</span>), <span style="color:#d14">&#39;taskID&#39;</span>: taskID})
+        sql <span style="color:#000;font-weight:bold">+=</span> <span style="color:#d14">&#39; ORDER BY subID ASC&#39;</span>
+        data <span style="color:#000;font-weight:bold">=</span> [];
+        <span style="color:#000;font-weight:bold">for</span> item <span style="color:#000;font-weight:bold">in</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>fetchall(sql):
+            data<span style="color:#000;font-weight:bold">.</span>append(TaskResult(item))
+        <span style="color:#000;font-weight:bold">return</span> data
+    
+</code></pre></div>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2021/08/30/python/model.html">https://blog.xmlwch.cn/2021/08/30/python/model.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">知识共享署名4.0 国际许可协议</a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/07/06/chlinux/supervisord.html">Supervisord 使用</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Python'>Python</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

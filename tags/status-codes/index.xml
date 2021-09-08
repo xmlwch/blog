@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>status codes on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/status-codes/</link>
+    <description>Recent content in status codes on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 20 Jul 2021 19:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/status-codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTTP状态码</title>
+      <link>https://blog.xmlwch.cn/2021/07/20/http/http-status-codes.html</link>
+      <pubDate>Tue, 20 Jul 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/20/http/http-status-codes.html</guid>
+      <description>状态码 状态码英文名称 中文描述 1** - 信息，服务器收到请求，需要请求者继续执行操作 100 Continue 继续。客户端应继续其请求 101 Switching Protocols 切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到HTTP的新版本协议 102 Processing 由WebDAV（RFC 2518）扩展的状态码，代表处理将被继续执行 2**</description>
+    </item>
+    
+  </channel>
+</rss>

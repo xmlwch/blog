@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>FTP on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/categories/FTP/</link>
+    <description>Recent content in FTP on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 22 Jul 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/FTP/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FileZilla读取目录列表失败</title>
+      <link>https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html</link>
+      <pubDate>Thu, 22 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html</guid>
+      <description>错误1： 错误: 无法连接到服务器 状态: 正在等待重试... 解决办法 在阿里云的安全策略里开放21号端口 错误2： 状态: 连接建立，等待欢迎消息... 状态: 不安全的服务器，不支持 FTP over TLS。 状态: 已登录 状态: 读取目录列表... 命令: PWD 响应: 257 &amp;#34;/&amp;#34; is current directory. 命令: TYPE I 响应: 200 Type set to I 命令: PORT 182,32,16,212,217,163 响应:</description>
+    </item>
+    
+    <item>
+      <title>Vsftpd 虚拟用户配置</title>
+      <link>https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html</link>
+      <pubDate>Tue, 15 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html</guid>
+      <description>1.安装（有几率已安装） 查看是否已经安装 ，以下命令有返回表示已安装即可跳过该步骤 # rpm -qa |grep vsftpd vsftpd-3.0.2-22.ns7_4.mips64el # 安装 # yum install -y vsftpd 2.Vsftpd服务及配置 Vsftpd服务配置 # cat /etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=YES listen=YES listen_ipv6=NO pam_service_name=vsftpd userlist_enable=YES tcp_wrappers=YES guest_enable=YES #启用虚拟用户 virtual_use_local_privs=YES user_sub_token=$USER local_root=/data2/KyApps/ftp/$USER #/data2/KyApps/ftp需要提前创建好 hide_ids=YES allow_writeable_chroot=YES #避免客户端50</description>
+    </item>
+    
+  </channel>
+</rss>

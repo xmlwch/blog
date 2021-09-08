@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/Vue/</link>
+    <description>Recent content in Vue on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 25 Aug 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Vue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue之日常踩坑记</title>
+      <link>https://blog.xmlwch.cn/2021/08/25/html/question2.html</link>
+      <pubDate>Wed, 25 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/25/html/question2.html</guid>
+      <description>在我们使用Vue框架的时候，我们不免会遇到各种各样的问题，话不多说。我们直接扔出我们的问题 1. JSON对象数据值拷贝 先JSON.stringify() 转为json字符串， 再JSON.parse() 转为json数组 方法缺点： 如果你的对象里有函数, 函数无法被拷贝下来 无法拷贝copyOb</description>
+    </item>
+    
+    <item>
+      <title>Vue之大文件分片上传</title>
+      <link>https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html</link>
+      <pubDate>Fri, 20 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html</guid>
+      <description>记录一次项目中用到的大文件分片上传vue解决实例如下 首先是封装的请求方法(文件...Sentlas.js部分内容)如下： 这里加了上传进度展示，请求包和数据包主体展示，所以传入了回调及vue实体 import axios from &amp;#39;axios&amp;#39; const Sentlas = { // ...放置了axios方法和具体的请求方法 uploadFragmentResourceFile: function(data) { this.beforeRequest() return this.request({ url: &amp;#39;...&amp;#39;, params: { token: this.Token }, method:</description>
+    </item>
+    
+    <item>
+      <title>Vue之axios请求踩坑记</title>
+      <link>https://blog.xmlwch.cn/2021/08/10/html/question.html</link>
+      <pubDate>Tue, 10 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/10/html/question.html</guid>
+      <description>在我们使用Vue框架的时候，我们不免会遇到各种各样的问题，话不多说。我们直接扔出我们的问题 Q1：POST请求时，后端无法接受到请求参数的问题 axios.post(&amp;#39;/user&amp;#39;, { id: &amp;#39;2&amp;#39;, username: &amp;#39;4&amp;#39; }).then(function(response) { console.log(response) }).catch(function(error) { console.log(error) }) 从后台取数据发现没有取到数据，我们从请求头中发现，请求头为application/json 参数的格式是Reques</description>
+    </item>
+    
+    <item>
+      <title>vue集成汉字转拼音插件</title>
+      <link>https://blog.xmlwch.cn/2021/08/04/html/pinyin.html</link>
+      <pubDate>Wed, 04 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/04/html/pinyin.html</guid>
+      <description>缘由 项目需求 要实现创建账号时，默认分配登陆账号为姓名拼音。于是整理了一下实现方法。 在转换过程中，这里保留了数字和字母，空格转为- ，其他特殊字符将会被去掉。如 测试 会被转换成 CeShi。（可自行修改 chineseToPinYin() 方法实现其他需求） 参考博文: vue集成汉字转拼音插件 JS中文转换拼音的实现 pinyin.js 文件，文</description>
+    </item>
+    
+  </channel>
+</rss>

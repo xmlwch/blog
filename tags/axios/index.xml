@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>axios on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/axios/</link>
+    <description>Recent content in axios on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 10 Aug 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/axios/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue之axios请求踩坑记</title>
+      <link>https://blog.xmlwch.cn/2021/08/10/html/question.html</link>
+      <pubDate>Tue, 10 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/10/html/question.html</guid>
+      <description>在我们使用Vue框架的时候，我们不免会遇到各种各样的问题，话不多说。我们直接扔出我们的问题 Q1：POST请求时，后端无法接受到请求参数的问题 axios.post(&amp;#39;/user&amp;#39;, { id: &amp;#39;2&amp;#39;, username: &amp;#39;4&amp;#39; }).then(function(response) { console.log(response) }).catch(function(error) { console.log(error) }) 从后台取数据发现没有取到数据，我们从请求头中发现，请求头为application/json 参数的格式是Reques</description>
+    </item>
+    
+  </channel>
+</rss>

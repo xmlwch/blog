@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Session on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/Session/</link>
+    <description>Recent content in Session on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 28 Jun 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Session/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PHP Session浅析</title>
+      <link>https://blog.xmlwch.cn/2021/06/28/php/session.html</link>
+      <pubDate>Mon, 28 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/28/php/session.html</guid>
+      <description>缘由 配合客户做一个免密登录跳转接口，因为双方均采用独立的php环境，且部署在一台服务器上。出现了先登录我方系统后不可登录对方系统，先登录对方系统后登录不了我方系统，怀疑为会话机制出现问题。故重新梳理Session会话机制。 声明与使用 Session的设置不同于Cookie，必须先启</description>
+    </item>
+    
+  </channel>
+</rss>

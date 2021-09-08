@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shell括号场景 on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/</link>
+    <description>Recent content in Shell括号场景 on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 17 Jun 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shell中括号场景总结</title>
+      <link>https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html</link>
+      <pubDate>Thu, 17 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html</guid>
+      <description>前言 最近在学习Shell脚本编程时，发现别人程序的 if-then代码块 中if的条件语句中存在 双括号(())、双中括号[[]] 的使用，因而查阅了相关资料，同时也看到了一篇不错的博文，对Shell脚本中括号的使用作出了总结 1、括号( ) 括号一般在命令替换时与美元符号$配合使用，用于获取</description>
+    </item>
+    
+  </channel>
+</rss>

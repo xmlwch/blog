@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Shell中括号场景总结 | xmlwch的博客</title>
+    <meta property="og:title" content="Shell中括号场景总结 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-06-17T12:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-06-17T12:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Shell中括号场景总结</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月17日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/Shell'>Shell</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共1477字</span>，阅读约<span class="more-meta"> 3 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="前言">前言</h2>
+<p>最近在学习Shell脚本编程时，发现别人程序的 if-then代码块 中if的条件语句中存在 双括号(())、双中括号[[]] 的使用，因而查阅了相关资料，同时也看到了一篇不错的博文，对Shell脚本中括号的使用作出了总结</p>
+<h2 id="1括号-">1、括号( )</h2>
+<p>括号一般在命令替换时与美元符号$配合使用，用于获取括号内命令的输出，如</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#998;font-style:italic"># 输出今年的年份</span>
+<span style="color:#008080">year</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">$(</span>date +%Y<span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;This year is </span><span style="color:#008080">$year</span><span style="color:#d14">&#34;</span>
+</code></pre></div><h2 id="2方括号-">2、方括号[ ]</h2>
+<p>Shell中的方括号一般有两种使用场景，一种是和美元符号$搭配用于Shell中整型数据运算；另一种是单独使用，作为test命令的简写形式</p>
+<h3 id="21-搭配美元符号用于整型计算">2.1 搭配美元符号$用于整型计算</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># 1. 用于整型数据计算</span>
+<span style="color:#008080">var1</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">100</span>
+<span style="color:#008080">var2</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">200</span>
+<span style="color:#998;font-style:italic"># 可以使用 $+双方括号来表示整型运算</span>
+<span style="color:#008080">var3</span><span style="color:#000;font-weight:bold">=</span>$<span style="color:#000;font-weight:bold">[</span> <span style="color:#008080">$var1</span>+<span style="color:#008080">$var2</span>+1 <span style="color:#000;font-weight:bold">]</span>
+<span style="color:#998;font-style:italic"># 也可以使用 $+双括号来表示整型运算</span>
+<span style="color:#008080">var4</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">$((</span><span style="color:#008080">$var1</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#008080">$var2</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span><span style="color:#000;font-weight:bold">))</span>
+<span style="color:#0086b3">echo</span> <span style="color:#008080">$var3</span>
+<span style="color:#0086b3">echo</span> <span style="color:#008080">$var4</span>
+</code></pre></div><p>由于 if-then语句 不能测试命令状态码之外的条件，所以Bash Shell提供了 test命令 用于帮助 if-then语句 测试其他的条件，如数值比较、字符串比较、文件比较等，而test命令的简写形式就是方括号[ ]，其中第一个方括号和第二个方括号之前都必须加上空格，否则会报错</p>
+<h3 id="22-数值比较">2.2 数值比较</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">n1 -eq n2</td>
+<td style="text-align:center">检查n1是否与n2相等</td>
+</tr>
+<tr>
+<td style="text-align:center">n1 -ge n2</td>
+<td style="text-align:center">检查n1是否大于或等于n2</td>
+</tr>
+<tr>
+<td style="text-align:center">n1 -gt n2</td>
+<td style="text-align:center">检查n1是否大于n2</td>
+</tr>
+<tr>
+<td style="text-align:center">n1 -le n2</td>
+<td style="text-align:center">检查n1是否小于或等于n2</td>
+</tr>
+<tr>
+<td style="text-align:center">n1 -lt n2</td>
+<td style="text-align:center">检查n1是否小于n2</td>
+</tr>
+<tr>
+<td style="text-align:center">n1 -ne n2</td>
+<td style="text-align:center">检查n1是否不等于n2</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#998;font-style:italic"># 2. 数值比较</span>
+<span style="color:#008080">n1</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">20</span>
+<span style="color:#008080">n2</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">10</span>
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> <span style="color:#008080">$n1</span> -ge <span style="color:#008080">$n2</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;n1 is greater than or euqal to n2&#34;</span>
+<span style="color:#000;font-weight:bold">else</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;n1 is less than n2&#34;</span>
+<span style="color:#000;font-weight:bold">fi</span>
+</code></pre></div><p>注意：Bash Shell只能直接处理整数，赋值浮点数会报错</p>
+<h3 id="23-字符串比较注意符号两边两边要有空格">2.3 字符串比较（注意符号两边两边要有空格）</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">描述（注意符号两边需要空格）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">str1 = str2</td>
+<td style="text-align:center">检查str1是否和str2相同</td>
+</tr>
+<tr>
+<td style="text-align:center">str1 != str2</td>
+<td style="text-align:center">检查str1是否和str2不同</td>
+</tr>
+<tr>
+<td style="text-align:center">str1 &lt; str2</td>
+<td style="text-align:center">检查str1是否比str2小</td>
+</tr>
+<tr>
+<td style="text-align:center">str1 &gt; str2</td>
+<td style="text-align:center">检查str1是否比str2大</td>
+</tr>
+<tr>
+<td style="text-align:center">-n str1</td>
+<td style="text-align:center">检查str1的长度是否非0</td>
+</tr>
+<tr>
+<td style="text-align:center">-z str1</td>
+<td style="text-align:center">检查str1的长度是否为0</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+<span style="color:#998;font-style:italic"># 3. 字符串比较</span>
+<span style="color:#008080">user</span><span style="color:#000;font-weight:bold">=</span>root
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> <span style="color:#000;font-weight:bold">$(</span>whoami<span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$user</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;root is online&#34;</span>
+<span style="color:#000;font-weight:bold">else</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;root is offline&#34;</span>
+<span style="color:#000;font-weight:bold">fi</span>
+</code></pre></div><h3 id="24-文件比较">2.4 文件比较</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-d file</td>
+<td style="text-align:center">检查file是否存在并是一个目录</td>
+</tr>
+<tr>
+<td style="text-align:center">-e file</td>
+<td style="text-align:center">检查file是否存在</td>
+</tr>
+<tr>
+<td style="text-align:center">-f file</td>
+<td style="text-align:center">检查file是否存在并是一个文件</td>
+</tr>
+<tr>
+<td style="text-align:center">-r file</td>
+<td style="text-align:center">检查file是否存在并可读</td>
+</tr>
+<tr>
+<td style="text-align:center">-s file</td>
+<td style="text-align:center">检查file是否存在并非空</td>
+</tr>
+<tr>
+<td style="text-align:center">-w file</td>
+<td style="text-align:center">检查file是否存在并可写</td>
+</tr>
+<tr>
+<td style="text-align:center">-x file</td>
+<td style="text-align:center">检查file是否存在并可执行</td>
+</tr>
+<tr>
+<td style="text-align:center">-O file</td>
+<td style="text-align:center">检查file是否存在并属当前用户所有</td>
+</tr>
+<tr>
+<td style="text-align:center">-x file</td>
+<td style="text-align:center">检查file是否存在并可执行</td>
+</tr>
+<tr>
+<td style="text-align:center">-G file</td>
+<td style="text-align:center">检查file是否存在并且默认组与当前用户相同</td>
+</tr>
+<tr>
+<td style="text-align:center">file1 -nt file2</td>
+<td style="text-align:center">检查file1是否比file2新</td>
+</tr>
+<tr>
+<td style="text-align:center">file1 -ot file2</td>
+<td style="text-align:center">检查file1是否比file2旧</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># 4. 文件比较</span>
+<span style="color:#008080">fileName</span><span style="color:#000;font-weight:bold">=</span>test3
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> -e <span style="color:#008080">$fileName</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;</span><span style="color:#008080">$fileName</span><span style="color:#d14">  exists&#34;</span>
+<span style="color:#000;font-weight:bold">else</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;</span><span style="color:#008080">$fileName</span><span style="color:#d14"> doesn&#39;t exists&#34;</span>
+<span style="color:#000;font-weight:bold">fi</span>
+</code></pre></div><h2 id="3花括号-">3、花括号{ }</h2>
+<p>花括号一般用于需要变量和字符串组合输出时，若想要实现变量后拼接字符串就需要使用花括号</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#998;font-style:italic"># 花括号使用练习</span>
+<span style="color:#008080">var</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">50</span>
+<span style="color:#008080">var1</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">100</span>
+<span style="color:#008080">var2</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">200</span>
+<span style="color:#998;font-style:italic"># 若想要实现var变量后拼接字符串就需要使用花括号</span>
+<span style="color:#0086b3">echo</span> <span style="color:#008080">$var1</span> <span style="color:#d14">${</span><span style="color:#008080">var</span><span style="color:#d14">}</span><span style="color:#099">1</span>
+<span style="color:#0086b3">echo</span> <span style="color:#008080">$var2</span> <span style="color:#d14">${</span><span style="color:#008080">var</span><span style="color:#d14">}</span><span style="color:#099">2</span>
+</code></pre></div><h2 id="4双括号-">4、双括号(( ))</h2>
+<p>双括号允许在比较语句中使用高级数学表达式，也可以与美元符号搭配，用于整型数据计算</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">val++</td>
+<td style="text-align:center">后增</td>
+</tr>
+<tr>
+<td style="text-align:center">val&ndash;</td>
+<td style="text-align:center">后减</td>
+</tr>
+<tr>
+<td style="text-align:center">++val</td>
+<td style="text-align:center">先增</td>
+</tr>
+<tr>
+<td style="text-align:center">&ndash;val</td>
+<td style="text-align:center">先减</td>
+</tr>
+<tr>
+<td style="text-align:center">！</td>
+<td style="text-align:center">逻辑求反</td>
+</tr>
+<tr>
+<td style="text-align:center">～</td>
+<td style="text-align:center">按位求反</td>
+</tr>
+<tr>
+<td style="text-align:center">**</td>
+<td style="text-align:center">幂运算</td>
+</tr>
+<tr>
+<td style="text-align:center">&laquo;</td>
+<td style="text-align:center">左移位</td>
+</tr>
+<tr>
+<td style="text-align:center">&raquo;</td>
+<td style="text-align:center">右移位</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;</td>
+<td style="text-align:center">布尔与</td>
+</tr>
+<tr>
+<td style="text-align:center">|</td>
+<td style="text-align:center">布尔或</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;&amp;</td>
+<td style="text-align:center">逻辑与</td>
+</tr>
+<tr>
+<td style="text-align:center">||</td>
+<td style="text-align:center">逻辑或</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#998;font-style:italic"># 双括号使用练习</span>
+<span style="color:#998;font-style:italic"># 用于高级数学表达式</span>
+<span style="color:#008080">var1</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">10</span>
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">((</span><span style="color:#008080">$var1</span> &gt;<span style="color:#000;font-weight:bold">=</span> 10<span style="color:#000;font-weight:bold">))</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#000;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">((</span><span style="color:#008080">i</span> <span style="color:#000;font-weight:bold">=</span> 0; i &lt; 3; i++<span style="color:#000;font-weight:bold">))</span>; <span style="color:#000;font-weight:bold">do</span>
+        <span style="color:#0086b3">echo</span> <span style="color:#008080">$i</span>
+    <span style="color:#000;font-weight:bold">done</span>
+<span style="color:#000;font-weight:bold">fi</span>
+
+<span style="color:#998;font-style:italic"># 用于整型数据计算</span>
+<span style="color:#008080">var1</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">100</span>
+<span style="color:#008080">var2</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">200</span>
+<span style="color:#998;font-style:italic"># 可以使用$+双方括号来表示整型运算</span>
+<span style="color:#008080">var3</span><span style="color:#000;font-weight:bold">=</span>$<span style="color:#000;font-weight:bold">[</span> <span style="color:#008080">$var1</span>+<span style="color:#008080">$var2</span>+1 <span style="color:#000;font-weight:bold">]</span>
+<span style="color:#998;font-style:italic"># 也可以使用$+双括号来表示整型运算</span>
+<span style="color:#008080">var4</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">$((</span><span style="color:#008080">$var1</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#008080">$var2</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span><span style="color:#000;font-weight:bold">))</span>
+<span style="color:#0086b3">echo</span> <span style="color:#008080">$var3</span>
+<span style="color:#0086b3">echo</span> <span style="color:#008080">$var4</span>
+</code></pre></div><h2 id="5双方括号-">5、双方括号[[ ]]</h2>
+<p>双方括号提供了针对字符串比较的高级特性，能够使用数学符号比较字符串，并实现了模式匹配</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#998;font-style:italic"># 双方括号使用练习</span>
+<span style="color:#008080">fileName</span><span style="color:#000;font-weight:bold">=</span>test5
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[[</span> <span style="color:#008080">$fileName</span><span style="color:#000;font-weight:bold">==</span>test* <span style="color:#000;font-weight:bold">]]</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;This is a test file!&#34;</span>
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[[</span> <span style="color:#008080">$fileName</span><span style="color:#000;font-weight:bold">==</span>test5 <span style="color:#000;font-weight:bold">]]</span>; <span style="color:#000;font-weight:bold">then</span>
+        <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;This file is test5!&#34;</span>
+    <span style="color:#000;font-weight:bold">fi</span>
+<span style="color:#000;font-weight:bold">fi</span>
+</code></pre></div><p>注意：不是所有的Shell都支持双方括号</p>
+<h2 id="参考资料">参考资料</h2>
+<p>《Linux命令行与shell脚本编程大全（第三版）》</p>
+<blockquote>
+<p>由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</p>
+</blockquote>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html">https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">知识共享署名4.0 国际许可协议</a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/06/15/chlinux/install-vsftpd.md.html">Vsftpd 虚拟用户配置</a></li>
+        
+        <li><a href="/2021/06/12/chlinux/question2.html">chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</a></li>
+        
+        <li><a href="/2021/06/09/chlinux/question1.html">Failed to allocate directory watch: Too many open files</a></li>
+        
+        <li><a href="/2021/06/09/chlinux/port-listening.html">查看端口监听状态</a></li>
+        
+        <li><a href="/2021/06/08/chlinux/pack-use-fpm.html">fpm打包</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF'>Shell括号场景</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

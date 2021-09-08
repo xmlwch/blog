@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/categories/MySQL/</link>
+    <description>Recent content in MySQL on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 15 Jul 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/MySQL/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL遗忘Root密码</title>
+      <link>https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html</link>
+      <pubDate>Thu, 15 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html</guid>
+      <description># systemctl stop mariadb #关闭服务 # cat /etc/my.cnf #修改/etc/my.cnf文件, ... [mysqld] skip-grant-tables #在[mysqld]下添加 skip-grant-tables , 再启动mysql ... # systemctl start mariadb #启动服务 # mysql -u root #连接MySql(MariaDB) 并修改root密码为123654 MariaDB [(none)]&amp;gt; update mysql.user set Password=password(&amp;#39;123654&amp;#39;) where User=&amp;#39;root&amp;#39;; Query OK, 1 row affected (0.01 sec) Rows matched: 4 Changed: 1 Warnings: 0 MariaDB [(none)]&amp;gt; flush privileges; Query OK, 0 rows affected (0.00 sec) MariaDB [(none)]&amp;gt; quit; Bye #</description>
+    </item>
+    
+    <item>
+      <title>MySQL服务启不了</title>
+      <link>https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html</link>
+      <pubDate>Fri, 18 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html</guid>
+      <description>情况1：存在socket lock file root用户执行 # systemctl restart kymysql 时不报错，但服务也没启动，查看错误日志 cat /opt/KY/Softs/log/mysql/mysql-error.log ... 2021-06-18T01:28:47.783821Z 0 [Note] Server hostname (bind-address): &amp;#39;0.0.0.0&amp;#39;; port: 20001 2021-06-18T01:28:47.783838Z 0 [Note] - &amp;#39;0.0.0.0&amp;#39; resolves to &amp;#39;0.0.0.0&amp;#39;; 2021-06-18T01:28:47.783867Z 0 [Note] Server socket created on IP: &amp;#39;0.0.0.0&amp;#39;. 2021-06-18T01:28:47.783925Z 0 [ERROR] Another process with pid 2663 is using unix socket file. 2021-06-18T01:28:47.783932Z 0 [ERROR] Unable to setup unix socket lock file. 2021-06-18T01:28:47.783937Z 0 [ERROR] Aborting 解决办法： # 删除sock锁文件 rm -rf /opt/KY/Softs/mysql/var/mysql.sock.lock # 重启服务 systemctl restart kymysql 情况2：缺少lib包 roo</description>
+    </item>
+    
+    <item>
+      <title>清空表数据</title>
+      <link>https://blog.xmlwch.cn/2021/06/16/mysql/empty-table.html</link>
+      <pubDate>Wed, 16 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/16/mysql/empty-table.html</guid>
+      <description>方式1：DELETE 逐行删除速度极慢，不适合大量数据删除 Deletefromtablenamewhere1=1方式2：TRUNCATE 删除所有数据，保留表结构，不能撤消还原 TRUNCATETABLEtablename方式3：DROP 删除表，数据和表结构一起删除，快速 DROPTAB</description>
+    </item>
+    
+  </channel>
+</rss>

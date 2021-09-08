@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>PHP Session浅析 | xmlwch的博客</title>
+    <meta property="og:title" content="PHP Session浅析 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-06-28T16:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-06-28T16:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/06/28/php/session.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">PHP Session浅析</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月28日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共3494字</span>，阅读约<span class="more-meta"> 7 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="缘由">缘由</h2>
+<p>配合客户做一个免密登录跳转接口，因为双方均采用独立的php环境，且部署在一台服务器上。出现了先登录我方系统后不可登录对方系统，先登录对方系统后登录不了我方系统，怀疑为会话机制出现问题。故重新梳理Session会话机制。</p>
+<h2 id="声明与使用">声明与使用</h2>
+<p>Session的设置不同于Cookie，必须先启动，在PHP中必须调用<code>session_start()</code>。语法格式如下：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">Bool session_start(<span style="color:#458;font-weight:bold">void</span>) <span style="color:#998;font-style:italic">// 创建Session，开始一个会话，进行Session初始化
+</span></code></pre></div><p>注意：<code>session_start()</code>函数之前不能有任何输出</p>
+<p>当第一次访问网站时，<code>seesion_start()</code>函数就会创建一个唯一的Session ID，并自动通过HTTP的响应头，将这个Session ID保存到客户端Cookie中。同时，也在服务器端创建一个以Session ID命名的文件，用于保存这个用户的会话信息。当同一个用户再次访问这个网站时，也会自动通过HTTP的请求头将Cookie中保存的Seesion ID再携带过来，这时<code>session_start()</code>函数就不会再去分配一个新的Session ID，而是在服务器的硬盘中去寻找和这个Session ID同名的Session文件，将这之前为这个用户保存的会话信息读出，在当前脚本中应用，达到跟踪这个用户的目的。 Session以数组的形式使用，如：<code>$_SESSION['session名']</code></p>
+<h2 id="注册和读取">注册和读取</h2>
+<p>在PHP中使用Session变量，除了要启动之外，还要经过注册的过程。注册和读取Session变量，都要通过访问<code>$_SESSION</code>数组完成。在<code>$_SESSION</code>关联数组中的键名具有和PHP中普通变量相同的命名规则。注册Session变量的代码如下所示：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#000;font-weight:bold">&lt;?</span>php
+<span style="color:#998;font-style:italic">// 启动session的初始化
+</span><span style="color:#998;font-style:italic"></span>session_start();
+<span style="color:#998;font-style:italic">// 注册session变量，赋值为一个用户的名称
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">$_SESSION</span>[<span style="color:#d14">&#34;username&#34;</span>]<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;skygao&#34;</span>;
+<span style="color:#998;font-style:italic">// 注册session变量，赋值为一个用户的ID
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">$_SESSION</span>[<span style="color:#d14">&#34;uid&#34;</span>]<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>;
+<span style="color:#999;font-weight:bold;font-style:italic">?&gt;</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><p>执行该脚本后，两个Session变量就会被保存在服务器端的某个文件中，该文件的位置是通过<code>php.ini</code>文件，在<code>session.save_path</code>属性指定的目录下。</p>
+<h2 id="注销与销毁">注销与销毁</h2>
+<p>当使用完一个Session变量后，可以将其删除，当完成一个会话后，也可以将其销毁。如果用户退出Web系统，就需要为他提供一个注销的功能，把他的所有信息在服务器中销毁。销毁和当前Session有关的所有的资料，可以调用<code>session_destroy()</code>函数结束当前的会话，并清空会话中的所有资源。该函数的语法格式如下所示：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">Bool session_destroy(<span style="color:#458;font-weight:bold">void</span>) <span style="color:#998;font-style:italic">// 销毁和当前Session有关的所有资料
+</span></code></pre></div><p>该函数并不会释放和当前Session相关的变量，也不会删除保存在客户端Cookie中的SessionID。因为<code>$_SESSION</code>数组和自定义的数组在使用上是相同的，所以我们可以使用unset()函数来释放在Session中注册的单个变量。如下所示：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">unset(<span style="color:#a61717;background-color:#e3d2d2">$</span>_SESSION[<span style="color:#a61717;background-color:#e3d2d2">&#39;键名&#39;</span>]);
+</code></pre></div><p>一定要注意，不要使用<code>unset($_SESSION)</code>删除整个<code>$_SESSION</code>数组，这样将不能再通过<code>$_SESSION</code>超全局数组注册变量了。但如果想把某个用户在Session中注册的所有变量都删除，可以直接将数组变量<code>$_SESSION</code>赋上一个空数组。如下所示：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">　　<span style="color:#a61717;background-color:#e3d2d2">$</span>_SESSION<span style="color:#000;font-weight:bold">=</span>array()
+</code></pre></div><p>PHP默认的Session是基于Cookie的，SessionID被服务器存储在客户端的Cookie中，所以在注销Session时也需要清除Cookie中保存的SessionID，而这就必须借助<code>setCookie()</code>函数完成。在PHP脚本中，可以通过调用<code>session_name()</code>函数获取Session名称。删除保存在客户端Cookie中的SessionID，代码如下所示：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#000;font-weight:bold">&lt;?</span>php
+<span style="color:#998;font-style:italic">// 判断Cookie中是否存在session ID
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">if</span>(isset(<span style="color:#008080">$_COOKIE</span>[session_name()])){
+    <span style="color:#998;font-style:italic">// 删除包含Session ID的cookie，注意第四个参数一定要和php.ini设置的路径相同
+</span><span style="color:#998;font-style:italic"></span>    setcookie(session_name(), <span style="color:#d14">&#39;&#39;</span>, time() <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">3600</span>, <span style="color:#d14">&#39;/&#39;</span>);
+}
+<span style="color:#999;font-weight:bold;font-style:italic">?&gt;</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><p>通过前面的介绍可以总结出，Session的注销过程共需要4个步骤。在下例中，提供完整的四个步骤代码，运行该脚本就可以关闭Session，并销毁与本次会话有关的所有资源。代码如下所示：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#000;font-weight:bold">&lt;?</span>php
+<span style="color:#998;font-style:italic">//第一步：开启Session并初始化
+</span><span style="color:#998;font-style:italic"></span>session_start();
+
+<span style="color:#998;font-style:italic">//第二部：删除所有Session的变量，也可以用unset($_SESSION[XXX])逐个删除
+</span><span style="color:#998;font-style:italic"></span><span style="color:#008080">$_SESSION</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>();
+
+<span style="color:#998;font-style:italic">//第三部：如果使用基于Cookie的session，使用setCookkie()删除包含Session ID的cookie
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">if</span>(isset(<span style="color:#008080">$_COOKIE</span>[session_name()])) {
+    setCookie(session_name(), <span style="color:#d14">&#34;&#34;</span>, time()<span style="color:#000;font-weight:bold">-</span><span style="color:#099">42000</span>, <span style="color:#d14">&#34;/&#34;</span>);
+}
+
+<span style="color:#998;font-style:italic">//第四部：最后彻底销毁session
+</span><span style="color:#998;font-style:italic"></span>session_destroy();
+<span style="color:#999;font-weight:bold;font-style:italic">?&gt;</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h2 id="phpini配置"><code>php.ini</code>配置</h2>
+<h3 id="phpini文件和session有关的几个常用配置选项"><code>php.ini</code>文件和Session有关的几个常用配置选项：</h3>
+<p><code>session.auto_start = 0;</code> 在请求启动时初始化session</p>
+<p><code>session.cache_expire = 180; </code>设置缓存中的会话文档在 n 分钟后过时</p>
+<p><code>session.cookie_lifetime = 0;</code> 设置按秒记的cookie的保存时间，相当于设置Session的过期时间，为0时表示直到浏览器被重启</p>
+<p><code>session.auto_start=1;</code>这样就无需每次使用session之前都要调用<code>session_start()</code>不建议使用.但启用该选项也有一些限制，如果确实启用了 <code>session.auto_start</code>，则不能将对象放入会话中，因为类定义必须在启动会话之前加载以在会话中重建对象。</p>
+<p><code>session.cookie_path = /;</code> cookie的有效路径</p>
+<p><code>session.cookie_domain = ;</code> cookie的有效域</p>
+<p><code>session.name = PHPSESSID;</code> 用在cookie里的session的名字</p>
+<p><code>session.save_handler = files; </code>用于保存/取回数据的控制方式</p>
+<p><code>session.save_path = /tmp;</code> 在 save_handler 设为文件时传给控制器的参数， 这是数据文件将保存的路径.</p>
+<p><code>session.use_cookies = 1;</code> 是否使用cookies</p>
+<h3 id="session的垃圾自动回收机制">Session的垃圾自动回收机制</h3>
+<p>可以通过<code>session_destroy()</code>函数在页面中提供一个“退出”按钮，通过单击销毁本次会话。但如果用户没有单击退出按钮，而是直接关闭浏览器，或断网等情况，在服务器端保存的Session文件是不会删除的。虽然关闭浏览器，下次需要重新分配一个新的Session ID重新登录，但这只是因为在<code>php.ini</code>中的设置</p>
+<p><code>seesion.cookie_lifetime=0;</code>，来设定Session ID在客户端Cookie中的有效限期，以秒为单位指定了发送到浏览器的Cookie的生命周期。当系统赋予Session有效期限后不管浏览器是否开启，Session ID都会自动消失。而客户端Session ID消失服务器端保存的Session文件并没有被删除。所以没有被Sessoin ID引用的服务器端Session文件，就成为了“垃圾”。</p>
+<p>服务器保存的Session文件就是一个普通文本文件，所以都会有文件修改时间。“垃圾回收程序”启动后就是根据Session文件的修改时间，将所有过期的Session文件全部删除。通过在php.ini中设置<code>session.gc_maxlifetime</code>选项来指定一个时间(单位：秒)，例如设置该选项值为1440(24分钟)。“垃圾回收程序”就会在所有Session文件中排查，如果有修改时间距离当前系统时间大于1440秒的就将其删除。</p>
+<p>“session垃圾回收程序”是怎样的启动机制呢?“垃圾回收程序”是在调用<code>session_start()</code>函数时启动的。而一个网站有多个脚本，没有脚本又都要使用<code>session_start()</code>函数开启会话，又会有很多个用户同时访问，这就很可能<code>session_start()</code>函数在1秒内被调用N次，而如果每次都会启动“session垃圾回收程序”，这样是很不合理的。可以通过<code>php.ini</code>文件中修改“<code>session.gc_probability</code>和<code>session.gc_divisor</code>”两个选项，设置启动垃圾回收程序的概率。会根据“<code>session.gc_probability</code>/<code>session.gc_divisor</code>”公示计算概率，例如选项<code>session.gc_probability=1</code>，而选项<code>session.gc_divisor=100</code>，这样的概率就是“1/100”，即<code>session_start()</code>函数被调用100次才会有一次可能启动“垃圾回收程序”。</p>
+<p>php.ini中相关的配置</p>
+<p><code>session.cookie_lifetime=0;</code> 关闭浏览器相应的cookie文件即被删除</p>
+<p><code>session.gc_maxlifetime;</code> 设置过期session时间，默认1440秒(24分钟)</p>
+<p><code>session.gc_probability</code>/<code>session.gc_divisor; </code>启动垃圾回收机制的概率(建议值为1/1000——5000)</p>
+<h2 id="最终方案">最终方案</h2>
+<p>梳理后推断为 <code>session.name</code>  一致，导致 跳转（默认自动带Cookie）后 会话无法读取Session ID命名的文件导致Session注册失败。故修改我方<code>php.ini</code>配置文件中的 <code>session.name</code> 使Session完成初始化。</p>
+<blockquote>
+<p>由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</p>
+</blockquote>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2021/06/28/php/session.html">https://blog.xmlwch.cn/2021/06/28/php/session.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">知识共享署名4.0 国际许可协议</a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Session'>Session</a></li>
+                
+                <li><a href='/tags/PHP'>PHP</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

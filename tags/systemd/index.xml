@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>systemd on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/systemd/</link>
+    <description>Recent content in systemd on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 05 Aug 2021 11:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/systemd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>systemd详解</title>
+      <link>https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html</link>
+      <pubDate>Thu, 05 Aug 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html</guid>
+      <description>说明 systemd 是 Linux 系统工具，用来启动守护进程，已成为大多数发行版的标准配置；主要用于服务管理和自定义服务的管理，方便运维工作管理。 systemctl systemctl是 Systemd 的主命令，用于管理系统 # 重启系统 sudo systemctl reboot # 关闭系统，切断电源 sudo systemctl poweroff # CPU停止工作 sudo systemctl halt # 暂停系统 sudo systemctl suspend # 让系统进入冬眠状态 sudo systemctl hibernate # 让系</description>
+    </item>
+    
+  </channel>
+</rss>

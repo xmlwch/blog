@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>psr-0 on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/psr-0/</link>
+    <description>Recent content in psr-0 on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 28 Jul 2021 20:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/psr-0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[转]PHP规范PSR-0和PSR-4的理解</title>
+      <link>https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html</link>
+      <pubDate>Wed, 28 Jul 2021 20:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html</guid>
+      <description>一、PSR0简介 下文描述了若要使用一个通用的自动加载器(autoloader)，你所需要遵守的规范： 一个完全标准的命名空间(namespace)和类(class)的结构是这样的：\&amp;lt;Vendor Name&amp;gt;\(&amp;lt;Namespace&amp;gt;\)*&amp;lt;Class Name&amp;gt; 每个命名空间(namespace)都必须有一个顶级的空间名(namespac</description>
+    </item>
+    
+  </channel>
+</rss>

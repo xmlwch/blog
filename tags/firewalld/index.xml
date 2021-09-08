@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>firewalld on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/firewalld/</link>
+    <description>Recent content in firewalld on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 07 Jun 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/firewalld/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>防火墙（firewalld）的操作命令</title>
+      <link>https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html</link>
+      <pubDate>Mon, 07 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html</guid>
+      <description>1、基本使用 启动： systemctl start firewalld 查看状态：systemctl status firewalld 禁用，禁止开机启动： systemctl disable firewalld 停止运行： systemctl stop firewalld 2、firewalld-cmd 查看版本： firewall-cmd --version 查看帮助： firewall-cmd --help 显示状态： firewall-cmd --state 查看所有打开的端口： firewall-cmd --zone=public --list-ports 更新防火墙规则： firewall-cmd --reload 更新防火墙规则，重启服务： firewall-cmd --completely-reload 查看已激活的Zone信息: firewall-cmd --get-active-zones 查看</description>
+    </item>
+    
+  </channel>
+</rss>

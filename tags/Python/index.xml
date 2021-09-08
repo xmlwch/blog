@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/Python/</link>
+    <description>Recent content in Python on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 30 Aug 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python实现TP的Model层</title>
+      <link>https://blog.xmlwch.cn/2021/08/30/python/model.html</link>
+      <pubDate>Mon, 30 Aug 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/30/python/model.html</guid>
+      <description>项目用到了python，习惯了TP的链式操作，自己动手写了一个python的Model层 实现了Pymysql的原生连接和dbutils的连接池连接 模型基类： # coding: utf-8 import pymysql import threading from Include.Logger import get_logger from Include.Setting import app_settings from dbutils.pooled_db import PooledDB class MysqlPool: config = { &amp;#39;creator&amp;#39;: pymysql, &amp;#39;host&amp;#39;: app_settings.get(&amp;#39;ManagerHost&amp;#39;, &amp;#39;127.0.0.1&amp;#39;), &amp;#39;port&amp;#39;: int(app_settings.get(&amp;#39;DBPort&amp;#39;, 3306)), &amp;#39;user&amp;#39;: app_settings.get(&amp;#39;DBUser&amp;#39;, &amp;#39;root&amp;#39;), &amp;#39;password&amp;#39;: app_settings.get(&amp;#39;DBPwd&amp;#39;, &amp;#39;&amp;#39;), &amp;#39;db&amp;#39;: app_settings.get(&amp;#39;DBName&amp;#39;, &amp;#39;&amp;#39;), &amp;#39;charset&amp;#39;: app_settings.get(&amp;#39;DBCharSet&amp;#39;, &amp;#39;utf8&amp;#39;), &amp;#39;maxconnections&amp;#39;: 30, # 连接池最大连接数 &amp;#39;cursorclass&amp;#39;: pymysql.cursors.DictCursor } pool = PooledDB(**config) def</description>
+    </item>
+    
+  </channel>
+</rss>

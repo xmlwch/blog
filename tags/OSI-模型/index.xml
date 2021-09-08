@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OSI 模型 on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/</link>
+    <description>Recent content in OSI 模型 on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 08 Aug 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>网络模型</title>
+      <link>https://blog.xmlwch.cn/2021/08/08/network/reference-models.html</link>
+      <pubDate>Sun, 08 Aug 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/08/network/reference-models.html</guid>
+      <description>1、分层模型的优点 分层模型，例如 TCP/IP 模型，通常用于形象化展现各种协议之间的交互。 分层模型形象地说明了各层内协议的工作方式，及其与上下层之间的交互。 使用分层模型来说明网络协议及其工作方式有很多优点。 使用分层模型的优点： 有助于协议设计，因为对于在特定层工作的协议而言，它们的工作方式及其</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/categories/Git/</link>
+    <description>Recent content in Git on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 15 Jul 2021 20:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git “warning: LF will be replaced by CRLF”的解决办法</title>
+      <link>https://blog.xmlwch.cn/2021/07/15/git/question1.html</link>
+      <pubDate>Thu, 15 Jul 2021 20:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/15/git/question1.html</guid>
+      <description>一、引言 windows平台下使用git add，git deploy 文件时经常出现“warning: LF will be replaced by CRLF” 的提示。 网上很多解决办法提到：设置core.autocrlf=false，windows也用LF换行。 二、分析 格式化与多余的空白字符，特别是在跨平台情况下，有时候是一个令人发</description>
+    </item>
+    
+  </channel>
+</rss>

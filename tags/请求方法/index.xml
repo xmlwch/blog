@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>请求方法 on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/</link>
+    <description>Recent content in 请求方法 on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 02 Aug 2021 09:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTTP 请求方法</title>
+      <link>https://blog.xmlwch.cn/2021/08/02/http/http-request-method.html</link>
+      <pubDate>Mon, 02 Aug 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/02/http/http-request-method.html</guid>
+      <description>请求方法 说明 GET GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据. HEAD HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体. POST POST方法用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用. PUT PUT方法用请求有效载荷替换目标资源的所有</description>
+    </item>
+    
+  </channel>
+</rss>

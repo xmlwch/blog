@@ -1,0 +1,1778 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>[转]PHPWord中文手册整理 | xmlwch的博客</title>
+    <meta property="og:title" content="[转]PHPWord中文手册整理 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-07-26T12:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-07-26T12:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/07/26/php/phpword.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">[转]PHPWord中文手册整理</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月26日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共5332字</span>，阅读约<span class="more-meta"> 11 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="修正">修正</h2>
+<p>中文支持的问题，使用前如果发现乱码，需要进行一些修正：</p>
+<ul>
+<li>解决编码问题，PHPword 会对输入的文字进行<code>utf8_encode</code>编码转化，如果你使用<code>GBK</code>、<code>GB2312</code>或者<code>utf8</code>编码的话就会出现乱码，如果你用<code>utf8</code>编码，就查找类库中所有方法中的 <code>utf8_encode</code> 转码将其删除，如果你采用<code>GBK</code>或者<code>GB2312</code>编码，使用<code>iconv</code>进行编码转换。</li>
+<li>解决中文字体支持，在<code>writer/word2007/base.php</code>中 312行添加 <code>$objWriter-&gt;writeAttribute('w:eastAsia',$font)</code></li>
+<li>启动<code>php zip</code>支持，windows环境下在php配置文件<code>php.ini</code>中，将<code>extension=php_zip.dll</code>前面的分号“;”去除；(如果没有，请添加<code>extension=php_zip.dll</code>此行并确保<code>php_zip.dll</code>文件存在相应的目录)，然后同样在<code>php.ini</code>文件中，将 <code>zlib.output_compression = Off</code> 改为<code>zlib.output_compression = On </code>；</li>
+</ul>
+<h2 id="计量单位缇twips">计量单位：缇（twips）</h2>
+<p>PHPWord最基本的计量单位：“缇”（twips），我们常常在文件中看到或使用计量单位“缇”，它是开源办公软件中最基本的计量单位，“缇”是&quot;TWentieth of an Inch Point&quot;的简写，意思 1/20磅，与其他常用剂量单位的换算是1缇=1/1，440英寸</p>
+<p><strong>1缇=1/567厘米</strong></p>
+<p><strong>1缇=1/15像素</strong></p>
+<h2 id="字体设置">字体设置</h2>
+<p>文档默认字体是Arial，字号10号，我们可以通过以下方法设置默认字体和字号：
+注，该库存在中文字体支持问题，解决方法：见文档开头</p>
+<pre><code>$PHPWord-&gt;setDefaultFontName('Tahoma');
+$PHPWord-&gt;setDefaultFontSize(12);
+</code></pre><h2 id="文档属性设置">文档属性设置</h2>
+<p>我们可以设置下列文档属性</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Creator</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">创建者</td>
+</tr>
+<tr>
+<td style="text-align:center">Company</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">公司</td>
+</tr>
+<tr>
+<td style="text-align:center">Title</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">标题</td>
+</tr>
+<tr>
+<td style="text-align:center">Description</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">Category</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">分类</td>
+</tr>
+<tr>
+<td style="text-align:center">Last modified by</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">最后修改者</td>
+</tr>
+<tr>
+<td style="text-align:center">Created</td>
+<td style="text-align:center">Datetime</td>
+<td style="text-align:center">创建时间</td>
+</tr>
+<tr>
+<td style="text-align:center">Modified</td>
+<td style="text-align:center">Datetime</td>
+<td style="text-align:center">修改时间</td>
+</tr>
+<tr>
+<td style="text-align:center">Subject</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">主题</td>
+</tr>
+<tr>
+<td style="text-align:center">Keywords</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">关键词</td>
+</tr>
+</tbody>
+</table>
+<p>我们可以通过以下方法设置文档属性</p>
+<pre><code>$properties = $PHPWord-&gt;getProperties();
+$properties-&gt;setCreator('My name'); 
+$properties-&gt;setCompany('My factory');
+$properties-&gt;setTitle('My title');
+$properties-&gt;setDescription('My description'); 
+$properties-&gt;setCategory('My category');
+$properties-&gt;setLastModifiedBy('My name');
+$properties-&gt;setCreated( mktime(0, 0, 0, 3, 12, 2010) );
+$properties-&gt;setModified( mktime(0, 0, 0, 3, 14, 2010) );
+$properties-&gt;setSubject('My subject'); 
+$properties-&gt;setKeywords('my, key, word');
+</code></pre><h2 id="新建文档">新建文档</h2>
+<h3 id="添加页面">添加页面</h3>
+<p>添加默认页面（默认页面方向和页边距）：</p>
+<pre><code>$section = $PHPWord-&gt;createSection();
+</code></pre><h3 id="页面样式">页面样式</h3>
+<p>调整页面样式和布局有两种方法：
+1.创建样式数组:</p>
+<pre><code>$sectionStyle = array('orientation' =&gt; null,
+       'marginLeft' =&gt; 900,
+       'marginRight' =&gt; 900,
+       'marginTop' =&gt; 900,
+       'marginBottom' =&gt; 900);
+$section = $PHPWord-&gt;createSection($sectionStyle);
+</code></pre><p>2.直接调用样式属性设置方法进行设置:</p>
+<pre><code>$section = $PHPWord-&gt;createSection();
+$sectionStyle = $section-&gt;getSettings();
+$sectionStyle-&gt;setLandscape();
+$sectionStyle-&gt;setPortrait();
+$sectionStyle-&gt;setMarginLeft(900);
+$sectionStyle-&gt;setMarginRight(900);
+$sectionStyle-&gt;setMarginTop(900);
+$sectionStyle-&gt;setMarginBottom(900);
+</code></pre><h3 id="页面样式属性">页面样式属性</h3>
+<p>注意：所有的属性对大小写敏感 !</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">orientation</td>
+<td style="text-align:center">页面方向：默认竖向：null 横向：landscape</td>
+</tr>
+<tr>
+<td style="text-align:center">marginTop</td>
+<td style="text-align:center">上边距，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">marginLeft</td>
+<td style="text-align:center">左边距，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">marginRight</td>
+<td style="text-align:center">右边距，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">marginBottom</td>
+<td style="text-align:center">下边距，单位：twips..</td>
+</tr>
+<tr>
+<td style="text-align:center">borderTopSize</td>
+<td style="text-align:center">上边框尺寸，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderTopColor</td>
+<td style="text-align:center">上边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderLeftSize</td>
+<td style="text-align:center">左边框尺寸，单位 ：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderLeftColor</td>
+<td style="text-align:center">左边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderRightSize</td>
+<td style="text-align:center">右边框尺寸，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderRightColor</td>
+<td style="text-align:center">右边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderBottomSize</td>
+<td style="text-align:center">底边框尺寸，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderBottomColor</td>
+<td style="text-align:center">底边框颜色</td>
+</tr>
+</tbody>
+</table>
+<p>页面高度和宽度是自动设置的，你可以通过以下两个属性来修改，但不推荐进行修改。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">pageSizeW</td>
+<td style="text-align:center">页面宽度，单位： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">pageSizeH</td>
+<td style="text-align:center">页面高度，单位：twips.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="文本">文本</h2>
+<h3 id="添加文本">添加文本</h3>
+<p>向文档添加文本使用方法函数： addText.（注意PHPword 会对输入的文字进行utf8_encode编码转化，如果你使用GBK、GB2312或者utf8编码的话就会出现乱码，如果你用utf8编码，就查找类库中所有方法中的 utf8_encode 转码将其删除，如果你采用GBK或者GB2312编码，使用iconv进行编码转换。）</p>
+<pre><code>$section-&gt;addText( $text, [$fontStyle], [$paragraphStyle] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addText()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$text</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">文本内容.</td>
+</tr>
+<tr>
+<td style="text-align:center">$fontStyle</td>
+<td style="text-align:center">String / Array</td>
+<td style="text-align:center">字体样式.</td>
+</tr>
+<tr>
+<td style="text-align:center">$paragraphStyle</td>
+<td style="text-align:center">String / Array</td>
+<td style="text-align:center">段落样式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="添加文本资源">添加文本资源</h3>
+<p>文本资源可以包含<strong>文本</strong>和<strong>链接</strong>，可以统一赋予段落样式，添加文本资源使用函数方法createTextrun.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">createTextRun()</th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$paragraphStyle</td>
+<td style="text-align:center">String / Array</td>
+<td style="text-align:center">文本样式.</td>
+</tr>
+</tbody>
+</table>
+<p>添加文本资源后，就可以添加具有独特样式的文本或链接了。</p>
+<pre><code>$textrun = $section-&gt;createTextRun();
+$textrun-&gt;addText('I am bold', array('bold'=&gt;true)); 
+$textrun-&gt;addText('I am italic, array('italic'=&gt;true));
+$textrun-&gt;addText('I am colored, array('color'=&gt;'AACC00'));
+</code></pre><p>当然也可以继承使用段落或文字样式</p>
+<h3 id="文本样式">文本样式</h3>
+<p>设置文本样式有两种方法：</p>
+<p>1.内嵌样式：</p>
+<pre><code>$fontStyle = array('color'=&gt;'006699', 'size'=&gt;18, 'bold'=&gt;true);
+$section-&gt;addText('helloWorld', $fontStyle);
+
+$text = $section-&gt;addText('helloWorld');
+$style = $text-&gt;getStyle();
+$style-&gt;setColor('006699');
+$style-&gt;setSize(18);
+$style-&gt;setBold();
+</code></pre><p>2.或者定义一个样式定义设置文本样式，定义一种样式后，必须把第二个参数设置为样式名称，使用方法函数addFontStyle:</p>
+<pre><code>$PHPWord-&gt;addFontStyle( $styleName, $fontStyle);
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">addFontStyle()</th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleName</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">样式名称</td>
+</tr>
+<tr>
+<td style="text-align:center">$fontStyle</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">样式风格.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例：</strong></p>
+<pre><code>$fontStyle = array('color'=&gt;'006699', 'size'=&gt;18, 'bold'=&gt;true);
+$PHPWord-&gt;addFontStyle('myOwnStyle', $fontStyle);
+$text = $section-&gt;addText('helloWorld', 'myOwnStyle');
+</code></pre><p>添加段落样式，使用方法函数addParagraphStyle:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addParagraphStyle()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleName</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">段落样式名称.</td>
+</tr>
+<tr>
+<td style="text-align:center">$paragraphStyle</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">段落样式.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="样式属性列表">样式属性列表</h2>
+<p>属性大小写敏感 !</p>
+<h3 id="font-style"><strong>Font Style</strong></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">size</td>
+<td style="text-align:center">字号.</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">字体</td>
+</tr>
+<tr>
+<td style="text-align:center">bold</td>
+<td style="text-align:center">粗体</td>
+</tr>
+<tr>
+<td style="text-align:center">italic</td>
+<td style="text-align:center">斜体</td>
+</tr>
+<tr>
+<td style="text-align:center">superScript</td>
+<td style="text-align:center">上标</td>
+</tr>
+<tr>
+<td style="text-align:center">subScript</td>
+<td style="text-align:center">下标</td>
+</tr>
+<tr>
+<td style="text-align:center">underline</td>
+<td style="text-align:center">下划线，使用常量: PHPWord_Style_Font::UNDERLINE_&hellip;</td>
+</tr>
+<tr>
+<td style="text-align:center">Color</td>
+<td style="text-align:center">字体颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">fgColor</td>
+<td style="text-align:center">前景色. 只能使用预定义常量：PHPWord_Style_Font::FGCOLOR_&hellip;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="paragraph-style">Paragraph Style</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">align</td>
+<td style="text-align:center">水平对齐:leftrightcenterboth / justify</td>
+</tr>
+<tr>
+<td style="text-align:center">spaceBefore</td>
+<td style="text-align:center">段前间距，单位： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">spaceAfter</td>
+<td style="text-align:center">段后间距，单位：twips</td>
+</tr>
+<tr>
+<td style="text-align:center">spacing</td>
+<td style="text-align:center">行间距，单位： twips.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="换行符">换行符</h2>
+<p>添加换行符，使用方法函数 addTextBreak:</p>
+<pre><code>$section-&gt;addTextBreak();
+</code></pre><p>添加多个换行符：</p>
+<pre><code>$section-&gt;addTextBreak(15);
+</code></pre><h3 id="添加分页符">添加分页符</h3>
+<p>添加分页符，使用方法函数：addPageBreak:</p>
+<pre><code>$section-&gt;addPageBreak();
+</code></pre><h2 id="列表">列表</h2>
+<h3 id="添加列表">添加列表</h3>
+<p>添加列表使用方法函数： addListItem:</p>
+<pre><code>$section-&gt;addListItem( $text, [$depth], [$styleText], [$styleList], [$styleParagraph] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addListItem()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$text</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">文本内容.</td>
+</tr>
+<tr>
+<td style="text-align:center">$depth</td>
+<td style="text-align:center">Integer</td>
+<td style="text-align:center">编号</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleText</td>
+<td style="text-align:center">String / Array</td>
+<td style="text-align:center">文本样式.</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleList</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">列表样式.</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleParagraph</td>
+<td style="text-align:center">String / Array</td>
+<td style="text-align:center">段落样式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="列表样式">列表样式</h3>
+<p><strong>示例:</strong></p>
+<pre><code>$listStyle = array('listType' =&gt; PHPWord_Style_ListItem::TYPE_NUMBER);
+$section-&gt;addListItem('Listitem 1', 0, null, $listStyle);
+</code></pre><h3 id="列表样式属性列表">列表样式属性列表</h3>
+<p>属性大小写敏感!</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">listType</td>
+<td style="text-align:center">列表符号样式.使用常量 PHPWord_Style_ListItem::TYPE_&hellip;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="超链接">超链接</h2>
+<h3 id="添加超链接">添加超链接</h3>
+<p>添加超链接，使用方法函数： addLink:</p>
+<pre><code>$section-&gt;addLink( $linkSrc, [$linkName], [$styleFont], [$styleParagraph]);
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addListItem()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$linkSrc</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">链接地址</td>
+</tr>
+<tr>
+<td style="text-align:center">$linkName</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">链接名称.</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleFont</td>
+<td style="text-align:center">String / Array</td>
+<td style="text-align:center">文本样式</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleParagraph</td>
+<td style="text-align:center">String / Array</td>
+<td style="text-align:center">段落样式</td>
+</tr>
+</tbody>
+</table>
+<p>注意在添加链接地址时最好trim一下前后有空格很可有可能导致文档打不开</p>
+<h3 id="超链接样式">超链接样式</h3>
+<p>定义超链接风格的两种方法</p>
+<ol>
+<li>内嵌样式:</li>
+</ol>
+<pre><code>$linkStyle = array('color'=&gt;'0000FF',
+    'underline'=&gt;PHPWord_Style_Font::UNDERLINE_SINGLE);
+$section-&gt;addLink('http://www.google.de', null, $linkStyle);
+</code></pre><ol>
+<li>或者定义一个样式定义设置超链接样式，定义一种样式后，必须把第三个参数设置为样式名称</li>
+</ol>
+<pre><code>$linkStyle = array('color'=&gt;'0000FF',
+    'underline'=&gt;PHPWord_Style_Font::UNDERLINE_SINGLE);
+$PHPWord-&gt;addLinkStyle('myHyperlinkStyle', $linkStyle);
+$section-&gt;addLink('http://www.google.de', null, 'myHyperlinkStyle');
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addLinkStyle()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleName</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">超链接样式名称.</td>
+</tr>
+<tr>
+<td style="text-align:center">$styles</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">链接样式.可以使用各种字体样式属性</td>
+</tr>
+</tbody>
+</table>
+<h2 id="图片">图片</h2>
+<h3 id="添加图片">添加图片</h3>
+<p>添加图片的函数方法： addImage:</p>
+<pre><code>$section-&gt;addImage( $src, [$style] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">addImage()</th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$src</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">图像的服务器路径，支持相对和绝对路径</td>
+</tr>
+<tr>
+<td style="text-align:center">$style</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">图片样式.</td>
+</tr>
+</tbody>
+</table>
+<p>注意在添加图片路径时最好trim一下前后有空格很可有可能导致文档打不开</p>
+<h3 id="图片样式">图片样式</h3>
+<p>添加图片样式只能使用数组方式 :</p>
+<pre><code>$imageStyle = array('width'=&gt;350, 'height'=&gt;350, 'align'=&gt;'center');
+$section-&gt;addImage('EARTH.jpg', $imageStyle);
+</code></pre><h3 id="图片样式属性">图片样式属性</h3>
+<p>大小写敏感!</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">width</td>
+<td style="text-align:center">图像宽度，单位像素</td>
+</tr>
+<tr>
+<td style="text-align:center">height</td>
+<td style="text-align:center">图像高度，单位像素</td>
+</tr>
+<tr>
+<td style="text-align:center">align</td>
+<td style="text-align:center">图像对齐方式leftrightcenter</td>
+</tr>
+</tbody>
+</table>
+<p>如果没有指定图片高或宽的属性，系统将使用PHP原生函数”getimagesize”来获取相关属性。</p>
+<p>PHPWord 支持的图片格式: gif, jpeg, png, bmp, tiff.</p>
+<h3 id="添加gd生成图片">添加GD生成图片</h3>
+<p>你也可以添加由GD库生成的图片，使用函数方法：addMemoryImage:</p>
+<pre><code>$section-&gt;addMemoryImage( $link, [$style] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addMemoryImage()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$link</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">生成图片的php文件的路径. 注意: 应设置文件的绝对路径（就像你在浏览器中调用php文件），否则会发生错误。</td>
+</tr>
+<tr>
+<td style="text-align:center">$style</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">图像样式.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>$section-&gt;addMemoryImage('http://localhost/image.php');
+</code></pre><p>你GD图片样式的设置和本地图片一样.</p>
+<p>PHPWord 支持的 GD 图片类型： png, jpeg, gif.</p>
+<h2 id="添加水印">添加水印</h2>
+<p>添加水印的页面需要一个头部引用，添加水印方法函数：addWatermark</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addWatermark()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$src</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">水印图片的文件地址</td>
+</tr>
+<tr>
+<td style="text-align:center">$style</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">水印图片样式</td>
+</tr>
+</tbody>
+</table>
+<p>水印图片是在页面是绝对定位的，所以水印图片至少需要两个样式属性</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">marginLeft</td>
+<td style="text-align:center">左边距，单位像素</td>
+</tr>
+<tr>
+<td style="text-align:center">marginTop</td>
+<td style="text-align:center">上边距，单位像素</td>
+</tr>
+</tbody>
+</table>
+<p>注：图片样式并没有提供图像并排，文字环绕等功能，可以通过与表格想结合进行解决。</p>
+<h2 id="添加对象">添加对象</h2>
+<p>我们可以使用方法函数 addObject，添加对象和链接</p>
+<pre><code>$section-&gt;addObject( $src, [$style] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addObject()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$src</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">文件的服务器，支持相对和绝对路径.</td>
+</tr>
+<tr>
+<td style="text-align:center">$style</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">对象样式.</td>
+</tr>
+</tbody>
+</table>
+<p>对象属性是有一个样式:</p>
+<p>属性区分大小写!</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">align</td>
+<td style="text-align:center">对齐方式leftrightcenter</td>
+</tr>
+</tbody>
+</table>
+<p>PHPWord 支持的对象类型： XLS, DOC, PPT.</p>
+<h2 id="添加标题">添加标题</h2>
+<p>我们可以使用标题来为结构化文档或为文档建立目录，添加标题使用方法函数addTitleStyle 和 addTitle:</p>
+<pre><code>$PHPWord-&gt;addTitleStyle( $titleCount, [$fontStyle] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">addTitleStyle()</th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$src</td>
+<td style="text-align:center">Integer</td>
+<td style="text-align:center">标题级别，最多支持9级标题</td>
+</tr>
+<tr>
+<td style="text-align:center">$fontStyle</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">标题字体样式</td>
+</tr>
+</tbody>
+</table>
+<p>需要添给标题添加一个样式，否则文档不会将其作为一个真正的标题来处理。</p>
+<p>定义标题样式后，定义标题就很简单了，可以使用函数方法：addTitle;</p>
+<pre><code>$section-&gt;addTitle( $text, [$depth] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addTitle()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$text</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">标题文本内容</td>
+</tr>
+<tr>
+<td style="text-align:center">$depth</td>
+<td style="text-align:center">Integer</td>
+<td style="text-align:center">标题级别编号，通过该参数调用addTtileStyle()设置的标题样式</td>
+</tr>
+</tbody>
+</table>
+<h2 id="添加目录">添加目录</h2>
+<p>添加目录使用方法函数： addTOC:</p>
+<pre><code>$styleTOC = array('tabLeader'=&gt;PHPWord_Style_TOC::TABLEADER_DOT);
+$styleFont = array('spaceAfter'=&gt;60, 'name'=&gt;'Tahoma', 'size'=&gt;12);
+$section-&gt;addTOC($styleFont, $styleTOC);
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addTOC()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleFont</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">目录字体样式</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleTOC</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">目录样式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="目录样式属性列表">目录样式属性列表:</h3>
+<p>样式属性区分大小写 !</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">tabLeader</td>
+<td style="text-align:center">标题的类型和对应页码.默认使用系统常量 PHPWord_Style_TOC::TABLEADER_&hellip;</td>
+</tr>
+<tr>
+<td style="text-align:center">tabPos</td>
+<td style="text-align:center">标题与页码的位置，单位： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">Indent</td>
+<td style="text-align:center">标题缩进，单位： twips.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="表格">表格</h2>
+<h3 id="添加表格">添加表格</h3>
+<p>添加表格使用函数方法：addTable:</p>
+<pre><code>$table = $section-&gt;addTable( [$tableStyle] );
+</code></pre><p>参数 $tableStyle 是可选的. 表格样式这章有关于表格样式的详细说明。为addTable建立一个本地对象，我们需要使用这个对象来调用相关函数方法。</p>
+<ul>
+<li>添加行</li>
+</ul>
+<pre><code>$table-&gt;addRow( [$height] );
+</code></pre><p>行的高度可以通过$height参数来设置，单位：twips.</p>
+<ul>
+<li>添加单元格</li>
+</ul>
+<p>单元格添加前必须先添加行，添加单元格的函数方法为： addCell</p>
+<pre><code>$cell = $table-&gt;addCell(h, [$cellStyle] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addCell()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$width</td>
+<td style="text-align:center">Integer</td>
+<td style="text-align:center">单元格宽度： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">$cellStyle</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">单元格样式</td>
+</tr>
+</tbody>
+</table>
+<p>为addcell创建一个本地对象，需要使用该对象来 调用以下函数</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">addText</td>
+<td style="text-align:center">添加文本</td>
+</tr>
+<tr>
+<td style="text-align:center">addTextBreak</td>
+<td style="text-align:center">添加换行符</td>
+</tr>
+<tr>
+<td style="text-align:center">addLink</td>
+<td style="text-align:center">添加链接</td>
+</tr>
+<tr>
+<td style="text-align:center">addImage</td>
+<td style="text-align:center">添加图片</td>
+</tr>
+<tr>
+<td style="text-align:center">addMemoryImage</td>
+<td style="text-align:center">添加水印</td>
+</tr>
+<tr>
+<td style="text-align:center">addListItem</td>
+<td style="text-align:center">添加列表</td>
+</tr>
+<tr>
+<td style="text-align:center">addObject</td>
+<td style="text-align:center">添加对象</td>
+</tr>
+<tr>
+<td style="text-align:center">addPreserveText</td>
+<td style="text-align:center">添加页码，只对页眉和页脚有效</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例1:</strong></p>
+<pre><code>$table = $section-&gt;addTable();
+$table-&gt;addRow();
+$cell = $table-&gt;addCell(2000);
+$cell-&gt;addText('Cell 1');
+$cell = $table-&gt;addCell(2000);
+$cell-&gt;addText('Cell 2');
+$cell = $table-&gt;addCell(2000);
+$cell-&gt;addText('Cell 3');
+</code></pre><p><strong>示例2:</strong></p>
+<pre><code>$table = $section-&gt;addTable();
+$table-&gt;addRow(400);
+$table-&gt;addCell(2000)-&gt;addText('Cell 1');
+$table-&gt;addCell(2000)-&gt;addText('Cell 2');
+$table-&gt;addCell(2000)-&gt;addText('Cell 3');
+
+$table-&gt;addRow(1000);
+$table-&gt;addCell(2000)-&gt;addText('Cell 4');
+$table-&gt;addCell(2000)-&gt;addText('Cell 5');
+$table-&gt;addCell(2000)-&gt;addText('Cell 6');
+</code></pre><h3 id="单元格样式">单元格样式</h3>
+<p>使用addCell的第二个参数来给单元格设置样式</p>
+<p>示例:</p>
+<pre><code>$cellStyle = array('textDirection'=&gt;PHPWord_Style_Cell::TEXT_DIR_BTLR,     'bgColor'=&gt;'C0C0C0');
+
+$table = $section-&gt;addTable();
+$table-&gt;addRow(1000);
+$table-&gt;addCell(2000, $cellStyle)-&gt;addText('Cell 1');
+$table-&gt;addCell(2000, $cellStyle)-&gt;addText('Cell 2');
+$table-&gt;addCell(2000, $cellStyle)-&gt;addText('Cell 3');
+$table-&gt;addRow();
+$table-&gt;addCell(2000)-&gt;addText('Cell 4');
+$table-&gt;addCell(2000)-&gt;addText('Cell 5');
+$table-&gt;addCell(2000)-&gt;addText('Cell 6');
+</code></pre><h3 id="单元格样式属性列表">单元格样式属性列表:</h3>
+<p>属性大小写敏感 !</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">valign</td>
+<td style="text-align:center">单元格内容对齐方式： left, right, center</td>
+</tr>
+<tr>
+<td style="text-align:center">textDirection</td>
+<td style="text-align:center">文本方向. 使用预定常量 PHPWord_Style_Cell:: TEXT_DIR_&hellip;</td>
+</tr>
+<tr>
+<td style="text-align:center">bgColor</td>
+<td style="text-align:center">单元格背景色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderTopSize</td>
+<td style="text-align:center">单元格上边框尺寸，单位 twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderTopColor</td>
+<td style="text-align:center">单元格上边框 颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderLeftSize</td>
+<td style="text-align:center">单元格左边框尺寸，单位twips</td>
+</tr>
+<tr>
+<td style="text-align:center">borderLeftColor</td>
+<td style="text-align:center">单元格左边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderRightSize</td>
+<td style="text-align:center">单元格右边框尺寸，单位twips</td>
+</tr>
+<tr>
+<td style="text-align:center">borderRightColor</td>
+<td style="text-align:center">单元格右边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderBottomSize</td>
+<td style="text-align:center">单元格下边框尺寸 ，单位twips</td>
+</tr>
+<tr>
+<td style="text-align:center">borderBottomColor</td>
+<td style="text-align:center">单元格下边框颜色</td>
+</tr>
+</tbody>
+</table>
+<h3 id="表格样式">表格样式</h3>
+<p>我们可以设置整个表格的样式，通过创建表格函数addTable的参数$tableStyle，表格具有如下样式属性</p>
+<p>属性名称大小写敏感!</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">cellMarginTop</td>
+<td style="text-align:center">单元格上边距，单位： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">cellMarginLeft</td>
+<td style="text-align:center">单元格左边距，单位： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">cellMarginRight</td>
+<td style="text-align:center">单元格右边距，单位： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">cellMarginBottom</td>
+<td style="text-align:center">单元格下边距，单位： twips.</td>
+</tr>
+</tbody>
+</table>
+<p>示例:</p>
+<pre><code>$tableStyle = array('cellMarginTop'=&gt;80,
+     'cellMarginLeft'=&gt;80,
+     'cellMarginRight'=&gt;80,
+     'cellMarginBottom'=&gt;80);
+$table = $section-&gt;addTable($tableStyle);
+</code></pre><p>我们可以使用函数方法： addTableStyle，为表格定义一个完整的样式。</p>
+<pre><code>$PHPWord-&gt;addTableStyle($styleName, $styleTable, [$styleFirstRow] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>addTableStyle()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleName</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">表样式名称</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleTable</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">这个表的样式</td>
+</tr>
+<tr>
+<td style="text-align:center">$styleFirstRow</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">表头样式（第一行）</td>
+</tr>
+</tbody>
+</table>
+<p>示例:</p>
+<pre><code>$styleTable = array('borderColor'=&gt;'006699',
+     'borderSize'=&gt;6,
+     'cellMargin'=&gt;50);
+$styleFirstRow = array('bgColor'=&gt;'66BBFF');
+$PHPWord-&gt;addTableStyle('myTable', $styleTable, $styleFirstRow);
+
+$table = $section-&gt;addTable('myTable');
+$table-&gt;addRow(400);
+$table-&gt;addCell(2000)-&gt;addText('Cell 1');
+$table-&gt;addCell(2000)-&gt;addText('Cell 2');
+$table-&gt;addCell(2000)-&gt;addText('Cell 3');
+$table-&gt;addRow(1000);
+$table-&gt;addCell(2000)-&gt;addText('Cell 4');
+$table-&gt;addCell(2000)-&gt;addText('Cell 5');
+$table-&gt;addCell(2000)-&gt;addText('Cell 6');
+</code></pre><p>表格样式属性，注意属性名称大小写敏感!</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">cellMarginTop</td>
+<td style="text-align:center">单元格上边距，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">cellMarginLeft</td>
+<td style="text-align:center">单元格左边距，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">cellMarginRight</td>
+<td style="text-align:center">单元格右边距，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">cellMarginBottom</td>
+<td style="text-align:center">单元格下边距，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">cellMargin</td>
+<td style="text-align:center">单元格间距，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">bgColor</td>
+<td style="text-align:center">表格背景色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderTopSize</td>
+<td style="text-align:center">表格上边框尺寸，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderTopColor</td>
+<td style="text-align:center">表格上边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderLeftSize</td>
+<td style="text-align:center">表格左边框尺寸，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderLeftColor</td>
+<td style="text-align:center">表格左边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderRightSize</td>
+<td style="text-align:center">表格右边框尺寸，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderRightColor</td>
+<td style="text-align:center">表格右边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderBottomSize</td>
+<td style="text-align:center">表格下边框尺寸，单位：twips..</td>
+</tr>
+<tr>
+<td style="text-align:center">borderBottomColor</td>
+<td style="text-align:center">表格下边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderInsideHSize</td>
+<td style="text-align:center">表格内水平网格尺寸，单位： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderInsideHColor</td>
+<td style="text-align:center">表格内水平网格颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderInsideVSize</td>
+<td style="text-align:center">表格内垂直网格尺寸，单位： twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderInsideVColor</td>
+<td style="text-align:center">表格内垂直网格颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">borderSize</td>
+<td style="text-align:center">表格边框尺寸，单位：twips.</td>
+</tr>
+<tr>
+<td style="text-align:center">borderColor</td>
+<td style="text-align:center">表格边框颜色</td>
+</tr>
+</tbody>
+</table>
+<p>**注意：**表格在word布局中的功能可以进行体现，例如进行图片，对象等的布局可以考虑与表格结合进行处理</p>
+<h2 id="页脚">页脚</h2>
+<h3 id="添加文档页脚使用函数方法-createfooter">添加文档页脚使用函数方法： createFooter:</h3>
+<pre><code>$footer = $section-&gt;createFooter();
+</code></pre><p>确保在本地对象中保存页脚，并使用下列函数</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">addText</td>
+<td style="text-align:center">添加文本</td>
+</tr>
+<tr>
+<td style="text-align:center">addTextBreak</td>
+<td style="text-align:center">添加换行符</td>
+</tr>
+<tr>
+<td style="text-align:center">addImage</td>
+<td style="text-align:center">添加图像</td>
+</tr>
+<tr>
+<td style="text-align:center">addMemoryImage</td>
+<td style="text-align:center">添加GD生成图像</td>
+</tr>
+<tr>
+<td style="text-align:center">addListItem</td>
+<td style="text-align:center">添加列表</td>
+</tr>
+<tr>
+<td style="text-align:center">addPreserveText</td>
+<td style="text-align:center">添加页码，只能在页眉或页脚使用</td>
+</tr>
+<tr>
+<td style="text-align:center">addTable</td>
+<td style="text-align:center">添加表格</td>
+</tr>
+<tr>
+<td style="text-align:center">createTextrun</td>
+<td style="text-align:center">添加文本资源</td>
+</tr>
+</tbody>
+</table>
+<h3 id="向页脚页眉添加页码使用函数方法addpreservetext">向页脚（页眉）添加页码使用函数方法：addPreserveText:</h3>
+<pre><code>addPreserveText( $text, [$style] );
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">addPreserveText()</th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$text</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">页脚（页眉）的文本内容</td>
+</tr>
+<tr>
+<td style="text-align:center">$style</td>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">文字样式.</td>
+</tr>
+</tbody>
+</table>
+<p>示例:</p>
+<pre><code>$footer-&gt;addPreserveText('Page {PAGE} of {NUMPAGES}.');
+</code></pre><h3 id="页眉">页眉</h3>
+<h3 id="添加页眉使用函数方法-createheader">添加页眉，使用函数方法： createHeader:</h3>
+<pre><code>$header = $section-&gt;createHeader();
+</code></pre><p>确保页眉是建立在一个文档中，页眉和页脚使用相同的属性和函数，详见页脚章节 。</p>
+<p>注意：只用添加了页眉的页面，才能添加和使用图片水印</p>
+<h2 id="模版">模版</h2>
+<p>我们可以利用搜索替换功能创建一个docx格式的模版文档，来替换文档中你想替换的文本. 但是要注意，只有文本或链接可以被替换。加载模版文档使用函数方法：loadTemplate function.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>loadTemplate()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">方法</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">$strFilename</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">模版文件路径和名称</td>
+</tr>
+</tbody>
+</table>
+<p>加载完成模版文档后，你可以使用函数方法： setValue 来搜索替换相关内容</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>setValue()</strong></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">Type</td>
+<td style="text-align:center">Description</td>
+</tr>
+<tr>
+<td style="text-align:center">$search</td>
+<td style="text-align:center">Mixed</td>
+<td style="text-align:center">搜索的值</td>
+</tr>
+<tr>
+<td style="text-align:center">$replace</td>
+<td style="text-align:center">Mixed</td>
+<td style="text-align:center">替换的值</td>
+</tr>
+</tbody>
+</table>
+<pre><code>$template = $PHPWord-&gt;loadTemplate('Template.docx');
+$template-&gt;setValue('Name', 'Somebody someone');
+$template-&gt;setValue('Street', 'Coming-Undone-Street 32');
+</code></pre><p>被搜索替换的标签格式为：<code> ${YOUR_SEARCH_PATTERN}</code></p>
+<p>不能添加新的PHPWORD元素到加载的模版文档中</p>
+<p><strong>模版使用的几个注意事项：</strong></p>
+<ul>
+<li>从模板生成word文档，支持在word模板文档里写替换标签，标签格式为${xxx}，不过一定要注意，不要直接在word里编辑这些标签，一定要在文本文档里先写好标签，直接拷贝粘贴上去，千万不要编辑，否则无法替换，原因也很简单，把word文档另存为xml，然后看xml里标签的位置，会发现标签中间被插入了很多没用的xml节点，还有中文字体的节点。。。</li>
+<li>模版文档要一次性完成在保存，否则会出现替换失败问题。</li>
+<li>中文乱码问题，这个一定是存在的，如果php环境已经是utf8了，要找到关键地方，转utf8的代码，去掉，否则就是转两次编码了，典型的是phpwordtemplate.php文件，把这行注释掉：<code>$replace = utf8_encode($replace);</code></li>
+<li>linux下报“Could not close zip file.”错误，这个你永远想不到，要将模板文件所在目录权限改为可写，因为要在那个目录下生成临时文件</li>
+<li>引用模板文件和另存文件路径什么的，最好用绝对路径</li>
+</ul>
+<p>声明：本文内容来自网络文件，部分未测试，后面有机会整个实例出来，目前整理成一份适合在网页阅读的文档，供参考。</p>
+<p>官方实例：<a href="https://link.segmentfault.com/?url=https%3A%2F%2Fgithub.com%2FPHPOffice%2FPHPWord%2Ftree%2Fdevelop%2Fsamples">https://github.com/PHPOffice/&hellip;</a></p>
+<p>官网：<a href="https://link.segmentfault.com/?url=https%3A%2F%2Fphpword.readthedocs.io%2Fen%2Flatest%2F">https://phpword.readthedocs.i&hellip;</a></p>
+<blockquote>
+<p>原文地址<a href="https://segmentfault.com/a/1190000019479817">PHPWord中文手册整理</a></p>
+</blockquote>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/06/28/php/session.html">PHP Session浅析</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/PHPWord'>PHPWord</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

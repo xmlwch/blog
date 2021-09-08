@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Composer on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/Composer/</link>
+    <description>Recent content in Composer on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 28 Jul 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Composer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Composer命令</title>
+      <link>https://blog.xmlwch.cn/2021/07/28/php/composer.html</link>
+      <pubDate>Wed, 28 Jul 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/28/php/composer.html</guid>
+      <description>composer是PHP的包管理、包依赖关系管理工具，有了它，我们就很轻松一个命令就可以把他人优秀的代码用到我们的项目中来，而且很容易管理依赖关系，更新删除等操作也很轻易的实现。 1 显示可用命令 composer composer list 2 查看当前镜像源 composer config -l -g [repositories.packagist.org.type] composer [repositories.packagist.org.url] https://packagist.org # 或者 composer config -g repo {&amp;#34;packagist.org&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;composer&amp;#34;,&amp;#34;url&amp;#34;:&amp;#34;https://packagist.org&amp;#34;}} 3 配置镜像源 # 删除镜像 composer config -g --unset repos.packagist #</description>
+    </item>
+    
+  </channel>
+</rss>

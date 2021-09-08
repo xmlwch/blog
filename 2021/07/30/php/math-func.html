@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>PHP中数学相关的函数 | xmlwch的博客</title>
+    <meta property="og:title" content="PHP中数学相关的函数 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-07-30T14:30:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-07-30T14:30:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/07/30/php/math-func.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">PHP中数学相关的函数</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月30日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共2677字</span>，阅读约<span class="more-meta"> 6 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">作用</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.abs.php">abs( )</a></strong></em></td>
+<td style="text-align:center">绝对值</td>
+<td><code>abs(mixed $number): number</code><br />返回参数 <code>number</code> 的绝对值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.acos.php">acos( )</a></td>
+<td style="text-align:center">反余弦</td>
+<td><code>acos(float $arg): float</code> <br >返回 <code>arg</code> 的反余弦值，单位是弧度。<strong><code>acos()</code></strong> 是 <code>cos()</code> 的反函数，它的意思是在 <strong><code>acos()</code></strong> 范围里的每个值都是 <code>a==cos(acos(a))</code> 。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.acosh.php">acosh( )</a></td>
+<td style="text-align:center">反双曲余弦</td>
+<td><code>acosh(float $arg): float</code> <br>返回 <code>arg</code> 的反双曲余弦值，即，其双曲余弦为 <code>arg</code> 的那个值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.asin.php">asin( )</a></td>
+<td style="text-align:center">反正弦</td>
+<td><code>asin(float $arg): float</code> <br>返回 <code>arg</code> 的反正弦值，单位是弧度。<strong><code>asin()</code></strong> 是<code> sin()</code> 的反函数，它的意思是在 <strong><code>asin()</code></strong> 范围里的每个值都是 <code>a==sin(asin(a))</code> 。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.asinh.php">asinh( )</a></td>
+<td style="text-align:center">反双曲正弦</td>
+<td><code>asinh(float $arg): float</code><br>返回 <code>arg</code> 的反双曲正弦值，即，其双曲正弦为 <code>arg</code> 的那个值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.atan2.php">atan2( )</a></td>
+<td style="text-align:center">两个参数的反正切</td>
+<td><code>atan2(float $y, float $x): float</code> <br>本函数计算两个变量 <code>x</code> 和 <code>y</code> 的反正切值。和计算 <code>y / x</code> 的反正切相似，只除了两个参数的符号是用来确定结果的象限之外。<br>本函数的结果为弧度，其值在<code> -PI</code> 和 <code>PI </code>之间（包括<code>-PI</code>和<code> PI</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.atan.php">atan( )</a></td>
+<td style="text-align:center">反正切</td>
+<td><code>atan(float $arg): float</code> <br>返回 <code>arg</code> 的反正切值，单位是弧度。<strong><code>atan()</code></strong> 是 <code>tan()</code>的反函数，它的意思是在 <strong><code>atan()</code></strong> 范围里的每个值都是 <code>a==tan(atan(a))</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.atanh.php">atanh( )</a></td>
+<td style="text-align:center">反双曲正切</td>
+<td><code>atanh(float $arg): float</code> <br>返回 <code>arg</code> 的反双曲正切值，即，其双曲正切为 <code>arg</code> 的那个值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.base-convert.php">base_convert( )</a></td>
+<td style="text-align:center">在任意进制之间转换数字</td>
+<td><code>base_convert(string $number, int $frombase, int $tobase): string</code> <br> 返回一字符串，包含 <code>number</code> 以 <code>tobase</code> 进制的表示。<code>number</code> 本身的进制由 <code>frombase</code> 指定。<code>frombase</code> 和 <code>tobase</code> 都只能在 2 和 36 之间（包括 2 和 36）。高于十进制的数字用字母 a-z 表示，例如 a 表示 10，b 表示 11 以及 z 表示 35。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.bindec.php">bindec( )</a></strong></em></td>
+<td style="text-align:center">二进制转换为十进制</td>
+<td><code>bindec(string $binary_string): number</code> <br>返回 <code>binary_string</code> 参数所表示的二进制数的十进制等价值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.ceil.php">ceil( )</a></strong></em></td>
+<td style="text-align:center">进一法取整</td>
+<td><code>ceil(floa $value): float</code> <br>返回不小于 <code>value</code> 的下一个整数，<code>value</code> 如果有小数部分则进一位。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.cos.php">cos( )</a></td>
+<td style="text-align:center">余弦</td>
+<td><code>cos(float $arg): float</code> <br>返回参数 <code>arg</code> 的余弦值。参数 <code>arg</code> 的单位为弧度。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.cosh.php">cosh( )</a></td>
+<td style="text-align:center">双曲余弦</td>
+<td><code>cosh(float $arg): float</code> <br/>返回参数 <code>arg</code> 的双曲余弦值。定义为 <code>(exp(arg) + exp(-arg))/2</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.decbin.php">decbin( )</a></strong></em></td>
+<td style="text-align:center">十进制转换为二进制</td>
+<td><code>decbin(int $number): string</code> <br>返回一字符串，包含有给定 <code>number</code> 参数的二进制表示。所能转换的最大数值为十进制的 4294967295，其结果为 32 个 1 的字符串。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.dechex.php">dechex( )</a></td>
+<td style="text-align:center">十进制转换为十六进制</td>
+<td><code>dechex(int $number): string</code> <br>返回一字符串，包含有给定 <code>number</code> 参数的十六进制表示。<br>所能转换的最大数值为十进制的 <code>PHP_INT_MAX * 2 + 1</code> (或 <code>-1</code>)：在 32 位平台上是十进制的 <code>4294967295</code>，其 <strong><code>dechex()</code></strong> 的结果为 <code>ffffffff</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.decoct.php">decoct( )</a></td>
+<td style="text-align:center">十进制转换</td>
+<td><code>decoct(int $number): string</code> <br>返回一字符串，包含有给定 <code>number</code> 参数的八进制表示。所能转换的最大数值为十进制的 4294967295，其结果为 &ldquo;37777777777&rdquo;。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.deg2rad.php">deg2rad( )</a></strong></em></td>
+<td style="text-align:center">将角度转换为弧度</td>
+<td><code>deg2rad(float $number): float</code> <br>本函数把 <code>number</code> 从角度转换成弧度。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.exp.php">exp( )</a></td>
+<td style="text-align:center">计算 e 的指数</td>
+<td><code>exp(float $arg): float</code> <br>返回 <strong><code>e</code></strong> 的 <code>arg</code> 次方值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.expm1.php">expm1( )</a></td>
+<td style="text-align:center">返回exp (number)-1</td>
+<td><code>expm1(float $arg): float</code> <br>返回<code>'exp (number) - 1'</code>，甚至当 <code>number</code> 的值接近零也能计算出准确结果。但是当两个数值趋近于相等的时候，<code>'exp (number) - 1'</code>就会变得不太准确。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.floor.php">floor( )</a></strong></em></td>
+<td style="text-align:center">舍去法取整</td>
+<td><code>floor(float $value): float</code> <br>返回不大于 <code>value</code> 的最接近的整数，舍去小数部分取整。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.fmod.php">fmod( )</a></strong></em></td>
+<td style="text-align:center">返回除法的浮点数余数</td>
+<td><code>fmod(float $x, float $y): float</code> <br>返回被除数（<code>x</code>）除以除数（<code>y</code>）所得的浮点数余数。余数<code>（r）</code>的定义是：<code>x = i * y + r</code>，其中<code>i</code>是整数。如果 <code>y</code> 是非零值，则<code> r</code> 和 <code>x</code> 的符号相同并且其数量值小于 <code>y</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.getrandmax.php">getrandmax( )</a></strong></em></td>
+<td style="text-align:center">显示随机数最大的可能值</td>
+<td><code>getrandmax(): int</code> <br> 返回调用<code> rand()</code>可能返回的最大值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.hexdec.php">hexdec( )</a></td>
+<td style="text-align:center">十六进制转换为十进制</td>
+<td><code>hexdec(string $hex_string): number</code> <br>返回与 <code>hex_string</code> 参数所表示的十六进制数等值的的十进制数。<strong><code>hexdec()</code></strong> 将一个十六进制字符串转换为十进制数。 <br><strong><code>hexdec()</code></strong> 会忽略它遇到的任意非十六进制的字符。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.hypot.php">hypot( )</a></td>
+<td style="text-align:center">计算一直角三角形的斜边长度</td>
+<td><code>hypot(float $x, float $y): float</code> <br>将会跟据直角三角形的两直解边长度 <code>x</code> 和 <code>y</code> 计算其斜边的长度。或者是从标点 (<code>x</code>, <code>y</code>) 到原点的距离。该函数的算法等同于 <code>sqrt(x*x + y*y)</code>。 <br></td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.intdiv.php">intdiv( )</a></strong></em></td>
+<td style="text-align:center">对除法结果取整</td>
+<td><code>intdiv(int $dividend, int $divisor): int</code> <br>返回 <code>dividend</code> 除以 <code>divisor</code> 商数的整数部分。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.is-finite.php">is_finite( )</a></td>
+<td style="text-align:center">判断是否为有限值</td>
+<td><code>is_finite(float $val): bool</code> <br > 检查 <code>val</code> 是否是是本机平台上浮点数所允许范围中的一个合法的有限值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.is-infinite.php">is_infinite( )</a></td>
+<td style="text-align:center">判断是否为无限值</td>
+<td><code>is_infinite(float $val): bool</code> <br >如果 <code>val</code> 为无穷大（正的或负的），例如 <code>log(0)</code> 的结果或者任何超出本平台的浮点数范围的值，则返回 <strong><code>true</code></strong>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.is-nan.php">is_nan( )</a></td>
+<td style="text-align:center">判断是否为合法数值</td>
+<td><code>is_nan(float $val): bool</code> <br >如果 <code>val</code> 为“非数值”，例如 <code>acos(1.01)</code> 的结果，则返回 <strong><code>true</code></strong>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.lcg-value.php">lcg_value( )</a></td>
+<td style="text-align:center">组合线性同余发生器</td>
+<td><code>lcg_value(): float</code> <br>返回范围为<code>(0, 1)</code>的一个伪随机数。本函数组合了周期为 <code>2^31 - 85 </code>和 <code>2^31 - 249 </code>的两个同余发生器。本函数的周期等于这两个素数的乘积。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.log10.php">log10( )</a></td>
+<td style="text-align:center">以 10 为底的对数</td>
+<td><code>log10(float $arg): float </code><br>返回参数 <code>arg</code> 以 10 为底的对数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.log1p.php">log1p( )</a></td>
+<td style="text-align:center">返回 log(1+number)</td>
+<td><code>log1p(float $number): float</code> <br>返回 log(1 + <code>number</code>)，甚至当 <code>number</code> 的值接近零也能计算出准确结果</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.log.php">log( )</a></td>
+<td style="text-align:center">自然对数</td>
+<td><code>log(float $arg, float $base = M_E): float</code> <br>如果指定了可选的参数 <code>base</code>，<strong><code>log()</code></strong> 返回 log<sub>base</sub> <code>arg</code>，否则 <strong><code>log()</code></strong> 返回参数 <code>arg</code> 的自然对数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.max.php">max( )</a></strong></em></td>
+<td style="text-align:center">找出最大值</td>
+<td><code>max(array $values): mixed</code> <br><code>max(mixed $value1, mixed $value2, mixed $... = ?): mixed </code> <br> 如果仅有一个参数且为数组，<strong><code>max()</code></strong> 返回该数组中最大的值。如果第一个参数是整数、字符串或浮点数，则至少需要两个参数而 <strong><code>max()</code></strong> 会返回这些值中最大的一个。可以比较无限多个值</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.min.php">min( )</a></strong></em></td>
+<td style="text-align:center">找出最小值</td>
+<td><code>min(array $values): mixed</code> <br/><code>min(mixed $value1, mixed $value2, mixed $... = ?): mixed </code> <br/> 如果仅有一个参数且为数组，<strong><code>min()</code></strong> 返回该数组中最小的值。如果给出了两个或更多参数, <strong><code>min()</code></strong> 会返回这些值中最小的一个</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.mt-getrandmax.php">mt_getrandmax( )</a></td>
+<td style="text-align:center">显示随机数的最大可能值</td>
+<td><code>mt_getrandmax(): int</code> <br>返回调用 mt_rand() 所能返回的最大的随机数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.mt-rand.php">mt_rand( )</a></strong></em></td>
+<td style="text-align:center">生成更好的随机数</td>
+<td><code>mt_rand(): int</code> <br><code>mt_rand(int $min, int $max): int </code> <br> 很多老的 libc 的随机数发生器具有一些不确定和未知的特性而且很慢。PHP 的 <code>rand()</code>函数默认使用<code> libc</code> 随机数发生器。<strong><code>mt_rand()</code></strong> 函数是非正式用来替换它的。它可以产生随机数值的平均速度比 <code>libc</code> 提供的 <code>rand()</code> 快四倍。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.mt-srand.php">mt_srand( )</a></td>
+<td style="text-align:center">播下一个更好的随机数发生器种子</td>
+<td><code>mt_srand(int $seed = ?): void</code> <br> 用 <code>seed</code> 来给随机数发生器播种。 没有设定 <code>seed</code> 参数时，会被设为随时数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.octdec.php">octdec( )</a></td>
+<td style="text-align:center">八进制转换为十进制</td>
+<td><code>octdec(string $octal_string): number</code> <br> 返回 <code>octal_string</code> 参数所表示的八进制数的十进制等值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.pi.php">pi( )</a></strong></em></td>
+<td style="text-align:center">得到圆周率值</td>
+<td><code>pi(): float</code> <br>返回圆周率的近似值。返回值的 float 精度是由 <code>php.ini</code> 中的 <code>precision</code>指令确定。默认值是 <code>14</code>。你也可以使用 <strong><code>M_PI</code></strong> 常量，该常量产生与 <strong><code>pi()</code></strong> 完全相同的结果。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.pow.php">pow( )</a></strong></em></td>
+<td style="text-align:center">指数表达式</td>
+<td><code>pow(number $base, number $exp): number</code> <br>返回 <code>base</code> 的 <code>exp</code> 次方的幂。如果可能，本函数会返回 <code>integer</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.rad2deg.php">rad2deg( )</a></strong></em></td>
+<td style="text-align:center">将弧度数转换为相应的角度数</td>
+<td><code>rad2deg(float $number): float</code> <br> 本函数将 <code>number</code> 从弧度转换为角度。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.rand.php">rand( )</a></strong></em></td>
+<td style="text-align:center">产生一个随机整数</td>
+<td><code>rand(): int</code> <br> <code>rand(int $min, int $max): int</code> <br> 如果没有提供可选参数 <code>min</code> 和 <code>max</code>，<strong><code>rand()</code></strong> 返回 0 到 <code>getrandmax()</code> 之间的伪随机整数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.round.php">round( )</a></strong></em></td>
+<td style="text-align:center">对浮点数进行四舍五入</td>
+<td><code>round(float $val, int $precision = 0, int $mode = PHP_ROUND_HALF_UP): float</code> <br> 返回将 <code>val</code> 根据指定精度 <code>precision</code>（十进制小数点后数字的数目）进行四舍五入的结果。<code>precision</code> 也可以是负数或零（默认值）。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.sin.php">sin( )</a></td>
+<td style="text-align:center">正弦</td>
+<td><code>sin(float $arg): float</code> <br>返回参数 <code>arg</code> 的正弦值。参数 <code>arg</code> 的单位为弧度。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.sinh.php">sinh( )</a></td>
+<td style="text-align:center">双曲正弦</td>
+<td><code>sinh(float $arg): float</code> <br > 返回 <code>arg</code> 的双曲正弦值，定义为 <code>(exp(arg) - exp(-arg))/2</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><em><strong><a href="https://www.php.net/manual/zh/function.sqrt.php">sqrt( )</a></strong></em></td>
+<td style="text-align:center">平方根</td>
+<td><code>sqrt(float $arg): float</code> <br> 返回 <code>arg</code> 的平方根。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.srand.php">srand( )</a></td>
+<td style="text-align:center">播下随机数发生器种子</td>
+<td><code>srand(int $seed = ?): void</code> <br>用 <code>seed</code> 播下随机数发生器种子。<code>seed</code> 参数没有给出时，会被设为随时数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.tan.php">tan( )</a></td>
+<td style="text-align:center">正切</td>
+<td><code>tan(float $arg): float</code> <br>返回参数 <code>arg</code> 的正切值。参数 <code>arg</code> 的单位为弧度。</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://www.php.net/manual/zh/function.tanh.php">tanh( )</a></td>
+<td style="text-align:center">双曲正切</td>
+<td><code>tanh(float $arg): float</code><br>返回 <code>arg</code> 的双曲正切值，定义为 <code>sinh(arg)/cosh(arg)</code>。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</p>
+</blockquote>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2021/07/30/php/math-func.html">https://blog.xmlwch.cn/2021/07/30/php/math-func.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">知识共享署名4.0 国际许可协议</a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/07/28/php/psr0-and-psr4.html">[转]PHP规范PSR-0和PSR-4的理解</a></li>
+        
+        <li><a href="/2021/07/28/php/composer.html">Composer命令</a></li>
+        
+        <li><a href="/2021/07/27/php/regexp.html">PHP常用正则验证</a></li>
+        
+        <li><a href="/2021/07/26/php/phpword.html">[转]PHPWord中文手册整理</a></li>
+        
+        <li><a href="/2021/06/28/php/session.html">PHP Session浅析</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/math'>math</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

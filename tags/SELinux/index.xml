@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SELinux on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/SELinux/</link>
+    <description>Recent content in SELinux on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 02 Sep 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/SELinux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>查看 SELinux状态及关闭SELinux</title>
+      <link>https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html</link>
+      <pubDate>Thu, 02 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html</guid>
+      <description>查看SELinux状态： ## 如果SELinux status参数为enabled即为开启状态 /usr/sbin/sestatus -v SELinux status: enabled ... ## 也可以用这个命令检查 getenforce 关闭SELinux： ## 临时关闭（不用重启机器） setenforce 0 ##设置SELinux 成为permissive模式 #setenforce 1 设置SELinux 成为enforcing模式 ## 永久关</description>
+    </item>
+    
+  </channel>
+</rss>

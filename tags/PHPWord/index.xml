@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PHPWord on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/PHPWord/</link>
+    <description>Recent content in PHPWord on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 26 Jul 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/PHPWord/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[转]PHPWord中文手册整理</title>
+      <link>https://blog.xmlwch.cn/2021/07/26/php/phpword.html</link>
+      <pubDate>Mon, 26 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/26/php/phpword.html</guid>
+      <description>修正 中文支持的问题，使用前如果发现乱码，需要进行一些修正： 解决编码问题，PHPword 会对输入的文字进行utf8_encode编码转化，如果你使用GBK、GB2312或者utf8编码的话就会出现乱码，如果你用utf8编码，就查找类库中所有方法中的 utf8_encode 转码将其删除，如果你采用GBK或</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>[转]WebSocket 教程 | xmlwch的博客</title>
+    <meta property="og:title" content="[转]WebSocket 教程 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-08-13T11:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-08-13T11:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/08/13/network/websocket.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">[转]WebSocket 教程</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年8月13日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Network'>Network</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共2291字</span>，阅读约<span class="more-meta"> 5 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>原文地址：<a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html">WebSocket 教程</a></p>
+<p>作者： <a href="https://www.ruanyifeng.com/">阮一峰</a></p>
+<p><a href="https://websocket.org/">WebSocket</a> 是一种网络通信协议，很多高级功能都需要它。</p>
+<p>本文介绍 WebSocket 协议的使用方法。</p>
+<p>
+        <img class="mx-auto" alt="img" src="/img/bg2017051501.png" />   
+    </p>
+<h2 id="一为什么需要-websocket">一、为什么需要 WebSocket？</h2>
+<p>初次接触 WebSocket 的人，都会问同样的问题：我们已经有了 HTTP 协议，为什么还需要另一个协议？它能带来什么好处？</p>
+<p>答案很简单，因为 HTTP 协议有一个缺陷：通信只能由客户端发起。</p>
+<p>举例来说，我们想了解今天的天气，只能是客户端向服务器发出请求，服务器返回查询结果。HTTP 协议做不到服务器主动向客户端推送信息。</p>
+<p>
+        <img class="mx-auto" alt="img" src="/img/bg2017051507.jpg" />   
+    </p>
+<p>这种单向请求的特点，注定了如果服务器有连续的状态变化，客户端要获知就非常麻烦。我们只能使用<a href="https://www.pubnub.com/blog/2014-12-01-http-long-polling/">&ldquo;轮询&rdquo;</a>：每隔一段时候，就发出一个询问，了解服务器有没有新的信息。最典型的场景就是聊天室。</p>
+<p>轮询的效率低，非常浪费资源（因为必须不停连接，或者 HTTP 连接始终打开）。因此，工程师们一直在思考，有没有更好的方法。WebSocket 就是这样发明的。</p>
+<h2 id="二简介">二、简介</h2>
+<p>WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。</p>
+<p>它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于<a href="https://en.wikipedia.org/wiki/Push_technology">服务器推送技术</a>的一种。</p>
+<p>
+        <img class="mx-auto" alt="img" src="/img/bg2017051502.png" />   
+    </p>
+<p>其他特点包括：</p>
+<p>（1）建立在 TCP 协议之上，服务器端的实现比较容易。</p>
+<p>（2）与 HTTP 协议有着良好的兼容性。默认端口也是80和443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器。</p>
+<p>（3）数据格式比较轻量，性能开销小，通信高效。</p>
+<p>（4）可以发送文本，也可以发送二进制数据。</p>
+<p>（5）没有同源限制，客户端可以与任意服务器通信。</p>
+<p>（6）协议标识符是<code>ws</code>（如果加密，则为<code>wss</code>），服务器网址就是 URL。</p>
+<pre><code class="language-markup" data-lang="markup"> ws://example.com:80/some/path
+</code></pre><p>
+        <img class="mx-auto" alt="img" src="/img/bg2017051503.jpg" />   
+    </p>
+<h2 id="三客户端的简单示例">三、客户端的简单示例</h2>
+<p>WebSocket 的用法相当简单。</p>
+<p>下面是一个网页脚本的例子（点击<a href="http://jsbin.com/muqamiqimu/edit?js,console">这里</a>看运行结果），基本上一眼就能明白。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000;font-weight:bold">var</span> ws <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> WebSocket(<span style="color:#d14">&#34;wss://echo.websocket.org&#34;</span>);
+
+ws.onopen <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(evt) { 
+  console.log(<span style="color:#d14">&#34;Connection open ...&#34;</span>); 
+  ws.send(<span style="color:#d14">&#34;Hello WebSockets!&#34;</span>);
+};
+
+ws.onmessage <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(evt) {
+  console.log( <span style="color:#d14">&#34;Received Message: &#34;</span> <span style="color:#000;font-weight:bold">+</span> evt.data);
+  ws.close();
+};
+
+ws.onclose <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(evt) {
+  console.log(<span style="color:#d14">&#34;Connection closed.&#34;</span>);
+};      
+</code></pre></div><h2 id="四客户端的-api">四、客户端的 API</h2>
+<p>WebSocket 客户端的 API 如下。</p>
+<h3 id="41-websocket-构造函数">4.1 WebSocket 构造函数</h3>
+<p>WebSocket 对象作为一个构造函数，用于新建 WebSocket 实例。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000;font-weight:bold">var</span> ws <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> WebSocket(<span style="color:#d14">&#39;ws://localhost:8080&#39;</span>);
+</code></pre></div><p>执行上面语句之后，客户端就会与服务器进行连接。</p>
+<p>实例对象的所有属性和方法清单，参见<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket">这里</a>。</p>
+<h3 id="42-websocketreadystate">4.2 webSocket.readyState</h3>
+<p><code>readyState</code>属性返回实例对象的当前状态，共有四种。</p>
+<ul>
+<li>CONNECTING：值为0，表示正在连接。</li>
+<li>OPEN：值为1，表示连接成功，可以通信了。</li>
+<li>CLOSING：值为2，表示连接正在关闭。</li>
+<li>CLOSED：值为3，表示连接已经关闭，或者打开连接失败。</li>
+</ul>
+<p>下面是一个示例。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000;font-weight:bold">switch</span> (ws.readyState) {
+  <span style="color:#000;font-weight:bold">case</span> WebSocket.CONNECTING<span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#998;font-style:italic">// do something
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">break</span>;
+  <span style="color:#000;font-weight:bold">case</span> WebSocket.OPEN<span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#998;font-style:italic">// do something
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">break</span>;
+  <span style="color:#000;font-weight:bold">case</span> WebSocket.CLOSING<span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#998;font-style:italic">// do something
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">break</span>;
+  <span style="color:#000;font-weight:bold">case</span> WebSocket.CLOSED<span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#998;font-style:italic">// do something
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">break</span>;
+  <span style="color:#000;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#998;font-style:italic">// this never happens
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">break</span>;
+}
+</code></pre></div><h3 id="43-websocketonopen">4.3 webSocket.onopen</h3>
+<p>实例对象的<code>onopen</code>属性，用于指定连接成功后的回调函数。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">ws.onopen <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span> () {
+  ws.send(<span style="color:#d14">&#39;Hello Server!&#39;</span>);
+}
+</code></pre></div><p>如果要指定多个回调函数，可以使用<code>addEventListener</code>方法。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">ws.addEventListener(<span style="color:#d14">&#39;open&#39;</span>, <span style="color:#000;font-weight:bold">function</span> (event) {
+  ws.send(<span style="color:#d14">&#39;Hello Server!&#39;</span>);
+});
+</code></pre></div><h3 id="44-websocketonclose">4.4 webSocket.onclose</h3>
+<p>实例对象的<code>onclose</code>属性，用于指定连接关闭后的回调函数。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">ws.onclose <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(event) {
+  <span style="color:#000;font-weight:bold">var</span> code <span style="color:#000;font-weight:bold">=</span> event.code;
+  <span style="color:#000;font-weight:bold">var</span> reason <span style="color:#000;font-weight:bold">=</span> event.reason;
+  <span style="color:#000;font-weight:bold">var</span> wasClean <span style="color:#000;font-weight:bold">=</span> event.wasClean;
+  <span style="color:#998;font-style:italic">// handle close event
+</span><span style="color:#998;font-style:italic"></span>};
+
+ws.addEventListener(<span style="color:#d14">&#34;close&#34;</span>, <span style="color:#000;font-weight:bold">function</span>(event) {
+  <span style="color:#000;font-weight:bold">var</span> code <span style="color:#000;font-weight:bold">=</span> event.code;
+  <span style="color:#000;font-weight:bold">var</span> reason <span style="color:#000;font-weight:bold">=</span> event.reason;
+  <span style="color:#000;font-weight:bold">var</span> wasClean <span style="color:#000;font-weight:bold">=</span> event.wasClean;
+  <span style="color:#998;font-style:italic">// handle close event
+</span><span style="color:#998;font-style:italic"></span>});
+</code></pre></div><h3 id="45-websocketonmessage">4.5 webSocket.onmessage</h3>
+<p>实例对象的<code>onmessage</code>属性，用于指定收到服务器数据后的回调函数。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">ws.onmessage <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(event) {
+  <span style="color:#000;font-weight:bold">var</span> data <span style="color:#000;font-weight:bold">=</span> event.data;
+  <span style="color:#998;font-style:italic">// 处理数据
+</span><span style="color:#998;font-style:italic"></span>};
+
+ws.addEventListener(<span style="color:#d14">&#34;message&#34;</span>, <span style="color:#000;font-weight:bold">function</span>(event) {
+  <span style="color:#000;font-weight:bold">var</span> data <span style="color:#000;font-weight:bold">=</span> event.data;
+  <span style="color:#998;font-style:italic">// 处理数据
+</span><span style="color:#998;font-style:italic"></span>});
+</code></pre></div><p>注意，服务器数据可能是文本，也可能是二进制数据（<code>blob</code>对象或<code>Arraybuffer</code>对象）。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">ws.onmessage <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(event){
+  <span style="color:#000;font-weight:bold">if</span>(<span style="color:#000;font-weight:bold">typeof</span> event.data <span style="color:#000;font-weight:bold">===</span> <span style="color:#0086b3">String</span>) {
+    console.log(<span style="color:#d14">&#34;Received data string&#34;</span>);
+  }
+
+  <span style="color:#000;font-weight:bold">if</span>(event.data <span style="color:#000;font-weight:bold">instanceof</span> ArrayBuffer){
+    <span style="color:#000;font-weight:bold">var</span> buffer <span style="color:#000;font-weight:bold">=</span> event.data;
+    console.log(<span style="color:#d14">&#34;Received arraybuffer&#34;</span>);
+  }
+}
+</code></pre></div><p>除了动态判断收到的数据类型，也可以使用<code>binaryType</code>属性，显式指定收到的二进制数据类型。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#998;font-style:italic">// 收到的是 blob 数据
+</span><span style="color:#998;font-style:italic"></span>ws.binaryType <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;blob&#34;</span>;
+ws.onmessage <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(e) {
+  console.log(e.data.size);
+};
+
+<span style="color:#998;font-style:italic">// 收到的是 ArrayBuffer 数据
+</span><span style="color:#998;font-style:italic"></span>ws.binaryType <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;arraybuffer&#34;</span>;
+ws.onmessage <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(e) {
+  console.log(e.data.byteLength);
+};
+</code></pre></div><h3 id="46-websocketsend">4.6 webSocket.send()</h3>
+<p>实例对象的<code>send()</code>方法用于向服务器发送数据。</p>
+<p>发送文本的例子。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">ws.send(<span style="color:#d14">&#39;your message&#39;</span>);
+</code></pre></div><p>发送 Blob 对象的例子。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000;font-weight:bold">var</span> file <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>
+  .querySelector(<span style="color:#d14">&#39;input[type=&#34;file&#34;]&#39;</span>)
+  .files[<span style="color:#099">0</span>];
+ws.send(file);
+</code></pre></div><p>发送 ArrayBuffer 对象的例子。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#998;font-style:italic">// Sending canvas ImageData as ArrayBuffer
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">var</span> img <span style="color:#000;font-weight:bold">=</span> canvas_context.getImageData(<span style="color:#099">0</span>, <span style="color:#099">0</span>, <span style="color:#099">400</span>, <span style="color:#099">320</span>);
+<span style="color:#000;font-weight:bold">var</span> binary <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Uint8Array(img.data.length);
+<span style="color:#000;font-weight:bold">for</span> (<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; i <span style="color:#000;font-weight:bold">&lt;</span> img.data.length; i<span style="color:#000;font-weight:bold">++</span>) {
+  binary[i] <span style="color:#000;font-weight:bold">=</span> img.data[i];
+}
+ws.send(binary.buffer);
+</code></pre></div><h3 id="47-websocketbufferedamount">4.7 webSocket.bufferedAmount</h3>
+<p>实例对象的<code>bufferedAmount</code>属性，表示还有多少字节的二进制数据没有发送出去。它可以用来判断发送是否结束。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000;font-weight:bold">var</span> data <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> ArrayBuffer(<span style="color:#099">10000000</span>);
+socket.send(data);
+
+<span style="color:#000;font-weight:bold">if</span> (socket.bufferedAmount <span style="color:#000;font-weight:bold">===</span> <span style="color:#099">0</span>) {
+  <span style="color:#998;font-style:italic">// 发送完毕
+</span><span style="color:#998;font-style:italic"></span>} <span style="color:#000;font-weight:bold">else</span> {
+  <span style="color:#998;font-style:italic">// 发送还没结束
+</span><span style="color:#998;font-style:italic"></span>}
+</code></pre></div><h3 id="48-websocketonerror">4.8 webSocket.onerror</h3>
+<p>实例对象的<code>onerror</code>属性，用于指定报错时的回调函数。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">socket.onerror <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(event) {
+  <span style="color:#998;font-style:italic">// handle error event
+</span><span style="color:#998;font-style:italic"></span>};
+
+socket.addEventListener(<span style="color:#d14">&#34;error&#34;</span>, <span style="color:#000;font-weight:bold">function</span>(event) {
+  <span style="color:#998;font-style:italic">// handle error event
+</span><span style="color:#998;font-style:italic"></span>});
+</code></pre></div><h2 id="五服务端的实现">五、服务端的实现</h2>
+<p>WebSocket 服务器的实现，可以查看维基百科的<a href="https://en.wikipedia.org/wiki/Comparison_of_WebSocket_implementations">列表</a>。</p>
+<p>常用的 Node 实现有以下三种。</p>
+<ul>
+<li><a href="https://github.com/uWebSockets/uWebSockets">µWebSockets</a></li>
+<li><a href="http://socket.io/">Socket.IO</a></li>
+<li><a href="https://github.com/theturtle32/WebSocket-Node">WebSocket-Node</a></li>
+</ul>
+<p>具体的用法请查看它们的文档，这里不详细介绍了。</p>
+<h2 id="六websocketd">六、WebSocketd</h2>
+<p>下面，我要推荐一款非常特别的 WebSocket 服务器：<a href="http://websocketd.com/">Websocketd</a>。</p>
+<p>它的最大特点，就是后台脚本不限语言，标准输入（stdin）就是 WebSocket 的输入，标准输出（stdout）就是 WebSocket 的输出。</p>
+<p>
+        <img class="mx-auto" alt="img" src="/img/bg2017051504.png" />   
+    </p>
+<p>举例来说，下面是一个 Bash 脚本<code>counter.sh</code>。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#0086b3">echo</span> <span style="color:#099">1</span>
+sleep <span style="color:#099">1</span>
+
+<span style="color:#0086b3">echo</span> <span style="color:#099">2</span>
+sleep <span style="color:#099">1</span>
+
+<span style="color:#0086b3">echo</span> <span style="color:#099">3</span>
+</code></pre></div><p>命令行下运行这个脚本，会输出1、2、3，每个值之间间隔1秒。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bash ./counter.sh
+<span style="color:#099">1</span>
+<span style="color:#099">2</span>
+<span style="color:#099">3</span>
+</code></pre></div><p>现在，启动<code>websocketd</code>，指定这个脚本作为服务。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ websocketd --port<span style="color:#000;font-weight:bold">=</span><span style="color:#099">8080</span> bash ./counter.sh
+</code></pre></div><p>上面的命令会启动一个 WebSocket 服务器，端口是<code>8080</code>。每当客户端连接这个服务器，就会执行<code>counter.sh</code>脚本，并将它的输出推送给客户端。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000;font-weight:bold">var</span> ws <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> WebSocket(<span style="color:#d14">&#39;ws://localhost:8080/&#39;</span>);
+
+ws.onmessage <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>(event) {
+  console.log(event.data);
+};
+</code></pre></div><p>上面是客户端的 JavaScript 代码，运行之后会在控制台依次输出1、2、3。</p>
+<p>有了它，就可以很方便地将命令行的输出，发给浏览器。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ websocketd --port<span style="color:#000;font-weight:bold">=</span><span style="color:#099">8080</span> ls
+</code></pre></div><p>上面的命令会执行<code>ls</code>命令，从而将当前目录的内容，发给浏览器。使用这种方式实时监控服务器，简直是轻而易举（<a href="https://github.com/joewalnes/web-vmstats">代码</a>）。</p>
+<p>
+        <img class="mx-auto" alt="img" src="/img/bg2017051505.jpg" />   
+    </p>
+<p>更多的用法可以参考<a href="https://github.com/joewalnes/websocketd/tree/master/examples/bash">官方示例</a>。</p>
+<ul>
+<li>Bash 脚本<a href="https://github.com/joewalnes/websocketd/blob/master/examples/bash/greeter.sh">读取客户端输入</a>的例子</li>
+<li>五行代码实现一个最简单的<a href="https://github.com/joewalnes/websocketd/blob/master/examples/bash/chat.sh">聊天服务器</a></li>
+</ul>
+<p>
+        <img class="mx-auto" alt="img" src="/img/bg2017051506.png" />   
+    </p>
+<p>websocketd 的实质，就是命令行的 WebSocket 代理。只要命令行可以执行的程序，都可以通过它与浏览器进行 WebSocket 通信。下面是一个 Node 实现的回声服务<a href="https://github.com/joewalnes/websocketd/blob/master/examples/nodejs/greeter.js"><code>greeter.js</code></a>。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">process.stdin.setEncoding(<span style="color:#d14">&#39;utf8&#39;</span>);
+
+process.stdin.on(<span style="color:#d14">&#39;readable&#39;</span>, <span style="color:#000;font-weight:bold">function</span>() {
+  <span style="color:#000;font-weight:bold">var</span> chunk <span style="color:#000;font-weight:bold">=</span> process.stdin.read();
+  <span style="color:#000;font-weight:bold">if</span> (chunk <span style="color:#000;font-weight:bold">!==</span> <span style="color:#000;font-weight:bold">null</span>) {
+    process.stdout.write(<span style="color:#d14">&#39;data: &#39;</span> <span style="color:#000;font-weight:bold">+</span> chunk);
+  }
+});
+</code></pre></div><p>启动这个脚本的命令如下。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ websocketd --port<span style="color:#000;font-weight:bold">=</span><span style="color:#099">8080</span> node ./greeter.js
+</code></pre></div><p>官方仓库还有其他<a href="https://github.com/joewalnes/websocketd/tree/master/examples">各种语言</a>的例子。</p>
+<h2 id="七参考链接">七、参考链接</h2>
+<ul>
+<li><a href="http://cjihrig.com/blog/how-to-use-websockets/">How to Use WebSockets</a></li>
+<li><a href="https://www.tutorialspoint.com/websockets/websockets_send_receive_messages.htm">WebSockets - Send &amp; Receive Messages</a></li>
+<li><a href="https://www.html5rocks.com/en/tutorials/websockets/basics/">Introducing WebSockets: Bringing Sockets to the Web</a></li>
+</ul>
+<p>（完）</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/08/12/network/a-complete-http-request.html">一次完整的HTTP请求</a></li>
+        
+        <li><a href="/2021/08/11/network/nat.html">网络地址转换 (NAT) | NAT 特征</a></li>
+        
+        <li><a href="/2021/08/09/network/3_handshakes_4_waves.html">TCP 三次握手与四次挥手</a></li>
+        
+        <li><a href="/2021/08/08/network/reference-models.html">网络模型</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/WebSocket'>WebSocket</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

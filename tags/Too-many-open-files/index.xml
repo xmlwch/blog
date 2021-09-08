@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Too many open files on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/Too-many-open-files/</link>
+    <description>Recent content in Too many open files on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 09 Jun 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Too-many-open-files/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Failed to allocate directory watch: Too many open files</title>
+      <link>https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html</link>
+      <pubDate>Wed, 09 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html</guid>
+      <description>uos上运行systemctl启动服务时报错： Failed to allocate directory watch: Too many open files 解决方法： vi /etc/sysctl.conf cat /etc/sysctl.conf # 添加一下配置 fs.inotify.max_user_instances=512 fs.inotify.max_user_watches=262144 生效 sysctl -p 分析： 可能是 inotify 数量限制了，修改后服务可以正常启动 inotify介绍： 它是一个内核用于通知用户空间程序文件系统变化的机制。 众所周知，Linux 桌面系统与 MAC 或 Windows 相比有许多不如人</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/</link>
+    <description>Recent content in Tags on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 07 Sep 2021 13:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM</title>
+      <link>https://blog.xmlwch.cn/tags/KVM/</link>
+      <pubDate>Tue, 07 Sep 2021 13:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/KVM/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://blog.xmlwch.cn/tags/Linux/</link>
+      <pubDate>Tue, 07 Sep 2021 13:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Qemu</title>
+      <link>https://blog.xmlwch.cn/tags/Qemu/</link>
+      <pubDate>Tue, 07 Sep 2021 13:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Qemu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>https://blog.xmlwch.cn/tags/Redis/</link>
+      <pubDate>Fri, 03 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SELinux</title>
+      <link>https://blog.xmlwch.cn/tags/SELinux/</link>
+      <pubDate>Thu, 02 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/SELinux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://blog.xmlwch.cn/tags/Python/</link>
+      <pubDate>Mon, 30 Aug 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vue</title>
+      <link>https://blog.xmlwch.cn/tags/Vue/</link>
+      <pubDate>Wed, 25 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Vue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WebSocket</title>
+      <link>https://blog.xmlwch.cn/tags/WebSocket/</link>
+      <pubDate>Fri, 13 Aug 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/WebSocket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTTP</title>
+      <link>https://blog.xmlwch.cn/tags/HTTP/</link>
+      <pubDate>Thu, 12 Aug 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/HTTP/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>http request</title>
+      <link>https://blog.xmlwch.cn/tags/http-request/</link>
+      <pubDate>Thu, 12 Aug 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/http-request/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NAT</title>
+      <link>https://blog.xmlwch.cn/tags/NAT/</link>
+      <pubDate>Wed, 11 Aug 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/NAT/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>axios</title>
+      <link>https://blog.xmlwch.cn/tags/axios/</link>
+      <pubDate>Tue, 10 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/axios/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>三次握手</title>
+      <link>https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/</link>
+      <pubDate>Mon, 09 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>四次挥手</title>
+      <link>https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</link>
+      <pubDate>Mon, 09 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OSI 模型</title>
+      <link>https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sun, 08 Aug 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTML</title>
+      <link>https://blog.xmlwch.cn/tags/HTML/</link>
+      <pubDate>Fri, 06 Aug 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/HTML/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>systemd</title>
+      <link>https://blog.xmlwch.cn/tags/systemd/</link>
+      <pubDate>Thu, 05 Aug 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/systemd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>汉字转拼音</title>
+      <link>https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/</link>
+      <pubDate>Wed, 04 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Content Type</title>
+      <link>https://blog.xmlwch.cn/tags/Content-Type/</link>
+      <pubDate>Tue, 03 Aug 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Content-Type/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>请求头</title>
+      <link>https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/</link>
+      <pubDate>Mon, 02 Aug 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>请求方法</title>
+      <link>https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 02 Aug 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>math</title>
+      <link>https://blog.xmlwch.cn/tags/math/</link>
+      <pubDate>Fri, 30 Jul 2021 14:30:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>psr-0</title>
+      <link>https://blog.xmlwch.cn/tags/psr-0/</link>
+      <pubDate>Wed, 28 Jul 2021 20:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/psr-0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>psr-4</title>
+      <link>https://blog.xmlwch.cn/tags/psr-4/</link>
+      <pubDate>Wed, 28 Jul 2021 20:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/psr-4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Composer</title>
+      <link>https://blog.xmlwch.cn/tags/Composer/</link>
+      <pubDate>Wed, 28 Jul 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Composer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>regexp</title>
+      <link>https://blog.xmlwch.cn/tags/regexp/</link>
+      <pubDate>Tue, 27 Jul 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/regexp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PHPWord</title>
+      <link>https://blog.xmlwch.cn/tags/PHPWord/</link>
+      <pubDate>Mon, 26 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/PHPWord/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cross</title>
+      <link>https://blog.xmlwch.cn/tags/cross/</link>
+      <pubDate>Sun, 25 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/cross/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>跨域</title>
+      <link>https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/</link>
+      <pubDate>Sun, 25 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vsftpd</title>
+      <link>https://blog.xmlwch.cn/tags/vsftpd/</link>
+      <pubDate>Thu, 22 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/vsftpd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vagrant</title>
+      <link>https://blog.xmlwch.cn/tags/Vagrant/</link>
+      <pubDate>Wed, 21 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Vagrant/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>status codes</title>
+      <link>https://blog.xmlwch.cn/tags/status-codes/</link>
+      <pubDate>Tue, 20 Jul 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/status-codes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://blog.xmlwch.cn/tags/Docker/</link>
+      <pubDate>Fri, 16 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://blog.xmlwch.cn/tags/Git/</link>
+      <pubDate>Thu, 15 Jul 2021 20:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://blog.xmlwch.cn/tags/MySQL/</link>
+      <pubDate>Thu, 15 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/MySQL/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>遗忘密码</title>
+      <link>https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/</link>
+      <pubDate>Thu, 15 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>awk</title>
+      <link>https://blog.xmlwch.cn/tags/awk/</link>
+      <pubDate>Wed, 14 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/awk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>grep</title>
+      <link>https://blog.xmlwch.cn/tags/grep/</link>
+      <pubDate>Wed, 14 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/grep/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sed</title>
+      <link>https://blog.xmlwch.cn/tags/sed/</link>
+      <pubDate>Wed, 14 Jul 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/sed/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GeoJSON</title>
+      <link>https://blog.xmlwch.cn/tags/GeoJSON/</link>
+      <pubDate>Tue, 13 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/GeoJSON/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Supervisor</title>
+      <link>https://blog.xmlwch.cn/tags/Supervisor/</link>
+      <pubDate>Tue, 06 Jul 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Supervisor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PHP</title>
+      <link>https://blog.xmlwch.cn/tags/PHP/</link>
+      <pubDate>Mon, 28 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/PHP/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Session</title>
+      <link>https://blog.xmlwch.cn/tags/Session/</link>
+      <pubDate>Mon, 28 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Session/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ssh</title>
+      <link>https://blog.xmlwch.cn/tags/ssh/</link>
+      <pubDate>Mon, 21 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>UOS</title>
+      <link>https://blog.xmlwch.cn/tags/UOS/</link>
+      <pubDate>Mon, 21 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/UOS/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Header</title>
+      <link>https://blog.xmlwch.cn/tags/Header/</link>
+      <pubDate>Sun, 20 Jun 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Header/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>socket lock file</title>
+      <link>https://blog.xmlwch.cn/tags/socket-lock-file/</link>
+      <pubDate>Fri, 18 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/socket-lock-file/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Shell括号场景</title>
+      <link>https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/</link>
+      <pubDate>Thu, 17 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>chmod</title>
+      <link>https://blog.xmlwch.cn/tags/chmod/</link>
+      <pubDate>Sat, 12 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/chmod/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>权限</title>
+      <link>https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/</link>
+      <pubDate>Sat, 12 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Too many open files</title>
+      <link>https://blog.xmlwch.cn/tags/Too-many-open-files/</link>
+      <pubDate>Wed, 09 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Too-many-open-files/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>端口监听查看</title>
+      <link>https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/</link>
+      <pubDate>Wed, 09 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fpm</title>
+      <link>https://blog.xmlwch.cn/tags/fpm/</link>
+      <pubDate>Tue, 08 Jun 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/fpm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>firewalld</title>
+      <link>https://blog.xmlwch.cn/tags/firewalld/</link>
+      <pubDate>Mon, 07 Jun 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/firewalld/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://blog.xmlwch.cn/tags/golang/</link>
+      <pubDate>Fri, 21 May 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>添加硬盘</title>
+      <link>https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/</link>
+      <pubDate>Fri, 21 May 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TCP/IP协议模型</title>
+      <link>https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

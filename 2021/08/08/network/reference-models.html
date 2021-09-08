@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>网络模型 | xmlwch的博客</title>
+    <meta property="og:title" content="网络模型 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-08-08T16:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-08-08T16:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/08/08/network/reference-models.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">网络模型</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年8月8日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Network'>Network</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共1991字</span>，阅读约<span class="more-meta"> 4 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="1分层模型的优点">1、分层模型的优点</h2>
+<p>分层模型，例如 TCP/IP 模型，通常用于形象化展现各种协议之间的交互。 分层模型形象地说明了各层内协议的工作方式，及其与上下层之间的交互。</p>
+<p>使用分层模型来说明网络协议及其工作方式有很多优点。 使用分层模型的优点：</p>
+<ul>
+<li>
+<p>有助于协议设计，因为对于在特定层工作的协议而言，它们的工作方式及其与上下层之间的接口都已经确定。</p>
+</li>
+<li>
+<p>促进竞争，因为可以同时使用不同厂商的产品。</p>
+</li>
+<li>
+<p>避免一个协议层的技术或功能变化影响相邻的其它层。</p>
+</li>
+<li>
+<p>提供了描述网络功能和能力的通用语言。</p>
+</li>
+</ul>
+<p>网络模型有两种基本类型：</p>
+<ul>
+<li>
+<p><strong>协议模型</strong> - 该模型与特定的协议簇结构紧密配合。 协议簇中分层的一组相关协议通常代表连接以人为本的网络与数据网络所需的全部功能。 TCP/IP 模型描述了 TCP/IP 协议簇中每个协议层实现的功能，因此属于协议模型。</p>
+</li>
+<li>
+<p><strong>参考模型</strong> - 该模型通过描述特定层需要完成什么但不规定如何完成来保持各类网络协议和服务中的一致性。 参考模型的目的并不是作为一种实现规范，也不是为了提供充分的详细信息来精确定义网络体系结构的服务。 参考模型的主要用途是帮助人们更清晰地理解涉及的功能和过程。</p>
+</li>
+</ul>
+<p>OSI 模型是最广为人知的网际网络参考模型。 用于数据网络设计、操作规范和故障排除。</p>
+<p>如图所示，TCP/IP 模型和 OSI 模型是讨论网络功能时使用的主要模型。 网络协议、服务或设备的设计人员可以自行创建模型来代表他们的产品。 不过，设计人员最终还是需要将自己的产品或服务与 OSI 模型和 TCP/IP 模型之中任一或全部相关联才能与行业通信。</p>
+<p>
+        <img class="mx-auto" alt="image-20210809133743101" src="/img/image-20210809133743101-16284882511981.png" />   
+    </p>
+<h2 id="2osi-参考模型">2、OSI 参考模型</h2>
+<p>OSI 模型最初由 ISO 设计，旨在提供一套开放式系统协议的构建框架。 其初衷是希望使用这套协议开发一个独立于专有系统的国际网络。</p>
+<p>不过，由于基于 TCP/IP 协议的 Internet 迅速得到广泛采用并且扩展速度极快，致使 OSI 协议簇的制定和认可相对滞后。 但即使目前只有少数使用 OSI 规范制定的协议得到了广泛使用，七层 OSI 模型对适用于所有新兴网络类型的其它协议的制定和产品的开发作出的贡献也不容忽视。</p>
+<p>OSI 模型详细罗列了每一层可以实现的功能和服务。 它还描述了各层与其上、下层之间的交互。</p>
+<p><strong>请注意</strong>：我们提及 TCP/IP 模型的各层时只使用其名称，而提及 OSI 模型的七个层时则通常使用编号而非名称。 例如，物理层称为 OSI 模型的第 1 层。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">OSI 模型</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">7.应用层</td>
+<td>应用层为以人为本网络中的不同个人之间提供了使用数据网络实现端到端连接的方法。</td>
+</tr>
+<tr>
+<td style="text-align:center">6.表示层</td>
+<td>表示层对应用层服务之间传输的数据规定了通用的表示方式。</td>
+</tr>
+<tr>
+<td style="text-align:center">5.会话层</td>
+<td>会话层为表示层提供组织对话和管理数据交换的服务。</td>
+</tr>
+<tr>
+<td style="text-align:center">4.传输层</td>
+<td>传输层为终端设备之间的每个通信定义了数据分段、传输和重组服务。</td>
+</tr>
+<tr>
+<td style="text-align:center">3.网络层</td>
+<td>网络层为所标识的终端设备之间通过网络交换一个个数据的片段提供服务。</td>
+</tr>
+<tr>
+<td style="text-align:center">2.传输链路层</td>
+<td>数据链路层协议描述了设备之间通过公共介质交换数据帧的方法。</td>
+</tr>
+<tr>
+<td style="text-align:center">1.物理层</td>
+<td>物理层协议描述的机械、电气、功能和操作方法用于激活、维护和停用网络设备之间比特传输使用的物理连接。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3tcpip-协议模型">3、TCP/IP 协议模型</h2>
+<p>用于网际通信的 TCP/IP 协议模型建立于二十世纪七十年代，有时称为 Internet 模型。 如图所示，它定义了成功通信所必需的四类功能。 TCP/IP 协议簇的体系结构遵循了此模型的结构。 因此，Internet 模型通常被称为 TCP/IP 模型。</p>
+<p>大多数协议模型描述的都是厂商特定的协议栈。 但是，由于 TCP/IP 模型是一种开放式标准，因此并不由一家公司来控制该模型的定义。 标准的定义和 TCP/IP 协议都在公开的论坛中讨论并在向公众开放的 RFC 集中加以定义。 RFC 同时包含数据通信协议的正式规范和描述协议使用的资源。</p>
+<p>RFC 中还有与 Internet 相关的技术文档和组织文档，包括由 IETF 制作的技术规范和策略文档。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">TCP/IP 模型</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">应用层</td>
+<td>向用户提供数据，以及编码和对话控制。</td>
+</tr>
+<tr>
+<td style="text-align:center">传输层</td>
+<td>支持不同设备之间通过不同网络通信。</td>
+</tr>
+<tr>
+<td style="text-align:center">网络层</td>
+<td>确定通过该网络的最佳路径。</td>
+</tr>
+<tr>
+<td style="text-align:center">网络接入层</td>
+<td>控制组成网络的硬件设备和介质。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4比较-osi-模型与-tcpip-模型">4、比较 OSI 模型与 TCP/IP 模型</h2>
+<p>根据 OSI 参考模型可以说明构成 TCP/IP 协议簇的协议。 在 OSI 模型中，TCP/IP 模型的网络接入层和应用层被进一步划分，用于说明这些协议层必须实现的详细功能。</p>
+<p>TCP/IP 协议簇在网络接入层并没有指定通过物理介质传输时使用的协议，而只是描述了从 Internet 层到物理网络协议的传递。 而 OSI 模型第 1 层和第 2 层则论述了接入介质所需的步骤以及通过网络发送数据的物理手段。</p>
+<p>如图所示，这两个网络模型之间主要的相似之处在于 OSI 第 3 层和第 4 层。 OSI 第 3 层是网络层，几乎全部用于描述发生在所有数据网络中的用于编址并在网际网络中路由消息的过程。 IP 是 TCP/IP 协议簇中的协议，包含了 OSI 第 3 层中描述的功能。</p>
+<p>OSI 模型的第 4 层，传输层，描述了可以在源主机和目的主机之间提供有序可靠的数据传输的常用服务和功能。 这些功能包括确认、错误恢复和定序。 传输控制协议 (TCP) 和用户数据报协议 (UDP) 这两个 TCP/IP 协议提供了这一层需要的功能。</p>
+<p>TCP/IP 应用层包括许多协议，为各种最终用户应用程序提供特定功能。 OSI 模型第 5 层、第 6 层和第 7 层供应用程序软件开发人员和厂商参考，用于生产需要在网络上运行的产品。</p>
+<p>
+        <img class="mx-auto" alt="image-20210809140744286" src="/img/image-20210809140744286.png" />   
+    </p>
+<blockquote>
+<p>由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</p>
+</blockquote>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2021/08/08/network/reference-models.html">https://blog.xmlwch.cn/2021/08/08/network/reference-models.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">知识共享署名4.0 国际许可协议</a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B'>TCP/IP协议模型</a></li>
+                
+                <li><a href='/tags/OSI-%E6%A8%A1%E5%9E%8B'>OSI 模型</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

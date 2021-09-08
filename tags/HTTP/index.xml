@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTTP on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/HTTP/</link>
+    <description>Recent content in HTTP on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 12 Aug 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/HTTP/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一次完整的HTTP请求</title>
+      <link>https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html</link>
+      <pubDate>Thu, 12 Aug 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html</guid>
+      <description>当我们在浏览器的地址栏输入 www.xmlwch.cn ，然后回车，回车这一瞬间到看到页面到底发生了什么呢？ 个人理解至少需要经历以下步骤： 域名解析 建立TCP连接 浏览器向Web服务器发送请求命令 Web服务器应答 Web服务器关闭TCP连接 浏览器解析html代码 浏览器对页面进行渲染呈现给用户 1、域名解析 客户端根据</description>
+    </item>
+    
+    <item>
+      <title>HTTP Content Type | HTTP Media Type</title>
+      <link>https://blog.xmlwch.cn/2021/08/03/http/http-content-type.html</link>
+      <pubDate>Tue, 03 Aug 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/03/http/http-content-type.html</guid>
+      <description>文件扩展名 Content-Type 文件扩展名 Content-Type .* application/octet-stream .tif image/tiff .001 application/x-001 .301 application/x-301 .323 text/h323 .906 application/x-906 .907 drawing/907 .a11 application/x-a11 .acp audio/x-mei-aac .ai application/postscript .aif audio/aiff .aifc audio/aiff .aiff audio/aiff .anv application/x-anv .asa text/asa .asf video/x-ms-asf .asp text/asp .asx video/x-ms-asf .au audio/basic .avi video/avi .awf application/vnd.adobe.workflow .biz text/xml .bmp application/x-bmp .bot application/x-bot .c4t application/x-c4t .c90 application/x-c90 .cal application/x-cals .cat application/vnd.ms-pki.seccat .cdf application/x-netcdf .cdr application/x-cdr .cel application/x-cel .cer application/x-x509-ca-cert .cg4 application/x-g4 .cgm application/x-cgm .cit application/x-cit .class java/* .cml text/xml .cmp application/x-cmp .cmx application/x-cmx .cot application/x-cot .crl application/pkix-crl .crt application/x-x509-ca-cert .csi application/x-csi .css text/css .cut application/x-cut .dbf application/x-dbf .dbm application/x-dbm .dbx application/x-dbx .dcd text/xml .dcx application/x-dcx .der application/x-x509-ca-cert .dgn application/x-dgn .dib application/x-dib .dll application/x-msdownload .doc application/msword .dot application/msword .drw application/x-drw .dtd text/xml .dwf Model/vnd.dwf .dwf application/x-dwf .dwg application/x-dwg .dxb application/x-dxb .dxf application/x-dxf .edn application/vnd.adobe.edn</description>
+    </item>
+    
+    <item>
+      <title>HTTP 请求头</title>
+      <link>https://blog.xmlwch.cn/2021/08/02/http/http-request-headers.html</link>
+      <pubDate>Mon, 02 Aug 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/02/http/http-request-headers.html</guid>
+      <description>请求头字段名 说明 示例 Accept 能够接受的回应内容类型（Content-Types）。 Accept: text/plain Accept-Charset 能够接受的字符集 Accept-Charset: utf-8 Accept-Datetime 能够接受的按照时间来表示的版本 Accept-Datetime: Thu, 31 May 2007 20:35:00 GMT Accept-Encoding 能够接受的编码方式列表。参考HTTP压缩。 Accept-Encoding: gzip, deflate Accept-Language 能够接受的回应内容的自然语言列表。 Accept-Language: en-US Authorization 用于超文本传输协议的认证的认证信息 Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</description>
+    </item>
+    
+    <item>
+      <title>HTTP 请求方法</title>
+      <link>https://blog.xmlwch.cn/2021/08/02/http/http-request-method.html</link>
+      <pubDate>Mon, 02 Aug 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/02/http/http-request-method.html</guid>
+      <description>请求方法 说明 GET GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据. HEAD HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体. POST POST方法用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用. PUT PUT方法用请求有效载荷替换目标资源的所有</description>
+    </item>
+    
+    <item>
+      <title>HTTP状态码</title>
+      <link>https://blog.xmlwch.cn/2021/07/20/http/http-status-codes.html</link>
+      <pubDate>Tue, 20 Jul 2021 19:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/07/20/http/http-status-codes.html</guid>
+      <description>状态码 状态码英文名称 中文描述 1** - 信息，服务器收到请求，需要请求者继续执行操作 100 Continue 继续。客户端应继续其请求 101 Switching Protocols 切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到HTTP的新版本协议 102 Processing 由WebDAV（RFC 2518）扩展的状态码，代表处理将被继续执行 2**</description>
+    </item>
+    
+    <item>
+      <title>四种常见的 POST 提交数据方式</title>
+      <link>https://blog.xmlwch.cn/2021/06/20/http/post-data-in-http.html</link>
+      <pubDate>Sun, 20 Jun 2021 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/06/20/http/post-data-in-http.html</guid>
+      <description>HTTP/1.1 协议规定的 HTTP 请求方法有 OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE、CONNECT 这几种。其中 POST 一般用来向服务端提交数据，本文主要讨论 POST 提交数据的几种方式。 我们知道，HTTP 协议是以 ASCII 码传输，建立在 TCP/IP 协议之上的应用层规范。规范把 HTTP 请求分为三个部分</description>
+    </item>
+    
+  </channel>
+</rss>

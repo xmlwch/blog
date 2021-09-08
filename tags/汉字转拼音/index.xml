@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>汉字转拼音 on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/</link>
+    <description>Recent content in 汉字转拼音 on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 04 Aug 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vue集成汉字转拼音插件</title>
+      <link>https://blog.xmlwch.cn/2021/08/04/html/pinyin.html</link>
+      <pubDate>Wed, 04 Aug 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/08/04/html/pinyin.html</guid>
+      <description>缘由 项目需求 要实现创建账号时，默认分配登陆账号为姓名拼音。于是整理了一下实现方法。 在转换过程中，这里保留了数字和字母，空格转为- ，其他特殊字符将会被去掉。如 测试 会被转换成 CeShi。（可自行修改 chineseToPinYin() 方法实现其他需求） 参考博文: vue集成汉字转拼音插件 JS中文转换拼音的实现 pinyin.js 文件，文</description>
+    </item>
+    
+  </channel>
+</rss>
