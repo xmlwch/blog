@@ -9,21 +9,21 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>Redis | xmlwch的博客</title>
-    <meta property="og:title" content="Redis - xmlwch的博客">
+    <title>Linux | xmlwch的博客</title>
+    <meta property="og:title" content="Linux - xmlwch的博客">
     <meta property="og:type" content="article">
         
         
     <meta name="Keywords" content="">
-    <meta name="description" content="Redis">
+    <meta name="description" content="Linux">
         
     <meta name="author" content="xmlwch">
-    <meta property="og:url" content="https://blog.xmlwch.cn/categories/Redis/">
+    <meta property="og:url" content="https://blog.xmlwch.cn/categories/Linux/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <link rel="alternate" type="application/rss+xml" href="https://blog.xmlwch.cn/categories/Redis/index.xml" title="xmlwch的博客" />
+    <link rel="alternate" type="application/rss+xml" href="https://blog.xmlwch.cn/categories/Linux/index.xml" title="xmlwch的博客" />
     <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
     
@@ -70,7 +70,7 @@
     
     <h3 class="archive-title">
         分类
-        <span class="keyword">Redis</span>
+        <span class="keyword">Linux</span>
         中的文章
     </h3>
     
@@ -79,11 +79,11 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html">解决Redis的一些报错</a>
+                <a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html">Linux添加新硬盘后操作记录</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
-            2021年9月3日
+            2021年5月21日
         </date>
         
         <div class="post-meta meta-category">
@@ -91,13 +91,11 @@
             
             <a href='/categories/Linux'>Linux</a>
             
-            <a href='/categories/Redis'>Redis</a>
-            
         </div>
         
         <div class="post-content">
-            错误1： MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error. Redis被配置为保存数据库快照，但它目前不能持久化到硬盘。用来修改集合数据的命令不能用。请查看Redis日志的详细错误信息。 解决方案 将stop-writes-on-bgsave-error设置为no 127.0.0.1:6379&gt;……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html">阅读全文</a></p>
+            此文适用于 2T 以下硬盘挂载，2T以上请参考 Linux添加新硬盘(2T以上) 一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html">阅读全文</a></p>
         </div>
     </article>
     
@@ -105,6 +103,30 @@
     
 
 
+
+<ol class="page-navigator">
+    
+    <li class="prev">
+        <a href="https://blog.xmlwch.cn/categories/Linux/page/2/">上一页</a>
+    </li>
+    
+
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/categories/Linux/">1</a>
+    </li>
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/categories/Linux/page/2/">2</a>
+    </li>
+    
+    <li  class="current">
+        <a href="https://blog.xmlwch.cn/categories/Linux/page/3/">3</a>
+    </li>
+    
+
+    
+</ol>
 
 
 

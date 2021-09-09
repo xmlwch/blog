@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html" title="[转]PHP规范PSR-0和PSR-4的理解">[转]PHP规范PSR-0和PSR-4的理解</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月28日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            一、PSR0简介 下文描述了若要使用一个通用的自动加载器(autoloader)，你所需要遵守的规范： 一个完全标准的命名空间(namespace)和类(class)的结构是这样的：\&lt;Vendor Name&gt;\(&lt;Namespace&gt;\)*&lt;Class Name&gt; 每个命名空间(namespace)都必须有一个顶级的空间名(namespac……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/07/28/php/composer.html" title="Composer命令">Composer命令</a>
             </h1>
         </header>
@@ -280,29 +303,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/15/git/question1.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html" title="MySQL遗忘Root密码">MySQL遗忘Root密码</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年7月15日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/MySQL'>MySQL</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            # systemctl stop mariadb #关闭服务 # cat /etc/my.cnf #修改/etc/my.cnf文件, ... [mysqld] skip-grant-tables #在[mysqld]下添加 skip-grant-tables , 再启动mysql ... # systemctl start mariadb #启动服务 # mysql -u root #连接MySql(MariaDB) 并修改root密码为123654 MariaDB [(none)]&gt; update mysql.user set Password=password(&#39;123654&#39;) where User=&#39;root&#39;; Query OK, 1 row affected (0.01 sec) Rows matched: 4 Changed: 1 Warnings: 0 MariaDB [(none)]&gt; flush privileges; Query OK, 0 rows affected (0.00 sec) MariaDB [(none)]&gt; quit; Bye #……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -392,6 +392,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html" title="Linux添加新硬盘(2T以上)">Linux添加新硬盘(2T以上)</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
     </li>
     
@@ -427,10 +431,6 @@
         <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -452,7 +452,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (21)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     

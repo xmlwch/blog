@@ -6,7 +6,16 @@
     <description>Recent content in Linux on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 07 Sep 2021 13:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Sep 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux添加新硬盘(2T以上)</title>
+      <link>https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html</link>
+      <pubDate>Thu, 09 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html</guid>
+      <description>此文适用于 2T 以上硬盘挂载，2T以下请参考 Linux添加新硬盘后操作记录 parted 命令为大于2T硬盘分区 一般来说我们对磁盘分区都是用fdisk命令，但是对于硬盘容量大于2T时，这个命令就不管用了，因为MBR分区表只支持2T磁盘；所以大于2T的磁盘必须使用GPT分区表，这时我们就需要用到pa</description>
+    </item>
+    
     <item>
       <title>KVM 使用 | 在kp920机器上使用KVM虚拟机</title>
       <link>https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html</link>
@@ -184,7 +193,7 @@
       <pubDate>Fri, 21 May 2021 12:00:00 +0800</pubDate>
       
       <guid>https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html</guid>
-      <description>一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查看新硬盘标识 lsblk NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT vda 252:0 0 100G 0 disk ├─vda1 252:1 0 1G 0 part /boot └─vd</description>
+      <description>此文适用于 2T 以下硬盘挂载，2T以上请参考 Linux添加新硬盘(2T以上) 一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查</description>
     </item>
     
   </channel>

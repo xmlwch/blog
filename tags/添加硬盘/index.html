@@ -79,6 +79,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html">Linux添加新硬盘(2T以上)</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月9日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+        </div>
+        
+        <div class="post-content">
+            此文适用于 2T 以上硬盘挂载，2T以下请参考 Linux添加新硬盘后操作记录 parted 命令为大于2T硬盘分区 一般来说我们对磁盘分区都是用fdisk命令，但是对于硬盘容量大于2T时，这个命令就不管用了，因为MBR分区表只支持2T磁盘；所以大于2T的磁盘必须使用GPT分区表，这时我们就需要用到pa……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html">Linux添加新硬盘后操作记录</a>
             </h1>
         </header>
@@ -94,7 +117,7 @@
         </div>
         
         <div class="post-content">
-            一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查看新硬盘标识 lsblk NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT vda 252:0 0 100G 0 disk ├─vda1 252:1 0 1G 0 part /boot └─vd……
+            此文适用于 2T 以下硬盘挂载，2T以上请参考 Linux添加新硬盘(2T以上) 一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查……
             <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html">阅读全文</a></p>
         </div>
     </article>
@@ -153,6 +176,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html" title="Linux添加新硬盘(2T以上)">Linux添加新硬盘(2T以上)</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
     </li>
     
@@ -188,10 +215,6 @@
         <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -213,7 +236,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (20)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (21)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
