@@ -178,8 +178,8 @@ reboot
 <p>2、将拆分后的目录移动至新的硬盘</p>
 <p>3、将新的应用目录位置软连至原来应在的位置</p>
 <h2 id="附录parted-帮助信息">附录：<code>parted</code> 帮助信息</h2>
-<pre><code>Usage: parted [OPTION]... [DEVICE [COMMAND [PARAMETERS]...]...]
-Apply COMMANDs with PARAMETERS to DEVICE.  If no COMMAND(s) are given, run in
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Usage: parted <span style="color:#000;font-weight:bold">[</span>OPTION<span style="color:#000;font-weight:bold">]</span>... <span style="color:#000;font-weight:bold">[</span>DEVICE <span style="color:#000;font-weight:bold">[</span>COMMAND <span style="color:#000;font-weight:bold">[</span>PARAMETERS<span style="color:#000;font-weight:bold">]</span>...<span style="color:#000;font-weight:bold">]</span>...<span style="color:#000;font-weight:bold">]</span>
+Apply COMMANDs with PARAMETERS to DEVICE.  If no COMMAND<span style="color:#000;font-weight:bold">(</span>s<span style="color:#000;font-weight:bold">)</span> are given, run in
 interactive mode.
 
 选项：
@@ -188,37 +188,37 @@ interactive mode.
   -m, --machine                   displays machine parseable output
   -s, --script                    从不提示用户
   -v, --version                   显示版本
-  -a, --align=[none|cyl|min|opt]  alignment for new partitions
+  -a, --align<span style="color:#000;font-weight:bold">=[</span>none|cyl|min|opt<span style="color:#000;font-weight:bold">]</span>  alignment <span style="color:#000;font-weight:bold">for</span> new partitions
 
 命令：
-  align-check TYPE N                        check partition N for TYPE(min|opt)
+  align-check TYPE N                        check partition N <span style="color:#000;font-weight:bold">for</span> TYPE<span style="color:#000;font-weight:bold">(</span>min|opt<span style="color:#000;font-weight:bold">)</span>
         alignment
-  help [COMMAND]                           print general help, or help on
+  <span style="color:#0086b3">help</span> <span style="color:#000;font-weight:bold">[</span>COMMAND<span style="color:#000;font-weight:bold">]</span>                           print general help, or <span style="color:#0086b3">help</span> on
         COMMAND
-  mklabel,mktable LABEL-TYPE               create a new disklabel (partition
-        table)
-  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  mklabel,mktable LABEL-TYPE               create a new disklabel <span style="color:#000;font-weight:bold">(</span>partition
+        table<span style="color:#000;font-weight:bold">)</span>
+  mkpart PART-TYPE <span style="color:#000;font-weight:bold">[</span>FS-TYPE<span style="color:#000;font-weight:bold">]</span> START END     make a partition
   name NUMBER NAME                         name partition NUMBER as NAME
-  print [devices|free|list,all|NUMBER]     display the partition table,
+  print <span style="color:#000;font-weight:bold">[</span>devices|free|list,all|NUMBER<span style="color:#000;font-weight:bold">]</span>     display the partition table,
         available devices, free space, all found partitions, or a particular
         partition
-  quit                                     exit program
+  quit                                     <span style="color:#0086b3">exit</span> program
   rescue START END                         rescue a lost partition near START
         and END
   resizepart NUMBER END                    resize partition NUMBER
   rm NUMBER                                delete partition NUMBER
-  select DEVICE                            choose the device to edit
+  <span style="color:#000;font-weight:bold">select</span> DEVICE                            choose the device to edit
   disk_set FLAG STATE                      change the FLAG on selected device
-  disk_toggle [FLAG]                       toggle the state of FLAG on selected
+  disk_toggle <span style="color:#000;font-weight:bold">[</span>FLAG<span style="color:#000;font-weight:bold">]</span>                       toggle the state of FLAG on selected
         device
-  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
-  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition
+  <span style="color:#0086b3">set</span> NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle <span style="color:#000;font-weight:bold">[</span>NUMBER <span style="color:#000;font-weight:bold">[</span>FLAG<span style="color:#000;font-weight:bold">]]</span>                   toggle the state of FLAG on partition
         NUMBER
-  unit UNIT                                set the default unit to UNIT
+  unit UNIT                                <span style="color:#0086b3">set</span> the default unit to UNIT
   version                                  display the version number and
         copyright information of GNU Parted
 
-</code></pre><blockquote>
+</code></pre></div><blockquote>
 <p>由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</p>
 </blockquote>
 
