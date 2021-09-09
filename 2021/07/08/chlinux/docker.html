@@ -91,7 +91,7 @@
         </div>
         
         <div class="post-meta">
-            |<span class="post-date"> 本文共1307字</span>，阅读约<span class="more-meta"> 3 分钟 </span>
+            |<span class="post-date"> 本文共1314字</span>，阅读约<span class="more-meta"> 3 分钟 </span>
         </div>
         
         <div class="post-meta">
@@ -168,48 +168,36 @@
 <p>Dockerfile是docker构建镜像的基础，也是docker区别于其他容器的重要特征，正是有了Dockerfile，docker的自动化和可移植性才成为可能。</p>
 <p>不论是开发还是运维，学会编写Dockerfile几乎是必备的，这有助于你理解整个容器的运行。</p>
 <h3 id="from-image-name--从一个基础镜像构建新的镜像"><code>FROM &lt;image name&gt;</code> , 从一个基础镜像构建新的镜像</h3>
-<pre><code>FROM centos
-</code></pre>
-<h3 id="maintainer-author-name-维护者信息"><code>MAINTAINER &lt;author name&gt;</code>, 维护者信息</h3>
-<pre><code>MAINTAINER author name &lt;author email&gt;
-</code></pre>
-<h3 id="env-key-value-设置环境变量"><code>ENV &lt;key&gt; &lt;value&gt;</code>, 设置环境变量</h3>
-<pre><code>ENV TEST 1
-</code></pre>
-<h3 id="run-command-非交互式运行shell命令"><code>RUN &lt;command&gt;</code>, 非交互式运行shell命令</h3>
-<pre><code>RUN yum install -y net-tools
-</code></pre>
-<h3 id="add-src-dst-将外部文件拷贝到镜像里src可以为url"><code>ADD &lt;src&gt; &lt;dst&gt;</code>, 将外部文件拷贝到镜像里,src可以为url</h3>
-<pre><code>ADD http://nicescale.com/  /data/nicescale.tgz
-</code></pre>
-<h3 id="workdir-pathtoworkdir-设置工作目录"><code>WORKDIR /path/to/workdir</code>, 设置工作目录</h3>
-<pre><code>WORKDIR /var/www
-</code></pre>
-<h3 id="user-uid-设置用户id"><code>USER &lt;uid&gt;</code>, 设置用户ID</h3>
-<pre><code>USER nginx
-</code></pre>
-<h3 id="vulume-dir-设置volume"><code>VULUME &lt;#dir&gt;</code>, 设置volume</h3>
-<pre><code>VOLUME [‘/data’]
-</code></pre>
-<h3 id="expose-port-暴露哪些端口"><code>EXPOSE &lt;port&gt;</code>, 暴露哪些端口</h3>
-<pre><code>EXPOSE 80 443
-</code></pre>
-<h3 id="entrypoint-executable-param1param2-执行命令"><code>ENTRYPOINT [‘executable’, ‘param1’,’param2’]</code> 执行命令</h3>
-<pre><code>ENTRYPOINT [&quot;/usr/sbin/nginx&quot;]
-</code></pre>
-<h3 id="cmd-param1param2"><code>CMD [“param1&quot;,&quot;param2&quot;]</code></h3>
-<pre><code>CMD [&quot;start&quot;]
-</code></pre>
-<p>docker创建、启动container时执行的命令，如果设置了ENTRYPOINT，则CMD将作为参数&lt;/usr/sbin/nginx start&gt;</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">FROM</span><span style="color:#d14"> centos</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="maintainer-author-name-维护者信息"><code>MAINTAINER &lt;author name&gt;</code>, 维护者信息</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">MAINTAINER</span><span style="color:#d14"> author name &lt;author email&gt;</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="env-key-value-设置环境变量"><code>ENV &lt;key&gt; &lt;value&gt;</code>, 设置环境变量</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">ENV</span> TEST <span style="color:#099">1</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="run-command-非交互式运行shell命令"><code>RUN &lt;command&gt;</code>, 非交互式运行shell命令</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">RUN</span> yum install -y net-tools<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="add-src-dst-将外部文件拷贝到镜像里src可以为url"><code>ADD &lt;src&gt; &lt;dst&gt;</code>, 将外部文件拷贝到镜像里,src可以为url</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">ADD</span> http://nicescale.com/  /data/nicescale.tgz<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="workdir-pathtoworkdir-设置工作目录"><code>WORKDIR /path/to/workdir</code>, 设置工作目录</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">WORKDIR</span><span style="color:#d14"> /var/www</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="user-uid-设置用户id"><code>USER &lt;uid&gt;</code>, 设置用户ID</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">USER</span><span style="color:#d14"> nginx</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="vulume-dir-设置volume"><code>VULUME &lt;#dir&gt;</code>, 设置volume</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">VOLUME</span> [<span style="color:#a61717;background-color:#e3d2d2">‘/data’</span>]<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="expose-port-暴露哪些端口"><code>EXPOSE &lt;port&gt;</code>, 暴露哪些端口</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">EXPOSE</span><span style="color:#d14"> 80 443</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="entrypoint-executable-param1param2-执行命令"><code>ENTRYPOINT [‘executable’, ‘param1’,’param2’]</code> 执行命令</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">ENTRYPOINT</span> [<span style="color:#d14">&#34;/usr/sbin/nginx&#34;</span>]<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><h3 id="cmd-param1param2"><code>CMD [“param1&quot;,&quot;param2&quot;]</code></h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#000;font-weight:bold">CMD</span> [<span style="color:#d14">&#34;start&#34;</span>]<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><p>docker创建、启动container时执行的命令，如果设置了ENTRYPOINT，则CMD将作为参数&lt;/usr/sbin/nginx start&gt;</p>
 <h3 id="dockerfile最佳实践">Dockerfile最佳实践</h3>
 <ul>
 <li>尽量将一些常用不变的指令放到前面</li>
 <li>CMD 和 ENTRYPOINT尽量使用json数组方式</li>
 </ul>
 <h3 id="通过dockerfile构建image">通过Dockerfile构建image</h3>
-<pre><code>docker build xmlwch/centos:7.1 .
-</code></pre>
-<blockquote>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile">docker build xmlwch/centos:7.1 .<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><blockquote>
 <p>由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</p>
 </blockquote>
 

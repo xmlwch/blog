@@ -202,9 +202,9 @@ awk <span style="color:#000;font-weight:bold">[</span>选项参数<span style="c
 </code></pre></div></li>
 <li>
 <p>可选参数：</p>
-<pre><code>-F fs or --field-separator fs
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-F fs or --field-separator fs
 指定输入文件折分隔符，fs是一个字符串或者是一个正则表达式，如-F:。
--v var=value or --asign var=value
+-v <span style="color:#008080">var</span><span style="color:#000;font-weight:bold">=</span>value or --asign <span style="color:#008080">var</span><span style="color:#000;font-weight:bold">=</span>value
 赋值一个用户定义变量。
 -f scripfile or --file scriptfile
 从脚本文件中读取awk命令。
@@ -214,21 +214,21 @@ awk <span style="color:#000;font-weight:bold">[</span>选项参数<span style="c
 在兼容模式下运行awk。所以gawk的行为和标准的awk完全一样，所有的awk扩展都被忽略。
 -W copyleft or --copyleft, -W copyright or --copyright
 打印简短的版权信息。
--W help or --help, -W usage or --usage
+-W <span style="color:#0086b3">help</span> or --help, -W usage or --usage
 打印全部awk选项和每个选项的简短说明。
 -W lint or --lint
 打印不能向传统unix平台移植的结构的警告。
 -W lint-old or --lint-old
 打印关于不能向传统unix平台移植的结构的警告。
 -W posix
-打开兼容模式。但有以下限制，不识别：/x、函数关键字、func、换码序列以及当fs是一个空格时，将新行作为一个域分隔符；操作符**和**=不能代替^和^=；fflush无效。
+打开兼容模式。但有以下限制，不识别：/x、函数关键字、func、换码序列以及当fs是一个空格时，将新行作为一个域分隔符；操作符**和**<span style="color:#000;font-weight:bold">=</span>不能代替^和^<span style="color:#000;font-weight:bold">=</span>；fflush无效。
 -W re-interval or --re-inerval
-允许间隔正则表达式的使用，参考(grep中的Posix字符类)，如括号表达式[[:alpha:]]。
--W source program-text or --source program-text
+允许间隔正则表达式的使用，参考<span style="color:#000;font-weight:bold">(</span>grep中的Posix字符类<span style="color:#000;font-weight:bold">)</span>，如括号表达式<span style="color:#000;font-weight:bold">[[</span>:alpha:<span style="color:#000;font-weight:bold">]]</span>。
+-W <span style="color:#0086b3">source</span> program-text or --source program-text
 使用program-text作为源代码，可与-f命令混用。
 -W version or --version
 打印bug报告信息的版本。
-</code></pre></li>
+</code></pre></div></li>
 <li>
 <p>范例</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># 1.显示/etc/passwd中包含root的行</span>
@@ -266,22 +266,22 @@ kylin /bin/bash
 </code></pre></div></li>
 <li>
 <p>可选参数：</p>
-<pre><code>-e&lt;script&gt;或--expression=&lt;script&gt; 以选项中指定的script来处理输入的文本文件。
--f&lt;script文件&gt;或--file=&lt;script文件&gt; 以选项中指定的script文件来处理输入的文本文件。
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-e&lt;script&gt;或--expression<span style="color:#000;font-weight:bold">=</span>&lt;script&gt; 以选项中指定的script来处理输入的文本文件。
+-f&lt;script文件&gt;或--file<span style="color:#000;font-weight:bold">=</span>&lt;script文件&gt; 以选项中指定的script文件来处理输入的文本文件。
 -i直接修改文件内容（危险操作）
 -h或--help 显示帮助。
 -n或--quiet或--silent 仅显示script处理后的结果。
 -V或--version 显示版本信息。
-</code></pre></li>
+</code></pre></div></li>
 <li>
 <p>动作说明：</p>
-<pre><code>a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现<span style="color:#000;font-weight:bold">(</span>目前的下一行<span style="color:#000;font-weight:bold">)</span>～
 c ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！
 d ：删除，因为是删除啊，所以 d 后面通常不接任何咚咚；
-i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；
+i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现<span style="color:#000;font-weight:bold">(</span>目前的上一行<span style="color:#000;font-weight:bold">)</span>；
 p ：打印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～
 s ：取代，可以直接进行取代的工作哩！通常这个 s 的动作可以搭配正规表示法！例如 1,20s/old/new/g 就是啦！
-</code></pre></li>
+</code></pre></div></li>
 <li>
 <p>范例</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic">## 参数p，打印显示匹配的行</span>

@@ -178,40 +178,40 @@ $PHPWord-&gt;setDefaultFontSize(12);
 </tbody>
 </table>
 <p>我们可以通过以下方法设置文档属性</p>
-<pre><code>$properties = $PHPWord-&gt;getProperties();
-$properties-&gt;setCreator('My name'); 
-$properties-&gt;setCompany('My factory');
-$properties-&gt;setTitle('My title');
-$properties-&gt;setDescription('My description'); 
-$properties-&gt;setCategory('My category');
-$properties-&gt;setLastModifiedBy('My name');
-$properties-&gt;setCreated( mktime(0, 0, 0, 3, 12, 2010) );
-$properties-&gt;setModified( mktime(0, 0, 0, 3, 14, 2010) );
-$properties-&gt;setSubject('My subject'); 
-$properties-&gt;setKeywords('my, key, word');
-</code></pre><h2 id="新建文档">新建文档</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$properties</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">getProperties</span>();
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setCreator</span>(<span style="color:#d14">&#39;My name&#39;</span>); 
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setCompany</span>(<span style="color:#d14">&#39;My factory&#39;</span>);
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setTitle</span>(<span style="color:#d14">&#39;My title&#39;</span>);
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setDescription</span>(<span style="color:#d14">&#39;My description&#39;</span>); 
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setCategory</span>(<span style="color:#d14">&#39;My category&#39;</span>);
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setLastModifiedBy</span>(<span style="color:#d14">&#39;My name&#39;</span>);
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setCreated</span>( mktime(<span style="color:#099">0</span>, <span style="color:#099">0</span>, <span style="color:#099">0</span>, <span style="color:#099">3</span>, <span style="color:#099">12</span>, <span style="color:#099">2010</span>) );
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setModified</span>( mktime(<span style="color:#099">0</span>, <span style="color:#099">0</span>, <span style="color:#099">0</span>, <span style="color:#099">3</span>, <span style="color:#099">14</span>, <span style="color:#099">2010</span>) );
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setSubject</span>(<span style="color:#d14">&#39;My subject&#39;</span>); 
+<span style="color:#008080">$properties</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setKeywords</span>(<span style="color:#d14">&#39;my, key, word&#39;</span>);
+</code></pre></div><h2 id="新建文档">新建文档</h2>
 <h3 id="添加页面">添加页面</h3>
 <p>添加默认页面（默认页面方向和页边距）：</p>
-<pre><code>$section = $PHPWord-&gt;createSection();
-</code></pre><h3 id="页面样式">页面样式</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">createSection</span>();
+</code></pre></div><h3 id="页面样式">页面样式</h3>
 <p>调整页面样式和布局有两种方法：
 1.创建样式数组:</p>
-<pre><code>$sectionStyle = array('orientation' =&gt; null,
-       'marginLeft' =&gt; 900,
-       'marginRight' =&gt; 900,
-       'marginTop' =&gt; 900,
-       'marginBottom' =&gt; 900);
-$section = $PHPWord-&gt;createSection($sectionStyle);
-</code></pre><p>2.直接调用样式属性设置方法进行设置:</p>
-<pre><code>$section = $PHPWord-&gt;createSection();
-$sectionStyle = $section-&gt;getSettings();
-$sectionStyle-&gt;setLandscape();
-$sectionStyle-&gt;setPortrait();
-$sectionStyle-&gt;setMarginLeft(900);
-$sectionStyle-&gt;setMarginRight(900);
-$sectionStyle-&gt;setMarginTop(900);
-$sectionStyle-&gt;setMarginBottom(900);
-</code></pre><h3 id="页面样式属性">页面样式属性</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$sectionStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;orientation&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">null</span>,
+       <span style="color:#d14">&#39;marginLeft&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#099">900</span>,
+       <span style="color:#d14">&#39;marginRight&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#099">900</span>,
+       <span style="color:#d14">&#39;marginTop&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#099">900</span>,
+       <span style="color:#d14">&#39;marginBottom&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#099">900</span>);
+<span style="color:#008080">$section</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">createSection</span>(<span style="color:#008080">$sectionStyle</span>);
+</code></pre></div><p>2.直接调用样式属性设置方法进行设置:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">createSection</span>();
+<span style="color:#008080">$sectionStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">getSettings</span>();
+<span style="color:#008080">$sectionStyle</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setLandscape</span>();
+<span style="color:#008080">$sectionStyle</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setPortrait</span>();
+<span style="color:#008080">$sectionStyle</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setMarginLeft</span>(<span style="color:#099">900</span>);
+<span style="color:#008080">$sectionStyle</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setMarginRight</span>(<span style="color:#099">900</span>);
+<span style="color:#008080">$sectionStyle</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setMarginTop</span>(<span style="color:#099">900</span>);
+<span style="color:#008080">$sectionStyle</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setMarginBottom</span>(<span style="color:#099">900</span>);
+</code></pre></div><h3 id="页面样式属性">页面样式属性</h3>
 <p>注意：所有的属性对大小写敏感 !</p>
 <table>
 <thead>
@@ -353,25 +353,25 @@ $sectionStyle-&gt;setMarginBottom(900);
 </tbody>
 </table>
 <p>添加文本资源后，就可以添加具有独特样式的文本或链接了。</p>
-<pre><code>$textrun = $section-&gt;createTextRun();
-$textrun-&gt;addText('I am bold', array('bold'=&gt;true)); 
-$textrun-&gt;addText('I am italic, array('italic'=&gt;true));
-$textrun-&gt;addText('I am colored, array('color'=&gt;'AACC00'));
-</code></pre><p>当然也可以继承使用段落或文字样式</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$textrun</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">createTextRun</span>();
+<span style="color:#008080">$textrun</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;I am bold&#39;</span>, <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;bold&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#000;font-weight:bold">true</span>)); 
+<span style="color:#008080">$textrun</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;I am italic, array(&#39;</span>italic<span style="color:#d14">&#39;=&gt;true));
+</span><span style="color:#d14">$textrun-&gt;addText(&#39;</span>I am colored, <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;color&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;AACC00&#39;</span>));
+</code></pre></div><p>当然也可以继承使用段落或文字样式</p>
 <h3 id="文本样式">文本样式</h3>
 <p>设置文本样式有两种方法：</p>
 <p>1.内嵌样式：</p>
-<pre><code>$fontStyle = array('color'=&gt;'006699', 'size'=&gt;18, 'bold'=&gt;true);
-$section-&gt;addText('helloWorld', $fontStyle);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$fontStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;color&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;006699&#39;</span>, <span style="color:#d14">&#39;size&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">18</span>, <span style="color:#d14">&#39;bold&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#000;font-weight:bold">true</span>);
+<span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;helloWorld&#39;</span>, <span style="color:#008080">$fontStyle</span>);
 
-$text = $section-&gt;addText('helloWorld');
-$style = $text-&gt;getStyle();
-$style-&gt;setColor('006699');
-$style-&gt;setSize(18);
-$style-&gt;setBold();
-</code></pre><p>2.或者定义一个样式定义设置文本样式，定义一种样式后，必须把第二个参数设置为样式名称，使用方法函数addFontStyle:</p>
-<pre><code>$PHPWord-&gt;addFontStyle( $styleName, $fontStyle);
-</code></pre><table>
+<span style="color:#008080">$text</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;helloWorld&#39;</span>);
+<span style="color:#008080">$style</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$text</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">getStyle</span>();
+<span style="color:#008080">$style</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setColor</span>(<span style="color:#d14">&#39;006699&#39;</span>);
+<span style="color:#008080">$style</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setSize</span>(<span style="color:#099">18</span>);
+<span style="color:#008080">$style</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setBold</span>();
+</code></pre></div><p>2.或者定义一个样式定义设置文本样式，定义一种样式后，必须把第二个参数设置为样式名称，使用方法函数addFontStyle:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addFontStyle</span>( <span style="color:#008080">$styleName</span>, <span style="color:#008080">$fontStyle</span>);
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center">addFontStyle()</th>
@@ -398,10 +398,10 @@ $style-&gt;setBold();
 </tbody>
 </table>
 <p><strong>示例：</strong></p>
-<pre><code>$fontStyle = array('color'=&gt;'006699', 'size'=&gt;18, 'bold'=&gt;true);
-$PHPWord-&gt;addFontStyle('myOwnStyle', $fontStyle);
-$text = $section-&gt;addText('helloWorld', 'myOwnStyle');
-</code></pre><p>添加段落样式，使用方法函数addParagraphStyle:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$fontStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;color&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;006699&#39;</span>, <span style="color:#d14">&#39;size&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">18</span>, <span style="color:#d14">&#39;bold&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#000;font-weight:bold">true</span>);
+<span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addFontStyle</span>(<span style="color:#d14">&#39;myOwnStyle&#39;</span>, <span style="color:#008080">$fontStyle</span>);
+<span style="color:#008080">$text</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;helloWorld&#39;</span>, <span style="color:#d14">&#39;myOwnStyle&#39;</span>);
+</code></pre></div><p>添加段落样式，使用方法函数addParagraphStyle:</p>
 <table>
 <thead>
 <tr>
@@ -506,17 +506,17 @@ $text = $section-&gt;addText('helloWorld', 'myOwnStyle');
 </table>
 <h2 id="换行符">换行符</h2>
 <p>添加换行符，使用方法函数 addTextBreak:</p>
-<pre><code>$section-&gt;addTextBreak();
-</code></pre><p>添加多个换行符：</p>
-<pre><code>$section-&gt;addTextBreak(15);
-</code></pre><h3 id="添加分页符">添加分页符</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTextBreak</span>();
+</code></pre></div><p>添加多个换行符：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTextBreak</span>(<span style="color:#099">15</span>);
+</code></pre></div><h3 id="添加分页符">添加分页符</h3>
 <p>添加分页符，使用方法函数：addPageBreak:</p>
-<pre><code>$section-&gt;addPageBreak();
-</code></pre><h2 id="列表">列表</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addPageBreak</span>();
+</code></pre></div><h2 id="列表">列表</h2>
 <h3 id="添加列表">添加列表</h3>
 <p>添加列表使用方法函数： addListItem:</p>
-<pre><code>$section-&gt;addListItem( $text, [$depth], [$styleText], [$styleList], [$styleParagraph] );
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addListItem</span>( <span style="color:#008080">$text</span>, [<span style="color:#008080">$depth</span>], [<span style="color:#008080">$styleText</span>], [<span style="color:#008080">$styleList</span>], [<span style="color:#008080">$styleParagraph</span>] );
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"><strong>addListItem()</strong></th>
@@ -559,9 +559,9 @@ $text = $section-&gt;addText('helloWorld', 'myOwnStyle');
 </table>
 <h3 id="列表样式">列表样式</h3>
 <p><strong>示例:</strong></p>
-<pre><code>$listStyle = array('listType' =&gt; PHPWord_Style_ListItem::TYPE_NUMBER);
-$section-&gt;addListItem('Listitem 1', 0, null, $listStyle);
-</code></pre><h3 id="列表样式属性列表">列表样式属性列表</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$listStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;listType&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> PHPWord_Style_ListItem<span style="color:#000;font-weight:bold">::</span><span style="color:#008080">TYPE_NUMBER</span>);
+<span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addListItem</span>(<span style="color:#d14">&#39;Listitem 1&#39;</span>, <span style="color:#099">0</span>, <span style="color:#000;font-weight:bold">null</span>, <span style="color:#008080">$listStyle</span>);
+</code></pre></div><h3 id="列表样式属性列表">列表样式属性列表</h3>
 <p>属性大小写敏感!</p>
 <table>
 <thead>
@@ -580,8 +580,8 @@ $section-&gt;addListItem('Listitem 1', 0, null, $listStyle);
 <h2 id="超链接">超链接</h2>
 <h3 id="添加超链接">添加超链接</h3>
 <p>添加超链接，使用方法函数： addLink:</p>
-<pre><code>$section-&gt;addLink( $linkSrc, [$linkName], [$styleFont], [$styleParagraph]);
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addLink</span>( <span style="color:#008080">$linkSrc</span>, [<span style="color:#008080">$linkName</span>], [<span style="color:#008080">$styleFont</span>], [<span style="color:#008080">$styleParagraph</span>]);
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"><strong>addListItem()</strong></th>
@@ -623,17 +623,17 @@ $section-&gt;addListItem('Listitem 1', 0, null, $listStyle);
 <ol>
 <li>内嵌样式:</li>
 </ol>
-<pre><code>$linkStyle = array('color'=&gt;'0000FF',
-    'underline'=&gt;PHPWord_Style_Font::UNDERLINE_SINGLE);
-$section-&gt;addLink('http://www.google.de', null, $linkStyle);
-</code></pre><ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$linkStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;color&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;0000FF&#39;</span>,
+    <span style="color:#d14">&#39;underline&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span>PHPWord_Style_Font<span style="color:#000;font-weight:bold">::</span><span style="color:#008080">UNDERLINE_SINGLE</span>);
+<span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addLink</span>(<span style="color:#d14">&#39;http://www.google.de&#39;</span>, <span style="color:#000;font-weight:bold">null</span>, <span style="color:#008080">$linkStyle</span>);
+</code></pre></div><ol>
 <li>或者定义一个样式定义设置超链接样式，定义一种样式后，必须把第三个参数设置为样式名称</li>
 </ol>
-<pre><code>$linkStyle = array('color'=&gt;'0000FF',
-    'underline'=&gt;PHPWord_Style_Font::UNDERLINE_SINGLE);
-$PHPWord-&gt;addLinkStyle('myHyperlinkStyle', $linkStyle);
-$section-&gt;addLink('http://www.google.de', null, 'myHyperlinkStyle');
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$linkStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;color&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;0000FF&#39;</span>,
+    <span style="color:#d14">&#39;underline&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span>PHPWord_Style_Font<span style="color:#000;font-weight:bold">::</span><span style="color:#008080">UNDERLINE_SINGLE</span>);
+<span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addLinkStyle</span>(<span style="color:#d14">&#39;myHyperlinkStyle&#39;</span>, <span style="color:#008080">$linkStyle</span>);
+<span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addLink</span>(<span style="color:#d14">&#39;http://www.google.de&#39;</span>, <span style="color:#000;font-weight:bold">null</span>, <span style="color:#d14">&#39;myHyperlinkStyle&#39;</span>);
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"><strong>addLinkStyle()</strong></th>
@@ -662,8 +662,8 @@ $section-&gt;addLink('http://www.google.de', null, 'myHyperlinkStyle');
 <h2 id="图片">图片</h2>
 <h3 id="添加图片">添加图片</h3>
 <p>添加图片的函数方法： addImage:</p>
-<pre><code>$section-&gt;addImage( $src, [$style] );
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addImage</span>( <span style="color:#008080">$src</span>, [<span style="color:#008080">$style</span>] );
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center">addImage()</th>
@@ -692,9 +692,9 @@ $section-&gt;addLink('http://www.google.de', null, 'myHyperlinkStyle');
 <p>注意在添加图片路径时最好trim一下前后有空格很可有可能导致文档打不开</p>
 <h3 id="图片样式">图片样式</h3>
 <p>添加图片样式只能使用数组方式 :</p>
-<pre><code>$imageStyle = array('width'=&gt;350, 'height'=&gt;350, 'align'=&gt;'center');
-$section-&gt;addImage('EARTH.jpg', $imageStyle);
-</code></pre><h3 id="图片样式属性">图片样式属性</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$imageStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;width&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">350</span>, <span style="color:#d14">&#39;height&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">350</span>, <span style="color:#d14">&#39;align&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;center&#39;</span>);
+<span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addImage</span>(<span style="color:#d14">&#39;EARTH.jpg&#39;</span>, <span style="color:#008080">$imageStyle</span>);
+</code></pre></div><h3 id="图片样式属性">图片样式属性</h3>
 <p>大小写敏感!</p>
 <table>
 <thead>
@@ -722,8 +722,8 @@ $section-&gt;addImage('EARTH.jpg', $imageStyle);
 <p>PHPWord 支持的图片格式: gif, jpeg, png, bmp, tiff.</p>
 <h3 id="添加gd生成图片">添加GD生成图片</h3>
 <p>你也可以添加由GD库生成的图片，使用函数方法：addMemoryImage:</p>
-<pre><code>$section-&gt;addMemoryImage( $link, [$style] );
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addMemoryImage</span>( <span style="color:#008080">$link</span>, [<span style="color:#008080">$style</span>] );
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"><strong>addMemoryImage()</strong></th>
@@ -750,8 +750,8 @@ $section-&gt;addImage('EARTH.jpg', $imageStyle);
 </tbody>
 </table>
 <p><strong>示例:</strong></p>
-<pre><code>$section-&gt;addMemoryImage('http://localhost/image.php');
-</code></pre><p>你GD图片样式的设置和本地图片一样.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addMemoryImage</span>(<span style="color:#d14">&#39;http://localhost/image.php&#39;</span>);
+</code></pre></div><p>你GD图片样式的设置和本地图片一样.</p>
 <p>PHPWord 支持的 GD 图片类型： png, jpeg, gif.</p>
 <h2 id="添加水印">添加水印</h2>
 <p>添加水印的页面需要一个头部引用，添加水印方法函数：addWatermark</p>
@@ -803,8 +803,8 @@ $section-&gt;addImage('EARTH.jpg', $imageStyle);
 <p>注：图片样式并没有提供图像并排，文字环绕等功能，可以通过与表格想结合进行解决。</p>
 <h2 id="添加对象">添加对象</h2>
 <p>我们可以使用方法函数 addObject，添加对象和链接</p>
-<pre><code>$section-&gt;addObject( $src, [$style] );
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addObject</span>( <span style="color:#008080">$src</span>, [<span style="color:#008080">$style</span>] );
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"><strong>addObject()</strong></th>
@@ -849,8 +849,8 @@ $section-&gt;addImage('EARTH.jpg', $imageStyle);
 <p>PHPWord 支持的对象类型： XLS, DOC, PPT.</p>
 <h2 id="添加标题">添加标题</h2>
 <p>我们可以使用标题来为结构化文档或为文档建立目录，添加标题使用方法函数addTitleStyle 和 addTitle:</p>
-<pre><code>$PHPWord-&gt;addTitleStyle( $titleCount, [$fontStyle] );
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTitleStyle</span>( <span style="color:#008080">$titleCount</span>, [<span style="color:#008080">$fontStyle</span>] );
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center">addTitleStyle()</th>
@@ -878,8 +878,8 @@ $section-&gt;addImage('EARTH.jpg', $imageStyle);
 </table>
 <p>需要添给标题添加一个样式，否则文档不会将其作为一个真正的标题来处理。</p>
 <p>定义标题样式后，定义标题就很简单了，可以使用函数方法：addTitle;</p>
-<pre><code>$section-&gt;addTitle( $text, [$depth] );
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTitle</span>( <span style="color:#008080">$text</span>, [<span style="color:#008080">$depth</span>] );
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"><strong>addTitle()</strong></th>
@@ -907,10 +907,10 @@ $section-&gt;addImage('EARTH.jpg', $imageStyle);
 </table>
 <h2 id="添加目录">添加目录</h2>
 <p>添加目录使用方法函数： addTOC:</p>
-<pre><code>$styleTOC = array('tabLeader'=&gt;PHPWord_Style_TOC::TABLEADER_DOT);
-$styleFont = array('spaceAfter'=&gt;60, 'name'=&gt;'Tahoma', 'size'=&gt;12);
-$section-&gt;addTOC($styleFont, $styleTOC);
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$styleTOC</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;tabLeader&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span>PHPWord_Style_TOC<span style="color:#000;font-weight:bold">::</span><span style="color:#008080">TABLEADER_DOT</span>);
+<span style="color:#008080">$styleFont</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;spaceAfter&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">60</span>, <span style="color:#d14">&#39;name&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;Tahoma&#39;</span>, <span style="color:#d14">&#39;size&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">12</span>);
+<span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTOC</span>(<span style="color:#008080">$styleFont</span>, <span style="color:#008080">$styleTOC</span>);
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"><strong>addTOC()</strong></th>
@@ -963,19 +963,19 @@ $section-&gt;addTOC($styleFont, $styleTOC);
 <h2 id="表格">表格</h2>
 <h3 id="添加表格">添加表格</h3>
 <p>添加表格使用函数方法：addTable:</p>
-<pre><code>$table = $section-&gt;addTable( [$tableStyle] );
-</code></pre><p>参数 $tableStyle 是可选的. 表格样式这章有关于表格样式的详细说明。为addTable建立一个本地对象，我们需要使用这个对象来调用相关函数方法。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$table</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTable</span>( [<span style="color:#008080">$tableStyle</span>] );
+</code></pre></div><p>参数 $tableStyle 是可选的. 表格样式这章有关于表格样式的详细说明。为addTable建立一个本地对象，我们需要使用这个对象来调用相关函数方法。</p>
 <ul>
 <li>添加行</li>
 </ul>
-<pre><code>$table-&gt;addRow( [$height] );
-</code></pre><p>行的高度可以通过$height参数来设置，单位：twips.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addRow</span>( [<span style="color:#008080">$height</span>] );
+</code></pre></div><p>行的高度可以通过$height参数来设置，单位：twips.</p>
 <ul>
 <li>添加单元格</li>
 </ul>
 <p>单元格添加前必须先添加行，添加单元格的函数方法为： addCell</p>
-<pre><code>$cell = $table-&gt;addCell(h, [$cellStyle] );
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$cell</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(h, [<span style="color:#008080">$cellStyle</span>] );
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"><strong>addCell()</strong></th>
@@ -1045,40 +1045,40 @@ $section-&gt;addTOC($styleFont, $styleTOC);
 </tbody>
 </table>
 <p><strong>示例1:</strong></p>
-<pre><code>$table = $section-&gt;addTable();
-$table-&gt;addRow();
-$cell = $table-&gt;addCell(2000);
-$cell-&gt;addText('Cell 1');
-$cell = $table-&gt;addCell(2000);
-$cell-&gt;addText('Cell 2');
-$cell = $table-&gt;addCell(2000);
-$cell-&gt;addText('Cell 3');
-</code></pre><p><strong>示例2:</strong></p>
-<pre><code>$table = $section-&gt;addTable();
-$table-&gt;addRow(400);
-$table-&gt;addCell(2000)-&gt;addText('Cell 1');
-$table-&gt;addCell(2000)-&gt;addText('Cell 2');
-$table-&gt;addCell(2000)-&gt;addText('Cell 3');
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$table</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTable</span>();
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addRow</span>();
+<span style="color:#008080">$cell</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>);
+<span style="color:#008080">$cell</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 1&#39;</span>);
+<span style="color:#008080">$cell</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>);
+<span style="color:#008080">$cell</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 2&#39;</span>);
+<span style="color:#008080">$cell</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>);
+<span style="color:#008080">$cell</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 3&#39;</span>);
+</code></pre></div><p><strong>示例2:</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$table</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTable</span>();
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addRow</span>(<span style="color:#099">400</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 1&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 2&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 3&#39;</span>);
 
-$table-&gt;addRow(1000);
-$table-&gt;addCell(2000)-&gt;addText('Cell 4');
-$table-&gt;addCell(2000)-&gt;addText('Cell 5');
-$table-&gt;addCell(2000)-&gt;addText('Cell 6');
-</code></pre><h3 id="单元格样式">单元格样式</h3>
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addRow</span>(<span style="color:#099">1000</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 4&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 5&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 6&#39;</span>);
+</code></pre></div><h3 id="单元格样式">单元格样式</h3>
 <p>使用addCell的第二个参数来给单元格设置样式</p>
 <p>示例:</p>
-<pre><code>$cellStyle = array('textDirection'=&gt;PHPWord_Style_Cell::TEXT_DIR_BTLR,     'bgColor'=&gt;'C0C0C0');
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$cellStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;textDirection&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span>PHPWord_Style_Cell<span style="color:#000;font-weight:bold">::</span><span style="color:#008080">TEXT_DIR_BTLR</span>,     <span style="color:#d14">&#39;bgColor&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;C0C0C0&#39;</span>);
 
-$table = $section-&gt;addTable();
-$table-&gt;addRow(1000);
-$table-&gt;addCell(2000, $cellStyle)-&gt;addText('Cell 1');
-$table-&gt;addCell(2000, $cellStyle)-&gt;addText('Cell 2');
-$table-&gt;addCell(2000, $cellStyle)-&gt;addText('Cell 3');
-$table-&gt;addRow();
-$table-&gt;addCell(2000)-&gt;addText('Cell 4');
-$table-&gt;addCell(2000)-&gt;addText('Cell 5');
-$table-&gt;addCell(2000)-&gt;addText('Cell 6');
-</code></pre><h3 id="单元格样式属性列表">单元格样式属性列表:</h3>
+<span style="color:#008080">$table</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTable</span>();
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addRow</span>(<span style="color:#099">1000</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>, <span style="color:#008080">$cellStyle</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 1&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>, <span style="color:#008080">$cellStyle</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 2&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>, <span style="color:#008080">$cellStyle</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 3&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addRow</span>();
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 4&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 5&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 6&#39;</span>);
+</code></pre></div><h3 id="单元格样式属性列表">单元格样式属性列表:</h3>
 <p>属性大小写敏感 !</p>
 <table>
 <thead>
@@ -1164,12 +1164,12 @@ $table-&gt;addCell(2000)-&gt;addText('Cell 6');
 </tbody>
 </table>
 <p>示例:</p>
-<pre><code>$tableStyle = array('cellMarginTop'=&gt;80,
-     'cellMarginLeft'=&gt;80,
-     'cellMarginRight'=&gt;80,
-     'cellMarginBottom'=&gt;80);
-$table = $section-&gt;addTable($tableStyle);
-</code></pre><p>我们可以使用函数方法： addTableStyle，为表格定义一个完整的样式。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$tableStyle</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;cellMarginTop&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">80</span>,
+     <span style="color:#d14">&#39;cellMarginLeft&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">80</span>,
+     <span style="color:#d14">&#39;cellMarginRight&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">80</span>,
+     <span style="color:#d14">&#39;cellMarginBottom&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">80</span>);
+<span style="color:#008080">$table</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTable</span>(<span style="color:#008080">$tableStyle</span>);
+</code></pre></div><p>我们可以使用函数方法： addTableStyle，为表格定义一个完整的样式。</p>
 <pre><code>$PHPWord-&gt;addTableStyle($styleName, $styleTable, [$styleFirstRow] );
 </code></pre><table>
 <thead>
@@ -1203,22 +1203,22 @@ $table = $section-&gt;addTable($tableStyle);
 </tbody>
 </table>
 <p>示例:</p>
-<pre><code>$styleTable = array('borderColor'=&gt;'006699',
-     'borderSize'=&gt;6,
-     'cellMargin'=&gt;50);
-$styleFirstRow = array('bgColor'=&gt;'66BBFF');
-$PHPWord-&gt;addTableStyle('myTable', $styleTable, $styleFirstRow);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$styleTable</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;borderColor&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;006699&#39;</span>,
+     <span style="color:#d14">&#39;borderSize&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">6</span>,
+     <span style="color:#d14">&#39;cellMargin&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#099">50</span>);
+<span style="color:#008080">$styleFirstRow</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">array</span>(<span style="color:#d14">&#39;bgColor&#39;</span><span style="color:#000;font-weight:bold">=&gt;</span><span style="color:#d14">&#39;66BBFF&#39;</span>);
+<span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTableStyle</span>(<span style="color:#d14">&#39;myTable&#39;</span>, <span style="color:#008080">$styleTable</span>, <span style="color:#008080">$styleFirstRow</span>);
 
-$table = $section-&gt;addTable('myTable');
-$table-&gt;addRow(400);
-$table-&gt;addCell(2000)-&gt;addText('Cell 1');
-$table-&gt;addCell(2000)-&gt;addText('Cell 2');
-$table-&gt;addCell(2000)-&gt;addText('Cell 3');
-$table-&gt;addRow(1000);
-$table-&gt;addCell(2000)-&gt;addText('Cell 4');
-$table-&gt;addCell(2000)-&gt;addText('Cell 5');
-$table-&gt;addCell(2000)-&gt;addText('Cell 6');
-</code></pre><p>表格样式属性，注意属性名称大小写敏感!</p>
+<span style="color:#008080">$table</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addTable</span>(<span style="color:#d14">&#39;myTable&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addRow</span>(<span style="color:#099">400</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 1&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 2&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 3&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addRow</span>(<span style="color:#099">1000</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 4&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 5&#39;</span>);
+<span style="color:#008080">$table</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addCell</span>(<span style="color:#099">2000</span>)<span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addText</span>(<span style="color:#d14">&#39;Cell 6&#39;</span>);
+</code></pre></div><p>表格样式属性，注意属性名称大小写敏感!</p>
 <table>
 <thead>
 <tr>
@@ -1312,8 +1312,8 @@ $table-&gt;addCell(2000)-&gt;addText('Cell 6');
 <p>**注意：**表格在word布局中的功能可以进行体现，例如进行图片，对象等的布局可以考虑与表格结合进行处理</p>
 <h2 id="页脚">页脚</h2>
 <h3 id="添加文档页脚使用函数方法-createfooter">添加文档页脚使用函数方法： createFooter:</h3>
-<pre><code>$footer = $section-&gt;createFooter();
-</code></pre><p>确保在本地对象中保存页脚，并使用下列函数</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$footer</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">createFooter</span>();
+</code></pre></div><p>确保在本地对象中保存页脚，并使用下列函数</p>
 <table>
 <thead>
 <tr>
@@ -1357,8 +1357,8 @@ $table-&gt;addCell(2000)-&gt;addText('Cell 6');
 </tbody>
 </table>
 <h3 id="向页脚页眉添加页码使用函数方法addpreservetext">向页脚（页眉）添加页码使用函数方法：addPreserveText:</h3>
-<pre><code>addPreserveText( $text, [$style] );
-</code></pre><table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">addPreserveText( <span style="color:#008080">$text</span>, [<span style="color:#008080">$style</span>] );
+</code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center">addPreserveText()</th>
@@ -1385,11 +1385,11 @@ $table-&gt;addCell(2000)-&gt;addText('Cell 6');
 </tbody>
 </table>
 <p>示例:</p>
-<pre><code>$footer-&gt;addPreserveText('Page {PAGE} of {NUMPAGES}.');
-</code></pre><h3 id="页眉">页眉</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$footer</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addPreserveText</span>(<span style="color:#d14">&#39;Page {PAGE} of {NUMPAGES}.&#39;</span>);
+</code></pre></div><h3 id="页眉">页眉</h3>
 <h3 id="添加页眉使用函数方法-createheader">添加页眉，使用函数方法： createHeader:</h3>
-<pre><code>$header = $section-&gt;createHeader();
-</code></pre><p>确保页眉是建立在一个文档中，页眉和页脚使用相同的属性和函数，详见页脚章节 。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$header</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$section</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">createHeader</span>();
+</code></pre></div><p>确保页眉是建立在一个文档中，页眉和页脚使用相同的属性和函数，详见页脚章节 。</p>
 <p>注意：只用添加了页眉的页面，才能添加和使用图片水印</p>
 <h2 id="模版">模版</h2>
 <p>我们可以利用搜索替换功能创建一个docx格式的模版文档，来替换文档中你想替换的文本. 但是要注意，只有文本或链接可以被替换。加载模版文档使用函数方法：loadTemplate function.</p>
@@ -1441,10 +1441,10 @@ $table-&gt;addCell(2000)-&gt;addText('Cell 6');
 </tr>
 </tbody>
 </table>
-<pre><code>$template = $PHPWord-&gt;loadTemplate('Template.docx');
-$template-&gt;setValue('Name', 'Somebody someone');
-$template-&gt;setValue('Street', 'Coming-Undone-Street 32');
-</code></pre><p>被搜索替换的标签格式为：<code> ${YOUR_SEARCH_PATTERN}</code></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$template</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$PHPWord</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">loadTemplate</span>(<span style="color:#d14">&#39;Template.docx&#39;</span>);
+<span style="color:#008080">$template</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setValue</span>(<span style="color:#d14">&#39;Name&#39;</span>, <span style="color:#d14">&#39;Somebody someone&#39;</span>);
+<span style="color:#008080">$template</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">setValue</span>(<span style="color:#d14">&#39;Street&#39;</span>, <span style="color:#d14">&#39;Coming-Undone-Street 32&#39;</span>);
+</code></pre></div><p>被搜索替换的标签格式为：<code> ${YOUR_SEARCH_PATTERN}</code></p>
 <p>不能添加新的PHPWORD元素到加载的模版文档中</p>
 <p><strong>模版使用的几个注意事项：</strong></p>
 <ul>
