@@ -3,7 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.xmlwch.cn/categories/</loc>
-    <lastmod>2021-09-13T13:00:00+08:00</lastmod>
+    <lastmod>2021-09-15T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/post/</loc>
+    <lastmod>2021-09-15T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/</loc>
+    <lastmod>2021-09-15T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/categories/Windows/</loc>
+    <lastmod>2021-09-15T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/WSL/</loc>
+    <lastmod>2021-09-15T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html</loc>
+    <lastmod>2021-09-15T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/</loc>
+    <lastmod>2021-09-15T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/tags/KVM/</loc>
     <lastmod>2021-09-13T13:00:00+08:00</lastmod>
@@ -15,15 +33,6 @@
     <lastmod>2021-09-13T13:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/categories/Linux/</loc>
-    <lastmod>2021-09-13T13:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/post/</loc>
-    <lastmod>2021-09-13T13:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/tags/</loc>
-    <lastmod>2021-09-13T13:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/</loc>
     <lastmod>2021-09-13T13:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html</loc>

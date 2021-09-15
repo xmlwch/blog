@@ -70,6 +70,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/16/chlinux/docker-compose-yml.html" title=" Docker Compose 模板文件"> Docker Compose 模板文件</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月16日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/Docker'>Docker</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            Docker Compose 跟 Dockerfile 类似的文件是 docker-compose.yml 根据后缀我们知道使用的是 YAML 语法； version docker-compose.yml 的第一行是用来定义版本的； 允许的值我们可以从官网查询；https://docs.docker.com/compose/compose-file version: &#34;3.7&#34; service 定义完版本接下来就是 service 了； service 部分是我们的核心；定义了要使用那些服务； version:&#34;3.7&#34;services:redis:# 服务……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/16/chlinux/docker-compose-yml.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/07/15/git/question1.html" title="git “warning: LF will be replaced by CRLF”的解决办法">git “warning: LF will be replaced by CRLF”的解决办法</a>
             </h1>
         </header>
@@ -280,31 +305,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/20/http/post-data-in-http.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html" title="MySQL服务启不了">MySQL服务启不了</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月18日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-            <span class="meta-category"><a href='/categories/MySQL'>MySQL</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            情况1：存在socket lock file root用户执行 # systemctl restart kymysql 时不报错，但服务也没启动，查看错误日志 cat /opt/KY/Softs/log/mysql/mysql-error.log ... 2021-06-18T01:28:47.783821Z 0 [Note] Server hostname (bind-address): &#39;0.0.0.0&#39;; port: 20001 2021-06-18T01:28:47.783838Z 0 [Note] - &#39;0.0.0.0&#39; resolves to &#39;0.0.0.0&#39;; 2021-06-18T01:28:47.783867Z 0 [Note] Server socket created on IP: &#39;0.0.0.0&#39;. 2021-06-18T01:28:47.783925Z 0 [ERROR] Another process with pid 2663 is using unix socket file. 2021-06-18T01:28:47.783932Z 0 [ERROR] Unable to setup unix socket lock file. 2021-06-18T01:28:47.783937Z 0 [ERROR] Aborting 解决办法： # 删除sock锁文件 rm -rf /opt/KY/Softs/mysql/var/mysql.sock.lock # 重启服务 systemctl restart kymysql 情况2：缺少lib包 roo……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -398,6 +398,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html" title="WSL | Windows下重启Linux子系统">WSL | Windows下重启Linux子系统</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html" title="KVM 使用 | 在 Centos 8 中创建桥接网卡">KVM 使用 | 在 Centos 8 中创建桥接网卡</a>
     </li>
     
@@ -431,10 +435,6 @@
     
     <li>
         <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html" title="一次完整的HTTP请求">一次完整的HTTP请求</a>
     </li>
     
 </ul>
@@ -475,6 +475,8 @@
     <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
     
@@ -538,6 +540,8 @@
     <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
     
     <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WSL/">WSL</a>
     
     <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
     
