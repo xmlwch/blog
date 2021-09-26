@@ -6,7 +6,16 @@
     <description>Recent content in Posts on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 15 Sep 2021 10:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Sep 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM 使用 | virsh命令行管理工具</title>
+      <link>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</link>
+      <pubDate>Fri, 24 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</guid>
+      <description>Libvirt有两种控制方式，命令行和图形界面 图形界面： 通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。 命令行： virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机</description>
+    </item>
+    
     <item>
       <title>WSL | Windows下重启Linux子系统</title>
       <link>https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html</link>
@@ -473,15 +482,6 @@
       
       <guid>https://blog.xmlwch.cn/2021/05/10/hello-word.html</guid>
       <description>作为一个技术开发人员，当然希望建立一个自己的小小平台。此平台主要用于记录工作笔记和生活。</description>
-    </item>
-    
-    <item>
-      <title>KVM 使用 | virsh命令行管理工具</title>
-      <link>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</guid>
-      <description>Libvirt有两种控制方式，命令行和图形界面 图形界面： 通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。 命令行： virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机</description>
     </item>
     
   </channel>

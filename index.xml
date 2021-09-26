@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 15 Sep 2021 10:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Sep 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM 使用 | virsh命令行管理工具</title>
+      <link>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</link>
+      <pubDate>Fri, 24 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</guid>
+      <description>Libvirt有两种控制方式，命令行和图形界面 图形界面： 通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。 命令行： virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机</description>
+    </item>
+    
     <item>
       <title>WSL | Windows下重启Linux子系统</title>
       <link>https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html</link>
@@ -482,15 +491,6 @@
       
       <guid>https://blog.xmlwch.cn/about/</guid>
       <description>人间非净土，各有各的苦。 同是红尘悲秋客，莫笑谁是可怜人。 我是谁 昵称：xmlwch 坐标：025 / 0371 邮箱：admin@xmlwch.cn 我干啥 熟悉 LNMP（Linux/Nginx/MySql/PHP）环境开发 熟悉自动化（vagrant,docker） 熟悉国产化服务器操作系统（Kyli</description>
-    </item>
-    
-    <item>
-      <title>KVM 使用 | virsh命令行管理工具</title>
-      <link>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</guid>
-      <description>Libvirt有两种控制方式，命令行和图形界面 图形界面： 通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。 命令行： virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机</description>
     </item>
     
     <item>

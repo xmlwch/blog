@@ -6,7 +6,16 @@
     <description>Recent content in KVM on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 13 Sep 2021 13:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/KVM/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Sep 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/KVM/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM 使用 | virsh命令行管理工具</title>
+      <link>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</link>
+      <pubDate>Fri, 24 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</guid>
+      <description>Libvirt有两种控制方式，命令行和图形界面 图形界面： 通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。 命令行： virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机</description>
+    </item>
+    
     <item>
       <title>KVM 使用 | 在 Centos 8 中创建桥接网卡</title>
       <link>https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html</link>
@@ -23,15 +32,6 @@
       
       <guid>https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html</guid>
       <description>说明 本文所提及的方法仅供参考学习，请尊重网络资源原作者的劳动成果，尊重知识版权，合法取得资料使用权。 宿主机（物理机）： 机器配置： CPU：8核 鲲鹏920 / 内存：16G / 硬盘：1T 操作系统：银河麒麟v10（Arm版本） 系统镜像： Kylin-Server-10-SP1-Release-Build20-20210518-aarch64.iso 虚拟机： 虚拟配置：内存：4G / 硬盘：320G 操作系统：</description>
-    </item>
-    
-    <item>
-      <title>KVM 使用 | virsh命令行管理工具</title>
-      <link>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</guid>
-      <description>Libvirt有两种控制方式，命令行和图形界面 图形界面： 通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。 命令行： virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机</description>
     </item>
     
   </channel>

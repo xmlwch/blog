@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html" title="Linux添加新硬盘后操作记录">Linux添加新硬盘后操作记录</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年5月21日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            此文适用于 2T 以下硬盘挂载，2T以上请参考 Linux添加新硬盘(2T以上) 一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html" title="Go语言开发环境搭建">Go语言开发环境搭建</a>
             </h1>
         </header>
@@ -108,31 +133,6 @@
             作为一个技术开发人员，当然希望建立一个自己的小小平台。此平台主要用于记录工作笔记和生活。……
         </div>
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/10/hello-word.html">阅读全文</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html" title="KVM 使用 | virsh命令行管理工具">KVM 使用 | virsh命令行管理工具</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            1年1月1日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            Libvirt有两种控制方式，命令行和图形界面 图形界面： 通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。 命令行： virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html">阅读全文</a></p>
     </article>
     
     
@@ -225,6 +225,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html" title="KVM 使用 | virsh命令行管理工具">KVM 使用 | virsh命令行管理工具</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html" title="WSL | Windows下重启Linux子系统">WSL | Windows下重启Linux子系统</a>
     </li>
     
@@ -258,10 +262,6 @@
     
     <li>
         <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
     </li>
     
 </ul>
