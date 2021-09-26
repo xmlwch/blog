@@ -485,6 +485,15 @@
     </item>
     
     <item>
+      <title>KVM 使用 | virsh命令行管理工具</title>
+      <link>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</guid>
+      <description>Libvirt有两种控制方式，命令行和图形界面 图形界面： 通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。 命令行： virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机</description>
+    </item>
+    
+    <item>
       <title>归档</title>
       <link>https://blog.xmlwch.cn/archives/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

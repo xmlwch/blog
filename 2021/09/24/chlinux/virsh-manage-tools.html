@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>KVM 使用 | virsh命令行管理工具 | xmlwch的博客</title>
+    <meta property="og:title" content="KVM 使用 | virsh命令行管理工具 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">KVM 使用 | virsh命令行管理工具</h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共5364字</span>，阅读约<span class="more-meta"> 11 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="libvirt有两种控制方式命令行和图形界面">Libvirt有两种控制方式，命令行和图形界面</h2>
+<ul>
+<li>
+<p>图形界面：</p>
+<p>通过执行名virt-manager，启动libvirt的图形界面，在图形界面下可以一步一步的创建虚拟机，管理虚拟机，还可以直接控制虚拟机的桌面。</p>
+</li>
+<li>
+<p>命令行：</p>
+<p>virsh工具功能非常丰富，它可以全生命周期的管理kvm；比如创建虚拟机，查看虚拟机，动态热插拔硬盘，给虚拟机做快照，迁移、启动、停止、挂起、暂停、删除虚拟机等等操作；</p>
+</li>
+</ul>
+<h2 id="1查看virsh命令帮助信息">1、查看virsh命令帮助信息</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># virsh help</span>
+分组的命令：
+
+ Domain Management <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;domain&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    attach-device                  从一个XML文件附加装置
+    attach-disk                    附加磁盘设备
+    attach-interface               获得网络界面
+    autostart                      自动开始一个域
+    blkdeviotune                   设定或者查询块设备 I/O 调节参数。
+    blkiotune                      获取或者数值 blkio 参数
+    blockcommit                    启动块提交操作。
+    blockcopy                      启动块复制操作。
+    blockjob                       管理活跃块操作
+    blockpull                      使用其后端映像填充磁盘。
+    blockresize                    创新定义域块设备大小
+    change-media                   更改 CD 介质或者软盘驱动器
+    console                        连接到客户会话
+    cpu-stats                      显示域 cpu 统计数据
+    create                         从一个 XML 文件创建一个域
+    define                         从一个 XML 文件定义（但不开始）一个域
+    desc                           显示或者设定域描述或者标题
+    destroy                        销毁（停止）域
+    detach-device                  从一个 XML 文件分离设备
+    detach-device-alias            detach device from an <span style="color:#0086b3">alias</span>
+    detach-disk                    分离磁盘设备
+    detach-interface               分离网络界面
+    domdisplay                     域显示连接 URI
+    domfsfreeze                    Freeze domain<span style="color:#d14">&#39;s mounted filesystems.
+</span><span style="color:#d14">    domfsthaw                      Thaw domain&#39;</span>s mounted filesystems.
+    domfsinfo                      Get information of domain<span style="color:#d14">&#39;s mounted filesystems.
+</span><span style="color:#d14">    domfstrim                      在域挂载的文件系统中调用 fstrim。
+</span><span style="color:#d14">    domhostname                    输出域主机名
+</span><span style="color:#d14">    domid                          把一个域名或 UUID 转换为域 id
+</span><span style="color:#d14">    domif-setlink                  设定虚拟接口的链接状态
+</span><span style="color:#d14">    domiftune                      获取/设定虚拟接口参数
+</span><span style="color:#d14">    domjobabort                    忽略活跃域任务
+</span><span style="color:#d14">    domjobinfo                     域任务信息
+</span><span style="color:#d14">    domname                        将域 id 或 UUID 转换为域名
+</span><span style="color:#d14">    domrename                      rename a domain
+</span><span style="color:#d14">    dompmsuspend                   使用电源管理功能挂起域
+</span><span style="color:#d14">    dompmwakeup                    从 pmsuspended 状态唤醒域
+</span><span style="color:#d14">    domuuid                        把一个域名或 id 转换为域 UUID
+</span><span style="color:#d14">    domxml-from-native             将原始配置转换为域 XML
+</span><span style="color:#d14">    domxml-to-native               将域 XML 转换为原始配置
+</span><span style="color:#d14">    dump                           把一个域的内核 dump 到一个文件中以方便分析
+</span><span style="color:#d14">    dumpxml                        XML 中的域信息
+</span><span style="color:#d14">    edit                           编辑某个域的 XML 配置
+</span><span style="color:#d14">    event                          Domain Events
+</span><span style="color:#d14">    inject-nmi                     在虚拟机中输入 NMI
+</span><span style="color:#d14">    iothreadinfo                   view domain IOThreads
+</span><span style="color:#d14">    iothreadpin                    control domain IOThread affinity
+</span><span style="color:#d14">    iothreadadd                    add an IOThread to the guest domain
+</span><span style="color:#d14">    iothreadset                    modifies an existing IOThread of the guest domain
+</span><span style="color:#d14">    iothreaddel                    delete an IOThread from the guest domain
+</span><span style="color:#d14">    send-key                       向虚拟机发送序列号
+</span><span style="color:#d14">    send-process-signal            向进程发送信号
+</span><span style="color:#d14">    lxc-enter-namespace            LXC 虚拟机进入名称空间
+</span><span style="color:#d14">    managedsave                    管理域状态的保存
+</span><span style="color:#d14">    managedsave-remove             删除域的管理保存
+</span><span style="color:#d14">    managedsave-edit               edit XML for a domain&#39;</span>s managed save state file
+    managedsave-dumpxml            Domain information of managed save state file in XML
+    managedsave-define             redefine the XML <span style="color:#000;font-weight:bold">for</span> a domain<span style="color:#d14">&#39;s managed save state file
+</span><span style="color:#d14">    memtune                        获取或者数值内存参数
+</span><span style="color:#d14">    perf                           Get or set perf event
+</span><span style="color:#d14">    metadata                       show or set domain&#39;</span>s custom XML metadata
+    migrate                        将域迁移到另一个主机中
+    migrate-setmaxdowntime         设定最大可耐受故障时间
+    migrate-getmaxdowntime         get maximum tolerable downtime
+    migrate-compcache              获取/设定压缩缓存大小
+    migrate-setspeed               设定迁移带宽的最大值
+    migrate-getspeed               获取最长迁移带宽
+    migrate-postcopy               Switch running migration from pre-copy to post-copy
+    numatune                       获取或者数值 numa 参数
+    qemu-attach                    QEMU 附加
+    qemu-monitor-command           QEMU 监控程序命令
+    qemu-monitor-event             QEMU Monitor Events
+    qemu-agent-command             QEMU 虚拟机代理命令
+    guest-agent-timeout            Set the guest agent timeout
+    reboot                         重新启动一个域
+    reset                          重新设定域
+    restore                        从一个存在一个文件中的状态恢复一个域
+    resume                         重新恢复一个域
+    save                           把一个域的状态保存到一个文件
+    save-image-define              为域的保存状态文件重新定义 XML
+    save-image-dumpxml             在 XML 中保存状态域信息
+    save-image-edit                为域保存状态文件编辑 XML
+    schedinfo                      显示/设置日程安排变量
+    screenshot                     提取当前域控制台快照并保存到文件中
+    set-lifecycle-action           change lifecycle actions
+    set-user-password              <span style="color:#0086b3">set</span> the user password inside the domain
+    setmaxmem                      改变最大内存限制值
+    setmem                         改变内存的分配
+    setvcpus                       改变虚拟 CPU 的号
+    shutdown                       关闭一个域
+    start                          开始一个（以前定义的）非活跃的域
+    <span style="color:#0086b3">suspend</span>                        挂起一个域
+    ttyconsole                     tty 控制台
+    undefine                       取消定义一个域
+    update-device                  从 XML 文件中关系设备
+    vcpucount                      域 vcpu 计数
+    vcpuinfo                       详细的域 vcpu 信息
+    vcpupin                        控制或者查询域 vcpu 亲和性
+    emulatorpin                    控制火车查询域模拟器亲和性
+    vncdisplay                     vnc 显示
+    guestvcpus                     query or modify state of vcpu in the guest <span style="color:#000;font-weight:bold">(</span>via agent<span style="color:#000;font-weight:bold">)</span>
+    setvcpu                        attach/detach vcpu or groups of threads
+    domblkthreshold                <span style="color:#0086b3">set</span> the threshold <span style="color:#000;font-weight:bold">for</span> block-threshold event <span style="color:#000;font-weight:bold">for</span> a given block device or it<span style="color:#d14">&#39;s backing chain element
+</span><span style="color:#d14">    guestinfo                      query information about the guest (via agent)
+</span><span style="color:#d14">
+</span><span style="color:#d14"> Domain Monitoring (使用关键字 &#39;</span>monitor<span style="color:#d14">&#39; 来显示帮助信息):
+</span><span style="color:#d14">    domblkerror                    在块设备中显示错误
+</span><span style="color:#d14">    domblkinfo                     域块设备大小信息
+</span><span style="color:#d14">    domblklist                     列出所有域块
+</span><span style="color:#d14">    domblkstat                     获得域设备块状态
+</span><span style="color:#d14">    domcontrol                     域控制接口状态
+</span><span style="color:#d14">    domif-getlink                  获取虚拟接口链接状态
+</span><span style="color:#d14">    domifaddr                      Get network interfaces&#39;</span> addresses <span style="color:#000;font-weight:bold">for</span> a running domain
+    domiflist                      列出所有域虚拟接口
+    domifstat                      获得域网络接口状态
+    dominfo                        域信息
+    dommemstat                     获取域的内存统计
+    domstate                       域状态
+    domstats                       get statistics about one or multiple domains
+    domtime                        domain <span style="color:#0086b3">time</span>
+    list                           列出域
+
+ Host and Hypervisor <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;host&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    allocpages                     Manipulate pages pool size
+    capabilities                   性能
+    cpu-baseline                   计算基线 CPU
+    cpu-compare                    使用 XML 文件中描述的 CPU 与主机 CPU 进行对比
+    cpu-models                     CPU models
+    domcapabilities                domain capabilities
+    freecell                       NUMA可用内存
+    freepages                      NUMA free pages
+    hostname                       打印管理程序主机名
+    hypervisor-cpu-baseline        compute baseline CPU usable by a specific hypervisor
+    hypervisor-cpu-compare         compare a CPU with the CPU created by a hypervisor on the host
+    maxvcpus                       连接 vcpu 最大值
+    node-memory-tune               获取或者设定节点内存参数
+    nodecpumap                     节点 cpu 映射
+    nodecpustats                   输出节点的 cpu 状统计数据。
+    nodeinfo                       节点信息
+    nodememstats                   输出节点的内存状统计数据。
+    nodesuspend                    在给定时间段挂起主机节点
+    sysinfo                        输出 hypervisor sysinfo
+    uri                            打印管理程序典型的URI
+    version                        显示版本
+
+ Checkpoint <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;checkpoint&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    checkpoint-create              Create a checkpoint from XML
+    checkpoint-create-as           Create a checkpoint from a <span style="color:#0086b3">set</span> of args
+    checkpoint-delete              Delete a domain checkpoint
+    checkpoint-dumpxml             Dump XML <span style="color:#000;font-weight:bold">for</span> a domain checkpoint
+    checkpoint-edit                edit XML <span style="color:#000;font-weight:bold">for</span> a checkpoint
+    checkpoint-info                checkpoint information
+    checkpoint-list                List checkpoints <span style="color:#000;font-weight:bold">for</span> a domain
+    checkpoint-parent              Get the name of the parent of a checkpoint
+
+ Interface <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;interface&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    iface-begin                    生成当前接口设置快照，可在今后用于提交 <span style="color:#000;font-weight:bold">(</span>iface-commit<span style="color:#000;font-weight:bold">)</span> 或者恢复 <span style="color:#000;font-weight:bold">(</span>iface-rollback<span style="color:#000;font-weight:bold">)</span>
+    iface-bridge                   生成桥接设备并为其附加一个现有网络设备
+    iface-commit                   提交 iface-begin 后的更改并释放恢复点
+    iface-define                   define an inactive persistent physical host interface or modify an existing persistent one from an XML file
+    iface-destroy                  删除物理主机接口（启用它请执行 <span style="color:#d14">&#34;if-down&#34;</span>）
+    iface-dumpxml                  XML 中的接口信息
+    iface-edit                     为物理主机界面编辑 XML 配置
+    iface-list                     物理主机接口列表
+    iface-mac                      将接口名称转换为接口 MAC 地址
+    iface-name                     将接口 MAC 地址转换为接口名称
+    iface-rollback                 恢复到之前保存的使用 iface-begin 生成的更改
+    iface-start                    启动物理主机接口（启用它请执行 <span style="color:#d14">&#34;if-up&#34;</span>）
+    iface-unbridge                 分离其辅助设备后取消定义桥接设备
+    iface-undefine                 取消定义物理主机接口（从配置中删除）
+
+ Network Filter <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;filter&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    nwfilter-define                使用 XML 文件定义或者更新网络过滤器
+    nwfilter-dumpxml               XML 中的网络过滤器信息
+    nwfilter-edit                  为网络过滤器编辑 XML 配置
+    nwfilter-list                  列出网络过滤器
+    nwfilter-undefine              取消定义网络过滤器
+    nwfilter-binding-create        create a network filter binding from an XML file
+    nwfilter-binding-delete        delete a network filter binding
+    nwfilter-binding-dumpxml       XML 中的网络过滤器信息
+    nwfilter-binding-list          list network filter bindings
+
+ Networking <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;network&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    net-autostart                  自动开始网络
+    net-create                     从一个 XML 文件创建一个网络
+    net-define                     define an inactive persistent virtual network or modify an existing persistent one from an XML file
+    net-destroy                    销毁（停止）网络
+    net-dhcp-leases                print lease info <span style="color:#000;font-weight:bold">for</span> a given network
+    net-dumpxml                    XML 中的网络信息
+    net-edit                       为网络编辑 XML 配置
+    net-event                      Network Events
+    net-info                       网络信息
+    net-list                       列出网络
+    net-name                       把一个网络UUID 转换为网络名
+    net-start                      开始一个<span style="color:#000;font-weight:bold">(</span>以前定义的<span style="color:#000;font-weight:bold">)</span>不活跃的网络
+    net-undefine                   undefine a persistent network
+    net-update                     更新现有网络配置的部分
+    net-uuid                       把一个网络名转换为网络UUID
+    net-port-list                  list network ports
+    net-port-create                create a network port from an XML file
+    net-port-dumpxml               network port information in XML
+    net-port-delete                delete the specified network port
+
+ Node Device <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;nodedev&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    nodedev-create                 根据节点中的 XML 文件定义生成设备
+    nodedev-destroy                销毁（停止）节点中的设备
+    nodedev-detach                 将节点设备与其设备驱动程序分离
+    nodedev-dumpxml                XML 中的节点设备详情
+    nodedev-list                   这台主机中的枚举设备
+    nodedev-reattach               重新将节点设备附加到他的设备驱动程序中
+    nodedev-reset                  重置节点设备
+    nodedev-event                  Node Device Events
+
+ Secret <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;secret&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    secret-define                  定义或者修改 XML 中的 secret
+    secret-dumpxml                 XML 中的 secret 属性
+    secret-event                   Secret Events
+    secret-get-value               secret 值输出
+    secret-list                    列出 secret
+    secret-set-value               设定 secret 值
+    secret-undefine                取消定义 secret
+
+ Snapshot <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;snapshot&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    snapshot-create                使用 XML 生成快照
+    snapshot-create-as             使用一组参数生成快照
+    snapshot-current               获取或者设定当前快照
+    snapshot-delete                删除域快照
+    snapshot-dumpxml               为域快照转储 XML
+    snapshot-edit                  编辑快照 XML
+    snapshot-info                  快照信息
+    snapshot-list                  为域列出快照
+    snapshot-parent                获取快照的上级快照名称
+    snapshot-revert                将域转换为快照
+
+ Backup <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;backup&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    backup-begin                   Start a disk backup of a live domain
+    backup-dumpxml                 Dump XML <span style="color:#000;font-weight:bold">for</span> an ongoing domain block backup job
+
+ Storage Pool <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;pool&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    find-storage-pool-sources-as   找到潜在存储池源
+    find-storage-pool-sources      发现潜在存储池源
+    pool-autostart                 自动启动某个池
+    pool-build                     建立池
+    pool-create-as                 从一组变量中创建一个池
+    pool-create                    从一个 XML 文件中创建一个池
+    pool-define-as                 在一组变量中定义池
+    pool-define                    define an inactive persistent storage pool or modify an existing persistent one from an XML file
+    pool-delete                    删除池
+    pool-destroy                   销毁（删除）池
+    pool-dumpxml                   XML 中的池信息
+    pool-edit                      为存储池编辑 XML 配置
+    pool-info                      存储池信息
+    pool-list                      列出池
+    pool-name                      将池 UUID 转换为池名称
+    pool-refresh                   刷新池
+    pool-start                     启动一个（以前定义的）非活跃的池
+    pool-undefine                  取消定义一个不活跃的池
+    pool-uuid                      把一个池名称转换为池 UUID
+    pool-event                     Storage Pool Events
+    pool-capabilities              storage pool capabilities
+
+ Storage Volume <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;volume&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    vol-clone                      克隆卷。
+    vol-create-as                  从一组变量中创建卷
+    vol-create                     从一个 XML 文件创建一个卷
+    vol-create-from                生成卷，使用另一个卷作为输入。
+    vol-delete                     删除卷
+    vol-download                   将卷内容下载到文件中
+    vol-dumpxml                    XML 中的卷信息
+    vol-info                       存储卷信息
+    vol-key                        为给定密钥或者路径返回卷密钥
+    vol-list                       列出卷
+    vol-name                       为给定密钥或者路径返回卷名
+    vol-path                       为给定密钥或者路径返回卷路径
+    vol-pool                       为给定密钥或者路径返回存储池
+    vol-resize                     创新定义卷大小
+    vol-upload                     将文件内容上传到卷中
+    vol-wipe                       擦除卷
+
+ Virsh itself <span style="color:#000;font-weight:bold">(</span>使用关键字 <span style="color:#d14">&#39;virsh&#39;</span> 来显示帮助信息<span style="color:#000;font-weight:bold">)</span>:
+    <span style="color:#0086b3">cd</span>                             更改当前目录
+    <span style="color:#0086b3">echo</span>                           对参数进行编码
+    <span style="color:#0086b3">exit</span>                           退出当前的交互式终端
+    <span style="color:#0086b3">help</span>                           显示帮助信息
+    <span style="color:#0086b3">pwd</span>                            显示当前目录
+    quit                           退出当前的交互式终端
+    connect                        连接（或重新连接）管理程序（即虚拟化层）
+
+</code></pre></div><p>提示：从上面的信息可以看到，virsh命令大概分了，Domain Management（域管理），Domain Monitoring（域监控）、 Host and Hypervisor（主机及虚拟化）、Interface（网卡接口）、Network Filter（网络防火墙）、Networking（网络）、Node Device（节点设备驱动）、Secret、Snapshot（快照）、Storage Pool（存储池或存储策略）、Storage Volume（存储卷）、Virsh itself（virsh shell自身相关）这些组，如果查看某一组帮助信息，我们可以使用virsh help +组名；比如查看storage volume组相关命令有哪些，可以使用virsh help volume;如果查看组里的某个命令的用法，可以使用virsh help +命令即可。</p>
+<h2 id="2virsh管理虚拟机相关命令">2、virsh管理虚拟机相关命令</h2>
+<h3 id="virsh-list">virsh list</h3>
+<p>列出当前宿主机上的域（虚拟机）列表，默认不加任何选项表示列出当前处于运行状态的域（虚拟机）列表（活跃的）</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic">#  virsh help list</span>
+  命令名称
+    list - 列出域
+
+  概览
+    list <span style="color:#000;font-weight:bold">[</span>--inactive<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--all<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--transient<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--persistent<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--with-snapshot<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--without-snapshot<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--with-checkpoint<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--without-checkpoint<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--state-running<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--state-paused<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--state-shutoff<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--state-other<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--autostart<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--no-autostart<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--with-managed-save<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--without-managed-save<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--uuid<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--name<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--table<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--managed-save<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--title<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    返回域列表
+
+  选项
+    --inactive       列出不活跃的域
+    --all            不活跃和活跃的域列表
+    --transient      列出临时域
+    --persistent     列出持久域
+    --with-snapshot  列出现有快照的域
+    --without-snapshot  列出没有快照的域
+    --with-checkpoint  list domains with existing checkpoint
+    --without-checkpoint  list domains without a checkpoint
+    --state-running  运行状态的域列表
+    --state-paused   列出暂停状态的域
+    --state-shutoff  列出关闭状态的域
+    --state-other    列出其他状态的域
+    --autostart      列出启用 autostart 的域
+    --no-autostart   列出禁用 autostart 的域
+    --with-managed-save  列出有管理的保存状态的域
+    --without-managed-save  列出没有管理的保存状态的域
+    --uuid           只列出 uuid
+    --name           只列出域名
+    --table          列出表格（默认）
+    --managed-save   标记有管理的保存状态的域
+    --title          show domain title
+
+<span style="color:#998;font-style:italic">#  virsh list</span>
+ Id   名称    状态
+-----------------------
+ <span style="color:#099">1</span>    Kylin   running
+
+<span style="color:#998;font-style:italic">#  virsh list --all</span>
+ Id   名称               状态
+----------------------------------
+ <span style="color:#099">1</span>    Kylin              running
+ -    UOS-Server-1000c   关闭
+ -    UOS-server-1020a   关闭
+
+</code></pre></div><h3 id="virsh-create">virsh create</h3>
+<p>从一个 XML 文件创建一个域（虚拟机）</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic">#  virsh help create</span>
+  命令名称
+    create - 从一个 XML 文件创建一个域
+
+  概览
+    create &lt;file&gt; <span style="color:#000;font-weight:bold">[</span>--console<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--paused<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--autodestroy<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--pass-fds &lt;字符串&gt;<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--validate<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    创建一个域
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--file<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  文件包括一个 XML 域描述
+    --console        创建后附加到控制台
+    --paused         生成后让虚拟机保持暂停状态
+    --autodestroy    virsh 断开连接时自动销毁虚拟机
+    --pass-fds &lt;字符串&gt;  向虚拟机传递文件描述符 N、M......
+    --validate       validate the XML against the schema
+
+</code></pre></div><h3 id="virsh-define">virsh define</h3>
+<p>从一个 XML 文件定义（但不开始）一个域（虚拟机），create是创建并运行；</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># virsh help define</span>
+  命令名称
+    define - 从一个 XML 文件定义（但不开始）一个域
+
+  概览
+    define &lt;file&gt; <span style="color:#000;font-weight:bold">[</span>--validate<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    定义一个域。
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--file<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  文件包括一个 XML 域描述
+    --validate       validate the XML against the schema
+
+</code></pre></div><h3 id="virsh-console">virsh console</h3>
+<p>连接到客户会话（即连接到虚拟机内shell）</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># virsh help console </span>
+  命令名称
+    console - 连接到客户会话
+
+  概览
+    console &lt;domain&gt; <span style="color:#000;font-weight:bold">[</span>--devname &lt;字符串&gt;<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--force<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--safe<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    连接客户真实串行控制台
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--domain<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  域名，id 或 uuid
+    --devname &lt;字符串&gt;  字符设备名称
+    --force          强制控制台连接（断开已连接的会话）
+    --safe           只有在支持安全控制台处理时方可连接
+
+<span style="color:#998;font-style:italic"># virsh console Kylin </span>
+连接到域 Kylin
+换码符为 ^<span style="color:#000;font-weight:bold">]</span>
+
+
+MiWiFi-R4A-srv login: root
+密码：
+上次登录：Sun Sep <span style="color:#099">26</span> 09:44:54 于 ttyAMA0
+
+Authorized users only. All activities may be monitored and reported.
+<span style="color:#000;font-weight:bold">[</span>虚拟机内<span style="color:#000;font-weight:bold">]</span><span style="color:#998;font-style:italic"># </span>
+
+</code></pre></div><p>提示：可以看到在宿主机上我们可以直接使用virsh console命令来连接指定客户机的串行控制台；退出控制台回到宿主机需要使用【Ctrl】+ 【]】(即右中括号)；</p>
+<h3 id="virsh-shutdown">virsh shutdown</h3>
+<p>关闭一个域（虚拟机）</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># virsh help shutdown</span>
+  命令名称
+    shutdown - 关闭一个域
+
+  概览
+    shutdown &lt;domain&gt; <span style="color:#000;font-weight:bold">[</span>--mode &lt;字符串&gt;<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    在目标域中执行关闭行为。
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--domain<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  域名，id 或 uuid
+    --mode &lt;字符串&gt;  shutdown mode: acpi|agent|initctl|signal|paravirt
+
+</code></pre></div><p>提示：使用shutdown子命令，有时候会关不掉，我们需要使用destroy子命令来强制关机；强制删除有点类似我们使用kill -9强制杀死一个进程一样，其实kvm上的虚拟在宿主机机上的表现形式就是一个进程，如下所示；</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ps -aux |grep qemu
+qemu      <span style="color:#099">492272</span>  2.4 23.5 <span style="color:#099">6222464</span> <span style="color:#099">3797888</span> ?     Sl   09:26   0:37 /usr/libexec/qemu-kvm -name <span style="color:#008080">guest</span><span style="color:#000;font-weight:bold">=</span>Kylin,debug-threads<span style="color:#000;font-weight:bold">=</span>on -S -object secret,id<span style="color:#000;font-weight:bold">=</span>masterKey0,format<span style="color:#000;font-weight:bold">=</span>raw,file<span style="color:#000;font-weight:bold">=</span>/var/lib/libvirt/qemu/domain-1-Kylin/master-key.aes -block...
+
+</code></pre></div><h3 id="virsh-start">virsh start</h3>
+<p>开始一个（以前定义的）非活跃的域（虚拟机）</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> virsh <span style="color:#0086b3">help</span> start
+  命令名称
+    start - 开始一个（以前定义的）非活跃的域
+
+  概览
+    start &lt;domain&gt; <span style="color:#000;font-weight:bold">[</span>--console<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--paused<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--autodestroy<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--bypass-cache<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--force-boot<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--pass-fds &lt;字符串&gt;<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    启动域，可以从最后一个 managedsave
+  state，如果没有 managedsave state，
+    也可以从全新引导中启动。
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--domain<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  非活跃域的名称
+    --console        创建后附加到控制台
+    --paused         生成后让虚拟机保持暂停状态
+    --autodestroy    virsh 断开连接时自动销毁虚拟机
+    --bypass-cache   载入时避免文件系统缓存
+    --force-boot     采用忽略所有管理保存的方式强制刷新引导
+    --pass-fds &lt;字符串&gt;  向虚拟机传递文件描述符 N、M......
+
+</code></pre></div><h3 id="virsh-reboot">virsh reboot</h3>
+<p>重新启动一个域（虚拟机），在指定虚拟机上执行reboot命令一样；</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">virsh <span style="color:#0086b3">help</span>  reboot
+  命令名称
+    reboot - 重新启动一个域
+
+  概览
+    reboot &lt;domain&gt; <span style="color:#000;font-weight:bold">[</span>--mode &lt;字符串&gt;<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    在目标域中执行重新启动命令。
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--domain<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  域名，id 或 uuid
+    --mode &lt;字符串&gt;  shutdown mode: acpi|agent|initctl|signal|paravirt
+
+</code></pre></div><h3 id="virsh-reset">virsh reset</h3>
+<p>重新设定域（虚拟机），对指定虚拟机执行强制重启，有点类似按机箱上的重置按钮；</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">virsh <span style="color:#0086b3">help</span>  reset
+  命令名称
+    reset - 重新设定域
+
+  概览
+    reset &lt;domain&gt;
+
+  说明
+    如同使用电源按钮重新设定目标域
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--domain<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  域名，id 或 uuid
+
+</code></pre></div><h3 id="virsh-undefine">virsh undefine</h3>
+<p>取消定义一个域（虚拟机），删除指定虚拟机（会连同配置文件一并删除）</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">virsh <span style="color:#0086b3">help</span>  undefine
+  命令名称
+    undefine - 取消定义一个域
+
+  概览
+    undefine &lt;domain&gt; <span style="color:#000;font-weight:bold">[</span>--managed-save<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--storage &lt;字符串&gt;<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--remove-all-storage<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--delete-storage-volume-snapshots<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--wipe-storage<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--snapshots-metadata<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--checkpoints-metadata<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--nvram<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">[</span>--keep-nvram<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    取消定义一个域或者将持久转换为临时。
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--domain<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  域名，id 或 uuid
+    --managed-save   删除域管理的状态文件
+    --storage &lt;字符串&gt;  删除关联的存储卷（用逗号分开的目标或者源路径列表）（查看 domblklist）
+    --remove-all-storage  删除关联的存储卷（小心使用）
+    --delete-storage-volume-snapshots  delete snapshots associated with volume<span style="color:#000;font-weight:bold">(</span>s<span style="color:#000;font-weight:bold">)</span>, requires --remove-all-storage <span style="color:#000;font-weight:bold">(</span>must be supported by storage driver<span style="color:#000;font-weight:bold">)</span>
+    --wipe-storage   擦除删除卷中的数据
+    --snapshots-metadata  remove all domain snapshot metadata <span style="color:#000;font-weight:bold">(</span>vm must be inactive<span style="color:#000;font-weight:bold">)</span>
+    --checkpoints-metadata  remove all domain checkpoint metadata <span style="color:#000;font-weight:bold">(</span>vm must be inactive<span style="color:#000;font-weight:bold">)</span>
+    --nvram          remove nvram file, <span style="color:#000;font-weight:bold">if</span> inactive
+    --keep-nvram     keep nvram file, <span style="color:#000;font-weight:bold">if</span> inactive
+
+</code></pre></div><p>提示：默认使用undefine只会把对应配置文件和虚拟机实例删除，如果还需要删除存储卷，可以在后面加上对应的选项指定即可；</p>
+<h3 id="virsh-autostart">virsh autostart</h3>
+<p>自动开始一个域（虚拟机），指定虚拟机为随宿主机启动而自动启动</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">virsh <span style="color:#0086b3">help</span>  autostart
+  命令名称
+    autostart - 自动开始一个域
+
+  概览
+    autostart &lt;domain&gt; <span style="color:#000;font-weight:bold">[</span>--disable<span style="color:#000;font-weight:bold">]</span>
+
+  说明
+    设置一个域在启动时自动开始.
+
+  选项
+    <span style="color:#000;font-weight:bold">[</span>--domain<span style="color:#000;font-weight:bold">]</span> &lt;字符串&gt;  域名，id 或 uuid
+    --disable        禁止自动启动
+
+</code></pre></div><p>以上仅列出部分用到的命令，其他命令参数可参看帮助信息</p>
+<blockquote>
+<p>由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！</p>
+</blockquote>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html">https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">知识共享署名4.0 国际许可协议</a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/09/07/chlinux/use-kvm-on-kp920.html">KVM 使用 | 在kp920机器上使用KVM虚拟机</a></li>
+        
+        <li><a href="/2021/09/13/chlinux/create-bridge-network.html">KVM 使用 | 在 Centos 8 中创建桥接网卡</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/KVM'>KVM</a></li>
+                
+                <li><a href='/tags/virsh'>virsh</a></li>
+                
+                <li><a href='/tags/Qemu'>Qemu</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://blog.xmlwch.cn/">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html" title="WSL | Windows下重启Linux子系统">WSL | Windows下重启Linux子系统</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html" title="KVM 使用 | 在 Centos 8 中创建桥接网卡">KVM 使用 | 在 Centos 8 中创建桥接网卡</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html" title="Linux添加新硬盘(2T以上)">Linux添加新硬盘(2T以上)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/08/13/network/websocket.html" title="[转]WebSocket 教程">[转]WebSocket 教程</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (23)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WSL/">WSL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/virsh/">virsh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
