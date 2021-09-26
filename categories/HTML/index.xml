@@ -6,7 +6,16 @@
     <description>Recent content in HTML on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 06 Aug 2021 09:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/HTML/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Sep 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/HTML/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prism 实现代码自动换行</title>
+      <link>https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html</link>
+      <pubDate>Fri, 17 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html</guid>
+      <description>问题: Prism是款个人感觉比较好用的代码高亮显示插件,使用简单.特别是在线订制下载的功能:http://prismjs.com/download.html ,非常灵活,适合快速定制一个自己喜欢的代码高亮插件.但美中不足的是代码超出时无法自动换行.影响代码的阅读. 解决方法 修改文件p</description>
+    </item>
+    
     <item>
       <title>HTML 字符实体</title>
       <link>https://blog.xmlwch.cn/2021/08/06/html/html-entities.html</link>

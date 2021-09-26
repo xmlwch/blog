@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>Prism 实现代码自动换行</title>
+      <link>https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html</link>
+      <pubDate>Fri, 17 Sep 2021 15:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html</guid>
+      <description>问题: Prism是款个人感觉比较好用的代码高亮显示插件,使用简单.特别是在线订制下载的功能:http://prismjs.com/download.html ,非常灵活,适合快速定制一个自己喜欢的代码高亮插件.但美中不足的是代码超出时无法自动换行.影响代码的阅读. 解决方法 修改文件p</description>
+    </item>
+    
+    <item>
       <title>WSL | Windows下重启Linux子系统</title>
       <link>https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html</link>
       <pubDate>Wed, 15 Sep 2021 10:00:00 +0800</pubDate>

@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html" title="防火墙（firewalld）的操作命令">防火墙（firewalld）的操作命令</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月7日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            1、基本使用 启动： systemctl start firewalld 查看状态：systemctl status firewalld 禁用，禁止开机启动： systemctl disable firewalld 停止运行： systemctl stop firewalld 2、firewalld-cmd 查看版本： firewall-cmd --version 查看帮助： firewall-cmd --help 显示状态： firewall-cmd --state 查看所有打开的端口： firewall-cmd --zone=public --list-ports 更新防火墙规则： firewall-cmd --reload 更新防火墙规则，重启服务： firewall-cmd --completely-reload 查看已激活的Zone信息: firewall-cmd --get-active-zones 查看……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html" title="Go语言开发环境搭建">Go语言开发环境搭建</a>
             </h1>
         </header>
@@ -222,6 +245,10 @@
     </li>
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html" title="Prism 实现代码自动换行">Prism 实现代码自动换行</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html" title="WSL | Windows下重启Linux子系统">WSL | Windows下重启Linux子系统</a>
     </li>
     
@@ -253,10 +280,6 @@
         <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/08/20/html/fragment_upload.html" title="Vue之大文件分片上传">Vue之大文件分片上传</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -274,7 +297,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (4)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (5)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
     
@@ -336,6 +359,8 @@
     <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
     
     <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Prism/">Prism</a>
     
     <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
     
