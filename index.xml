@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 24 Sep 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Sep 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>挂载LVM卷</title>
+      <link>https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html</link>
+      <pubDate>Tue, 28 Sep 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html</guid>
+      <description>缘由 挂载一块硬盘（主要是导出里边的数据），提示mount: unknown filesystem type &amp;lsquo;LVM2_member&amp;rsquo;，故查询、整理 LVM 相关知识。由于新旧硬盘都装了银河麒麟V10服务器系统，VG 名字重复又研究了修改VG名字。 一，LVM概念 需要理解的几个概念： PV（Physical Vol</description>
+    </item>
+    
     <item>
       <title>KVM 使用 | virsh命令行管理工具</title>
       <link>https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html</link>
