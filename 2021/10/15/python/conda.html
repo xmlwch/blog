@@ -89,7 +89,7 @@
         </div>
         
         <div class="post-meta">
-            |<span class="post-date"> 本文共954字</span>，阅读约<span class="more-meta"> 2 分钟 </span>
+            |<span class="post-date"> 本文共686字</span>，阅读约<span class="more-meta"> 2 分钟 </span>
         </div>
         
         <div class="post-meta">
@@ -127,40 +127,38 @@ $ conda create --name py37 <span style="color:#008080">python</span><span style=
 $ conda info --envs
 
 <span style="color:#998;font-style:italic"># 复制test环境到test1</span>
-conda create --name test1 --clone <span style="color:#0086b3">test</span>
+$ conda create --name test1 --clone <span style="color:#0086b3">test</span>
 
 <span style="color:#998;font-style:italic"># 删除环境</span>
 $ conda remove --name test1 --all
-</code></pre></div><h2 id="清华镜像">清华镜像</h2>
-<p>因为<a href="http://Anaconda.org">http://Anaconda.org</a>的服务器在国外，所有有些库下载缓慢，可以使用清华Anaconda镜像源。 网站地址: <a href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/">清华大学开源软件镜像站</a></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-conda config --set show_channel_urls yes
-</code></pre></div><p>查看已经添加的channels <code>conda config --get channels</code></p>
-<h2 id="packages管理">packages管理</h2>
-<p>查看可以通过conda命令安装的包名，可以在网站查看<a href="https://link.jianshu.com?t=http://docs.continuum.io/anaconda/pkg-docs.html">http://docs.continuum.io/anaconda/pkg-docs.html</a></p>
+</code></pre></div><h2 id="packages管理">packages管理</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#998;font-style:italic"># 查看当前环境下的已经安装的包</span>
 $ conda list
 
 <span style="color:#998;font-style:italic"># 查找包</span>
-$ conda search beautifulsoup4
+$ conda search gatk
 
 <span style="color:#998;font-style:italic"># 安装包到环境bunnies，不加--name时，默认安装到当前环境</span>
-$ conda install --name bunnies beautifulsoup4
-</code></pre></div><p>conda默认从<a href="https://link.jianshu.com?t=https://repo.continuum.io/pkgs/">https://repo.continuum.io/pkgs/</a>下载安装包，当无法找到需要的安装包时，可以通过Anaconda.org安装包, 在<a href="https://link.jianshu.com?t=http://anaconda.org">http://anaconda.org</a>可以搜索可用的包并在包详情页面获取下载命令,如:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#998;font-style:italic"># 安装包bottleneck</span>
-$ conda install -c conda-forge bottleneck
+$ conda install --name <span style="color:#0086b3">test</span> gatk
 
-<span style="color:#998;font-style:italic"># 检查安装结果</span>
-$ conda list
-</code></pre></div><p>使用pip命令安装包，当无法使用conda安装，也无法从Anaconda.org下载到需要的安装包时，可以通过pip命令安装</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pip install see
+<span style="color:#998;font-style:italic"># 当无法使用conda安装，也通过pip命令安装</span>
+$ pip install gatk
 
 <span style="color:#998;font-style:italic"># 查看包</span>
 $ conda list
-</code></pre></div><p>删除指定环境里的包</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a61717;background-color:#e3d2d2">$</span> conda <span style="color:#000;font-weight:bold">remove</span> --name bunnies iopro
-</code></pre></div>
+
+<span style="color:#998;font-style:italic"># 更新包</span>
+$ conda update gatk
+
+<span style="color:#998;font-style:italic"># 删除包</span>
+$ conda remove gatk
+</code></pre></div><h2 id="清华镜像">清华镜像</h2>
+<p>因为<a href="http://Anaconda.org">Anaconda.org</a>的服务器在国外，所有有些库下载缓慢，可以使用清华Anaconda镜像源。 网站地址: <a href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/">清华大学开源软件镜像站</a></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --set show_channel_urls yes
+</code></pre></div><p>查看已经添加的channels <code>conda config --get channels</code></p>
+
         </div>
 
         
