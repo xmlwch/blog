@@ -6,7 +6,25 @@
     <description>Recent content in Tags on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Sep 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Oct 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>conda</title>
+      <link>https://blog.xmlwch.cn/tags/conda/</link>
+      <pubDate>Fri, 15 Oct 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/conda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://blog.xmlwch.cn/tags/Python/</link>
+      <pubDate>Fri, 15 Oct 2021 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Python/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>LVM</title>
       <link>https://blog.xmlwch.cn/tags/LVM/</link>
@@ -103,15 +121,6 @@
       <pubDate>Thu, 02 Sep 2021 15:00:00 +0800</pubDate>
       
       <guid>https://blog.xmlwch.cn/tags/SELinux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://blog.xmlwch.cn/tags/Python/</link>
-      <pubDate>Mon, 30 Aug 2021 16:00:00 +0800</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/tags/Python/</guid>
       <description></description>
     </item>
     

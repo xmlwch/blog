@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年8月30日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Python'>Python</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            项目用到了python，习惯了TP的链式操作，自己动手写了一个python的Model层 实现了Pymysql的原生连接和dbutils的连接池连接 模型基类： # coding: utf-8 import pymysql import threading from Include.Logger import get_logger from Include.Setting import app_settings from dbutils.pooled_db import PooledDB class MysqlPool: config = { &#39;creator&#39;: pymysql, &#39;host&#39;: app_settings.get(&#39;ManagerHost&#39;, &#39;127.0.0.1&#39;), &#39;port&#39;: int(app_settings.get(&#39;DBPort&#39;, 3306)), &#39;user&#39;: app_settings.get(&#39;DBUser&#39;, &#39;root&#39;), &#39;password&#39;: app_settings.get(&#39;DBPwd&#39;, &#39;&#39;), &#39;db&#39;: app_settings.get(&#39;DBName&#39;, &#39;&#39;), &#39;charset&#39;: app_settings.get(&#39;DBCharSet&#39;, &#39;utf8&#39;), &#39;maxconnections&#39;: 30, # 连接池最大连接数 &#39;cursorclass&#39;: pymysql.cursors.DictCursor } pool = PooledDB(**config) def……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/30/python/model.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
             </h1>
         </header>
@@ -276,31 +299,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/06/html/html-entities.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html" title="systemd详解">systemd详解</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月5日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-            <span class="meta-category"><a href='/categories/systemd'>systemd</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            说明 systemd 是 Linux 系统工具，用来启动守护进程，已成为大多数发行版的标准配置；主要用于服务管理和自定义服务的管理，方便运维工作管理。 systemctl systemctl是 Systemd 的主命令，用于管理系统 # 重启系统 sudo systemctl reboot # 关闭系统，切断电源 sudo systemctl poweroff # CPU停止工作 sudo systemctl halt # 暂停系统 sudo systemctl suspend # 让系统进入冬眠状态 sudo systemctl hibernate # 让系……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -394,6 +392,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html" title="conda的安装与使用">conda的安装与使用</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
     </li>
     
@@ -429,10 +431,6 @@
         <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -462,7 +460,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (2)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (3)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
     
@@ -550,6 +548,8 @@
     <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
     
     <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/conda/">conda</a>
     
     <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
     
