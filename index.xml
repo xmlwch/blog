@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 15 Oct 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Nov 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在Ubuntu中,vi命令编辑异常</title>
+      <link>https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html</link>
+      <pubDate>Thu, 04 Nov 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html</guid>
+      <description>在Ubuntu中,进入vi命令的编辑模式,发现按方向键不能移动光标,而是会输出ABCD,以及退格键也不能正常删除字符。这是由于Ubuntu预装的是vim-tiny,而我们需要使用的是vim-full，所以我们需要先删除vim-tiny安装vim-full： 删除原来的vim-tin</description>
+    </item>
+    
     <item>
       <title>conda的安装与使用</title>
       <link>https://blog.xmlwch.cn/2021/10/15/python/conda.html</link>

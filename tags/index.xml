@@ -6,7 +6,16 @@
     <description>Recent content in Tags on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 15 Oct 2021 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Nov 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vi异常</title>
+      <link>https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/</link>
+      <pubDate>Thu, 04 Nov 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>conda</title>
       <link>https://blog.xmlwch.cn/tags/conda/</link>
