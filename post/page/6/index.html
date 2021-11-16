@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html" title="chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作">chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月12日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            root用户执行 # chmod 755 redis-server 时报错： chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作 解决方法： # 使用lsattr命令显示文件属性 lsattr redis-server ----i--------------- redis-server # 修改文件属性 chattr -i redis-server # 修改文件执行权限(此时就可以了) chmod 777 redis-server chattr +i redis-server 相关知识引用： chattr命令： https://www.runoob.com/linux/linux-comm-chattr.html lsattr命令： https://www.runoob.com/linux/linux-comm-lsattr.html 由于时间仓促，错误与疏忽之处在所难免，希望各……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html" title="Failed to allocate directory watch: Too many open files">Failed to allocate directory watch: Too many open files</a>
             </h1>
         </header>
@@ -325,6 +350,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/11/15/network/smtp.html" title="关于 SMTP 发送邮件的那些事">关于 SMTP 发送邮件的那些事</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html" title="在Ubuntu中,vi命令编辑异常">在Ubuntu中,vi命令编辑异常</a>
     </li>
     
@@ -360,10 +389,6 @@
         <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -389,7 +414,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (5)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
     
@@ -455,6 +480,8 @@
     <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
     
     <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SMTP/">SMTP</a>
     
     <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
     
