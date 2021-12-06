@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Nginx rewrite 参数和例子 | xmlwch的博客</title>
+    <meta property="og:title" content="Nginx rewrite 参数和例子 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2021-12-06T12:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2021-12-06T12:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">Nginx rewrite 参数和例子</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年12月6日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Nginx'>Nginx</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共1887字</span>，阅读约<span class="more-meta"> 4 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p><strong>内容来自互联网和平日使用经验，整理一下方便日后参考。</strong></p>
+<p><strong>正则表达式匹配，其中：</strong></p>
+<ul>
+<li>
+<p>* ~ 为区分大小写匹配</p>
+</li>
+<li>
+<p>* ~* 为不区分大小写匹配</p>
+</li>
+<li>
+<p>* !~和!~*分别为区分大小写不匹配及不区分大小写不匹配</p>
+</li>
+</ul>
+<p><strong>文件及目录匹配，其中：</strong></p>
+<ul>
+<li>
+<p>* -f和!-f用来判断是否存在文件</p>
+</li>
+<li>
+<p>* -d和!-d用来判断是否存在目录</p>
+</li>
+<li>
+<p>* -e和!-e用来判断是否存在文件或目录</p>
+</li>
+<li>
+<p>* -x和!-x用来判断文件是否可执行</p>
+</li>
+</ul>
+<p><strong>flag标记有：</strong></p>
+<ul>
+<li>
+<p>* last 相当于Apache里的[L]标记，表示完成rewrite</p>
+</li>
+<li>
+<p>* break 终止匹配, 不再匹配后面的规则</p>
+</li>
+<li>
+<p>* redirect 返回302临时重定向 地址栏会显示跳转后的地址</p>
+</li>
+<li>
+<p>* permanent 返回301永久重定向 地址栏会显示跳转后的地址</p>
+</li>
+</ul>
+<p><strong>一些可用的全局变量有，可以用做条件判断(待补全)</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#008080">$args</span>
+<span style="color:#008080">$content_length</span>
+<span style="color:#008080">$content_type</span>
+<span style="color:#008080">$document_root</span>
+<span style="color:#008080">$document_uri</span>
+<span style="color:#008080">$host</span>
+<span style="color:#008080">$http_user_agent</span>
+<span style="color:#008080">$http_cookie</span>
+<span style="color:#008080">$limit_rate</span>
+<span style="color:#008080">$request_body_file</span>
+<span style="color:#008080">$request_method</span>
+<span style="color:#008080">$remote_addr</span>
+<span style="color:#008080">$remote_port</span>
+<span style="color:#008080">$remote_user</span>
+<span style="color:#008080">$request_filename</span>
+<span style="color:#008080">$request_uri</span>
+<span style="color:#008080">$query_string</span>
+<span style="color:#008080">$scheme</span>
+<span style="color:#008080">$server_protocol</span>
+<span style="color:#008080">$server_addr</span>
+<span style="color:#008080">$server_name</span>
+<span style="color:#008080">$server_port</span>
+<span style="color:#008080">$uri</span>
+</code></pre></div><p><strong>结合QeePHP的例子</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">if (!-d $request_filename) {</span>
+    <span style="color:#008080">rewrite ^/([a-z-A-Z]+)/([a-z-A-Z]+)/?(.*)$ /index.php?namespace</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">user&amp;controller=$1&amp;action=$2&amp;$3 last;
+</span><span style="color:#d14">    rewrite ^/([a-z-A-Z]+)/?$ /index.php?namespace=user&amp;controller=$1 last;
+</span><span style="color:#d14">    break;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>多目录转成参数</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#998;font-style:italic">#abc.domian.com/sort/2 =&gt; abc.domian.com/index.php?act=sort&amp;name=abc&amp;id=2</span>
+<span style="color:#008080">if ($host ~* (.*)\.domain\.com) {</span>
+    <span style="color:#008080">set $sub_name $1;</span>
+    <span style="color:#008080">rewrite ^/sort\/(\d+)\/?$ /index.php?act</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">sort&amp;cid=$sub_name&amp;id=$1 last;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>目录对换</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#998;font-style:italic">#/123456/xxxx -&gt; /xxxx?id=123456</span>
+<span style="color:#008080">rewrite ^/(\d+)/(.+)/ /$2?id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$1 last;</span>
+</code></pre></div><p><strong>例如下面设定nginx在用户使用ie的使用重定向到/nginx-ie目录下：</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">if ($http_user_agent ~ MSIE) {</span>
+	<span style="color:#008080">rewrite ^(.*)$ /nginx-ie/$1 break;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>目录自动加“/”</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">if (-d $request_filename){</span>
+	<span style="color:#008080">rewrite ^/(.*)([^/])$ http://$host/$1$2/ permanent;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>禁止htaccess</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ~/\.ht {</span>
+	<span style="color:#008080">deny all;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>禁止多个目录</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ~ ^/(cron|templates)/ {</span>
+    <span style="color:#008080">deny all;</span>
+    <span style="color:#008080">break;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>禁止以/data开头的文件</strong>
+可以禁止/data/下多级目录下.log.txt等请求;</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ~ ^/data {</span>
+	<span style="color:#008080">deny all;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>禁止单个目录</strong>
+不能禁止.log.txt能请求</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location /searchword/cron/ {</span>
+	<span style="color:#008080">deny all;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>禁止单个文件</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ~ /data/sql/data.sql {</span>
+	<span style="color:#008080">deny all;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>给favicon.ico和robots.txt设置过期时间;</strong>
+这里为favicon.ico为99天,robots.txt为7天并不记录404错误日志</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ~(favicon.ico) {</span>
+    <span style="color:#008080">log_not_found off;</span>
+    <span style="color:#008080">expires 99d;</span>
+    <span style="color:#008080">break;</span>
+<span style="color:#008080">}</span>
+
+<span style="color:#008080">location ~(robots.txt) {</span>
+    <span style="color:#008080">log_not_found off;</span>
+    <span style="color:#008080">expires 7d;</span>
+    <span style="color:#008080">break;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>设定某个文件的过期时间;这里为600秒，并不记录访问日志</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ^~ /html/scripts/loadhead_1.js {</span>
+    <span style="color:#008080">access_log off;</span>
+    <span style="color:#008080">root /opt/lampp/htdocs/web;</span>
+    <span style="color:#008080">expires 600;</span>
+    <span style="color:#008080">break;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>文件反盗链并设置过期时间</strong>
+这里的return 412 为自定义的http状态码，默认为403，方便找出正确的盗链的请求</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#998;font-style:italic"># rewrite ^/ http://leech.c1gstudio.com/leech.gif; #显示一张防盗链图片</span>
+<span style="color:#998;font-style:italic"># access_log off;# 不记录访问日志，减轻压力</span>
+<span style="color:#998;font-style:italic"># expires 3d; #所有文件3天的浏览器缓存</span>
+
+<span style="color:#008080">location ~* ^.+\.(jpg|jpeg|gif|png|swf|rar|zip|css|js)$ {</span>
+    <span style="color:#008080">valid_referers none blocked *.c1gstudio.com *.c1gstudio.net localhost 208.97.167.194;</span>
+    <span style="color:#008080">if ($invalid_referer) {</span>
+        <span style="color:#008080">rewrite ^/ http://leech.c1gstudio.com/leech.gif;</span>
+        <span style="color:#008080">return 412;</span>
+        <span style="color:#008080">break;</span>
+	<span style="color:#008080">}</span>
+    <span style="color:#008080">access_log off;</span>
+    <span style="color:#008080">root /opt/lampp/htdocs/web;</span>
+    <span style="color:#008080">expires 3d;</span>
+    <span style="color:#008080">break;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>只充许固定ip访问网站，并加上密码</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">root /opt/htdocs/www;</span>
+<span style="color:#008080">allow 208.97.167.194;</span>
+<span style="color:#008080">allow 222.33.1.2;</span>
+<span style="color:#008080">allow 231.152.49.4;</span>
+<span style="color:#008080">deny all;</span>
+<span style="color:#008080">auth_basic “C1G_ADMIN”;</span>
+<span style="color:#008080">auth_basic_user_file htpasswd;</span>
+</code></pre></div><p><strong>将多级目录下的文件转成一个文件，增强seo效果</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#998;font-style:italic"># /job-123-456-789.html 指向/job/123/456/789.html</span>
+<span style="color:#008080">rewrite ^/job-([0-9]+)-([0-9]+)-([0-9]+)\.html$ /job/$1/$2/jobshow_$3.html last;</span>
+</code></pre></div><p><strong>将根目录下某个文件夹指向2级目录</strong></p>
+<p>如/shanghaijob/ 指向 /area/shanghai/
+如果你将last改成permanent，那么浏览器地址栏显是/location/shanghai/</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;</span>
+</code></pre></div><p>上面例子有个问题是访问/shanghai 时将不会匹配</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">rewrite ^/([0-9a-z]+)job$ /area/$1/ last;</span>
+<span style="color:#008080">rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;</span>
+</code></pre></div><p>这样/shanghai 也可以访问了，但页面中的相对链接无法使用，
+如<code>./list_1.html</code>真实地址是<code>/area/shanghia/list_1.html</code>会变成<code>/list_1.html</code>,导至无法访问。</p>
+<p>那我加上自动跳转也是不行咯
+<code>(-d $request_filename)</code>它有个条件是必需为真实目录，而我的rewrite不是的，所以没有效果</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">if (-d $request_filename){</span>
+	<span style="color:#008080">rewrite ^/(.*)([^/])$ http://$host/$1$2/ permanent;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p>知道原因后就好办了，让我手动跳转吧</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">rewrite ^/([0-9a-z]+)job$ /$1job/ permanent;</span>
+<span style="color:#008080">rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;</span>
+</code></pre></div><p><strong>文件和目录不存在的时候重定向：</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">if (!-e $request_filename) {</span>
+	<span style="color:#008080">proxy_pass http://127.0.0.1;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>域名跳转</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">server</span>
+<span style="color:#008080">{</span>
+    <span style="color:#008080">listen 80;</span>
+    <span style="color:#008080">server_name jump.c1gstudio.com;</span>
+    <span style="color:#008080">index index.html index.htm index.php;</span>
+    <span style="color:#008080">root /opt/lampp/htdocs/www;</span>
+    <span style="color:#008080">rewrite ^/ http://www.c1gstudio.com/;</span>
+    <span style="color:#008080">access_log off;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>多域名转向</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">server_name www.c1gstudio.com www.c1gstudio.net;</span>
+    <span style="color:#008080">index index.html index.htm index.php;</span>
+    <span style="color:#008080">root /opt/lampp/htdocs;</span>
+    <span style="color:#008080">if ($host ~ “c1gstudio\.net”) {</span>
+    <span style="color:#008080">rewrite ^(.*) http://www.c1gstudio.com$1 permanent;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>三级域名跳转</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">if ($http_host ~* “^(.*)\.i\.c1gstudio\.com$”) {</span>
+    <span style="color:#008080">rewrite ^(.*) http://top.c1gstudio.com$1;</span>
+    <span style="color:#008080">break;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>域名镜向</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">server</span>
+<span style="color:#008080">{</span>
+    <span style="color:#008080">listen 80;</span>
+    <span style="color:#008080">server_name mirror.c1gstudio.com;</span>
+    <span style="color:#008080">index index.html index.htm index.php;</span>
+    <span style="color:#008080">root /opt/lampp/htdocs/www;</span>
+    <span style="color:#008080">rewrite ^/(.*) http://www.c1gstudio.com/$1 last;</span>
+    <span style="color:#008080">access_log off;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>某个子目录作镜向</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ^~ /zhaopinhui {</span>
+    <span style="color:#008080">rewrite ^.+ http://zph.c1gstudio.com/ last;</span>
+    <span style="color:#008080">break;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>discuz ucenter home (uchome) rewrite</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">rewrite ^/(space|network)-(.+)\.html$ /$1.php?rewrite</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$2 last;</span>
+<span style="color:#008080">rewrite ^/(space|network)\.html$ /$1.php last;</span>
+<span style="color:#008080">rewrite ^/([0-9]+)$ /space.php?uid</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$1 last;</span>
+</code></pre></div><p><strong>discuz 7 rewrite</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">rewrite ^(.*)/archiver/((fid|tid)-[\w\-]+\.html)$ $1/archiver/index.php?$2 last;</span>
+<span style="color:#008080">rewrite ^(.*)/forum-([0-9]+)-([0-9]+)\.html$ $1/forumdisplay.php?fid</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$2&amp;page=$3 last;</span>
+<span style="color:#008080">rewrite ^(.*)/thread-([0-9]+)-([0-9]+)-([0-9]+)\.html$ $1/viewthread.php?tid</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$2&amp;extra=page\%3D$4&amp;page=$3 last;</span>
+<span style="color:#008080">rewrite ^(.*)/profile-(username|uid)-(.+)\.html$ $1/viewpro.php?$2</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$3 last;</span>
+<span style="color:#008080">rewrite ^(.*)/space-(username|uid)-(.+)\.html$ $1/space.php?$2</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$3 last;</span>
+<span style="color:#008080">rewrite ^(.*)/tag-(.+)\.html$ $1/tag.php?name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$2 last;</span>
+</code></pre></div><p><strong>给discuz某版块单独配置域名</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">{	...</span>
+	<span style="color:#008080">server_name bbs.c1gstudio.com news.c1gstudio.com;</span>
+    <span style="color:#008080">location</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">/ {
+</span><span style="color:#d14">        if ($http_host ~ news\.c1gstudio.com$) {
+</span><span style="color:#d14">        rewrite ^.+ http://news.c1gstudio.com/forum-831-1.html last;
+</span><span style="color:#d14">        break;
+</span><span style="color:#d14">    }</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>discuz ucenter 头像 rewrite 优化</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ^~ /ucenter {</span>
+    <span style="color:#008080">location ~ .*\.php?$</span>
+    <span style="color:#008080">{</span>
+        <span style="color:#008080">\#fastcgi_pass unix:/tmp/php-cgi.sock;</span>
+        <span style="color:#008080">fastcgi_pass 127.0.0.1:9000;</span>
+        <span style="color:#008080">fastcgi_index index.php;</span>
+        <span style="color:#008080">include fcgi.conf;</span>
+    <span style="color:#008080">}</span>
+
+    <span style="color:#008080">location /ucenter/data/avatar {</span>
+        <span style="color:#008080">log_not_found off;</span>
+        <span style="color:#008080">access_log off;</span>
+        <span style="color:#008080">location ~ /(.*)_big\.jpg$ {</span>
+            <span style="color:#008080">error_page 404 /ucenter/images/noavatar_big.gif;</span>
+        <span style="color:#008080">}</span>
+        <span style="color:#008080">location ~ /(.*)_middle\.jpg$ {</span>
+            <span style="color:#008080">error_page 404 /ucenter/images/noavatar_middle.gif;</span>
+        <span style="color:#008080">}</span>
+        <span style="color:#008080">location ~ /(.*)_small\.jpg$ {</span>
+            <span style="color:#008080">error_page 404 /ucenter/images/noavatar_small.gif;</span>
+        <span style="color:#008080">}</span>
+        <span style="color:#008080">expires 300;</span>
+        <span style="color:#008080">break;</span>
+    <span style="color:#008080">}</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>jspace rewrite</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location ~ .*\.php?$</span>
+<span style="color:#008080">{</span>
+    <span style="color:#998;font-style:italic">#fastcgi_pass unix:/tmp/php-cgi.sock;</span>
+    <span style="color:#008080">fastcgi_pass 127.0.0.1:9000;</span>
+    <span style="color:#008080">fastcgi_index index.php;</span>
+    <span style="color:#008080">include fcgi.conf;</span>
+<span style="color:#008080">}</span>
+
+<span style="color:#008080">location ~* ^/index.php/</span>
+<span style="color:#008080">{</span>
+    <span style="color:#008080">rewrite ^/index.php/(.*) /index.php?$1 break;</span>
+    <span style="color:#008080">fastcgi_pass 127.0.0.1:9000;</span>
+    <span style="color:#008080">fastcgi_index index.php;</span>
+    <span style="color:#008080">include fcgi.conf;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>wordpress rewrite</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">location / {</span>
+    <span style="color:#008080">index index.html index.php;</span>
+    <span style="color:#008080">if (-f $request_filename/index.html){</span>
+    	<span style="color:#008080">rewrite (.*) $1/index.html break;</span>
+    <span style="color:#008080">}</span>
+    <span style="color:#008080">if (-f $request_filename/index.php){</span>
+    	<span style="color:#008080">rewrite (.*) $1/index.php;</span>
+    <span style="color:#008080">}</span>
+    <span style="color:#008080">if (!-e $request_filename) {</span>
+    	<span style="color:#008080">rewrite (.*) /index.php;</span>
+    <span style="color:#008080">}</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>discuzx 1.5 rewrite</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">rewrite ^([^\.]*)/topic-(.+)\.html$ $1/portal.php?mod</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">topic&amp;topic=$2 last;</span>
+<span style="color:#008080">rewrite ^([^\.]*)/article-([0-9]+)-([0-9]+)\.html$ $1/portal.php?mod</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">view&amp;aid=$2&amp;page=$3 last;</span>
+<span style="color:#008080">rewrite ^([^\.]*)/forum-(\w+)-([0-9]+)\.html$ $1/forum.php?mod</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">forumdisplay&amp;fid=$2&amp;page=$3 last;</span>
+<span style="color:#008080">rewrite ^([^\.]*)/thread-([0-9]+)-([0-9]+)-([0-9]+)\.html$ $1/forum.php?mod</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">viewthread&amp;tid=$2&amp;extra=page%3D$4&amp;page=$3 last;</span>
+<span style="color:#008080">rewrite ^([^\.]*)/group-([0-9]+)-([0-9]+)\.html$ $1/forum.php?mod</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">group&amp;fid=$2&amp;page=$3 last;</span>
+<span style="color:#008080">rewrite ^([^\.]*)/space-(username|uid)-(.+)\.html$ $1/home.php?mod</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">space&amp;$2=$3 last;</span>
+<span style="color:#008080">rewrite ^([^\.]*)/([a-z]+)-(.+)\.html$ $1/$2.php?rewrite</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">$3 last;</span>
+<span style="color:#008080">if (!-e $request_filename) {</span>
+	<span style="color:#008080">return 404;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p><strong>动态参数rewrite</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#998;font-style:italic"># 以discuz7.2到discuzx1.5为例</span>
+
+<span style="color:#008080">if ($query_string ~* tid</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">([0-9]+)) {
+</span><span style="color:#d14">    set $id $1;
+</span><span style="color:#d14">    rewrite “^(.*)/viewthread.php$” $1/forum.php?mod=viewthread&amp;tid=$id&amp;extra=page%3D&amp;page=1 last;</span>
+<span style="color:#008080">}</span>
+<span style="color:#008080">if ($query_string ~* gid</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">([0-9]+)) {
+</span><span style="color:#d14">    set $id $1;
+</span><span style="color:#d14">    rewrite “^(.*)/index.php$” $1/forum.php?gid=$id last;</span>
+<span style="color:#008080">}</span>
+<span style="color:#008080">rewrite ^([^\.]*)/archiver/$ $1/forum.php?archiver</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">1 last;</span>
+</code></pre></div><p><strong>nginx 嵌套if</strong>
+nginx不支持if and和多层嵌套if,让我头痛很久,需要通过其它方法实现.
+下面是把访问镜像网站cnc.c1gstudio.com的爬虫转到www站.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">set $needrewrite ”;</span>
+    <span style="color:#008080">if ($http_user_agent ~* (baiduspider|googlebot|soso|bing|sogou|yahoo|sohu-search|yodao|YoudaoBot|robozilla|msnbot|MJ12bot|NHN|Twiceler)) {</span>
+    <span style="color:#008080">set $needrewrite ‘o’;</span>
+<span style="color:#008080">}</span>
+<span style="color:#008080">if ($host ~ cnc\.c1gstudio\.com) {</span>
+	<span style="color:#008080">set $needrewrite “${needrewrite}k”;</span>
+<span style="color:#008080">}</span>
+<span style="color:#008080">if ($needrewrite</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">ok) {
+</span><span style="color:#d14">    #return 403;
+</span><span style="color:#d14">	rewrite ^(.*) http://www.c1gstudio.com$1 permanent;</span>
+<span style="color:#008080">}</span>
+</code></pre></div><p>apache 转 nginx 规则工具
+<a href="http://www.ubuntuset.com/apache2nginx">http://www.ubuntuset.com/apache2nginx</a></p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html">https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh"> 知识共享 署名-相同方式共享 4.0 国际(CC BY-SA 4.0)许可协议 </a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Nginx'>Nginx</a></li>
+                
+                <li><a href='/tags/rewrite'>rewrite </a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2021 <a href="https://xmlwch.cn">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/11/15/network/smtp.html" title="关于 SMTP 发送邮件的那些事">关于 SMTP 发送邮件的那些事</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html" title="在Ubuntu中,vi命令编辑异常">在Ubuntu中,vi命令编辑异常</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html" title="conda的安装与使用">conda的安装与使用</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html" title="KVM 使用 | virsh命令行管理工具">KVM 使用 | virsh命令行管理工具</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html" title="Prism 实现代码自动换行">Prism 实现代码自动换行</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html" title="WSL | Windows下重启Linux子系统">WSL | Windows下重启Linux子系统</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html" title="KVM 使用 | 在 Centos 8 中创建桥接网卡">KVM 使用 | 在 Centos 8 中创建桥接网卡</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html" title="Linux添加新硬盘(2T以上)">Linux添加新硬盘(2T以上)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (25)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/LVM/">LVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Prism/">Prism</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SMTP/">SMTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WSL/">WSL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/conda/">conda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rewrite/">rewrite </a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/virsh/">virsh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/">vi异常</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
