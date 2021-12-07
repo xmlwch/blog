@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Others on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/categories/Others/</link>
+    <description>Recent content in Others on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 07 Dec 2021 10:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Others/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nvidia驱动失效简单解决方案</title>
+      <link>https://blog.xmlwch.cn/2021/12/07/others/ubuntu-nvidia-driver.html</link>
+      <pubDate>Tue, 07 Dec 2021 10:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/12/07/others/ubuntu-nvidia-driver.html</guid>
+      <description>NVIDIA-SMI has failed because it couldn‘t communicate with the NVIDIA driver. 温馨提醒： 以下方法，不需要重装驱动，简单快捷。适用于Ubuntu系统下，之前已经安装过驱动，但驱动失效的问题。 如果此方法仍然无法解决问题，可参考Ubuntu下安装nvidia显卡驱动，重装驱动。 但是最近准备用GPU跑模型时，提示cuda 不存在。</description>
+    </item>
+    
+  </channel>
+</rss>
