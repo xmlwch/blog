@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html" title="KVM 使用 | 在 Centos 8 中创建桥接网卡">KVM 使用 | 在 Centos 8 中创建桥接网卡</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月13日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            请确保用户有访问服务器显示器的权限，不然出错ssh连接不上。 1 创建网桥 br0 设备 nmcli c add type bridge con-name br0 ifname br0 autoconnect yes 2 网桥 br0 桥接到 eth0 设备（请自己替换自己的设备名） nmcli c add type bridge-slave ifname eth0 master br0 3 查看配置是否成功自动创建了配置文件 ls /etc/sysconfig/network-scripts/ifcfg-br* ifcfg-br0 ifcfg-bridge-slave-eth0 4 将原来的网卡，设置为开启不启动 vi /etc/sysconfig/network-scripts/ifcfg-eth0 #将ONBOOT=yes 改成ONBOO……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html" title="Linux添加新硬盘(2T以上)">Linux添加新硬盘(2T以上)</a>
             </h1>
         </header>
@@ -278,29 +301,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/12/network/a-complete-http-request.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月11日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Network'>Network</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            0、私有地址 私有地址主要用于在局域网中进行分配，在 Internet上是无效的。这样可以很好地隔离局域网和 Internet。私有地址在公网上是不能被识别的，必须通过NAT将内部IP地址转换成公网上可用的IP地址，从而实现内部IP地址与外部公网的通信。 Tips： IPv4 私有地址空间（如下表……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -335,6 +335,10 @@
     
     <li >
         <a href="https://blog.xmlwch.cn/page/6/">6</a>
+    </li>
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/page/7/">7</a>
     </li>
     
 
@@ -402,6 +406,10 @@
     </li>
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html" title="Shell笔记 | 记录最近用到的组合命令">Shell笔记 | 记录最近用到的组合命令</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/11/15/network/smtp.html" title="关于 SMTP 发送邮件的那些事">关于 SMTP 发送邮件的那些事</a>
     </li>
     
@@ -427,10 +435,6 @@
     
     <li>
         <a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html" title="WSL | Windows下重启Linux子系统">WSL | Windows下重启Linux子系统</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html" title="KVM 使用 | 在 Centos 8 中创建桥接网卡">KVM 使用 | 在 Centos 8 中创建桥接网卡</a>
     </li>
     
 </ul>
@@ -470,7 +474,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (2)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (3)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
     
@@ -534,6 +538,8 @@
     <a href="https://blog.xmlwch.cn/tags/SMTP/">SMTP</a>
     
     <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell/">Shell</a>
     
     <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
     

@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>Shell笔记 | 记录最近用到的组合命令</title>
+      <link>https://blog.xmlwch.cn/2021/11/25/others/shell-note.html</link>
+      <pubDate>Thu, 25 Nov 2021 10:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/11/25/others/shell-note.html</guid>
+      <description>删除当前目录下的指定名字的目录 find . -type d -name &amp;#34;__pycache__&amp;#34; |xargs rm -rf 删除当前目录下的指定后缀的文件 find ./ -name &amp;#34;*.sock&amp;#34; |xargs rm -rf 统计目录下文件数量 ls -lR|grep &amp;#34;^-&amp;#34;|wc -l 随时更新&amp;hellip;</description>
+    </item>
+    
+    <item>
       <title>关于 SMTP 发送邮件的那些事</title>
       <link>https://blog.xmlwch.cn/2021/11/15/network/smtp.html</link>
       <pubDate>Mon, 15 Nov 2021 11:00:00 +0800</pubDate>

@@ -6,7 +6,16 @@
     <description>Recent content in Shell on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 14 Jul 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Shell/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Nov 2021 10:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Shell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shell笔记 | 记录最近用到的组合命令</title>
+      <link>https://blog.xmlwch.cn/2021/11/25/others/shell-note.html</link>
+      <pubDate>Thu, 25 Nov 2021 10:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/11/25/others/shell-note.html</guid>
+      <description>删除当前目录下的指定名字的目录 find . -type d -name &amp;#34;__pycache__&amp;#34; |xargs rm -rf 删除当前目录下的指定后缀的文件 find ./ -name &amp;#34;*.sock&amp;#34; |xargs rm -rf 统计目录下文件数量 ls -lR|grep &amp;#34;^-&amp;#34;|wc -l 随时更新&amp;hellip;</description>
+    </item>
+    
     <item>
       <title>Linux三剑客（grep、awk、sed）</title>
       <link>https://blog.xmlwch.cn/2021/07/14/chlinux/command.html</link>
