@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/21/chlinux/question4.html" title="UOS普通用户可以ssh但是root不行">UOS普通用户可以ssh但是root不行</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月21日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            sudo vim /etc/ssh/sshd_config 找到 #PermitRootLogin prohibit-password 修改为PermitRootLogin yes，将前面的#注释删除 然后 wq 退出 修改成功以后，重启ssh服务： systemctl restart ssh 由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/21/chlinux/question4.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/20/http/post-data-in-http.html" title="四种常见的 POST 提交数据方式">四种常见的 POST 提交数据方式</a>
             </h1>
         </header>
@@ -280,29 +303,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html" title="防火墙（firewalld）的操作命令">防火墙（firewalld）的操作命令</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月7日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            1、基本使用 启动： systemctl start firewalld 查看状态：systemctl status firewalld 禁用，禁止开机启动： systemctl disable firewalld 停止运行： systemctl stop firewalld 2、firewalld-cmd 查看版本： firewall-cmd --version 查看帮助： firewall-cmd --help 显示状态： firewall-cmd --state 查看所有打开的端口： firewall-cmd --zone=public --list-ports 更新防火墙规则： firewall-cmd --reload 更新防火墙规则，重启服务： firewall-cmd --completely-reload 查看已激活的Zone信息: firewall-cmd --get-active-zones 查看……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -400,7 +400,11 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
+        <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html" title="Linux 信号列表">Linux 信号列表</a>
     </li>
     
     <li>
@@ -435,10 +439,6 @@
         <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html" title="KVM 使用 | virsh命令行管理工具">KVM 使用 | virsh命令行管理工具</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -462,7 +462,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (26)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (27)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -602,6 +602,8 @@
     <a href="https://blog.xmlwch.cn/tags/rewrite/">rewrite </a>
     
     <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/signal/">signal</a>
     
     <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
     

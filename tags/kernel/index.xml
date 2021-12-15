@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 15 Dec 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>系统性能 内核参数调整</title>
-      <link>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html</link>
+      <link>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html</link>
       <pubDate>Wed, 15 Dec 2021 12:00:00 +0800</pubDate>
       
-      <guid>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html</guid>
+      <guid>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html</guid>
       <description>系统性能一直是一个受关注的话题，如何通过最简单的设置来实现最有效的性能调优，如何在有限资源的条件下保证程序的运作，ulimit 是我们在处理这些问题时，经常使用的一种简单手段。ulimit 是一种 Linux 系统的内键功能，它具有一套参数集，用于为由它生成的 shell进程及其子进程的资源使用设</description>
     </item>
     

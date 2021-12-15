@@ -20,8 +20,14 @@
     <loc>https://blog.xmlwch.cn/</loc>
     <lastmod>2021-12-15T12:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html</loc>
+    <loc>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html</loc>
     <lastmod>2021-12-15T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html</loc>
+    <lastmod>2021-12-14T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/signal/</loc>
+    <lastmod>2021-12-14T12:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/tags/Httpd/</loc>
     <lastmod>2021-12-10T12:00:00+08:00</lastmod>

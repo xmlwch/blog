@@ -79,6 +79,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html">systemd详解</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年8月5日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+            <a href='/categories/systemd'>systemd</a>
+            
+        </div>
+        
+        <div class="post-content">
+            说明 systemd 是 Linux 系统工具，用来启动守护进程，已成为大多数发行版的标准配置；主要用于服务管理和自定义服务的管理，方便运维工作管理。 systemctl systemctl是 Systemd 的主命令，用于管理系统 # 重启系统 sudo systemctl reboot # 关闭系统，切断电源 sudo systemctl poweroff # CPU停止工作 sudo systemctl halt # 暂停系统 sudo systemctl suspend # 让系统进入冬眠状态 sudo systemctl hibernate # 让系……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html">FileZilla读取目录列表失败</a>
             </h1>
         </header>
@@ -299,31 +324,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.html">Vsftpd 虚拟用户配置</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月15日
-        </date>
-        
-        <div class="post-meta meta-category">
-            |
-            
-            <a href='/categories/Linux'>Linux</a>
-            
-            <a href='/categories/FTP'>FTP</a>
-            
-        </div>
-        
-        <div class="post-content">
-            1.安装（有几率已安装） 查看是否已经安装 ，以下命令有返回表示已安装即可跳过该步骤 # rpm -qa |grep vsftpd vsftpd-3.0.2-22.ns7_4.mips64el # 安装 # yum install -y vsftpd 2.Vsftpd服务及配置 Vsftpd服务配置 # cat /etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=YES listen=YES listen_ipv6=NO pam_service_name=vsftpd userlist_enable=YES tcp_wrappers=YES guest_enable=YES #启用虚拟用户 virtual_use_local_privs=YES user_sub_token=$USER local_root=/data2/KyApps/ftp/$USER #/data2/KyApps/ftp需要提前创建好 hide_ids=YES allow_writeable_chroot=YES #避免客户端50……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.html">阅读全文</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -406,7 +406,11 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
+        <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html" title="Linux 信号列表">Linux 信号列表</a>
     </li>
     
     <li>
@@ -441,10 +445,6 @@
         <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html" title="KVM 使用 | virsh命令行管理工具">KVM 使用 | virsh命令行管理工具</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -468,7 +468,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (26)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (27)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -608,6 +608,8 @@
     <a href="https://blog.xmlwch.cn/tags/rewrite/">rewrite </a>
     
     <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/signal/">signal</a>
     
     <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
     

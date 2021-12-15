@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>signal on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/signal/</link>
+    <description>Recent content in signal on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 14 Dec 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/signal/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux 信号列表</title>
+      <link>https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html</link>
+      <pubDate>Tue, 14 Dec 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html</guid>
+      <description>完整对照表 信号 取值 默认动作 含义（发出信号的原因） SIGHUP 1 Term 终端的挂断或进程死亡 SIGINT 2 Term 来自键盘的中断信号 SIGQUIT 3 Core 来自键盘的离开信号 SIGILL 4 Core 非法指令 SIGABRT 6 Core 来自 abort 的异常信号 SIGFPE 8 Core 浮点例外 SIGKILL 9 Term 杀死 SIGSEGV 11 Core 段非法错误 (内存引用无效) SIGPIPE 13 Term 管道损坏：向一个没有读进程的管道写数据 SIGALRM 14 Term 来自 alarm 的计时器到</description>
+    </item>
+    
+  </channel>
+</rss>

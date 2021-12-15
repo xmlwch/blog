@@ -9,11 +9,20 @@
     <lastBuildDate>Wed, 15 Dec 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>系统性能 内核参数调整</title>
-      <link>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html</link>
+      <link>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html</link>
       <pubDate>Wed, 15 Dec 2021 12:00:00 +0800</pubDate>
       
-      <guid>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html</guid>
+      <guid>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html</guid>
       <description>系统性能一直是一个受关注的话题，如何通过最简单的设置来实现最有效的性能调优，如何在有限资源的条件下保证程序的运作，ulimit 是我们在处理这些问题时，经常使用的一种简单手段。ulimit 是一种 Linux 系统的内键功能，它具有一套参数集，用于为由它生成的 shell进程及其子进程的资源使用设</description>
+    </item>
+    
+    <item>
+      <title>Linux 信号列表</title>
+      <link>https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html</link>
+      <pubDate>Tue, 14 Dec 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html</guid>
+      <description>完整对照表 信号 取值 默认动作 含义（发出信号的原因） SIGHUP 1 Term 终端的挂断或进程死亡 SIGINT 2 Term 来自键盘的中断信号 SIGQUIT 3 Core 来自键盘的离开信号 SIGILL 4 Core 非法指令 SIGABRT 6 Core 来自 abort 的异常信号 SIGFPE 8 Core 浮点例外 SIGKILL 9 Term 杀死 SIGSEGV 11 Core 段非法错误 (内存引用无效) SIGPIPE 13 Term 管道损坏：向一个没有读进程的管道写数据 SIGALRM 14 Term 来自 alarm 的计时器到</description>
     </item>
     
     <item>
