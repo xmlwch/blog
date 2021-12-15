@@ -6,7 +6,16 @@
     <description>Recent content in Linux on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 04 Nov 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Dec 2021 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>系统性能 内核参数调整</title>
+      <link>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html</link>
+      <pubDate>Wed, 15 Dec 2021 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html</guid>
+      <description>系统性能一直是一个受关注的话题，如何通过最简单的设置来实现最有效的性能调优，如何在有限资源的条件下保证程序的运作，ulimit 是我们在处理这些问题时，经常使用的一种简单手段。ulimit 是一种 Linux 系统的内键功能，它具有一套参数集，用于为由它生成的 shell进程及其子进程的资源使用设</description>
+    </item>
+    
     <item>
       <title>在Ubuntu中,vi命令编辑异常</title>
       <link>https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html</link>
@@ -171,10 +180,10 @@
     
     <item>
       <title>Vsftpd 虚拟用户配置</title>
-      <link>https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html</link>
+      <link>https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.html</link>
       <pubDate>Tue, 15 Jun 2021 12:00:00 +0800</pubDate>
       
-      <guid>https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html</guid>
+      <guid>https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.html</guid>
       <description>1.安装（有几率已安装） 查看是否已经安装 ，以下命令有返回表示已安装即可跳过该步骤 # rpm -qa |grep vsftpd vsftpd-3.0.2-22.ns7_4.mips64el # 安装 # yum install -y vsftpd 2.Vsftpd服务及配置 Vsftpd服务配置 # cat /etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=YES listen=YES listen_ipv6=NO pam_service_name=vsftpd userlist_enable=YES tcp_wrappers=YES guest_enable=YES #启用虚拟用户 virtual_use_local_privs=YES user_sub_token=$USER local_root=/data2/KyApps/ftp/$USER #/data2/KyApps/ftp需要提前创建好 hide_ids=YES allow_writeable_chroot=YES #避免客户端50</description>
     </item>
     

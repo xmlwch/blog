@@ -104,7 +104,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html">Vsftpd 虚拟用户配置</a>
+                <a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.html">Vsftpd 虚拟用户配置</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -122,7 +122,7 @@
         
         <div class="post-content">
             1.安装（有几率已安装） 查看是否已经安装 ，以下命令有返回表示已安装即可跳过该步骤 # rpm -qa |grep vsftpd vsftpd-3.0.2-22.ns7_4.mips64el # 安装 # yum install -y vsftpd 2.Vsftpd服务及配置 Vsftpd服务配置 # cat /etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=YES listen=YES listen_ipv6=NO pam_service_name=vsftpd userlist_enable=YES tcp_wrappers=YES guest_enable=YES #启用虚拟用户 virtual_use_local_privs=YES user_sub_token=$USER local_root=/data2/KyApps/ftp/$USER #/data2/KyApps/ftp需要提前创建好 hide_ids=YES allow_writeable_chroot=YES #避免客户端50……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.md.html">阅读全文</a></p>
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.html">阅读全文</a></p>
         </div>
     </article>
     
@@ -180,6 +180,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/12/10/others/httpd-proxy.html" title="Httpd反向代理配置">Httpd反向代理配置</a>
     </li>
     
@@ -215,10 +219,6 @@
         <a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html" title="KVM 使用 | virsh命令行管理工具">KVM 使用 | virsh命令行管理工具</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html" title="Prism 实现代码自动换行">Prism 实现代码自动换行</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -242,7 +242,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (25)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (26)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -366,6 +366,8 @@
     <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
     
     <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/kernel/">kernel</a>
     
     <a href="https://blog.xmlwch.cn/tags/math/">math</a>
     

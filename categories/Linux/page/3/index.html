@@ -79,6 +79,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html">chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月12日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+        </div>
+        
+        <div class="post-content">
+            root用户执行 # chmod 755 redis-server 时报错： chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作 解决方法： # 使用lsattr命令显示文件属性 lsattr redis-server ----i--------------- redis-server # 修改文件属性 chattr -i redis-server # 修改文件执行权限(此时就可以了) chmod 777 redis-server chattr +i redis-server 相关知识引用： chattr命令： https://www.runoob.com/linux/linux-comm-chattr.html lsattr命令： https://www.runoob.com/linux/linux-comm-lsattr.html 由于时间仓促，错误与疏忽之处在所难免，希望各……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html">Failed to allocate directory watch: Too many open files</a>
             </h1>
         </header>
@@ -269,6 +292,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel_optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/12/10/others/httpd-proxy.html" title="Httpd反向代理配置">Httpd反向代理配置</a>
     </li>
     
@@ -304,10 +331,6 @@
         <a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html" title="KVM 使用 | virsh命令行管理工具">KVM 使用 | virsh命令行管理工具</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html" title="Prism 实现代码自动换行">Prism 实现代码自动换行</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -331,7 +354,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (25)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (26)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -455,6 +478,8 @@
     <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
     
     <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/kernel/">kernel</a>
     
     <a href="https://blog.xmlwch.cn/tags/math/">math</a>
     
