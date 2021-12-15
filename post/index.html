@@ -212,7 +212,7 @@
         </div>
         
         <div class="post-content">
-            删除当前目录下的指定名字的目录 find . -type d -name &#34;__pycache__&#34; |xargs rm -rf 删除当前目录下的指定后缀的文件 find ./ -name &#34;*.sock&#34; |xargs rm -rf 统计目录下文件数量 ls -lR|grep &#34;^-&#34;|wc -l 随时更新&hellip;……
+            删除当前目录下的指定名字的目录 find . -type d -name &#34;__pycache__&#34; |xargs rm -rf 删除当前目录下的指定后缀的文件 find ./ -name &#34;*.sock&#34; |xargs rm -rf 统计目录下文件数量 ls -lR|grep &#34;^-&#34;|wc -l 自动删除2小时之前的日志文件 find /var/log/ -mmin +120 -name message* -exec rm -rf {} \; 执行完上面的命令后，在/var/log/目录下所有的120分钟或者说2小时以前生成的或者更改过的以message……
         </div>
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html">阅读全文</a></p>
     </article>
