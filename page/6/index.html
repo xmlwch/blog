@@ -70,6 +70,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html" title="MySQL服务启不了">MySQL服务启不了</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月18日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/MySQL'>MySQL</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            情况1：存在socket lock file root用户执行 # systemctl restart kymysql 时不报错，但服务也没启动，查看错误日志 cat /opt/KY/Softs/log/mysql/mysql-error.log ... 2021-06-18T01:28:47.783821Z 0 [Note] Server hostname (bind-address): &#39;0.0.0.0&#39;; port: 20001 2021-06-18T01:28:47.783838Z 0 [Note] - &#39;0.0.0.0&#39; resolves to &#39;0.0.0.0&#39;; 2021-06-18T01:28:47.783867Z 0 [Note] Server socket created on IP: &#39;0.0.0.0&#39;. 2021-06-18T01:28:47.783925Z 0 [ERROR] Another process with pid 2663 is using unix socket file. 2021-06-18T01:28:47.783932Z 0 [ERROR] Unable to setup unix socket lock file. 2021-06-18T01:28:47.783937Z 0 [ERROR] Aborting 解决办法： # 删除sock锁文件 rm -rf /opt/KY/Softs/mysql/var/mysql.sock.lock # 重启服务 systemctl restart kymysql 情况2：缺少lib包 roo……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html" title="Shell中括号场景总结">Shell中括号场景总结</a>
             </h1>
         </header>
@@ -278,29 +303,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html" title="Linux添加新硬盘后操作记录">Linux添加新硬盘后操作记录</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年5月21日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            此文适用于 2T 以下硬盘挂载，2T以上请参考 Linux添加新硬盘(2T以上) 一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -398,6 +400,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/12/10/others/httpd-proxy.html" title="Httpd反向代理配置">Httpd反向代理配置</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/12/07/others/ubuntu-nvidia-driver.html" title="Ubuntu Nvidia驱动失效简单解决方案">Ubuntu Nvidia驱动失效简单解决方案</a>
     </li>
     
@@ -433,10 +439,6 @@
         <a href="https://blog.xmlwch.cn/2021/09/17/html/prism-white-space.html" title="Prism 实现代码自动换行">Prism 实现代码自动换行</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html" title="WSL | Windows下重启Linux子系统">WSL | Windows下重启Linux子系统</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -457,6 +459,8 @@
     <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (5)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (25)</a></li>
     
@@ -506,6 +510,8 @@
     <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
     
     <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Httpd/">Httpd</a>
     
     <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
     
@@ -582,6 +588,8 @@
     <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
     
     <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/proxy/">proxy</a>
     
     <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
     
