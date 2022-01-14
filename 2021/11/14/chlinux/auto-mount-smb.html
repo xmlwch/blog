@@ -91,7 +91,7 @@
         </div>
         
         <div class="post-meta">
-            |<span class="post-date"> 本文共385字</span>，阅读约<span class="more-meta"> 1 分钟 </span>
+            |<span class="post-date"> 本文共386字</span>，阅读约<span class="more-meta"> 1 分钟 </span>
         </div>
         
         <div class="post-meta">
@@ -100,31 +100,31 @@
         
         
         <div class="post-content">
-            <h3 id="一临时挂载">一：临时挂载</h3>
+            <h2 id="一临时挂载">一：临时挂载</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mount -t cifs //10.0.0.7/data_test /data_test -o <span style="color:#008080">username</span><span style="color:#000;font-weight:bold">=</span>yourname,password<span style="color:#000;font-weight:bold">=</span>yourpwd,gid<span style="color:#000;font-weight:bold">=</span>0,uid<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>
 </code></pre></div><p>gid和uid可以通过输入命令id 用户名，比如查看root的，就是输入id root；如果是查看git的，就是输入id git</p>
 <p>可以用命令行方式卸载：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">umount:/data_test
-</code></pre></div><h3 id="二开机自动挂载">二：开机自动挂载</h3>
-<h4 id="1创建登陆凭证">1.创建登陆凭证：</h4>
+</code></pre></div><h2 id="二开机自动挂载">二：开机自动挂载</h2>
+<h3 id="1创建登陆凭证">1.创建登陆凭证：</h3>
 <p>新建一个文件<code>/etc/smbpasswd</code></p>
 <p>这个凭证的文件名可以自定义，相应的2中的文件名也修改</p>
 <p>该文件的内容为：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">username</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">value</span>
 <span style="color:#008080">password</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">value</span>
 <span style="color:#008080">domain</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">value</span>
-</code></pre></div><h4 id="2设置开机挂载">2.设置开机挂载：</h4>
+</code></pre></div><h3 id="2设置开机挂载">2.设置开机挂载：</h3>
 <p>在文件<code>/etc/fstab</code>文件中新加一行：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">//10.0.0.7/data_test /data_test cifs credentials</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">/etc/smbpasswd,iocharset=uft8,gid=GID,uid=UID,file_mode=0777,dir_mode=0777 0 0</span>
 </code></pre></div><p>附加参数解释可参考：http://www.cnblogs.com/linux130/p/5682368.html</p>
-<h4 id="3以管理员身份运行重新挂载">3.以管理员身份运行(重新挂载)：</h4>
+<h3 id="3以管理员身份运行重新挂载">3.以管理员身份运行(重新挂载)：</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mount -a
 </code></pre></div><p>如果没有错误的话，就可以挂载了。</p>
 <p>（经验，大家可以先用图形化的方式挂载，可以访问该目录的内容后，再用上述方式挂载，方便用命令直接操作共享文件。）</p>
-<h4 id="4其他问题解决">4.其他问题解决：</h4>
+<h3 id="4其他问题解决">4.其他问题解决：</h3>
 <p>报错：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mount: /mnt/: bad option; <span style="color:#000;font-weight:bold">for</span> several filesystems <span style="color:#000;font-weight:bold">(</span>e.g. nfs, cifs<span style="color:#000;font-weight:bold">)</span> you might need a /sbin/mount.
-</code></pre></div><p>解决</p>
+</code></pre></div><p>解决：</p>
 <p>安装包<code>cifs-utils</code> 即可。</p>
 
         </div>
