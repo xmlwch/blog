@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>smb on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/categories/smb/</link>
+    <description>Recent content in smb on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 14 Jan 2022 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/smb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>开机自动挂载samba目录</title>
+      <link>https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html</link>
+      <pubDate>Fri, 14 Jan 2022 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html</guid>
+      <description>一：临时挂载 mount -t cifs //10.0.0.7/data_test /data_test -o username=yourname,password=yourpwd,gid=0,uid=0 gid和uid可以通过输入命令id 用户名，比如查看root的，就是输入id root；如果是查看git的，就是输入id git 可以用命令行方式卸载： umount:/data_test 二：开机自动挂载 1.创建登陆凭证： 新建一个文件/etc/smbpasswd 这个凭证的文件名可以自定义，相应的2中</description>
+    </item>
+    
+  </channel>
+</rss>

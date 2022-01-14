@@ -70,6 +70,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html" title="开机自动挂载samba目录">开机自动挂载samba目录</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2022年1月14日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/smb'>smb</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            一：临时挂载 mount -t cifs //10.0.0.7/data_test /data_test -o username=yourname,password=yourpwd,gid=0,uid=0 gid和uid可以通过输入命令id 用户名，比如查看root的，就是输入id root；如果是查看git的，就是输入id git 可以用命令行方式卸载： umount:/data_test 二：开机自动挂载 1.创建登陆凭证： 新建一个文件/etc/smbpasswd 这个凭证的文件名可以自定义，相应的2中……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
             </h1>
         </header>
@@ -274,29 +299,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年9月28日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            缘由 挂载一块硬盘（主要是导出里边的数据），提示mount: unknown filesystem type &lsquo;LVM2_member&rsquo;，故查询、整理 LVM 相关知识。由于新旧硬盘都装了银河麒麟V10服务器系统，VG 名字重复又研究了修改VG名字。 一，LVM概念 需要理解的几个概念： PV（Physical Vol……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -348,7 +350,7 @@
                     <footer id="footer">
     <div>
 		<p>
-            &copy; 2021 <a href="https://xmlwch.cn">xmlwch.cn</a>
+            &copy; 2022 <a href="https://xmlwch.cn">xmlwch.cn</a>
 		
 		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
 		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
@@ -390,6 +392,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html" title="开机自动挂载samba目录">开机自动挂载samba目录</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
     </li>
     
@@ -425,10 +431,6 @@
         <a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html" title="conda的安装与使用">conda的安装与使用</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -452,7 +454,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (27)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (28)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -475,6 +477,8 @@
     <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/smb/">smb (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
     
@@ -594,6 +598,8 @@
     <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
     
     <a href="https://blog.xmlwch.cn/tags/signal/">signal</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/smb/">smb</a>
     
     <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
     

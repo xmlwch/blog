@@ -72,6 +72,33 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/08/04/html/pinyin.html" title="vue集成汉字转拼音插件">vue集成汉字转拼音插件</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年8月4日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/HTML'>HTML</a></span>
+            
+            <span class="meta-category"><a href='/categories/Vue'>Vue</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            缘由 项目需求 要实现创建账号时，默认分配登陆账号为姓名拼音。于是整理了一下实现方法。 在转换过程中，这里保留了数字和字母，空格转为- ，其他特殊字符将会被去掉。如 测试 会被转换成 CeShi。（可自行修改 chineseToPinYin() 方法实现其他需求） 参考博文: vue集成汉字转拼音插件 JS中文转换拼音的实现 pinyin.js 文件，文……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/04/html/pinyin.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/08/03/http/http-content-type.html" title="HTTP Content Type | HTTP Media Type">HTTP Content Type | HTTP Media Type</a>
             </h1>
         </header>
@@ -294,33 +321,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html" title="FileZilla读取目录列表失败">FileZilla读取目录列表失败</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年7月22日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-            <span class="meta-category"><a href='/categories/FTP'>FTP</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            错误1： 错误: 无法连接到服务器 状态: 正在等待重试... 解决办法 在阿里云的安全策略里开放21号端口 错误2： 状态: 连接建立，等待欢迎消息... 状态: 不安全的服务器，不支持 FTP over TLS。 状态: 已登录 状态: 读取目录列表... 命令: PWD 响应: 257 &#34;/&#34; is current directory. 命令: TYPE I 响应: 200 Type set to I 命令: PORT 182,32,16,212,217,163 响应:……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -375,7 +375,7 @@
                     <footer id="footer">
     <div>
 		<p>
-            &copy; 2021 <a href="https://xmlwch.cn">xmlwch.cn</a>
+            &copy; 2022 <a href="https://xmlwch.cn">xmlwch.cn</a>
 		
 		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
 		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
@@ -417,6 +417,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html" title="开机自动挂载samba目录">开机自动挂载samba目录</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
     </li>
     
@@ -452,10 +456,6 @@
         <a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html" title="conda的安装与使用">conda的安装与使用</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -479,7 +479,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (27)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (28)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -502,6 +502,8 @@
     <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/smb/">smb (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
     
@@ -621,6 +623,8 @@
     <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
     
     <a href="https://blog.xmlwch.cn/tags/signal/">signal</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/smb/">smb</a>
     
     <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
     
