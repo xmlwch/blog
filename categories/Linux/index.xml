@@ -6,7 +6,16 @@
     <description>Recent content in Linux on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 14 Jan 2022 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Mar 2022 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> 远程桌面连接Ubuntu </title>
+      <link>https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html</link>
+      <pubDate>Wed, 02 Mar 2022 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html</guid>
+      <description>1. 前言 因为远程工作的原因，同时Ubuntu上有需要GUI界面启动的程序，所以研究了一下如何远程桌面登录。 网上已经有一些教程指导该如何登录，但是我按照那些文章并不能实现登录，其中出现了 connection problem,giving up问题 No configured security type is supported 问题 安装xrdp 后，鼠标和键盘无法使用的问题 经过查找各种教程，在反复试验之</description>
+    </item>
+    
     <item>
       <title>开机自动挂载samba目录</title>
       <link>https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html</link>

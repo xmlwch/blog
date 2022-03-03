@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html" title="conda的安装与使用">conda的安装与使用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年10月15日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Python'>Python</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            Conda 是一个开源的软件包管理系统和环境管理系统，用于安装多个版本的软件包及其依赖关系，并在它们之间轻松切换。 Conda 是为 Python 程序创建的，适用于 Linux，OS X 和Windows，也可以打包和分发其他软件。 安装conda conda分为Anaconda和Miniconda: 包括Conda、Pyt……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
             </h1>
         </header>
@@ -276,29 +299,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月30日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Python'>Python</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            项目用到了python，习惯了TP的链式操作，自己动手写了一个python的Model层 实现了Pymysql的原生连接和dbutils的连接池连接 模型基类： # coding: utf-8 import pymysql import threading from Include.Logger import get_logger from Include.Setting import app_settings from dbutils.pooled_db import PooledDB class MysqlPool: config = { &#39;creator&#39;: pymysql, &#39;host&#39;: app_settings.get(&#39;ManagerHost&#39;, &#39;127.0.0.1&#39;), &#39;port&#39;: int(app_settings.get(&#39;DBPort&#39;, 3306)), &#39;user&#39;: app_settings.get(&#39;DBUser&#39;, &#39;root&#39;), &#39;password&#39;: app_settings.get(&#39;DBPwd&#39;, &#39;&#39;), &#39;db&#39;: app_settings.get(&#39;DBName&#39;, &#39;&#39;), &#39;charset&#39;: app_settings.get(&#39;DBCharSet&#39;, &#39;utf8&#39;), &#39;maxconnections&#39;: 30, # 连接池最大连接数 &#39;cursorclass&#39;: pymysql.cursors.DictCursor } pool = PooledDB(**config) def……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/30/python/model.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -396,6 +396,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html" title=" 远程桌面连接Ubuntu "> 远程桌面连接Ubuntu </a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html" title="开机自动挂载samba目录">开机自动挂载samba目录</a>
     </li>
     
@@ -431,10 +435,6 @@
         <a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html" title="在Ubuntu中,vi命令编辑异常">在Ubuntu中,vi命令编辑异常</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html" title="conda的安装与使用">conda的安装与使用</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -458,7 +458,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (28)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (29)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     

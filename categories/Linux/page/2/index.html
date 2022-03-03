@@ -79,6 +79,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html">解决Redis的一些报错</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月3日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+            <a href='/categories/Redis'>Redis</a>
+            
+        </div>
+        
+        <div class="post-content">
+            错误1： MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error. Redis被配置为保存数据库快照，但它目前不能持久化到硬盘。用来修改集合数据的命令不能用。请查看Redis日志的详细错误信息。 解决方案 将stop-writes-on-bgsave-error设置为no 127.0.0.1:6379&gt;……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html">查看 SELinux状态及关闭SELinux</a>
             </h1>
         </header>
@@ -297,31 +322,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html">MySQL服务启不了</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月18日
-        </date>
-        
-        <div class="post-meta meta-category">
-            |
-            
-            <a href='/categories/Linux'>Linux</a>
-            
-            <a href='/categories/MySQL'>MySQL</a>
-            
-        </div>
-        
-        <div class="post-content">
-            情况1：存在socket lock file root用户执行 # systemctl restart kymysql 时不报错，但服务也没启动，查看错误日志 cat /opt/KY/Softs/log/mysql/mysql-error.log ... 2021-06-18T01:28:47.783821Z 0 [Note] Server hostname (bind-address): &#39;0.0.0.0&#39;; port: 20001 2021-06-18T01:28:47.783838Z 0 [Note] - &#39;0.0.0.0&#39; resolves to &#39;0.0.0.0&#39;; 2021-06-18T01:28:47.783867Z 0 [Note] Server socket created on IP: &#39;0.0.0.0&#39;. 2021-06-18T01:28:47.783925Z 0 [ERROR] Another process with pid 2663 is using unix socket file. 2021-06-18T01:28:47.783932Z 0 [ERROR] Unable to setup unix socket lock file. 2021-06-18T01:28:47.783937Z 0 [ERROR] Aborting 解决办法： # 删除sock锁文件 rm -rf /opt/KY/Softs/mysql/var/mysql.sock.lock # 重启服务 systemctl restart kymysql 情况2：缺少lib包 roo……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html">阅读全文</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -404,6 +404,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html" title=" 远程桌面连接Ubuntu "> 远程桌面连接Ubuntu </a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html" title="开机自动挂载samba目录">开机自动挂载samba目录</a>
     </li>
     
@@ -439,10 +443,6 @@
         <a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html" title="在Ubuntu中,vi命令编辑异常">在Ubuntu中,vi命令编辑异常</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html" title="conda的安装与使用">conda的安装与使用</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -466,7 +466,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (28)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (29)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
