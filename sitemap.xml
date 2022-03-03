@@ -17,10 +17,10 @@
     <loc>https://blog.xmlwch.cn/tags/</loc>
     <lastmod>2022-03-02T12:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/</loc>
+    <loc>https://blog.xmlwch.cn/</loc>
     <lastmod>2022-03-02T12:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://blog.xmlwch.cn/</loc>
+    <loc>https://blog.xmlwch.cn/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/</loc>
     <lastmod>2022-03-02T12:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/tags/Linux/</loc>
@@ -97,6 +97,9 @@
   </url><url>
     <loc>https://blog.xmlwch.cn/2021/11/15/network/smtp.html</loc>
     <lastmod>2021-11-15T11:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/</loc>
+    <lastmod>2021-11-04T12:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html</loc>
     <lastmod>2021-11-04T12:00:00+08:00</lastmod>
