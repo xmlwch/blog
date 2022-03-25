@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>command on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/command/</link>
+    <description>Recent content in command on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 25 Mar 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/command/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> du 命令</title>
+      <link>https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html</link>
+      <pubDate>Fri, 25 Mar 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html</guid>
+      <description>Linux du （英文全拼：disk usage）命令用于显示目录或文件的大小。 du 会显示指定的目录或文件所占用的磁盘空间。 语法 du [-abcDhHklmsSx][-L &amp;lt;符号连接&amp;gt;][-X &amp;lt;文件&amp;gt;][--block-size][--exclude=&amp;lt;目录或文件&amp;gt;][--max-depth=&amp;lt</description>
+    </item>
+    
+  </channel>
+</rss>

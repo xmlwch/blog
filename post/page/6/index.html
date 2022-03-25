@@ -72,6 +72,33 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html" title=" Docker简单使用"> Docker简单使用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月8日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/Docker'>Docker</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            Docker常见命令 容器相关操作 docker create # 创建一个容器但是不启动它 docker run # 创建并启动一个容器 docker stop # 停止容器运行，发送信号SIGTERM docker start # 启动一个停止状态的容器 docker restart # 重启一个容器 docker rm # 删除一个容器 docker kill # 发送信号给容器，默认SIGKILL docker attach # 连接(进入)到一个正在运行的容器 docker wait # 阻塞……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/07/06/chlinux/supervisord.html" title="Supervisord 使用">Supervisord 使用</a>
             </h1>
         </header>
@@ -302,31 +329,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html" title="Failed to allocate directory watch: Too many open files">Failed to allocate directory watch: Too many open files</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月9日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            uos上运行systemctl启动服务时报错： Failed to allocate directory watch: Too many open files 解决方法： vi /etc/sysctl.conf cat /etc/sysctl.conf # 添加一下配置 fs.inotify.max_user_instances=512 fs.inotify.max_user_watches=262144 生效 sysctl -p 分析： 可能是 inotify 数量限制了，修改后服务可以正常启动 inotify介绍： 它是一个内核用于通知用户空间程序文件系统变化的机制。 众所周知，Linux 桌面系统与 MAC 或 Windows 相比有许多不如人……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -423,6 +425,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html" title=" du 命令"> du 命令</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html" title=" 远程桌面连接Ubuntu "> 远程桌面连接Ubuntu </a>
     </li>
     
@@ -458,10 +464,6 @@
         <a href="https://blog.xmlwch.cn/2021/11/15/network/smtp.html" title="关于 SMTP 发送邮件的那些事">关于 SMTP 发送邮件的那些事</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html" title="在Ubuntu中,vi命令编辑异常">在Ubuntu中,vi命令编辑异常</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -485,7 +487,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (29)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (30)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -598,9 +600,13 @@
     
     <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
     
+    <a href="https://blog.xmlwch.cn/tags/command/">command</a>
+    
     <a href="https://blog.xmlwch.cn/tags/conda/">conda</a>
     
     <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/du/">du</a>
     
     <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
     

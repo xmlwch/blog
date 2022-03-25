@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月2日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            查看SELinux状态： ## 如果SELinux status参数为enabled即为开启状态 /usr/sbin/sestatus -v SELinux status: enabled ... ## 也可以用这个命令检查 getenforce 关闭SELinux： ## 临时关闭（不用重启机器） setenforce 0 ##设置SELinux 成为permissive模式 #setenforce 1 设置SELinux 成为enforcing模式 ## 永久关……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/08/30/python/model.html" title="Python实现TP的Model层">Python实现TP的Model层</a>
             </h1>
         </header>
@@ -276,29 +299,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/08/network/reference-models.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/06/html/html-entities.html" title="HTML 字符实体">HTML 字符实体</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月6日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/HTML'>HTML</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            HTML 中有用的字符实体 注释： 实体名称对大小写敏感！ 显示结果 描述 实体名称 实体编号 空格 &amp;nbsp; &amp;#160; &lt; 小于号 &amp;lt; &amp;#60; &gt; 大于号 &amp;gt; &amp;#62; &amp; 和号 &amp;amp; &amp;#38; &quot; 引号 &amp;quot; &amp;#34; ' 撇号 &amp;apos; (IE不支持) &amp;#39; ￠ 分（cent） &amp;cent; &amp;#162; £ 镑（pound） &amp;pound; &amp;#163; ¥ 元（yen） &amp;yen; &amp;#165; € 欧元（euro） &amp;euro; &amp;#8364; § 小节 &amp;sect; &amp;#167; © 版权（copyright） &amp;copy; &amp;#169; ® 注册……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/06/html/html-entities.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -396,6 +396,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html" title=" du 命令"> du 命令</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html" title=" 远程桌面连接Ubuntu "> 远程桌面连接Ubuntu </a>
     </li>
     
@@ -431,10 +435,6 @@
         <a href="https://blog.xmlwch.cn/2021/11/15/network/smtp.html" title="关于 SMTP 发送邮件的那些事">关于 SMTP 发送邮件的那些事</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html" title="在Ubuntu中,vi命令编辑异常">在Ubuntu中,vi命令编辑异常</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -458,7 +458,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (29)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (30)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -571,9 +571,13 @@
     
     <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
     
+    <a href="https://blog.xmlwch.cn/tags/command/">command</a>
+    
     <a href="https://blog.xmlwch.cn/tags/conda/">conda</a>
     
     <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/du/">du</a>
     
     <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
     

@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 02 Mar 2022 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Mar 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> du 命令</title>
+      <link>https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html</link>
+      <pubDate>Fri, 25 Mar 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html</guid>
+      <description>Linux du （英文全拼：disk usage）命令用于显示目录或文件的大小。 du 会显示指定的目录或文件所占用的磁盘空间。 语法 du [-abcDhHklmsSx][-L &amp;lt;符号连接&amp;gt;][-X &amp;lt;文件&amp;gt;][--block-size][--exclude=&amp;lt;目录或文件&amp;gt;][--max-depth=&amp;lt</description>
+    </item>
+    
     <item>
       <title> 远程桌面连接Ubuntu </title>
       <link>https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html</link>
