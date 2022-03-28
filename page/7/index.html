@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html" title="chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作">chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月12日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            root用户执行 # chmod 755 redis-server 时报错： chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作 解决方法： # 使用lsattr命令显示文件属性 lsattr redis-server ----i--------------- redis-server # 修改文件属性 chattr -i redis-server # 修改文件执行权限(此时就可以了) chmod 777 redis-server chattr +i redis-server 相关知识引用： chattr命令： https://www.runoob.com/linux/linux-comm-chattr.html lsattr命令： https://www.runoob.com/linux/linux-comm-lsattr.html 由于时间仓促，错误与疏忽之处在所难免，希望各……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html" title="Failed to allocate directory watch: Too many open files">Failed to allocate directory watch: Too many open files</a>
             </h1>
         </header>
@@ -221,29 +244,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/10/hello-word.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年3月28日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            工作中使用到在CentOS服务器中安装VMWare Workstation部署虚拟机，但服务器无显示器，故记录vmrun 帮助文档。 # vmrun vmrun version 1.17.0 build-16894299 Usage: vmrun [AUTHENTICATION-FLAGS] COMMAND [PARAMETERS] AUTHENTICATION-FLAGS # 身份验证标志 -------------------- These must appear before the command and any command parameters. # 这些参数必须出现在命令和任何命令参数之前。 -T &lt;hostType&gt; (ws|fusion||player) -vp &lt;password for encrypted virtual machine&gt; # 加密虚拟机的密码 -gu &lt;userName in guest OS&gt; #……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -337,6 +337,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html" title=" du 命令"> du 命令</a>
     </li>
     
@@ -370,10 +374,6 @@
     
     <li>
         <a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html" title="Shell笔记 | 记录最近用到的组合命令">Shell笔记 | 记录最近用到的组合命令</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/11/15/network/smtp.html" title="关于 SMTP 发送邮件的那些事">关于 SMTP 发送邮件的那些事</a>
     </li>
     
 </ul>

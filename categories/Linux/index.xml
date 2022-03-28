@@ -6,7 +6,16 @@
     <description>Recent content in Linux on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 25 Mar 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Mar 2022 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>命令行模式启动VMWare虚拟机</title>
+      <link>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</link>
+      <pubDate>Mon, 28 Mar 2022 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</guid>
+      <description>工作中使用到在CentOS服务器中安装VMWare Workstation部署虚拟机，但服务器无显示器，故记录vmrun 帮助文档。 # vmrun vmrun version 1.17.0 build-16894299 Usage: vmrun [AUTHENTICATION-FLAGS] COMMAND [PARAMETERS] AUTHENTICATION-FLAGS # 身份验证标志 -------------------- These must appear before the command and any command parameters. # 这些参数必须出现在命令和任何命令参数之前。 -T &amp;lt;hostType&amp;gt; (ws|fusion||player) -vp &amp;lt;password for encrypted virtual machine&amp;gt; # 加密虚拟机的密码 -gu &amp;lt;userName in guest OS&amp;gt; #</description>
+    </item>
+    
     <item>
       <title> du 命令</title>
       <link>https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html</link>
@@ -275,15 +284,6 @@
       
       <guid>https://blog.xmlwch.cn/2021/05/21/chlinux/add-disk.html</guid>
       <description>此文适用于 2T 以下硬盘挂载，2T以上请参考 Linux添加新硬盘(2T以上) 一、新增硬盘操作 主要思路： 1、获取新加硬盘的标识 2、对硬盘进行分区 3、格式化（可选） 4、设置挂载点（需要开机自动挂载的那种） ############################################################ # 查看当前挂载点 df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/mapper/klas-root 62G 14G 48G 22% / /dev/vda1 1014M 211M 804M 21% /boot ############################################################ # 查</description>
-    </item>
-    
-    <item>
-      <title>命令行模式启动VMWare虚拟机</title>
-      <link>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</link>
-      <pubDate>Sun, 28 Mar 2021 16:00:00 +0800</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</guid>
-      <description>工作中使用到在CentOS服务器中安装VMWare Workstation部署虚拟机，但服务器无显示器，故记录vmrun 帮助文档。 # vmrun vmrun version 1.17.0 build-16894299 Usage: vmrun [AUTHENTICATION-FLAGS] COMMAND [PARAMETERS] AUTHENTICATION-FLAGS # 身份验证标志 -------------------- These must appear before the command and any command parameters. # 这些参数必须出现在命令和任何命令参数之前。 -T &amp;lt;hostType&amp;gt; (ws|fusion||player) -vp &amp;lt;password for encrypted virtual machine&amp;gt; # 加密虚拟机的密码 -gu &amp;lt;userName in guest OS&amp;gt; #</description>
     </item>
     
   </channel>

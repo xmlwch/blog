@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 25 Mar 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Mar 2022 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>命令行模式启动VMWare虚拟机</title>
+      <link>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</link>
+      <pubDate>Mon, 28 Mar 2022 16:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</guid>
+      <description>工作中使用到在CentOS服务器中安装VMWare Workstation部署虚拟机，但服务器无显示器，故记录vmrun 帮助文档。 # vmrun vmrun version 1.17.0 build-16894299 Usage: vmrun [AUTHENTICATION-FLAGS] COMMAND [PARAMETERS] AUTHENTICATION-FLAGS # 身份验证标志 -------------------- These must appear before the command and any command parameters. # 这些参数必须出现在命令和任何命令参数之前。 -T &amp;lt;hostType&amp;gt; (ws|fusion||player) -vp &amp;lt;password for encrypted virtual machine&amp;gt; # 加密虚拟机的密码 -gu &amp;lt;userName in guest OS&amp;gt; #</description>
+    </item>
+    
     <item>
       <title> du 命令</title>
       <link>https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html</link>
@@ -617,15 +626,6 @@
       
       <guid>https://blog.xmlwch.cn/about/</guid>
       <description>人间非净土，各有各的苦。 同是红尘悲秋客，莫笑谁是可怜人。 我是谁 昵称：xmlwch 坐标：025 / 0371 邮箱：admin@xmlwch.cn 我干啥 熟悉 LNMP（Linux/Nginx/MySql/PHP）环境开发 熟悉自动化（vagrant,docker） 熟悉国产化服务器操作系统（Kyli</description>
-    </item>
-    
-    <item>
-      <title>命令行模式启动VMWare虚拟机</title>
-      <link>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</link>
-      <pubDate>Sun, 28 Mar 2021 16:00:00 +0800</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</guid>
-      <description>工作中使用到在CentOS服务器中安装VMWare Workstation部署虚拟机，但服务器无显示器，故记录vmrun 帮助文档。 # vmrun vmrun version 1.17.0 build-16894299 Usage: vmrun [AUTHENTICATION-FLAGS] COMMAND [PARAMETERS] AUTHENTICATION-FLAGS # 身份验证标志 -------------------- These must appear before the command and any command parameters. # 这些参数必须出现在命令和任何命令参数之前。 -T &amp;lt;hostType&amp;gt; (ws|fusion||player) -vp &amp;lt;password for encrypted virtual machine&amp;gt; # 加密虚拟机的密码 -gu &amp;lt;userName in guest OS&amp;gt; #</description>
     </item>
     
     <item>
