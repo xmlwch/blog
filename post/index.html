@@ -72,7 +72,32 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
+                <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2022年3月30日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            原文地址：SSH 命令的三种代理功能（-L/-R/-D） ssh 命令除了登陆外还有三种代理功能： 正向代理（-L）：相当于 iptable 的 port forwarding 反向代理（-R）：相当于 frp 或者 ngrok socks5 代理（-D）：相当于 ss/ssr 如要长期高效的服务，应使用对应的专用软件。如没法安装软件，比如当你处在限制环境下想要访问下某个不可达到的……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -89,7 +114,7 @@
         <div class="post-content">
             工作中使用到在CentOS服务器中安装VMWare Workstation部署虚拟机，但服务器无显示器，故记录vmrun 帮助文档。 # vmrun vmrun version 1.17.0 build-16894299 Usage: vmrun [AUTHENTICATION-FLAGS] COMMAND [PARAMETERS] AUTHENTICATION-FLAGS # 身份验证标志 -------------------- These must appear before the command and any command parameters. # 这些参数必须出现在命令和任何命令参数之前。 -T &lt;hostType&gt; (ws|fusion||player) -vp &lt;password for encrypted virtual machine&gt; # 加密虚拟机的密码 -gu &lt;userName in guest OS&gt; #……
         </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html">阅读全文</a></p>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html">阅读全文</a></p>
     </article>
     
     
@@ -296,31 +321,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html" title="Shell笔记 | 记录最近用到的组合命令">Shell笔记 | 记录最近用到的组合命令</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年11月25日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Shell'>Shell</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            删除当前目录下的指定名字的目录 find . -type d -name &#34;__pycache__&#34; |xargs rm -rf 删除当前目录下的指定后缀的文件 find ./ -name &#34;*.sock&#34; |xargs rm -rf 统计目录下文件数量 ls -lR|grep &#34;^-&#34;|wc -l 自动删除2小时之前的日志文件 find /var/log/ -mmin +120 -name message* -exec rm -rf {} \; 执行完上面的命令后，在/var/log/目录下所有的120分钟或者说2小时以前生成的或者更改过的以message……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -413,7 +413,11 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
+        <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
     </li>
     
     <li>
@@ -448,10 +452,6 @@
         <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html" title="Shell笔记 | 记录最近用到的组合命令">Shell笔记 | 记录最近用到的组合命令</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -475,7 +475,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (31)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (32)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     

@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html" title="Shell笔记 | 记录最近用到的组合命令">Shell笔记 | 记录最近用到的组合命令</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年11月25日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Shell'>Shell</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            删除当前目录下的指定名字的目录 find . -type d -name &#34;__pycache__&#34; |xargs rm -rf 删除当前目录下的指定后缀的文件 find ./ -name &#34;*.sock&#34; |xargs rm -rf 统计目录下文件数量 ls -lR|grep &#34;^-&#34;|wc -l 自动删除2小时之前的日志文件 find /var/log/ -mmin +120 -name message* -exec rm -rf {} \; 执行完上面的命令后，在/var/log/目录下所有的120分钟或者说2小时以前生成的或者更改过的以message……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/11/15/network/smtp.html" title="关于 SMTP 发送邮件的那些事">关于 SMTP 发送邮件的那些事</a>
             </h1>
         </header>
@@ -294,31 +319,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年9月7日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            说明 本文所提及的方法仅供参考学习，请尊重网络资源原作者的劳动成果，尊重知识版权，合法取得资料使用权。 宿主机（物理机）： 机器配置： CPU：8核 鲲鹏920 / 内存：16G / 硬盘：1T 操作系统：银河麒麟v10（Arm版本） 系统镜像： Kylin-Server-10-SP1-Release-Build20-20210518-aarch64.iso 虚拟机： 虚拟配置：内存：4G / 硬盘：320G 操作系统：……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -415,7 +415,11 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
+        <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
     </li>
     
     <li>
@@ -450,10 +454,6 @@
         <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html" title="Shell笔记 | 记录最近用到的组合命令">Shell笔记 | 记录最近用到的组合命令</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -477,7 +477,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (31)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (32)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     

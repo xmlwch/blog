@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.xmlwch.cn/categories/</loc>
-    <lastmod>2022-03-28T16:00:00+08:00</lastmod>
+    <loc>https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html</loc>
+    <lastmod>2022-03-30T12:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://blog.xmlwch.cn/tags/command/</loc>
-    <lastmod>2022-03-28T16:00:00+08:00</lastmod>
+    <loc>https://blog.xmlwch.cn/categories/</loc>
+    <lastmod>2022-03-30T12:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/categories/Linux/</loc>
-    <lastmod>2022-03-28T16:00:00+08:00</lastmod>
+    <lastmod>2022-03-30T12:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/post/</loc>
+    <lastmod>2022-03-30T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/</loc>
+    <lastmod>2022-03-30T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/command/</loc>
     <lastmod>2022-03-28T16:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/tags/</loc>
@@ -20,10 +26,7 @@
     <loc>https://blog.xmlwch.cn/tags/vmrun/</loc>
     <lastmod>2022-03-28T16:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://blog.xmlwch.cn/</loc>
-    <lastmod>2022-03-28T16:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html</loc>
+    <loc>https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html</loc>
     <lastmod>2022-03-28T16:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html</loc>

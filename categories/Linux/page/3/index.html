@@ -79,6 +79,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html"> Docker简单使用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月8日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+            <a href='/categories/Docker'>Docker</a>
+            
+        </div>
+        
+        <div class="post-content">
+            Docker常见命令 容器相关操作 docker create # 创建一个容器但是不启动它 docker run # 创建并启动一个容器 docker stop # 停止容器运行，发送信号SIGTERM docker start # 启动一个停止状态的容器 docker restart # 重启一个容器 docker rm # 删除一个容器 docker kill # 发送信号给容器，默认SIGKILL docker attach # 连接(进入)到一个正在运行的容器 docker wait # 阻塞……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/07/06/chlinux/supervisord.html">Supervisord 使用</a>
             </h1>
         </header>
@@ -291,29 +316,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html">防火墙（firewalld）的操作命令</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月7日
-        </date>
-        
-        <div class="post-meta meta-category">
-            |
-            
-            <a href='/categories/Linux'>Linux</a>
-            
-        </div>
-        
-        <div class="post-content">
-            1、基本使用 启动： systemctl start firewalld 查看状态：systemctl status firewalld 禁用，禁止开机启动： systemctl disable firewalld 停止运行： systemctl stop firewalld 2、firewalld-cmd 查看版本： firewall-cmd --version 查看帮助： firewall-cmd --help 显示状态： firewall-cmd --state 查看所有打开的端口： firewall-cmd --zone=public --list-ports 更新防火墙规则： firewall-cmd --reload 更新防火墙规则，重启服务： firewall-cmd --completely-reload 查看已激活的Zone信息: firewall-cmd --get-active-zones 查看……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html">阅读全文</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -400,7 +402,11 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux_comm_vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
+        <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
     </li>
     
     <li>
@@ -435,10 +441,6 @@
         <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html" title="Shell笔记 | 记录最近用到的组合命令">Shell笔记 | 记录最近用到的组合命令</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -462,7 +464,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (31)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (32)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
