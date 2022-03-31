@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 30 Mar 2022 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Mar 2022 12:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux硬盘读写测速</title>
+      <link>https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html</link>
+      <pubDate>Thu, 31 Mar 2022 12:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html</guid>
+      <description>Linux服务器想要知道硬盘的读写是否能满足服务的需要，我们可以使用Linux自带的dd命令测试硬盘的读写速度，方法如下： Linux硬盘写入速度： time dd if=/dev/zero of=/disk/test bs=2k count=1000000 Linux硬盘读取速度： time dd if=/disk/test of=/dev/null bs=2k 命令详解： time 用于计时； dd 用于复制，从if读出，写到of； if=/dev/zero 不产生IO，因此可以用来测试纯</description>
+    </item>
+    
     <item>
       <title>[转]SSH 命令的三种代理功能</title>
       <link>https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html</link>

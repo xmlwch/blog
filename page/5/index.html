@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html" title="[转]PHP规范PSR-0和PSR-4的理解">[转]PHP规范PSR-0和PSR-4的理解</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月28日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            一、PSR0简介 下文描述了若要使用一个通用的自动加载器(autoloader)，你所需要遵守的规范： 一个完全标准的命名空间(namespace)和类(class)的结构是这样的：\&lt;Vendor Name&gt;\(&lt;Namespace&gt;\)*&lt;Class Name&gt; 每个命名空间(namespace)都必须有一个顶级的空间名(namespac……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/07/28/php/composer.html" title="Composer命令">Composer命令</a>
             </h1>
         </header>
@@ -280,29 +303,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/15/git/question1.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html" title="MySQL遗忘Root密码">MySQL遗忘Root密码</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年7月15日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/MySQL'>MySQL</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            # systemctl stop mariadb #关闭服务 # cat /etc/my.cnf #修改/etc/my.cnf文件, ... [mysqld] skip-grant-tables #在[mysqld]下添加 skip-grant-tables , 再启动mysql ... # systemctl start mariadb #启动服务 # mysql -u root #连接MySql(MariaDB) 并修改root密码为123654 MariaDB [(none)]&gt; update mysql.user set Password=password(&#39;123654&#39;) where User=&#39;root&#39;; Query OK, 1 row affected (0.01 sec) Rows matched: 4 Changed: 1 Warnings: 0 MariaDB [(none)]&gt; flush privileges; Query OK, 0 rows affected (0.00 sec) MariaDB [(none)]&gt; quit; Bye #……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -400,6 +400,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html" title="Linux硬盘读写测速">Linux硬盘读写测速</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
     </li>
     
@@ -435,10 +439,6 @@
         <a href="https://blog.xmlwch.cn/2021/12/07/others/ubuntu-nvidia-driver.html" title="Ubuntu Nvidia驱动失效简单解决方案">Ubuntu Nvidia驱动失效简单解决方案</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -462,7 +462,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (32)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (33)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -638,6 +638,8 @@
     <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
     
     <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%A1%AC%E7%9B%98%E6%B5%8B%E9%80%9F/">硬盘测速</a>
     
     <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
     

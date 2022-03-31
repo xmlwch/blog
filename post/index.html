@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html" title="Linux硬盘读写测速">Linux硬盘读写测速</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2022年3月31日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            Linux服务器想要知道硬盘的读写是否能满足服务的需要，我们可以使用Linux自带的dd命令测试硬盘的读写速度，方法如下： Linux硬盘写入速度： time dd if=/dev/zero of=/disk/test bs=2k count=1000000 Linux硬盘读取速度： time dd if=/disk/test of=/dev/null bs=2k 命令详解： time 用于计时； dd 用于复制，从if读出，写到of； if=/dev/zero 不产生IO，因此可以用来测试纯……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
             </h1>
         </header>
@@ -296,31 +321,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年12月6日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Nginx'>Nginx</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            内容来自互联网和平日使用经验，整理一下方便日后参考。 正则表达式匹配，其中： * ~ 为区分大小写匹配 * ~* 为不区分大小写匹配 * !~和!~*分别为区分大小写不匹配及不区分大小写不匹配 文件及目录匹配，其中： * -f和!-f用来判断是否存在文件 * -d和!-d用来判断是否存在目录 * -e和!-e用来……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -413,6 +413,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html" title="Linux硬盘读写测速">Linux硬盘读写测速</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
     </li>
     
@@ -448,10 +452,6 @@
         <a href="https://blog.xmlwch.cn/2021/12/07/others/ubuntu-nvidia-driver.html" title="Ubuntu Nvidia驱动失效简单解决方案">Ubuntu Nvidia驱动失效简单解决方案</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -475,7 +475,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (32)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (33)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -651,6 +651,8 @@
     <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
     
     <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%A1%AC%E7%9B%98%E6%B5%8B%E9%80%9F/">硬盘测速</a>
     
     <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
     
