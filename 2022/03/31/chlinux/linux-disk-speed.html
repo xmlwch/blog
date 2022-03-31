@@ -87,7 +87,7 @@
         </div>
         
         <div class="post-meta">
-            |<span class="post-date"> 本文共696字</span>，阅读约<span class="more-meta"> 2 分钟 </span>
+            |<span class="post-date"> 本文共480字</span>，阅读约<span class="more-meta"> 1 分钟 </span>
         </div>
         
         <div class="post-meta">
@@ -110,20 +110,17 @@
 <li><code>count</code>是读写块的数量，相乘就是读写数据量大小。</li>
 </ul>
 <p><strong>优化改进</strong></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sync;/usr/bin/time -p bash -c <span style="color:#d14">&#34;(dd if=/dev/zero of=/disk/test  bs=1000K count=20000;sync)&#34;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sync; <span style="color:#000;font-weight:bold">(</span><span style="color:#0086b3">time</span> dd <span style="color:#000;font-weight:bold">if</span><span style="color:#000;font-weight:bold">=</span>/dev/zero <span style="color:#008080">of</span><span style="color:#000;font-weight:bold">=</span>/disk/test  <span style="color:#008080">bs</span><span style="color:#000;font-weight:bold">=</span>1000K <span style="color:#008080">count</span><span style="color:#000;font-weight:bold">=</span>20000<span style="color:#000;font-weight:bold">)</span>; sync; rm -rf /disk/test
 </code></pre></div><p>解释：</p>
 <ol>
 <li>
 <p><code>sync</code> 命令用来刷新文件系统的缓冲区，执行<code>sync</code>命令实际的作用是把内存中的数据缓冲写入到磁盘中。先执行下<code>sync</code>命令，是为了减少对后面测试的影响。也可以使用 <code>echo 3 &gt; /proc/sys/vm/drop_caches</code> 来清除缓存。</p>
 </li>
 <li>
-<p><code>time</code> 命令用来测试命令的执行时间，shell内建还有一个time命令，我们这里使用全路径来指定使用的是非内建命令。  <code>-p</code>  选项设置时间的输出格式为POSIX缺省时间格式，单位是秒，在后面的测试小节可以看到<code>time -p </code>的输出形式。</p>
+<p><code>time dd</code> 这条命令行这里就不讲了。</p>
 </li>
 <li>
-<p><code>bash</code> 命令<code>-c</code>选项的作用是将后面的字符串参数当作bash脚本来执行，看起来有些画蛇添足，好像直接执行也是可行的，其实不然，因为后面字符串中包含了两条命令行，而time命令需要统计这两条命令行的执行时间。</p>
-</li>
-<li>
-<p>小括号的意思是另起一个子进程来执行括号中的脚本，<code>dd</code> 这条命令行这里就不讲了。</p>
+<p>最后删除生成的测试文件呀。</p>
 </li>
 </ol>
 <p>重点是<code>sync</code>命令，因为当<code>dd</code>退出时，这条命令行提交的大部分内容都在内存缓冲区（写缓存），甚至如果机器的内存相比于你提交的数据要大得多，那可能数据都在内存中，而再执行<code>sync</code>才能将内存中的数据写入到磁盘中，否则就成了测试内存的写速度，那显然不是你想要的结果。</p>
