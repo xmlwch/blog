@@ -110,7 +110,7 @@
 <li><code>count</code>是读写块的数量，相乘就是读写数据量大小。</li>
 </ul>
 <p><strong>优化改进</strong></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sync; <span style="color:#000;font-weight:bold">(</span><span style="color:#0086b3">time</span> dd <span style="color:#000;font-weight:bold">if</span><span style="color:#000;font-weight:bold">=</span>/dev/zero <span style="color:#008080">of</span><span style="color:#000;font-weight:bold">=</span>/disk/test  <span style="color:#008080">bs</span><span style="color:#000;font-weight:bold">=</span>1000K <span style="color:#008080">count</span><span style="color:#000;font-weight:bold">=</span>20000<span style="color:#000;font-weight:bold">)</span>; sync; rm -rf /disk/test
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sync; <span style="color:#000;font-weight:bold">(</span><span style="color:#0086b3">time</span> dd <span style="color:#000;font-weight:bold">if</span><span style="color:#000;font-weight:bold">=</span>/dev/zero <span style="color:#008080">of</span><span style="color:#000;font-weight:bold">=</span>/disk/test  <span style="color:#008080">bs</span><span style="color:#000;font-weight:bold">=</span>1000K <span style="color:#008080">count</span><span style="color:#000;font-weight:bold">=</span>20000<span style="color:#000;font-weight:bold">)</span>; sync; rm -f /disk/test
 </code></pre></div><p>解释：</p>
 <ol>
 <li>
