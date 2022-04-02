@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rsync on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/rsync/</link>
+    <description>Recent content in rsync on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 02 Apr 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/rsync/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[转]rsync 用法教程</title>
+      <link>https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html</link>
+      <pubDate>Sat, 02 Apr 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html</guid>
+      <description>原文地址：rsync 用法教程 作者： 阮一峰 一、简介 rsync 是一个常用的 Linux 应用程序，用于文件同步。 它可以在本地计算机与远程计算机之间，或者两个本地目录之间同步文件（但不支持两台远程计算机之间的同步）。它也可以当作文件复制工具，替代cp和mv命令。 它名称里面的r指的是 remote，rsync</description>
+    </item>
+    
+  </channel>
+</rss>
