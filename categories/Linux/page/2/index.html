@@ -79,6 +79,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html">在Ubuntu中,vi命令编辑异常</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年11月4日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+        </div>
+        
+        <div class="post-content">
+            在Ubuntu中,进入vi命令的编辑模式,发现按方向键不能移动光标,而是会输出ABCD,以及退格键也不能正常删除字符。这是由于Ubuntu预装的是vim-tiny,而我们需要使用的是vim-full，所以我们需要先删除vim-tiny安装vim-full： 删除原来的vim-tin……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html">挂载LVM卷</a>
             </h1>
         </header>
@@ -289,31 +312,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html"> Vagrantfile详解</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年7月21日
-        </date>
-        
-        <div class="post-meta meta-category">
-            |
-            
-            <a href='/categories/Linux'>Linux</a>
-            
-            <a href='/categories/Vagrant'>Vagrant</a>
-            
-        </div>
-        
-        <div class="post-content">
-            ## vagrantfile详解 # 定义虚拟机的各种配置，主要包括三个方面的配置：虚拟机的配置、SSH配置、Vagrant的一些基础配置。 # Vagrant是使用Ruby开发的，所以它的配置语法也是Ruby的，每个项目都需要有一个Vagrantfile，在执行vagrant init xxx 的目录下可……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html">阅读全文</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -400,6 +398,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html" title="CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6">CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
     </li>
     
@@ -435,10 +437,6 @@
         <a href="https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html" title="Linux 信号列表">Linux 信号列表</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/12/10/others/httpd-proxy.html" title="Httpd反向代理配置">Httpd反向代理配置</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -462,7 +460,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (34)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (35)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -501,6 +499,8 @@
     
     <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
     
+    <a href="https://blog.xmlwch.cn/tags/Cuda/">Cuda</a>
+    
     <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
     
     <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
@@ -526,6 +526,8 @@
     <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
     
     <a href="https://blog.xmlwch.cn/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/">Nvidia显卡</a>
     
     <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
     

@@ -6,7 +6,25 @@
     <description>Recent content in Tags on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 02 Apr 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Jun 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cuda</title>
+      <link>https://blog.xmlwch.cn/tags/Cuda/</link>
+      <pubDate>Wed, 08 Jun 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Cuda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nvidia显卡</title>
+      <link>https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/</link>
+      <pubDate>Wed, 08 Jun 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>command</title>
       <link>https://blog.xmlwch.cn/tags/command/</link>

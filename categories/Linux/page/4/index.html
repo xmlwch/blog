@@ -79,6 +79,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html">Failed to allocate directory watch: Too many open files</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月9日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+        </div>
+        
+        <div class="post-content">
+            uos上运行systemctl启动服务时报错： Failed to allocate directory watch: Too many open files 解决方法： vi /etc/sysctl.conf cat /etc/sysctl.conf # 添加一下配置 fs.inotify.max_user_instances=512 fs.inotify.max_user_watches=262144 生效 sysctl -p 分析： 可能是 inotify 数量限制了，修改后服务可以正常启动 inotify介绍： 它是一个内核用于通知用户空间程序文件系统变化的机制。 众所周知，Linux 桌面系统与 MAC 或 Windows 相比有许多不如人……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/port-listening.html">查看端口监听状态</a>
             </h1>
         </header>
@@ -250,6 +273,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html" title="CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6">CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
     </li>
     
@@ -285,10 +312,6 @@
         <a href="https://blog.xmlwch.cn/2021/12/14/chlinux/signal.html" title="Linux 信号列表">Linux 信号列表</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/12/10/others/httpd-proxy.html" title="Httpd反向代理配置">Httpd反向代理配置</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -312,7 +335,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (34)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (35)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -351,6 +374,8 @@
     
     <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
     
+    <a href="https://blog.xmlwch.cn/tags/Cuda/">Cuda</a>
+    
     <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
     
     <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
@@ -376,6 +401,8 @@
     <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
     
     <a href="https://blog.xmlwch.cn/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/">Nvidia显卡</a>
     
     <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
     

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nvidia显卡 on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/</link>
+    <description>Recent content in Nvidia显卡 on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 08 Jun 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</title>
+      <link>https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html</link>
+      <pubDate>Wed, 08 Jun 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html</guid>
+      <description>一、安装必要rpm包 yum -y install epel-release gcc binutils wget kernel-devel kernel-headers # 主要安装 kernel-devel，但是此处要保证内核于运行的一致， # 两种解决思路： # 1.找到对应版本的kernel-devel包 # 2.更新运行kernel（这里的例子采用此法） yum -y install kernel # 更改grub配置使用最新的内核启动 awk -F\&amp;#39; &amp;#39;$1==&amp;#34;menuentry &amp;#34; {print i++ &amp;#34; : &amp;#34; $2}&amp;#39;</description>
+    </item>
+    
+  </channel>
+</rss>
