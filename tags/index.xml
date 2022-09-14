@@ -6,7 +6,16 @@
     <description>Recent content in Tags on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 08 Jun 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Sep 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shell</title>
+      <link>https://blog.xmlwch.cn/tags/Shell/</link>
+      <pubDate>Tue, 13 Sep 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/Shell/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Cuda</title>
       <link>https://blog.xmlwch.cn/tags/Cuda/</link>
@@ -157,15 +166,6 @@
       <pubDate>Mon, 06 Dec 2021 12:00:00 +0800</pubDate>
       
       <guid>https://blog.xmlwch.cn/tags/rewrite/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Shell</title>
-      <link>https://blog.xmlwch.cn/tags/Shell/</link>
-      <pubDate>Thu, 25 Nov 2021 10:00:00 +0800</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/tags/Shell/</guid>
       <description></description>
     </item>
     

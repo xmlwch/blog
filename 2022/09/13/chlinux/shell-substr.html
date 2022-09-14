@@ -9,21 +9,24 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>WSL | xmlwch的博客</title>
-    <meta property="og:title" content="WSL - xmlwch的博客">
+    <title>Shell 字符串截取总结 | xmlwch的博客</title>
+    <meta property="og:title" content="Shell 字符串截取总结 - xmlwch的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content='2022-09-13T11:40:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2022-09-13T11:40:00&#43;08:00'>
         
     <meta name="Keywords" content="">
-    <meta name="description" content="WSL">
+    <meta name="description" content=" ">
         
     <meta name="author" content="xmlwch">
-    <meta property="og:url" content="https://blog.xmlwch.cn/tags/WSL/">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <link rel="alternate" type="application/rss+xml" href="https://blog.xmlwch.cn/tags/WSL/index.xml" title="xmlwch的博客" />
     <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
     
@@ -48,7 +51,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://blog.xmlwch.cn/">首页</a>
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
                     
                     <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
                     
@@ -67,44 +70,183 @@
                 <div class="col-8" id="main">
                     
 <div class="res-cons">
-    
-    <h3 class="archive-title">
-        包含标签
-        <span class="keyword">WSL</span>
-        的文章
-    </h3>
-    
-
-    
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
     <article class="post">
         <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html">WSL | Windows下重启Linux子系统</a>
-            </h1>
+            <h1 class="post-title">Shell 字符串截取总结</h1>
         </header>
         <date class="post-meta meta-date">
-            2021年9月15日
+            2022年9月13日
         </date>
         
-        <div class="post-meta meta-category">
-            |
+        <div class="post-meta">
+            <span>|</span>
             
-            <a href='/categories/Windows'>Windows</a>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
+        <div class="post-meta">
+            |<span class="post-date"> 本文共1462字</span>，阅读约<span class="more-meta"> 3 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
         <div class="post-content">
-            Linux子系统（WSL ）是基于 LxssManager 服务运行的。 重启WSL的话只需要将 LxssManager 重启即可。 命令行重启 以管理员权限运行cmd命令即可 #停止LxssManager服务 net stop LxssManager #启动LxssManager服务 net start LxssManager 服务里重启 也可以在windows服务里找到进行重启 在管理员权限的cmd窗口输入 services.msc 打开……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/15/others/restart-wsl.html">阅读全文</a></p>
+            <h3 id="一字符串变量的截取操作">一、字符串变量的截取操作</h3>
+<p>对字符串变量的截取操作一般都是通过<code>${操作符}</code>的方式进行，如下：</p>
+<h4 id="1-从指定位置index截取固定长度">1. 从指定位置(index)截取固定长度</h4>
+<p>格式：<code>${string:start:length}</code></p>
+<p>其中，<code>string</code> 是要截取的字符串，<code>start</code> 是起始位置（下标从 0 开始计数），<code>length</code> 是要截取的长度（省略的话表示直到字符串的末尾）</p>
+<p>例如：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#008080">str_time</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;2022-09-01 12:30:58&#39;</span>
+<span style="color:#008080">date_no</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">${</span><span style="color:#008080">str_time</span>:<span style="color:#008080">0</span>:<span style="color:#008080">10</span><span style="color:#d14">}</span>			<span style="color:#998;font-style:italic"># 截取前面10位字符：2022-09-01</span>
+<span style="color:#008080">date_mon</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">${</span><span style="color:#008080">str_time</span>:<span style="color:#008080">5</span>:<span style="color:#008080">2</span><span style="color:#d14">}</span>			<span style="color:#998;font-style:italic"># 从前面第6位开始截取2位字符：09</span>
+<span style="color:#008080">date_time</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">${</span><span style="color:#008080">str_time</span>:<span style="color:#008080">0</span>-8<span style="color:#d14">}</span>			<span style="color:#998;font-style:italic"># 截取后面8位字符：12:30:58</span>
+<span style="color:#008080">date_hh</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">${</span><span style="color:#008080">str_time</span>:<span style="color:#008080">0</span>-8:<span style="color:#008080">2</span><span style="color:#d14">}</span>			<span style="color:#998;font-style:italic"># 截取后面8位字符的前面两位：12</span>
+</code></pre></div><h4 id="2-截取指定字符串子字符串左边的字符">2. 截取指定字符串（子字符串）左边的字符</h4>
+<p>格式1：<code>${string%substr*} </code>                         #匹配从右往左第一个substr</p>
+<p>格式2：<code>${string%%substr*} </code>                      #匹配从右往左最后一个substr</p>
+<p>说明：上面<code>%</code>的运算实际上可以理解为，删除<code>substr</code>以及<code>substr</code>右边的任意字符串，<code>*</code>号在<code>substr</code>右边，从而得到<code>substr</code>左边剩余字符串。  格式1和格式2的区别是匹配<code>substr</code>的位置</p>
+<p>例如：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#008080">v_str</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;/app/logs/202204111015.log&#39;</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">${</span><span style="color:#008080">v_str</span>%/*<span style="color:#d14">}</span>			<span style="color:#998;font-style:italic"># 截取从右往左第一个&#39;/&#39; 左边的字符：/app/logs</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">${</span><span style="color:#008080">v_str</span>%%/*<span style="color:#d14">}</span>			<span style="color:#998;font-style:italic"># 截取从右往左最后个&#39;/&#39; 左边的字符：空</span>
+</code></pre></div><h4 id="3截取指定字符串子字符串右边的字符">3.截取指定字符串（子字符串）右边的字符</h4>
+<p>格式1：<code>${string#*substr} </code>                         #匹配从左往右第一个substr</p>
+<p>格式2：<code>${string##*substr} </code>                       #匹配从左往右最后一个substr</p>
+<p>说明：上面<code>#</code>的运算实际上可以理解为，删除<code>substr</code>以及<code>substr</code>左边的任意字符串，<code>*</code>号在<code>substr</code>的左边，从而得到<code>substr</code>右边剩余字符串。  格式1和格式2的区别是匹配<code>substr</code>的位置</p>
+<p>例如：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#008080">v_str</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;/app/logs/202204111015.log&#39;</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">${</span><span style="color:#008080">v_str</span>#*/<span style="color:#d14">}</span>			<span style="color:#998;font-style:italic">#截取从左往右第一个&#39;/&#39; 右边的字符：app/logs/133.38.112.177_202204111015.log</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">${</span><span style="color:#008080">v_str</span>##*/<span style="color:#d14">}</span>			<span style="color:#998;font-style:italic">#截取从左往右最后个&#39;/&#39; 右边的字符：133.38.112.177_202204111015.log</span>
+</code></pre></div><h4 id="注意用和截取字符串的用法比较容易忘记容易混淆">注意：用<code>%</code>和<code>#</code>截取字符串的用法，比较容易忘记容易混淆。</h4>
+<p>有个小技巧加以区别：</p>
+<p>键盘上<code>#</code>号在<code>$</code>符号的左边，所以是操作并删除左边字符，所以<code>*</code>在<code>substr</code>的左边，一个<code>#</code>号代表取第一个<code>substr</code>（从左往右）：<code>${string#*substr}</code></p>
+<p>键盘上<code>%</code>号在<code>$</code>符号的右边，所以是操作并删除右边字符，所以<code>*</code>在<code>substr</code>的右边，一个<code>%</code>代表取第一个<code>substr</code>（从右往左）：<code>${string%substr*}</code></p>
+<h3 id="二用cut命令截取适合处理管道流或行文本字符">二、用cut命令截取（适合处理管道流或行文本字符）</h3>
+<h5 id="格式cut-option-file">格式：<code>cut OPTION... [FILE]</code></h5>
+<p><code>cut</code> 命令从文件的每一行剪切字节、字符和字段并将这些字节、字符和字段写至标准输出。</p>
+<p>如果不指定 <code>File</code> 参数，<code>cut</code> 命令将读取标准输入。必须指定<code> -b</code>、<code>-c</code> 或 <code>-f</code> 标志之一。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">OPTION：</span>
+
+<span style="color:#008080">-b :以字节为单位选取指定的字节数</span>
+<span style="color:#008080">-c :以字符为单位选取指定的字符数</span>
+<span style="color:#008080">-d :指定分隔符（默认是tab）将字符串分为多个区域，一般与-f参数一起使用</span>
+<span style="color:#008080">-f :与-d一起使用，指定选取哪个区域</span>
+<span style="color:#008080">-n :取消分割多字节字符。仅和 -b 标志一起使用。如果字符的最后一个字节落在由 -b 标志的 List 参数指示的范围之内，该字符将被写出；否则，该字符将被排除</span>
+</code></pre></div><h5 id="用法">用法：</h5>
+<p>例如：处理test.txt文件，截取每一行的指定字符</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#998;font-style:italic">## 原始文件</span>
+cat test.txt
+a_202204110214_1.2.3.5
+b_202204110215_1.2.3.6
+b_202204110216_1.2.3.7
+c_202204110217_1.2.3.8
+
+
+<span style="color:#998;font-style:italic">## -b 选项：</span>
+<span style="color:#998;font-style:italic"># 截取1，3字节</span>
+cut -b 1,3 test.txt
+a2
+b2
+b2
+c2
+
+<span style="color:#998;font-style:italic">#截取1到3字节</span>
+cut -b 1-3 test.txt 
+a_2
+b_2
+b_2
+c_2
+
+
+<span style="color:#998;font-style:italic">## -c选项：  </span>
+<span style="color:#998;font-style:italic"># 截取1，3字符</span>
+cut -c 1,3 test.txt
+a2
+b2
+b2
+c2
+ 
+<span style="color:#998;font-style:italic"># 截取1到3字符</span>
+cut -c 1-3 test.txt 
+a_2
+b_2
+b_2
+c_2
+
+
+<span style="color:#998;font-style:italic">## -d -f选项：</span>
+<span style="color:#998;font-style:italic"># 以下划线分割，取第三个区域字符</span>
+cut -d <span style="color:#d14">&#39;_&#39;</span> -f3 test.txt 
+1.2.3.5
+1.2.3.6
+1.2.3.7
+1.2.3.8
+<span style="color:#998;font-style:italic"># 结合管道使用效果一样</span>
+cat test.txt | cut -d<span style="color:#d14">&#39;_&#39;</span> -f3
+</code></pre></div><p>（完）</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html">https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh"> 知识共享 署名-相同方式共享 4.0 国际(CC BY-SA 4.0)许可协议 </a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/11/25/others/shell-note.html">Shell笔记 | 记录最近用到的组合命令</a></li>
+        
+        <li><a href="/2022/06/08/chlinux/centos-nvidia-cuda.html">CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</a></li>
+        
+        <li><a href="/2022/04/02/chlinux/linux-comm-rsync.html">[转]rsync 用法教程</a></li>
+        
+        <li><a href="/2022/03/31/chlinux/linux-disk-speed.html">Linux硬盘读写测速</a></li>
+        
+        <li><a href="/2022/03/30/chlinux/proxy-of-ssh.html">[转]SSH 命令的三种代理功能</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Shell'>Shell</a></li>
+                
+            </ul>
+            
         </div>
     </article>
     
-
     
 
-
-
-
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 </div>
 
@@ -121,6 +263,8 @@
 
 
 
+    
+    
 
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
