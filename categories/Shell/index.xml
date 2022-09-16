@@ -6,7 +6,16 @@
     <description>Recent content in Shell on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 25 Nov 2021 10:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Shell/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Sep 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Shell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shell 字符串截取总结</title>
+      <link>https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html</link>
+      <pubDate>Tue, 13 Sep 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html</guid>
+      <description>一、字符串变量的截取操作 对字符串变量的截取操作一般都是通过${操作符}的方式进行，如下： 1. 从指定位置(index)截取固定长度 格式：${string:start:length} 其中，string 是要截取的字符串，start 是起始位置（下标从 0 开始计数），length 是要截取的长度</description>
+    </item>
+    
     <item>
       <title>Shell笔记 | 记录最近用到的组合命令</title>
       <link>https://blog.xmlwch.cn/2021/11/25/others/shell-note.html</link>

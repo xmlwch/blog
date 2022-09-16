@@ -79,6 +79,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.html">Vsftpd 虚拟用户配置</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月15日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+            <a href='/categories/FTP'>FTP</a>
+            
+        </div>
+        
+        <div class="post-content">
+            1.安装（有几率已安装） 查看是否已经安装 ，以下命令有返回表示已安装即可跳过该步骤 # rpm -qa |grep vsftpd vsftpd-3.0.2-22.ns7_4.mips64el # 安装 # yum install -y vsftpd 2.Vsftpd服务及配置 Vsftpd服务配置 # cat /etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=YES listen=YES listen_ipv6=NO pam_service_name=vsftpd userlist_enable=YES tcp_wrappers=YES guest_enable=YES #启用虚拟用户 virtual_use_local_privs=YES user_sub_token=$USER local_root=/data2/KyApps/ftp/$USER #/data2/KyApps/ftp需要提前创建好 hide_ids=YES allow_writeable_chroot=YES #避免客户端50……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/15/chlinux/install-vsftpd.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html">chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</a>
             </h1>
         </header>
@@ -296,6 +321,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/09/15/chlinux/os-time.html" title="修改系统时间">修改系统时间</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html" title="Shell 字符串截取总结">Shell 字符串截取总结</a>
     </li>
     
@@ -331,10 +360,6 @@
         <a href="https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html" title="开机自动挂载samba目录">开机自动挂载samba目录</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/12/15/chlinux/kernel-optimization.html" title="系统性能 内核参数调整">系统性能 内核参数调整</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -358,7 +383,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (36)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (37)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
@@ -374,7 +399,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (4)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
     

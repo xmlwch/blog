@@ -6,7 +6,16 @@
     <description>Recent content in Linux on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 14 Jan 2022 16:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Sep 2022 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>修改系统时间</title>
+      <link>https://blog.xmlwch.cn/2022/09/15/chlinux/os-time.html</link>
+      <pubDate>Thu, 15 Sep 2022 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/09/15/chlinux/os-time.html</guid>
+      <description>查看当前系统时间 date 修改当前系统时间 date -s &amp;quot;2018-2-22 19:10:30 查看硬件时间 hwclock --show 修改硬件时间 hwclock --set --date &amp;quot;2018-2-22 19:10:30&amp;quot; 同步系统时间和硬件时间 hwclock --hctosys 保存时钟 clock -w 重启系统（init 6）后便发现系统时间被修改了 （完）</description>
+    </item>
+    
     <item>
       <title>开机自动挂载samba目录</title>
       <link>https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html</link>
