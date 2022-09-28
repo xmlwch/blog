@@ -89,7 +89,7 @@
         </div>
         
         <div class="post-meta">
-            |<span class="post-date"> 本文共3058字</span>，阅读约<span class="more-meta"> 7 分钟 </span>
+            |<span class="post-date"> 本文共3054字</span>，阅读约<span class="more-meta"> 7 分钟 </span>
         </div>
         
         <div class="post-meta">
@@ -98,7 +98,7 @@
         
         
         <div class="post-content">
-            <h3 id="一概要">一、概要</h3>
+            <h2 id="一概要">一、概要</h2>
 <p>文件系统是操作系统用于明确存储设备（常见的是磁盘，也有基于NAND Flash的固态硬盘 也有虚拟的文件系统(vmfs))，说白了就是操作系统或软件对文件在存储设备上的一种组织、管理方式。</p>
 <p>而根据文件系统类型分类：</p>
 <ul>
@@ -109,12 +109,12 @@
 <p>因此<code>windows</code>系统每一个盘符都对应一个根目录，因此<code>windows</code>更倾向于像基于硬盘分区的文件系统，即先有分区，再有<code>windows</code>的文件系统，虽然不是，但至少表面上(思惟上)看起来如此；</p>
 <p><code>linux</code>文件系统更倾向于先有固定的目录结构，而后再有分区，分区(或网络上任何一个硬件)再挂在到不一样的目录上。</p>
 <p>由此会带来一个使用上的区别，原本应该是<code>linux</code>设计的根文件系统更加符合人的思惟方式，但长期的使用习惯，使得不熟悉<code>Linux</code>的手动挂载方式。</p>
-<h3 id="二系统目录结构">二、系统目录结构</h3>
-<p>树状目录结构：</p>
+<h2 id="二系统目录结构">二、系统目录结构</h2>
+<h3 id="树状目录结构">树状目录结构：</h3>
 <p>
         <img class="mx-auto" alt="img" src="/img/202209/d0c50-linux2bfile2bsystem2bhierarchy.jpg" />   
     </p>
-<p>以下是对这些目录的解释：</p>
+<h3 id="一级目录及其功能">一级目录及其功能</h3>
 <table>
 <thead>
 <tr>
@@ -198,7 +198,7 @@
 <p><code>/bin</code>, <code>/sbin</code>, <code>/usr/bin</code>, <code>/usr/sbin</code>: 这是系统预设的执行文件的放置目录，比如 <code>ls</code> 就是在 <code>/bin/ls</code> 目录下的。</p>
 <p>值得提出的是 <code>/bin</code>、<code>/usr/bin</code> 是给系统用户使用的指令（除 root 外的通用用户），而<code>/sbin</code>, <code>/usr/sbin</code> 则是给 root 使用的指令。</p>
 <p><code>/var</code>： 这是一个非常重要的目录，系统上跑了很多程序，那么每个程序都会有相应的日志产生，而这些日志就被记录到这个目录下，具体在 <code>/var/log</code> 目录下，另外 <code>mail</code> 的预设放置也是在这里。</p>
-<h4 id="usr-子目录及其功能"><code>/usr</code> 子目录及其功能</h4>
+<h3 id="usr-子目录及其功能"><code>/usr</code> 子目录及其功能</h3>
 <table>
 <thead>
 <tr>
@@ -241,7 +241,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="var子目录及其功能"><code>/var</code>子目录及其功能</h4>
+<h3 id="var子目录及其功能"><code>/var</code>子目录及其功能</h3>
 <table>
 <thead>
 <tr>
@@ -280,7 +280,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="三挂载">三、挂载</h3>
+<h2 id="三挂载">三、挂载</h2>
 <ul>
 <li>挂载，指的就是将设备文件中的顶级目录连接到 Linux 根目录下的某一目录（最好是空目录），访问此目录就等同于访问设备文件。</li>
 </ul>
