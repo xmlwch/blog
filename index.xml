@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 27 Sep 2022 15:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Sep 2022 10:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[转]彻底搞懂「一切皆文件」的UNIX哲学</title>
+      <link>https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html</link>
+      <pubDate>Wed, 28 Sep 2022 10:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html</guid>
+      <description>原文地址：彻底搞懂「一切皆文件」的UNIX哲学 作者： uianster 一、UINX哲学 一切皆文件是 Unix/Linux 的基本哲学之一。不仅普通的文件，目录、字符设备、块设备、 套接字等在 Unix/Linux 中都是以文件被对待；它们虽然类型不同，但是对其提供的却是同一套操作界面。 二、UNIX文件类型 下面列举了UNIX中常用到的文件类型</description>
+    </item>
+    
     <item>
       <title>Linux 文件系统</title>
       <link>https://blog.xmlwch.cn/2022/09/27/chlinux/system-contents.html</link>

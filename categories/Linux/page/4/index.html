@@ -79,6 +79,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html">MySQL服务启不了</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月18日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+            <a href='/categories/MySQL'>MySQL</a>
+            
+        </div>
+        
+        <div class="post-content">
+            情况1：存在socket lock file root用户执行 # systemctl restart kymysql 时不报错，但服务也没启动，查看错误日志 cat /opt/KY/Softs/log/mysql/mysql-error.log ... 2021-06-18T01:28:47.783821Z 0 [Note] Server hostname (bind-address): &#39;0.0.0.0&#39;; port: 20001 2021-06-18T01:28:47.783838Z 0 [Note] - &#39;0.0.0.0&#39; resolves to &#39;0.0.0.0&#39;; 2021-06-18T01:28:47.783867Z 0 [Note] Server socket created on IP: &#39;0.0.0.0&#39;. 2021-06-18T01:28:47.783925Z 0 [ERROR] Another process with pid 2663 is using unix socket file. 2021-06-18T01:28:47.783932Z 0 [ERROR] Unable to setup unix socket lock file. 2021-06-18T01:28:47.783937Z 0 [ERROR] Aborting 解决办法： # 删除sock锁文件 rm -rf /opt/KY/Softs/mysql/var/mysql.sock.lock # 重启服务 systemctl restart kymysql 情况2：缺少lib包 roo……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html">Shell中括号场景总结</a>
             </h1>
         </header>
@@ -346,6 +371,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/09/27/chlinux/system-contents.html" title="Linux 文件系统">Linux 文件系统</a>
     </li>
     
@@ -381,10 +410,6 @@
         <a href="https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html" title=" du 命令"> du 命令</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html" title=" 远程桌面连接Ubuntu "> 远程桌面连接Ubuntu </a>
-    </li>
-    
 </ul>
     </section>
 
@@ -408,7 +433,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (38)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
