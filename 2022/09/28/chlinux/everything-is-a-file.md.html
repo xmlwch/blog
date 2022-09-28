@@ -149,7 +149,6 @@ Swap:                  <span style="color:#099">0</span> kB
 SwapPss:               <span style="color:#099">0</span> kB
 Locked:              <span style="color:#099">506</span> kB
 VmFlags: rd ex mr mw me dw sd 
-
 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">netstat -anpt |grep <span style="color:#099">22</span>
 lsof -p <span style="color:#099">27534</span> //用lsof查看该进程的所有文件描述符,其中的type字段就是表明它是什么类型，通过man losf
 </code></pre></div><h2 id="四linux-文件描述符到底是什么">四、Linux 文件描述符到底是什么？</h2>
