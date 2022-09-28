@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html" title="fpm打包">fpm打包</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月8日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            a）环境准备 安装ruby环境和gem命令 yum -y install ruby rubygems ruby-devel gem命令是从rubygem仓库安装软件类似yum从yum仓库安装软件 查看当前源： gem source list *** CURRENT SOURCES *** https://rubygems.org/ 添加国内源： gem sources -a http://mirrors.aliyun.com/rubygems/ 移除国外源： gem sources --remove https://rubygems.org/ 安装FPM工具： gem install fpm 提示ruby版本过低时请自行百度 b）fpm打包 fpm -s dir -a aarch64 -t rpm -n KySofts-withDev -v 1.0.0……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/08/chlinux/firewalld.html" title="防火墙（firewalld）的操作命令">防火墙（firewalld）的操作命令</a>
             </h1>
         </header>
@@ -258,6 +283,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/09/27/chlinux/system-contents.html" title="Linux 文件系统">Linux 文件系统</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/09/15/chlinux/os-time.html" title="修改系统时间">修改系统时间</a>
     </li>
     
@@ -293,10 +322,6 @@
         <a href="https://blog.xmlwch.cn/2022/03/03/chlinux/unbutu-remote-desktop.html" title=" 远程桌面连接Ubuntu "> 远程桌面连接Ubuntu </a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2021/11/14/chlinux/auto-mount-smb.html" title="开机自动挂载samba目录">开机自动挂载samba目录</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -320,7 +345,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (37)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (38)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
     
