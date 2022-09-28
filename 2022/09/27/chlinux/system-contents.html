@@ -89,7 +89,7 @@
         </div>
         
         <div class="post-meta">
-            |<span class="post-date"> 本文共2760字</span>，阅读约<span class="more-meta"> 6 分钟 </span>
+            |<span class="post-date"> 本文共2680字</span>，阅读约<span class="more-meta"> 6 分钟 </span>
         </div>
         
         <div class="post-meta">
@@ -99,15 +99,16 @@
         
         <div class="post-content">
             <h3 id="一概要">一、概要</h3>
-<p>文件系统是操作系统用于明确存储设备（常见的是磁盘，也有基于NAND Flash的固态硬盘 也有虚拟的文件系统(vmfs)，说白了就是操做系统或软件对文件在存储设备上的一种组织、管理方式。</p>
+<p>文件系统是操作系统用于明确存储设备（常见的是磁盘，也有基于NAND Flash的固态硬盘 也有虚拟的文件系统(vmfs))，说白了就是操作系统或软件对文件在存储设备上的一种组织、管理方式。</p>
 <p>而根据文件系统类型分类：</p>
-<p><code>windows</code>属于多根目录文件系统。</p>
-<p><code>linux</code>属于根目录文件系统。</p>
-<p>因为长期使用<code>windows</code>操做系统，用户已经造成了一种惯性思惟，各类文件分类都是按照C、D、E这种盘符进行大分类的文件系统。</p>
-<p>因此windows系统每一个盘符都对应一个根目录，因此<code>windows</code>更倾向于像基于硬盘分区的文件系统，即先有分区，再有windows的文件系统，虽然不是，但至少表面上(思惟上)看起来如此；</p>
+<ul>
+<li><code>windows</code>属于多根目录文件系统。</li>
+<li><code>linux</code>属于根目录文件系统。</li>
+</ul>
+<p>因为长期使用<code>windows</code>操作系统，用户已经造成了一种惯性思惟，各类文件分类都是按照 C、D、E 这种盘符进行大分类的文件系统。</p>
+<p>因此<code>windows</code>系统每一个盘符都对应一个根目录，因此<code>windows</code>更倾向于像基于硬盘分区的文件系统，即先有分区，再有<code>windows</code>的文件系统，虽然不是，但至少表面上(思惟上)看起来如此；</p>
 <p><code>linux</code>文件系统更倾向于先有固定的目录结构，而后再有分区，分区(或网络上任何一个硬件)再挂在到不一样的目录上。</p>
-<p>由此会带来一个使用上的区别，原本应该是<code>linux</code>设计的根文件系统更加符合人的思惟方式，但长期的使用习惯，以及不熟悉手动挂载的方式。</p>
-<p>计算机用户思惟已经固化为多根目录结构的<code>windows</code>系统了，其实<code>windows</code>文件系统也有挂载的概念，只不过<code>windows</code>会自动挂载分区到不一样的目录上，即所谓的C、D盘。</p>
+<p>由此会带来一个使用上的区别，原本应该是<code>linux</code>设计的根文件系统更加符合人的思惟方式，但长期的使用习惯，使得不熟悉<code>Linux</code>的手动挂载方式。</p>
 <h3 id="二系统目录结构">二、系统目录结构</h3>
 <p>树状目录结构：</p>
 <p>
