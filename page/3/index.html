@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html" title="在Ubuntu中,vi命令编辑异常">在Ubuntu中,vi命令编辑异常</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年11月4日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            在Ubuntu中,进入vi命令的编辑模式,发现按方向键不能移动光标,而是会输出ABCD,以及退格键也不能正常删除字符。这是由于Ubuntu预装的是vim-tiny,而我们需要使用的是vim-full，所以我们需要先删除vim-tiny安装vim-full： 删除原来的vim-tin……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/11/04/chlinux/unbutu-vi.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/10/15/python/conda.html" title="conda的安装与使用">conda的安装与使用</a>
             </h1>
         </header>
@@ -276,29 +299,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html" title="查看 SELinux状态及关闭SELinux">查看 SELinux状态及关闭SELinux</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年9月2日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            查看SELinux状态： ## 如果SELinux status参数为enabled即为开启状态 /usr/sbin/sestatus -v SELinux status: enabled ... ## 也可以用这个命令检查 getenforce 关闭SELinux： ## 临时关闭（不用重启机器） setenforce 0 ##设置SELinux 成为permissive模式 #setenforce 1 设置SELinux 成为enforcing模式 ## 永久关……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/02/chlinux/selinux.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -400,6 +400,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/11/16/others/powershell.html" title="批量删除电脑上客厅的奇异果媒体设备">批量删除电脑上客厅的奇异果媒体设备</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
     </li>
     
@@ -435,10 +439,6 @@
         <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html" title=" du 命令"> du 命令</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -470,7 +470,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (1)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (2)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
     
@@ -600,6 +600,8 @@
     <a href="https://blog.xmlwch.cn/tags/kernel/">kernel</a>
     
     <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/powershell/">powershell</a>
     
     <a href="https://blog.xmlwch.cn/tags/proxy/">proxy</a>
     

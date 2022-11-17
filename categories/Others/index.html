@@ -79,6 +79,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2022/11/16/others/powershell.html">批量删除电脑上客厅的奇异果媒体设备</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2022年11月16日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Others'>Others</a>
+            
+        </div>
+        
+        <div class="post-content">
+            我的电脑上有一堆不知所谓的蓝牙和其他设备，挨个删估计能删到老死，因此写了一个简单的脚本进行批量删除。 Get-PnpDevice | Where-Object {$_.FriendlyName -like &#34;*奇异果*&#34;}|ForEach-Object{pnputil.exe /remove-device $_.InstanceId } tips： 此处Where-Object {$_.FriendlyName -like &quot;*奇异果*&quot;}……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2022/11/16/others/powershell.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/12/07/others/ubuntu-nvidia-driver.html">Ubuntu Nvidia驱动失效简单解决方案</a>
             </h1>
         </header>
@@ -153,6 +176,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2022/11/16/others/powershell.html" title="批量删除电脑上客厅的奇异果媒体设备">批量删除电脑上客厅的奇异果媒体设备</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
     </li>
     
@@ -188,10 +215,6 @@
         <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/25/chlinux/linux_comm_du.html" title=" du 命令"> du 命令</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -223,7 +246,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (1)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (2)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
     
@@ -353,6 +376,8 @@
     <a href="https://blog.xmlwch.cn/tags/kernel/">kernel</a>
     
     <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/powershell/">powershell</a>
     
     <a href="https://blog.xmlwch.cn/tags/proxy/">proxy</a>
     

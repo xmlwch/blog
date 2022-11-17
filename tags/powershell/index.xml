@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>powershell on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/powershell/</link>
+    <description>Recent content in powershell on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 16 Nov 2022 10:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/powershell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>批量删除电脑上客厅的奇异果媒体设备</title>
+      <link>https://blog.xmlwch.cn/2022/11/16/others/powershell.html</link>
+      <pubDate>Wed, 16 Nov 2022 10:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/11/16/others/powershell.html</guid>
+      <description>我的电脑上有一堆不知所谓的蓝牙和其他设备，挨个删估计能删到老死，因此写了一个简单的脚本进行批量删除。 Get-PnpDevice | Where-Object {$_.FriendlyName -like &amp;#34;*奇异果*&amp;#34;}|ForEach-Object{pnputil.exe /remove-device $_.InstanceId } tips： 此处Where-Object {$_.FriendlyName -like &amp;quot;*奇异果*&amp;quot;}</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 28 Sep 2022 10:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Nov 2022 10:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>批量删除电脑上客厅的奇异果媒体设备</title>
+      <link>https://blog.xmlwch.cn/2022/11/16/others/powershell.html</link>
+      <pubDate>Wed, 16 Nov 2022 10:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2022/11/16/others/powershell.html</guid>
+      <description>我的电脑上有一堆不知所谓的蓝牙和其他设备，挨个删估计能删到老死，因此写了一个简单的脚本进行批量删除。 Get-PnpDevice | Where-Object {$_.FriendlyName -like &amp;#34;*奇异果*&amp;#34;}|ForEach-Object{pnputil.exe /remove-device $_.InstanceId } tips： 此处Where-Object {$_.FriendlyName -like &amp;quot;*奇异果*&amp;quot;}</description>
+    </item>
+    
     <item>
       <title>[转]彻底搞懂「一切皆文件」的UNIX哲学</title>
       <link>https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html</link>
