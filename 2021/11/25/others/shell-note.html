@@ -87,7 +87,7 @@
         </div>
         
         <div class="post-meta">
-            |<span class="post-date"> 本文共248字</span>，阅读约<span class="more-meta"> 1 分钟 </span>
+            |<span class="post-date"> 本文共279字</span>，阅读约<span class="more-meta"> 1 分钟 </span>
         </div>
         
         <div class="post-meta">
@@ -106,7 +106,9 @@
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">find /var/log/ -mmin +120 -name message* -exec rm -rf <span style="color:#000;font-weight:bold">{}</span> <span style="color:#d14">\;</span>
 </code></pre></div><p>执行完上面的命令后，在/var/log/目录下所有的120分钟或者说2小时以前生成的或者更改过的以message开头的日志文件都会被删掉。(如果要删除两小时之内的日志文件，使用命令：<code>find /var/log/ -mmin -120 -name message* -exec rm -rf {} \;</code> )</p>
 <p>将上面的find命令加到Linux系统的任务计划<code>crontab</code>里，即可实现自动定时删除文件。</p>
-<p><strong>随时更新&hellip;</strong></p>
+<h4 id="获取硬盘最大的10个文件">获取硬盘最大的10个文件</h4>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">find / -type f  -exec ls -s <span style="color:#000;font-weight:bold">{}</span> <span style="color:#d14">\;</span>  | sort -n | tail -n20 | xargs ls -Slh
+</code></pre></div><p><strong>随时更新&hellip;</strong></p>
 
         </div>
 
@@ -206,6 +208,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
     </li>
     
@@ -237,14 +247,6 @@
         <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html" title="Linux硬盘读写测速">Linux硬盘读写测速</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -270,7 +272,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (5)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     

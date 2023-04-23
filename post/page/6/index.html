@@ -72,6 +72,56 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html" title="[转]PHP规范PSR-0和PSR-4的理解">[转]PHP规范PSR-0和PSR-4的理解</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月28日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            一、PSR0简介 下文描述了若要使用一个通用的自动加载器(autoloader)，你所需要遵守的规范： 一个完全标准的命名空间(namespace)和类(class)的结构是这样的：\&lt;Vendor Name&gt;\(&lt;Namespace&gt;\)*&lt;Class Name&gt; 每个命名空间(namespace)都必须有一个顶级的空间名(namespac……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/28/php/psr0-and-psr4.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/28/php/composer.html" title="Composer命令">Composer命令</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月28日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            composer是PHP的包管理、包依赖关系管理工具，有了它，我们就很轻松一个命令就可以把他人优秀的代码用到我们的项目中来，而且很容易管理依赖关系，更新删除等操作也很轻易的实现。 1 显示可用命令 composer composer list 2 查看当前镜像源 composer config -l -g [repositories.packagist.org.type] composer [repositories.packagist.org.url] https://packagist.org # 或者 composer config -g repo {&#34;packagist.org&#34;:{&#34;type&#34;:&#34;composer&#34;,&#34;url&#34;:&#34;https://packagist.org&#34;}} 3 配置镜像源 # 删除镜像 composer config -g --unset repos.packagist #……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/28/php/composer.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/07/27/php/regexp.html" title="PHP常用正则验证">PHP常用正则验证</a>
             </h1>
         </header>
@@ -275,58 +325,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html" title="MySQL遗忘Root密码">MySQL遗忘Root密码</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年7月15日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/MySQL'>MySQL</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            # systemctl stop mariadb #关闭服务 # cat /etc/my.cnf #修改/etc/my.cnf文件, ... [mysqld] skip-grant-tables #在[mysqld]下添加 skip-grant-tables , 再启动mysql ... # systemctl start mariadb #启动服务 # mysql -u root #连接MySql(MariaDB) 并修改root密码为123654 MariaDB [(none)]&gt; update mysql.user set Password=password(&#39;123654&#39;) where User=&#39;root&#39;; Query OK, 1 row affected (0.01 sec) Rows matched: 4 Changed: 1 Warnings: 0 MariaDB [(none)]&gt; flush privileges; Query OK, 0 rows affected (0.00 sec) MariaDB [(none)]&gt; quit; Bye #……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/15/mysql/forget-password.html">阅读全文</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/07/14/chlinux/command.html" title="Linux三剑客（grep、awk、sed）">Linux三剑客（grep、awk、sed）</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年7月14日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'> Linux</a></span>
-            
-            <span class="meta-category"><a href='/categories/Shell'>Shell</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            0、 引言 在Linux下一切皆文件，所以Linux下的操作就是对文件的操作。出于对文件更好的操作，下面给大家介绍一下常用的文本操作“三剑客”命令。 1、 grep 简介：文本过滤工具,用于查找文件里符合条件的字符串 语法： grep [-abcEFGhHilLnqrsvVwxy][-A&lt;显示行数&g……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/14/chlinux/command.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -427,6 +425,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
     </li>
     
@@ -458,14 +464,6 @@
         <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html" title="Linux硬盘读写测速">Linux硬盘读写测速</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -491,7 +489,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (5)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     

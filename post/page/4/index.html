@@ -72,6 +72,56 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html" title="Linux添加新硬盘(2T以上)">Linux添加新硬盘(2T以上)</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月9日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            此文适用于 2T 以上硬盘挂载，2T以下请参考 Linux添加新硬盘后操作记录 parted 命令为大于2T硬盘分区 一般来说我们对磁盘分区都是用fdisk命令，但是对于硬盘容量大于2T时，这个命令就不管用了，因为MBR分区表只支持2T磁盘；所以大于2T的磁盘必须使用GPT分区表，这时我们就需要用到pa……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html" title="KVM 使用 | 在kp920机器上使用KVM虚拟机">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月7日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            说明 本文所提及的方法仅供参考学习，请尊重网络资源原作者的劳动成果，尊重知识版权，合法取得资料使用权。 宿主机（物理机）： 机器配置： CPU：8核 鲲鹏920 / 内存：16G / 硬盘：1T 操作系统：银河麒麟v10（Arm版本） 系统镜像： Kylin-Server-10-SP1-Release-Build20-20210518-aarch64.iso 虚拟机： 虚拟配置：内存：4G / 硬盘：320G 操作系统：……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html" title="解决Redis的一些报错">解决Redis的一些报错</a>
             </h1>
         </header>
@@ -273,56 +323,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/10/html/question.html" title="Vue之axios请求踩坑记">Vue之axios请求踩坑记</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月10日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Vue'>Vue</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            在我们使用Vue框架的时候，我们不免会遇到各种各样的问题，话不多说。我们直接扔出我们的问题 Q1：POST请求时，后端无法接受到请求参数的问题 axios.post(&#39;/user&#39;, { id: &#39;2&#39;, username: &#39;4&#39; }).then(function(response) { console.log(response) }).catch(function(error) { console.log(error) }) 从后台取数据发现没有取到数据，我们从请求头中发现，请求头为application/json 参数的格式是Reques……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/10/html/question.html">阅读全文</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/09/network/3_handshakes_4_waves.html" title="TCP 三次握手与四次挥手">TCP 三次握手与四次挥手</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月9日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Network'>Network</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            TCP 简介 传输控制协议（TCP，Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由RFC 793定义。 TCP 一旦 建立会话，它便可以跟踪该会话中的对话。 由于 TCP 能够跟踪实际对话，它被视为状态协议。 状态协议是跟踪通信会话状态的协议。 例如，当使用 TCP……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/09/network/3_handshakes_4_waves.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -423,6 +423,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
     </li>
     
@@ -454,14 +462,6 @@
         <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html" title="Linux硬盘读写测速">Linux硬盘读写测速</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -487,7 +487,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (5)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     

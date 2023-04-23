@@ -72,6 +72,56 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html" title="Linux硬盘读写测速">Linux硬盘读写测速</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2022年3月31日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            Linux服务器想要知道硬盘的读写是否能满足服务的需要，我们可以使用Linux自带的dd命令测试硬盘的读写速度，方法如下： Linux硬盘写入速度： time dd if=/dev/zero of=/disk/test bs=2k count=1000000 Linux硬盘读取速度： time dd if=/disk/test of=/dev/null bs=2k 命令详解： time 用于计时； dd 用于复制，从if读出，写到of； if=/dev/zero 不产生IO，因此可以用来测试纯……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2022年3月30日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            原文地址：SSH 命令的三种代理功能（-L/-R/-D） ssh 命令除了登陆外还有三种代理功能： 正向代理（-L）：相当于 iptable 的 port forwarding 反向代理（-R）：相当于 frp 或者 ngrok socks5 代理（-D）：相当于 ss/ssr 如要长期高效的服务，应使用对应的专用软件。如没法安装软件，比如当你处在限制环境下想要访问下某个不可达到的……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
             </h1>
         </header>
@@ -271,56 +321,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年12月6日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Nginx'>Nginx</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            内容来自互联网和平日使用经验，整理一下方便日后参考。 正则表达式匹配，其中： * ~ 为区分大小写匹配 * ~* 为不区分大小写匹配 * !~和!~*分别为区分大小写不匹配及不区分大小写不匹配 文件及目录匹配，其中： * -f和!-f用来判断是否存在文件 * -d和!-d用来判断是否存在目录 * -e和!-e用来……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html">阅读全文</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html" title="Shell笔记 | 记录最近用到的组合命令">Shell笔记 | 记录最近用到的组合命令</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年11月25日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Shell'>Shell</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            删除当前目录下的指定名字的目录 find . -type d -name &#34;__pycache__&#34; |xargs rm -rf 删除当前目录下的指定后缀的文件 find ./ -name &#34;*.sock&#34; |xargs rm -rf 统计目录下文件数量 ls -lR|grep &#34;^-&#34;|wc -l 自动删除2小时之前的日志文件 find /var/log/ -mmin +120 -name message* -exec rm -rf {} \; 执行完上面的命令后，在/var/log/目录下所有的120分钟或者说2小时以前生成的或者更改过的以message……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/11/25/others/shell-note.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -421,6 +421,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
     </li>
     
@@ -452,14 +460,6 @@
         <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/31/chlinux/linux-disk-speed.html" title="Linux硬盘读写测速">Linux硬盘读写测速</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/03/30/chlinux/proxy-of-ssh.html" title="[转]SSH 命令的三种代理功能">[转]SSH 命令的三种代理功能</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -485,7 +485,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (5)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     
