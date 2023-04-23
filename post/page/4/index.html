@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html" title="KVM 使用 | 在 Centos 8 中创建桥接网卡">KVM 使用 | 在 Centos 8 中创建桥接网卡</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月13日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            请确保用户有访问服务器显示器的权限，不然出错ssh连接不上。 1 创建网桥 br0 设备 nmcli c add type bridge con-name br0 ifname br0 autoconnect yes 2 网桥 br0 桥接到 eth0 设备（请自己替换自己的设备名） nmcli c add type bridge-slave ifname eth0 master br0 3 查看配置是否成功自动创建了配置文件 ls /etc/sysconfig/network-scripts/ifcfg-br* ifcfg-br0 ifcfg-bridge-slave-eth0 4 将原来的网卡，设置为开启不启动 vi /etc/sysconfig/network-scripts/ifcfg-eth0 #将ONBOOT=yes 改成ONBOO……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html" title="Linux添加新硬盘(2T以上)">Linux添加新硬盘(2T以上)</a>
             </h1>
         </header>
@@ -298,31 +323,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html" title="网络地址转换 (NAT) | NAT 特征">网络地址转换 (NAT) | NAT 特征</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月11日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Network'>Network</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            0、私有地址 私有地址主要用于在局域网中进行分配，在 Internet上是无效的。这样可以很好地隔离局域网和 Internet。私有地址在公网上是不能被识别的，必须通过NAT将内部IP地址转换成公网上可用的IP地址，从而实现内部IP地址与外部公网的通信。 Tips： IPv4 私有地址空间（如下表……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/11/network/nat.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -364,6 +364,10 @@
     
     <li >
         <a href="https://blog.xmlwch.cn/post/page/8/">8</a>
+    </li>
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/post/page/9/">9</a>
     </li>
     
 
@@ -423,6 +427,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html" title="mysql数据库中某张表一直打不开">mysql数据库中某张表一直打不开</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
     </li>
     
@@ -458,10 +466,6 @@
         <a href="https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html" title="CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6">CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -487,7 +491,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (5)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     

@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 23 Apr 2023 12:30:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Apr 2023 12:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mysql数据库中某张表一直打不开</title>
+      <link>https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html</link>
+      <pubDate>Sun, 23 Apr 2023 12:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html</guid>
+      <description>问题： 数据库中的某张表一直打不开，但是其他表都正常 原因： 可能是针对这张表进行的某些操作导致表锁死了，使用命令（开mysql cli工具中）查看进程 showprocesslist查看state列有lock标识，表示被锁，info表示操作信息，id列表示进程id 解决方法： 杀死进程 kil</description>
+    </item>
+    
     <item>
       <title>Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</title>
       <link>https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html</link>

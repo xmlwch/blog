@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/12/07/others/ubuntu-nvidia-driver.html" title="Ubuntu Nvidia驱动失效简单解决方案">Ubuntu Nvidia驱动失效简单解决方案</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年12月7日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Others'>Others</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            NVIDIA-SMI has failed because it couldn‘t communicate with the NVIDIA driver. 温馨提醒： 以下方法，不需要重装驱动，简单快捷。适用于Ubuntu系统下，之前已经安装过驱动，但驱动失效的问题。 如果此方法仍然无法解决问题，可参考Ubuntu下安装nvidia显卡驱动，重装驱动。 但是最近准备用GPU跑模型时，提示cuda 不存在。……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/12/07/others/ubuntu-nvidia-driver.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/12/06/others/nginx-rewrite.html" title="Nginx rewrite 参数和例子">Nginx rewrite 参数和例子</a>
             </h1>
         </header>
@@ -294,31 +319,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html" title="KVM 使用 | 在 Centos 8 中创建桥接网卡">KVM 使用 | 在 Centos 8 中创建桥接网卡</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年9月13日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            请确保用户有访问服务器显示器的权限，不然出错ssh连接不上。 1 创建网桥 br0 设备 nmcli c add type bridge con-name br0 ifname br0 autoconnect yes 2 网桥 br0 桥接到 eth0 设备（请自己替换自己的设备名） nmcli c add type bridge-slave ifname eth0 master br0 3 查看配置是否成功自动创建了配置文件 ls /etc/sysconfig/network-scripts/ifcfg-br* ifcfg-br0 ifcfg-bridge-slave-eth0 4 将原来的网卡，设置为开启不启动 vi /etc/sysconfig/network-scripts/ifcfg-eth0 #将ONBOOT=yes 改成ONBOO……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -360,6 +360,10 @@
     
     <li >
         <a href="https://blog.xmlwch.cn/post/page/8/">8</a>
+    </li>
+    
+    <li >
+        <a href="https://blog.xmlwch.cn/post/page/9/">9</a>
     </li>
     
 
@@ -419,6 +423,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html" title="mysql数据库中某张表一直打不开">mysql数据库中某张表一直打不开</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
     </li>
     
@@ -454,10 +462,6 @@
         <a href="https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html" title="CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6">CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -483,7 +487,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (5)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     
