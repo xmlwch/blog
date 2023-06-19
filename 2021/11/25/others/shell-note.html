@@ -87,7 +87,7 @@
         </div>
         
         <div class="post-meta">
-            |<span class="post-date"> 本文共279字</span>，阅读约<span class="more-meta"> 1 分钟 </span>
+            |<span class="post-date"> 本文共349字</span>，阅读约<span class="more-meta"> 1 分钟 </span>
         </div>
         
         <div class="post-meta">
@@ -104,7 +104,10 @@
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ls -lR|grep <span style="color:#d14">&#34;^-&#34;</span>|wc -l
 </code></pre></div><h4 id="自动删除2小时之前的日志文件">自动删除2小时之前的日志文件</h4>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">find /var/log/ -mmin +120 -name message* -exec rm -rf <span style="color:#000;font-weight:bold">{}</span> <span style="color:#d14">\;</span>
-</code></pre></div><p>执行完上面的命令后，在/var/log/目录下所有的120分钟或者说2小时以前生成的或者更改过的以message开头的日志文件都会被删掉。(如果要删除两小时之内的日志文件，使用命令：<code>find /var/log/ -mmin -120 -name message* -exec rm -rf {} \;</code> )</p>
+</code></pre></div><p>执行完上面的命令后，在/var/log/目录下所有的120分钟或者说2小时以前生成的或者更改过的以message开头的日志文件都会被删掉。</p>
+<p>(如果要删除两小时之内的日志文件，使用命令：<code>find /var/log/ -mmin -120 -name message* -exec rm -rf {} \;</code> )</p>
+<p>(如果要删除一天内的日志文件，使用命令：<code>find /var/log/ -mtime -1 -name message* -exec rm -rf {} \;</code> )</p>
+<p>(如果要删除一天前的日志文件，使用命令：<code>find /var/log/ -mtime +1 -name message* -exec rm -rf {} \;</code> )</p>
 <p>将上面的find命令加到Linux系统的任务计划<code>crontab</code>里，即可实现自动定时删除文件。</p>
 <h4 id="获取硬盘最大的10个文件">获取硬盘最大的10个文件</h4>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">find / -type f  -exec ls -s <span style="color:#000;font-weight:bold">{}</span> <span style="color:#d14">\;</span>  | sort -n | tail -n20 | xargs ls -Slh
