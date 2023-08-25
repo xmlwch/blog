@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html" title="CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6">CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2022年6月8日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            一、安装必要rpm包 yum -y install epel-release gcc binutils wget kernel-devel kernel-headers # 主要安装 kernel-devel，但是此处要保证内核于运行的一致， # 两种解决思路： # 1.找到对应版本的kernel-devel包 # 2.更新运行kernel（这里的例子采用此法） yum -y install kernel # 更改grub配置使用最新的内核启动 awk -F\&#39; &#39;$1==&#34;menuentry &#34; {print i++ &#34; : &#34; $2}&#39;……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2022/04/02/chlinux/linux-comm-rsync.html" title="[转]rsync 用法教程">[转]rsync 用法教程</a>
             </h1>
         </header>
@@ -296,31 +321,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/12/10/others/httpd-proxy.html" title="Httpd反向代理配置">Httpd反向代理配置</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年12月10日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Httpd'>Httpd</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            Apache提供了 mod_proxy 模块用于提供代理服务，能够支持的包括正向代理、反向代理、透明代理、缓存、负载均衡，HTTP代理、FTP代理、SSL代理等若干强大的功能。 配置http反向代理地址 1、首先确保Apache有这些模块，在Apache根目录下确认有这些模块，主要包含以下模块： mod_proxy.so #必须……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/12/10/others/httpd-proxy.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -425,6 +425,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html" title="linux 的防火墙 ufw、firwalld、iptables ">linux 的防火墙 ufw、firwalld、iptables </a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html" title="mysql数据库中某张表一直打不开">mysql数据库中某张表一直打不开</a>
     </li>
     
@@ -458,10 +462,6 @@
     
     <li>
         <a href="https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html" title="Shell 字符串截取总结">Shell 字符串截取总结</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html" title="CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6">CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</a>
     </li>
     
 </ul>
@@ -514,6 +514,8 @@
     <li><a href="https://blog.xmlwch.cn/categories/smb/">smb (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/">防火墙 (1)</a></li>
     
 </ul>
     </section>

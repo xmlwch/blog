@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>linux 的防火墙 ufw、firwalld、iptables  | xmlwch的博客</title>
+    <meta property="og:title" content="linux 的防火墙 ufw、firwalld、iptables  - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2023-08-25T11:40:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2023-08-25T11:40:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">linux 的防火墙 ufw、firwalld、iptables </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2023年8月25日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/%E9%98%B2%E7%81%AB%E5%A2%99'>防火墙</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共1096字</span>，阅读约<span class="more-meta"> 3 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="防火墙综述">防火墙综述</h2>
+<p><code>linux</code> 防火墙，常用的包括三种：<code>ufw</code> 、 <code>firewalld</code> 和 <code>iptables</code>。学习难度依次递增。</p>
+<p>常见的防火墙分为两种，一种是3层防火墙，另一种是 7 层防火墙。</p>
+<blockquote>
+<p>在 TCP/IP 的七层网络中，第三层是网络层，三层防火网会在这层对源地址和目标地址进行检测。但七成防火墙会对 源端口、目标端口、源ip、目标ip 全都进行检测。</p>
+</blockquote>
+<h2 id="ufw">ufw</h2>
+<p>因为原生的 <code>iptable</code> 配置麻烦，学习成本较高。 <code>ufw</code>全称 <code>Uncomplicated Firewall</code> 是 <code>ubuntu</code>提供的一个 <code>iptables</code> 的接口。同时支持 <code>ipv4</code> 和 <code>ipv6</code>。</p>
+<p>最新版的UFW默认启用了IPV6配置，你也可以通过以下命令进行检查：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># cat /etc/default/ufw | grep -i ipv6</span>
+<span style="color:#008080">IPV6</span><span style="color:#000;font-weight:bold">=</span>yes
+</code></pre></div><h3 id="默认策略">默认策略</h3>
+<p>默认情况下，<code>UFW</code> 设置了：禁止所有流量转入，允许所有流量转出。（这点和 iptable 的默认允许所有流量转入不同）。
+我们也可以更改此默认配置：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /etc/default/ufw |grep -i default_input  <span style="color:#998;font-style:italic"># 加 -i 是关闭大小写区分。</span>
+<span style="color:#008080">DEFAULT_INPUT_POLICY</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;DROP&#34;</span>
+</code></pre></div><h3 id="规则设置">规则设置</h3>
+<p>允许 80 端口的 tcp 流量包进入</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ufw allow 22/tcp
+</code></pre></div><p>拒绝 88 端口的 tcp 流量包进入与流出</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ufw deny 88/tcp
+</code></pre></div><p>允许特定的 ip 源的访问</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ufw allow from 192.168.1.1
+</code></pre></div><h2 id="firewall">firewall</h2>
+<p><code>Centos7</code>以上的发行版都试自带了<code>firewalld</code>防火墙的，<code>firewalld</code>去带了<code>iptables</code>防火墙。其原因是<code>iptables</code>的防火墙策略是交由内核层面的<code>netfilter</code>网络过滤器来处理的，而firewalld则是交由内核层面的<code>nftables</code>包过滤框架来处理。 相较于<code>iptables</code>防火墙而言，<code>firewalld</code>支持动态更新技术并加入了区域（zone）的概念。简单来说，区域就是<code>firewalld</code>预先准备了几套防火墙策略集合（策略模板），用户可以根据生产场景的不同而选择合适的策略集合，从而实现防火墙策略之间的快速切换。</p>
+<p><strong>关于 firewall 防火墙配置，需要注意的是：</strong></p>
+<blockquote>
+<p>这里需要首先说明的是，在执行命令时，如果没有带 &ndash;permanent 参数表示配置立即生效，但是不会对该配置进行存储，相当于重启服务器就会丢失。如果带上则会将配置存储到配置文件，，但是这种仅仅是将配置存储到文件，却并不会实时生效，需要执行 firewall-cmd &ndash;reload 命令重载配置才会生效。</p>
+</blockquote>
+<h3 id="规则配置">规则配置</h3>
+<ol>
+<li>默认域的配置</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">firewall-cmd --list-all
+</code></pre></div><ol>
+<li>应急命令</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">firewall-cmd --panic-on     <span style="color:#998;font-style:italic"># 拒绝所有流量，远程连接会立即断开，只有本地能登陆</span>
+firewall-cmd --panic-off    <span style="color:#998;font-style:italic"># 取消应急模式，但需要重启firewalld后才可以远程ssh</span>
+firewall-cmd --query-panic  <span style="color:#998;font-style:italic"># 查看是否为应急模式</span>
+</code></pre></div><ol>
+<li>端口</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">firewall-cmd --add-port<span style="color:#000;font-weight:bold">=</span>&lt;port&gt;/&lt;protocol&gt;    <span style="color:#998;font-style:italic"># 添加端口/协议（TCP/UDP）</span>
+firewall-cmd --remove-port<span style="color:#000;font-weight:bold">=</span>&lt;port&gt;/&lt;protocol&gt; <span style="color:#998;font-style:italic"># 移除端口/协议（TCP/UDP）</span>
+firewall-cmd --list-ports                    <span style="color:#998;font-style:italic"># 查看开放的端口</span>
+</code></pre></div><ol>
+<li>开放指定端口，并重新加载</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">firewall-cmd --add-port<span style="color:#000;font-weight:bold">=</span>443/tcp --permanent <span style="color:#998;font-style:italic"># 开放端口</span>
+firewall-cmd --reload                       <span style="color:#998;font-style:italic"># 重新加载</span>
+firewall-cmd --query-port<span style="color:#000;font-weight:bold">=</span>443/tcp           <span style="color:#998;font-style:italic"># 查询是否放开</span>
+</code></pre></div><h2 id="iptables">iptables</h2>
+<p>iptables 的结构</p>
+<blockquote>
+<p>iptables -&gt; Tables -&gt; Chains -&gt; Rules</p>
+</blockquote>
+<p>简单地讲，tables由chains组成，而chains又由rules组成。iptables 默认有四个表Filter, NAT, Mangle, Raw，其对于的链如下图。</p>
+<p>
+        <img class="mx-auto" alt="img" src="/img/202308/1979227-20230303082406886-1501989477.png" />   
+    </p>
+<h4 id="参考文献">参考文献</h4>
+<p><a href="%5Bhttps://zhuanlan.zhihu.com/p/98880088">https://zhuanlan.zhihu.com/p/98880088</a>
+<a href="https://www.cnblogs.com/stulzq/p/9808504.html">https://www.cnblogs.com/stulzq/p/9808504.html</a>
+<a href="https://wooyun.js.org/drops/Iptables%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.html">https://wooyun.js.org/drops/Iptables入门教程.html</a></p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html">https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh"> 知识共享 署名-相同方式共享 4.0 国际(CC BY-SA 4.0)许可协议 </a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2022/09/28/chlinux/everything-is-a-file.md.html">[转]彻底搞懂「一切皆文件」的UNIX哲学</a></li>
+        
+        <li><a href="/2022/09/27/chlinux/system-contents.html">Linux 文件系统</a></li>
+        
+        <li><a href="/2022/09/15/chlinux/os-time.html">修改系统时间</a></li>
+        
+        <li><a href="/2021/11/14/chlinux/auto-mount-smb.html">开机自动挂载samba目录</a></li>
+        
+        <li><a href="/2021/09/13/chlinux/create-bridge-network.html">KVM 使用 | 在 Centos 8 中创建桥接网卡</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Linux'>Linux</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2023 <a href="https://xmlwch.cn">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html" title="linux 的防火墙 ufw、firwalld、iptables ">linux 的防火墙 ufw、firwalld、iptables </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html" title="mysql数据库中某张表一直打不开">mysql数据库中某张表一直打不开</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2022/11/16/others/powershell.html" title="批量删除电脑上客厅的奇异果媒体设备">批量删除电脑上客厅的奇异果媒体设备</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2022/09/27/chlinux/system-contents.html" title="Linux 文件系统">Linux 文件系统</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2022/09/15/chlinux/os-time.html" title="修改系统时间">修改系统时间</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html" title="Shell 字符串截取总结">Shell 字符串截取总结</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/smb/">smb (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/">防火墙 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Cuda/">Cuda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Httpd/">Httpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/LVM/">LVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/">Nvidia显卡</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Prism/">Prism</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SMTP/">SMTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell/">Shell</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Ubuntu-Nvidia%E9%A9%B1%E5%8A%A8/">Ubuntu Nvidia驱动</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WSL/">WSL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/command/">command</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/conda/">conda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/du/">du</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/kernel/">kernel</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/powershell/">powershell</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/proxy/">proxy</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rewrite/">rewrite </a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rsync/">rsync</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/signal/">signal</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/smb/">smb</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/virsh/">virsh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/">vi异常</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vmrun/">vmrun</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%A1%AC%E7%9B%98%E6%B5%8B%E9%80%9F/">硬盘测速</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">远程桌面</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

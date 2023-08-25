@@ -6,7 +6,16 @@
     <description>Recent content in Linux on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 28 Sep 2022 10:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Aug 2023 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux 的防火墙 ufw、firwalld、iptables </title>
+      <link>https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html</link>
+      <pubDate>Fri, 25 Aug 2023 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html</guid>
+      <description>防火墙综述 linux 防火墙，常用的包括三种：ufw 、 firewalld 和 iptables。学习难度依次递增。 常见的防火墙分为两种，一种是3层防火墙，另一种是 7 层防火墙。 在 TCP/IP 的七层网络中，第三层是网络层，三层防火网会在这层对源地址和目标地址进行检测。但七成防火墙会对 源端口、目标端口、源ip、目标ip 全都进</description>
+    </item>
+    
     <item>
       <title>[转]彻底搞懂「一切皆文件」的UNIX哲学</title>
       <link>https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html</link>

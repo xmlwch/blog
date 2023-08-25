@@ -3,18 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.xmlwch.cn/categories/</loc>
-    <lastmod>2023-04-23T12:40:00+08:00</lastmod>
+    <lastmod>2023-08-25T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/Linux/</loc>
+    <lastmod>2023-08-25T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html</loc>
+    <lastmod>2023-08-25T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/post/</loc>
+    <lastmod>2023-08-25T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/</loc>
+    <lastmod>2023-08-25T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/</loc>
+    <lastmod>2023-08-25T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/</loc>
+    <lastmod>2023-08-25T11:40:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/categories/MySQL/</loc>
     <lastmod>2023-04-23T12:40:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html</loc>
-    <lastmod>2023-04-23T12:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/post/</loc>
-    <lastmod>2023-04-23T12:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/</loc>
     <lastmod>2023-04-23T12:40:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html</loc>
@@ -32,9 +44,6 @@
     <loc>https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html</loc>
     <lastmod>2023-04-17T12:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://blog.xmlwch.cn/tags/</loc>
-    <lastmod>2023-04-17T12:00:00+08:00</lastmod>
-  </url><url>
     <loc>https://blog.xmlwch.cn/categories/Others/</loc>
     <lastmod>2022-11-16T10:00:00+08:00</lastmod>
   </url><url>
@@ -45,9 +54,6 @@
     <lastmod>2022-11-16T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html</loc>
-    <lastmod>2022-09-28T10:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/tags/Linux/</loc>
     <lastmod>2022-09-28T10:40:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/categories/Linux/</loc>

@@ -72,6 +72,33 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html" title="MySQL服务启不了">MySQL服务启不了</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月18日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/MySQL'>MySQL</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            情况1：存在socket lock file root用户执行 # systemctl restart kymysql 时不报错，但服务也没启动，查看错误日志 cat /opt/KY/Softs/log/mysql/mysql-error.log ... 2021-06-18T01:28:47.783821Z 0 [Note] Server hostname (bind-address): &#39;0.0.0.0&#39;; port: 20001 2021-06-18T01:28:47.783838Z 0 [Note] - &#39;0.0.0.0&#39; resolves to &#39;0.0.0.0&#39;; 2021-06-18T01:28:47.783867Z 0 [Note] Server socket created on IP: &#39;0.0.0.0&#39;. 2021-06-18T01:28:47.783925Z 0 [ERROR] Another process with pid 2663 is using unix socket file. 2021-06-18T01:28:47.783932Z 0 [ERROR] Unable to setup unix socket lock file. 2021-06-18T01:28:47.783937Z 0 [ERROR] Aborting 解决办法： # 删除sock锁文件 rm -rf /opt/KY/Softs/mysql/var/mysql.sock.lock # 重启服务 systemctl restart kymysql 情况2：缺少lib包 roo……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/18/chlinux/question3.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/17/chlinux/shell-bracket.html" title="Shell中括号场景总结">Shell中括号场景总结</a>
             </h1>
         </header>
@@ -298,31 +325,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html" title="Go语言开发环境搭建">Go语言开发环境搭建</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年5月21日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Golang'>Golang</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            下载 要搭建Go语言开发环境，第一步要下载go的开发工具包，目前最新稳定版本是go1.16.6。Go为我们所熟知的所有平台架构提供了开发工具包，比如熟知的Linux、Mac和Windows，其他的还有FreeBSD等。 根据自己的机器操作系统选择相应的开发工具包，比如我的是Windo……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/05/21/golang/install-go-dev.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -427,6 +429,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html" title="linux 的防火墙 ufw、firwalld、iptables ">linux 的防火墙 ufw、firwalld、iptables </a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html" title="mysql数据库中某张表一直打不开">mysql数据库中某张表一直打不开</a>
     </li>
     
@@ -460,10 +466,6 @@
     
     <li>
         <a href="https://blog.xmlwch.cn/2022/09/13/chlinux/shell-substr.html" title="Shell 字符串截取总结">Shell 字符串截取总结</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/06/08/chlinux/centos-nvidia-cuda.html" title="CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6">CentOS 7.6 &#43; Nvidia显卡 &#43; Cuda 10.2 &#43; cuDNN 7.6</a>
     </li>
     
 </ul>
@@ -516,6 +518,8 @@
     <li><a href="https://blog.xmlwch.cn/categories/smb/">smb (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/">防火墙 (1)</a></li>
     
 </ul>
     </section>
