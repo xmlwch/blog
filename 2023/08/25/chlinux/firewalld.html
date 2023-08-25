@@ -101,9 +101,7 @@
             <h2 id="防火墙综述">防火墙综述</h2>
 <p><code>linux</code> 防火墙，常用的包括三种：<code>ufw</code> 、 <code>firewalld</code> 和 <code>iptables</code>。学习难度依次递增。</p>
 <p>常见的防火墙分为两种，一种是3层防火墙，另一种是 7 层防火墙。</p>
-<blockquote>
 <p>在 TCP/IP 的七层网络中，第三层是网络层，三层防火网会在这层对源地址和目标地址进行检测。但七成防火墙会对 源端口、目标端口、源ip、目标ip 全都进行检测。</p>
-</blockquote>
 <h2 id="ufw">ufw</h2>
 <p>因为原生的 <code>iptable</code> 配置麻烦，学习成本较高。 <code>ufw</code>全称 <code>Uncomplicated Firewall</code> 是 <code>ubuntu</code>提供的一个 <code>iptables</code> 的接口。同时支持 <code>ipv4</code> 和 <code>ipv6</code>。</p>
 <p>最新版的UFW默认启用了IPV6配置，你也可以通过以下命令进行检查：</p>
@@ -124,9 +122,7 @@
 </code></pre></div><h2 id="firewall">firewall</h2>
 <p><code>Centos7</code>以上的发行版都试自带了<code>firewalld</code>防火墙的，<code>firewalld</code>去带了<code>iptables</code>防火墙。其原因是<code>iptables</code>的防火墙策略是交由内核层面的<code>netfilter</code>网络过滤器来处理的，而firewalld则是交由内核层面的<code>nftables</code>包过滤框架来处理。 相较于<code>iptables</code>防火墙而言，<code>firewalld</code>支持动态更新技术并加入了区域（zone）的概念。简单来说，区域就是<code>firewalld</code>预先准备了几套防火墙策略集合（策略模板），用户可以根据生产场景的不同而选择合适的策略集合，从而实现防火墙策略之间的快速切换。</p>
 <p><strong>关于 firewall 防火墙配置，需要注意的是：</strong></p>
-<blockquote>
 <p>这里需要首先说明的是，在执行命令时，如果没有带 &ndash;permanent 参数表示配置立即生效，但是不会对该配置进行存储，相当于重启服务器就会丢失。如果带上则会将配置存储到配置文件，，但是这种仅仅是将配置存储到文件，却并不会实时生效，需要执行 firewall-cmd &ndash;reload 命令重载配置才会生效。</p>
-</blockquote>
 <h3 id="规则配置">规则配置</h3>
 <ol>
 <li>默认域的配置</li>
@@ -152,17 +148,15 @@ firewall-cmd --reload                       <span style="color:#998;font-style:i
 firewall-cmd --query-port<span style="color:#000;font-weight:bold">=</span>443/tcp           <span style="color:#998;font-style:italic"># 查询是否放开</span>
 </code></pre></div><h2 id="iptables">iptables</h2>
 <p>iptables 的结构</p>
-<blockquote>
 <p>iptables -&gt; Tables -&gt; Chains -&gt; Rules</p>
-</blockquote>
 <p>简单地讲，tables由chains组成，而chains又由rules组成。iptables 默认有四个表Filter, NAT, Mangle, Raw，其对于的链如下图。</p>
 <p>
         <img class="mx-auto" alt="img" src="/img/202308/1979227-20230303082406886-1501989477.png" />   
     </p>
 <h4 id="参考文献">参考文献</h4>
-<p><a href="%5Bhttps://zhuanlan.zhihu.com/p/98880088">https://zhuanlan.zhihu.com/p/98880088</a>
-<a href="https://www.cnblogs.com/stulzq/p/9808504.html">https://www.cnblogs.com/stulzq/p/9808504.html</a>
-<a href="https://wooyun.js.org/drops/Iptables%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.html">https://wooyun.js.org/drops/Iptables入门教程.html</a></p>
+<p><a href="%5Bhttps://zhuanlan.zhihu.com/p/98880088">https://zhuanlan.zhihu.com/p/98880088</a></p>
+<p><a href="https://www.cnblogs.com/stulzq/p/9808504.html">https://www.cnblogs.com/stulzq/p/9808504.html</a></p>
+<p><a href="https://wooyun.js.org/drops/Iptables%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.html">https://wooyun.js.org/drops/Iptables入门教程.html</a></p>
 
         </div>
 
