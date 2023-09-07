@@ -6,7 +6,25 @@
     <description>Recent content in Tags on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 25 Aug 2023 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Sep 2023 09:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>API</title>
+      <link>https://blog.xmlwch.cn/tags/API/</link>
+      <pubDate>Wed, 06 Sep 2023 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/API/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTTP</title>
+      <link>https://blog.xmlwch.cn/tags/HTTP/</link>
+      <pubDate>Wed, 06 Sep 2023 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/tags/HTTP/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Linux</title>
       <link>https://blog.xmlwch.cn/tags/Linux/</link>
@@ -319,15 +337,6 @@
       <pubDate>Fri, 13 Aug 2021 11:00:00 +0800</pubDate>
       
       <guid>https://blog.xmlwch.cn/tags/WebSocket/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HTTP</title>
-      <link>https://blog.xmlwch.cn/tags/HTTP/</link>
-      <pubDate>Thu, 12 Aug 2021 12:00:00 +0800</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/tags/HTTP/</guid>
       <description></description>
     </item>
     

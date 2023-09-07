@@ -6,7 +6,16 @@
     <description>Recent content in Categories on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 25 Aug 2023 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Sep 2023 09:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTTP</title>
+      <link>https://blog.xmlwch.cn/categories/HTTP/</link>
+      <pubDate>Wed, 06 Sep 2023 09:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/categories/HTTP/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>防火墙</title>
       <link>https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/</link>
@@ -130,15 +139,6 @@
       <pubDate>Wed, 25 Aug 2021 15:00:00 +0800</pubDate>
       
       <guid>https://blog.xmlwch.cn/categories/Vue/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HTTP</title>
-      <link>https://blog.xmlwch.cn/categories/HTTP/</link>
-      <pubDate>Thu, 12 Aug 2021 12:00:00 +0800</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/categories/HTTP/</guid>
       <description></description>
     </item>
     
