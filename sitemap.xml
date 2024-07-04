@@ -2,10 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.xmlwch.cn/tags/API/</loc>
-    <lastmod>2023-09-06T09:00:00+08:00</lastmod>
-  </url><url>
     <loc>https://blog.xmlwch.cn/categories/</loc>
+    <lastmod>2024-07-03T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/categories/Others/</loc>
+    <lastmod>2024-07-03T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/PE/</loc>
+    <lastmod>2024-07-03T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html</loc>
+    <lastmod>2024-07-03T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/post/</loc>
+    <lastmod>2024-07-03T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/</loc>
+    <lastmod>2024-07-03T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/</loc>
+    <lastmod>2024-07-03T11:40:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/API/</loc>
     <lastmod>2023-09-06T09:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/tags/HTTP/</loc>
@@ -14,16 +32,7 @@
     <loc>https://blog.xmlwch.cn/categories/HTTP/</loc>
     <lastmod>2023-09-06T09:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://blog.xmlwch.cn/post/</loc>
-    <lastmod>2023-09-06T09:00:00+08:00</lastmod>
-  </url><url>
     <loc>https://blog.xmlwch.cn/2023/09/06/http/restful-api.html</loc>
-    <lastmod>2023-09-06T09:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/tags/</loc>
-    <lastmod>2023-09-06T09:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/</loc>
     <lastmod>2023-09-06T09:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/tags/Linux/</loc>
@@ -55,9 +64,6 @@
   </url><url>
     <loc>https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html</loc>
     <lastmod>2023-04-17T12:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/categories/Others/</loc>
-    <lastmod>2022-11-16T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/tags/powershell/</loc>
     <lastmod>2022-11-16T10:00:00+08:00</lastmod>

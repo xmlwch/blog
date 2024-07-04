@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PE on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/PE/</link>
+    <description>Recent content in PE on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 03 Jul 2024 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/PE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PE 制作过程</title>
+      <link>https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html</link>
+      <pubDate>Wed, 03 Jul 2024 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html</guid>
+      <description>wimbuilder官方网址：http://hello.wimbuilder.world/ MSDN网址：https://msdn.itellyou.cn/ &amp;hellip;</description>
+    </item>
+    
+  </channel>
+</rss>
