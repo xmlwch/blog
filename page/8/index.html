@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/28/php/session.html" title="PHP Session浅析">PHP Session浅析</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月28日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            缘由 配合客户做一个免密登录跳转接口，因为双方均采用独立的php环境，且部署在一台服务器上。出现了先登录我方系统后不可登录对方系统，先登录对方系统后登录不了我方系统，怀疑为会话机制出现问题。故重新梳理Session会话机制。 声明与使用 Session的设置不同于Cookie，必须先启……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/28/php/session.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/21/chlinux/question4.html" title="UOS普通用户可以ssh但是root不行">UOS普通用户可以ssh但是root不行</a>
             </h1>
         </header>
@@ -280,29 +303,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/09/chlinux/port-listening.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html" title="fpm打包">fpm打包</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月8日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            a）环境准备 安装ruby环境和gem命令 yum -y install ruby rubygems ruby-devel gem命令是从rubygem仓库安装软件类似yum从yum仓库安装软件 查看当前源： gem source list *** CURRENT SOURCES *** https://rubygems.org/ 添加国内源： gem sources -a http://mirrors.aliyun.com/rubygems/ 移除国外源： gem sources --remove https://rubygems.org/ 安装FPM工具： gem install fpm 提示ruby版本过低时请自行百度 b）fpm打包 fpm -s dir -a aarch64 -t rpm -n KySofts-withDev -v 1.0.0……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/08/chlinux/pack-use-fpm.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -408,6 +408,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html" title="PE 制作过程">PE 制作过程</a>
     </li>
     
@@ -443,10 +447,6 @@
         <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/09/27/chlinux/system-contents.html" title="Linux 文件系统">Linux 文件系统</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -470,7 +470,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (40)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
     
@@ -508,6 +508,8 @@
 <div class="tagcloud">
     
     <a href="https://blog.xmlwch.cn/tags/API/">API</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/CA%E8%AF%81%E4%B9%A6/">CA证书</a>
     
     <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
     

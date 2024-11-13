@@ -79,6 +79,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html">KVM 使用 | 在kp920机器上使用KVM虚拟机</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月7日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+        </div>
+        
+        <div class="post-content">
+            说明 本文所提及的方法仅供参考学习，请尊重网络资源原作者的劳动成果，尊重知识版权，合法取得资料使用权。 宿主机（物理机）： 机器配置： CPU：8核 鲲鹏920 / 内存：16G / 硬盘：1T 操作系统：银河麒麟v10（Arm版本） 系统镜像： Kylin-Server-10-SP1-Release-Build20-20210518-aarch64.iso 虚拟机： 虚拟配置：内存：4G / 硬盘：320G 操作系统：……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/07/chlinux/use-kvm-on-kp920.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/03/chlinux/redis-question.html">解决Redis的一些报错</a>
             </h1>
         </header>
@@ -299,29 +322,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/21/chlinux/question4.html">UOS普通用户可以ssh但是root不行</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月21日
-        </date>
-        
-        <div class="post-meta meta-category">
-            |
-            
-            <a href='/categories/Linux'>Linux</a>
-            
-        </div>
-        
-        <div class="post-content">
-            sudo vim /etc/ssh/sshd_config 找到 #PermitRootLogin prohibit-password 修改为PermitRootLogin yes，将前面的#注释删除 然后 wq 退出 修改成功以后，重启ssh服务： systemctl restart ssh 由于时间仓促，错误与疏忽之处在所难免，希望各位朋友们以邮件的形式反馈问题给我，再次表示感谢！……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/21/chlinux/question4.html">阅读全文</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -408,6 +408,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html" title="PE 制作过程">PE 制作过程</a>
     </li>
     
@@ -443,10 +447,6 @@
         <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/09/27/chlinux/system-contents.html" title="Linux 文件系统">Linux 文件系统</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -470,7 +470,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (40)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
     
@@ -508,6 +508,8 @@
 <div class="tagcloud">
     
     <a href="https://blog.xmlwch.cn/tags/API/">API</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/CA%E8%AF%81%E4%B9%A6/">CA证书</a>
     
     <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
     

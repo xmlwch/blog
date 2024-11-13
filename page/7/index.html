@@ -70,6 +70,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html" title="FileZilla读取目录列表失败">FileZilla读取目录列表失败</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月22日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/FTP'>FTP</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            错误1： 错误: 无法连接到服务器 状态: 正在等待重试... 解决办法 在阿里云的安全策略里开放21号端口 错误2： 状态: 连接建立，等待欢迎消息... 状态: 不安全的服务器，不支持 FTP over TLS。 状态: 已登录 状态: 读取目录列表... 命令: PWD 响应: 257 &#34;/&#34; is current directory. 命令: TYPE I 响应: 200 Type set to I 命令: PORT 182,32,16,212,217,163 响应:……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/22/chlinux/question5.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html" title=" Vagrantfile详解"> Vagrantfile详解</a>
             </h1>
         </header>
@@ -284,29 +309,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/06/chlinux/supervisord.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/28/php/session.html" title="PHP Session浅析">PHP Session浅析</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月28日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/PHP'>PHP</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            缘由 配合客户做一个免密登录跳转接口，因为双方均采用独立的php环境，且部署在一台服务器上。出现了先登录我方系统后不可登录对方系统，先登录对方系统后登录不了我方系统，怀疑为会话机制出现问题。故重新梳理Session会话机制。 声明与使用 Session的设置不同于Cookie，必须先启……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/28/php/session.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -412,6 +414,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html" title="PE 制作过程">PE 制作过程</a>
     </li>
     
@@ -447,10 +453,6 @@
         <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/09/27/chlinux/system-contents.html" title="Linux 文件系统">Linux 文件系统</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -474,7 +476,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (40)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
     
@@ -512,6 +514,8 @@
 <div class="tagcloud">
     
     <a href="https://blog.xmlwch.cn/tags/API/">API</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/CA%E8%AF%81%E4%B9%A6/">CA证书</a>
     
     <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
     

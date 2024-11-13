@@ -6,7 +6,16 @@
     <description>Recent content in Posts on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 03 Jul 2024 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Nov 2024 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 OpenSSL 生成多域名/IP的自签名证书</title>
+      <link>https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html</link>
+      <pubDate>Mon, 11 Nov 2024 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html</guid>
+      <description>在现代网站的配置中，常常需要为多个子域名或不同的域名配置 SSL/TLS 证书。对于开发和测试环境，使用自签名证书是一个方便且经济的选择。OpenSSL 是一个广泛使用的工具，支持生成自签名证书。本文将详细介绍如何通过 OpenSSL 生成一个多域名（SAN，Subject Alternative Name）自签名证书。 步骤概览 创建一个</description>
+    </item>
+    
     <item>
       <title>PE 制作过程</title>
       <link>https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html</link>

@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html" title="挂载LVM卷">挂载LVM卷</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月28日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            缘由 挂载一块硬盘（主要是导出里边的数据），提示mount: unknown filesystem type &lsquo;LVM2_member&rsquo;，故查询、整理 LVM 相关知识。由于新旧硬盘都装了银河麒麟V10服务器系统，VG 名字重复又研究了修改VG名字。 一，LVM概念 需要理解的几个概念： PV（Physical Vol……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/28/chlinux/mount-lvm-volume.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/24/chlinux/virsh-manage-tools.html" title="KVM 使用 | virsh命令行管理工具">KVM 使用 | virsh命令行管理工具</a>
             </h1>
         </header>
@@ -276,29 +299,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/30/python/model.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html" title="Vue之日常踩坑记">Vue之日常踩坑记</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月25日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Vue'>Vue</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            在我们使用Vue框架的时候，我们不免会遇到各种各样的问题，话不多说。我们直接扔出我们的问题 1. JSON对象数据值拷贝 先JSON.stringify() 转为json字符串， 再JSON.parse() 转为json数组 方法缺点： 如果你的对象里有函数, 函数无法被拷贝下来 无法拷贝copyOb……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/25/html/question2.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -404,6 +404,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html" title="PE 制作过程">PE 制作过程</a>
     </li>
     
@@ -439,10 +443,6 @@
         <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/09/27/chlinux/system-contents.html" title="Linux 文件系统">Linux 文件系统</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -466,7 +466,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (39)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (40)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
     
@@ -504,6 +504,8 @@
 <div class="tagcloud">
     
     <a href="https://blog.xmlwch.cn/tags/API/">API</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/CA%E8%AF%81%E4%B9%A6/">CA证书</a>
     
     <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
     
