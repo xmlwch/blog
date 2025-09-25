@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>DHCP和PXE是怎么工作的 | xmlwch的博客</title>
+    <meta property="og:title" content="DHCP和PXE是怎么工作的 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2025-08-03T11:40:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2025-08-03T11:40:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">DHCP和PXE是怎么工作的</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2025年8月3日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Others'>Others</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共2201字</span>，阅读约<span class="more-meta"> 5 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>正常情况下主机（DHCP client）和DHCP server交互通过四个数据包完成IP的配置，分为DHCP Discover、DHCP Offer、DHCP request、DHCP ACK四步：
+
+        <img class="mx-auto" alt="img" src="/img/202508/1480358-20231012165725785-2042439768.png" />   
+    </p>
+<h1 id="如何为新机器分配ip">如何为新机器分配IP</h1>
+<blockquote>
+<p>不完整的包是无法在网络上传输的</p>
+</blockquote>
+<h2 id="一客户端申请地址dhcp-discover">一、客户端申请地址（DHCP Discover）</h2>
+<p>新的机器上线还没有合法的IP地址时，会使用<code>0.0.0.0</code>向<code>255.255.255.255</code>这个地址发送广播包，广播包封装了UDP，UDP封装了BOOTP（Bootstrap Protocol）。这个包发出Boot request，意在告诉局域网中的主机，我还没有IP地址，我的MAC地址是<code>xx:xx:xx:xx:xx:xx</code>，谁能给我一个IP地址？
+
+        <img class="mx-auto" alt="img" src="/img/202508/1480358-20231012165803521-2103123954.png" />   
+    </p>
+<p>物理层：包含网卡信息、使用了DHCP协议的UDP包等信息
+数据链路层：包含主机MAC地址，广播MAC地址<code>ff:ff:ff:ff:ff:ff</code>等信息
+网络层：包含TTL、主机IP地址、广播地址等信息
+传输层：udp的端口号等信息
+应用层：Boot request中包含当前主机IP地址、DNS服务器地址（此时的主机一无所知，置为0.0.0.0)，需要获取的子网掩码、网关、DNS等信息</p>
+<p>后续主机和DHCP传输的四个包都是一步一步对以上信息的填补。</p>
+<h2 id="二dhcpserver分配地址dhcp-offer">二、DHCPserver分配地址（DHCP Offer）</h2>
+<ol>
+<li>局域网中的主机收到网络包判断如果不是发给自己的则丢弃，DHCP服务器发现了dhcp类型的包，于是接收并解开分析，发现有一个新主机向自己申请IP地址，于是DHCP server会保留一个IP地址（期间不会分配给别人）。</li>
+<li>新主机还没有分配到IP地址，DHCP server仍然需要使用⁄广播包的方式发送，在数据链路层添加自己的MAC地址，设置广播MAC地址。填充自己的IP地址到网络层，设置UDP端口信息，在Boot reply中设置Boot request请求的内容，并<strong>附加租约时间</strong>。</li>
+<li>发送广播包</li>
+</ol>
+<p>
+        <img class="mx-auto" alt="img" src="/img/202508/1480358-20231012165820557-1100528998.png" />   
+    </p>
+<h2 id="三新主机选择dhcp-offerdhcp-request">三、新主机选择DHCP Offer（DHCP request）</h2>
+<p>为什么叫选择DHCP Offer？因为如果有多个DHCP server，他们都会发送DHCP Offer广播包，此时新主机（DHCP client）会收到多个包，通常会选择最先到达的DHCP Offer。选择好offer之后此时的客户端仍然没有IP地址，继续发送广播包，称为DHCP request。</p>
+<ol>
+<li>设置MAC地址信息，设置IP信息（0.0.0.0和255.255.255.255），设置UDP信息</li>
+<li>设置Boot request接受的DHCP offer中的IP地址、DHCP server的IP地址、以及要下一次收到ACK的广播或单播模式。</li>
+<li>通过广播包告诉所有DHCP server，我接受了那个DHCP server的Offer，请其他DHCP server撤销提供的IP地址</li>
+</ol>
+<p>
+        <img class="mx-auto" alt="img" src="/img/202508/1480358-20231012165837010-204710244.png" />   
+    </p>
+<h2 id="四最终确认dhcp-ack">四、最终确认（DHCP ACK）</h2>
+<p>DHCP server收到DHCP request后会使用广播或单播的模式发送一个ACK包作为最终确认，完成这一步新机器的IP地址就设置完成了。</p>
+<ol>
+<li>组装MAC头，根据request要求用单播还是广播（Bootp flags：BROADCAST设1为广播，设0为单播），单播设置新机器的MAC地址，广播则仍然是<code>ff:ff:ff:ff:ff:ff</code>，同理组装IP头，UDP头</li>
+<li>组装应用层BOOTP头，包含要分配给主机的IP地址，主机网卡的MAC地址，以及子网掩码、网关、DNS、租期、续约时间等。</li>
+</ol>
+<p>
+        <img class="mx-auto" alt="img" src="/img/202508/1480358-20231012165847946-690276040.png" />   
+    </p>
+<h1 id="dhcp租约更新">DHCP租约更新</h1>
+<p>通过以上内容我们知道DHCP分配的IP地址有租约一说，租期到了就需要收回地址，如果主机IP在租期到期后还需要继续使用，那么就要主动向DHCP server以单播的形式发送DHCP request来请求续租。</p>
+<ol>
+<li>一般在租期过去1/2时发送请求DHCP request请求。</li>
+<li>DHCP server收到请求后会发送DHCP ACK，如果续约成功则返回新的租期给主机；如果DHCP server不允许主机继续使用IP，则DHCP ACK应答会告诉主机。申请失败后主机继续使用该IP，直到7/8时主机再次发送DHCP request请求，如果失败则该地址被释放。</li>
+</ol>
+<h1 id="hdcp与pxe">HDCP与PXE</h1>
+<blockquote>
+<p>通过DHCP server和PXE server（Pre-boot Execution Environment）、TFTP server可以做到批量安装操作系统。</p>
+</blockquote>
+<p>主机启动是通过BIOS读取MBR（Master Boot Record）来启动GRUB -&gt; 通过GRUB加载内核、initramfs文件 -&gt; 再由内核启动初始化操作系统。所以将PXE client放在BIOS里面，BIOS将PXE client调入内存，通过PXE client与PXE server传输数据和执行指令可以完成操作系统的自动安装</p>
+<h2 id="pxe安装过程">PXE安装过程</h2>
+<ol>
+<li>配置DHCP的<code>next-server</code>指向PXE server的地址，再配置<code>filename</code>指向启动文件pxelinux.0</li>
+<li>主机拿到IP地址的同时也会收到PXE server的IP地址和启动文件pxelinux.0路径，主机的PXE client通过TFTP下载pxelinux.0并执行，拿到pxelinux.cfg，该配置文件有内核、initramfs的路径。</li>
+<li>PXE client读取配置文件后逐个请求，完成安装后重启并从硬盘启动操作系统。</li>
+</ol>
+<p>如果需要一些定制化的配置可以使用kickstart配置文件。
+
+        <img class="mx-auto" alt="img" src="/img/202508/1480358-20231012165902490-1112915228.png" />   
+    </p>
+<p><strong>学习自：</strong></p>
+<p><em>《趣谈网络协议》刘超</em></p>
+<p><em>《图解TCP/IP》</em></p>
+<p><em>《图解HTTP》</em></p>
+<p><em>《网络是怎样连接的》</em></p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html">https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh"> 知识共享 署名-相同方式共享 4.0 国际(CC BY-SA 4.0)许可协议 </a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/PXE'>PXE</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2025 <a href="https://xmlwch.cn">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html" title="DHCP和PXE是怎么工作的">DHCP和PXE是怎么工作的</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html" title="PE 制作过程">PE 制作过程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/09/06/http/restful-api.html" title="RESTful API 实践与常见陷阱">RESTful API 实践与常见陷阱</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html" title="linux 的防火墙 ufw、firwalld、iptables ">linux 的防火墙 ufw、firwalld、iptables </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html" title="mysql数据库中某张表一直打不开">mysql数据库中某张表一直打不开</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (7)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/smb/">smb (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/">防火墙 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/API/">API</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/CA%E8%AF%81%E4%B9%A6/">CA证书</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Cuda/">Cuda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Httpd/">Httpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/LVM/">LVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/">Nvidia显卡</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PE/">PE</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PXE/">PXE</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Prism/">Prism</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SMTP/">SMTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell/">Shell</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Ubuntu-Nvidia%E9%A9%B1%E5%8A%A8/">Ubuntu Nvidia驱动</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WSL/">WSL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/command/">command</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/conda/">conda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/du/">du</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/kernel/">kernel</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/powershell/">powershell</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/proxy/">proxy</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rewrite/">rewrite </a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rsync/">rsync</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/signal/">signal</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/smb/">smb</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/virsh/">virsh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/">vi异常</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vmrun/">vmrun</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%A1%AC%E7%9B%98%E6%B5%8B%E9%80%9F/">硬盘测速</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">远程桌面</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

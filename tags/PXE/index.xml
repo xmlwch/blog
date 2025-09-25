@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PXE on xmlwch的博客</title>
+    <link>https://blog.xmlwch.cn/tags/PXE/</link>
+    <description>Recent content in PXE on xmlwch的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 03 Aug 2025 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/tags/PXE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DHCP和PXE是怎么工作的</title>
+      <link>https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html</link>
+      <pubDate>Sun, 03 Aug 2025 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html</guid>
+      <description>正常情况下主机（DHCP client）和DHCP server交互通过四个数据包完成IP的配置，分为DHCP Discover、DHCP Offer、DHCP request、DHCP ACK四步： 如何为新机器分配IP 不完整的包是无法在网络上传输的 一、客户端申请地址（DHCP Discove</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,25 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 11 Nov 2024 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Sep 2025 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>通过静态文件部署Docker环境 </title>
+      <link>https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html</link>
+      <pubDate>Thu, 11 Sep 2025 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html</guid>
+      <description>一、静态文件获取 架构 Docker 二进制包 获取地址 buildx compose x86_64 官方 GitHub GitHub AArch64 官方 GitHub GitHub LoongArch64 非官方 loong64 GitHub loong64 GitHub 二、部署使用 根据上步地址获取二进制包，之后将二进制包保存在同一个目录下； 在二进制包所在目录按以下内容生成 install.sh； 执行./install.sh docker-xx.xx.x.tgz (注意需要对 install.sh 赋予执行权限；xx.x.x 应替换</description>
+    </item>
+    
+    <item>
+      <title>DHCP和PXE是怎么工作的</title>
+      <link>https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html</link>
+      <pubDate>Sun, 03 Aug 2025 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html</guid>
+      <description>正常情况下主机（DHCP client）和DHCP server交互通过四个数据包完成IP的配置，分为DHCP Discover、DHCP Offer、DHCP request、DHCP ACK四步： 如何为新机器分配IP 不完整的包是无法在网络上传输的 一、客户端申请地址（DHCP Discove</description>
+    </item>
+    
     <item>
       <title>使用 OpenSSL 生成多域名/IP的自签名证书</title>
       <link>https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html</link>

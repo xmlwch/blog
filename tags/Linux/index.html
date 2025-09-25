@@ -79,6 +79,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html">通过静态文件部署Docker环境 </a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2025年9月11日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+            <a href='/categories/Docker'>Docker</a>
+            
+        </div>
+        
+        <div class="post-content">
+            一、静态文件获取 架构 Docker 二进制包 获取地址 buildx compose x86_64 官方 GitHub GitHub AArch64 官方 GitHub GitHub LoongArch64 非官方 loong64 GitHub loong64 GitHub 二、部署使用 根据上步地址获取二进制包，之后将二进制包保存在同一个目录下； 在二进制包所在目录按以下内容生成 install.sh； 执行./install.sh docker-xx.xx.x.tgz (注意需要对 install.sh 赋予执行权限；xx.x.x 应替换……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html">linux 的防火墙 ufw、firwalld、iptables </a>
             </h1>
         </header>
@@ -287,31 +312,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html"> Vagrantfile详解</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年7月21日
-        </date>
-        
-        <div class="post-meta meta-category">
-            |
-            
-            <a href='/categories/Linux'>Linux</a>
-            
-            <a href='/categories/Vagrant'>Vagrant</a>
-            
-        </div>
-        
-        <div class="post-content">
-            ## vagrantfile详解 # 定义虚拟机的各种配置，主要包括三个方面的配置：虚拟机的配置、SSH配置、Vagrant的一些基础配置。 # Vagrant是使用Ruby开发的，所以它的配置语法也是Ruby的，每个项目都需要有一个Vagrantfile，在执行vagrant init xxx 的目录下可……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/21/chlinux/vagrantfile.html">阅读全文</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -344,7 +344,7 @@
                     <footer id="footer">
     <div>
 		<p>
-            &copy; 2024 <a href="https://xmlwch.cn">xmlwch.cn</a>
+            &copy; 2025 <a href="https://xmlwch.cn">xmlwch.cn</a>
 		
 		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
 		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
@@ -386,6 +386,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html" title="DHCP和PXE是怎么工作的">DHCP和PXE是怎么工作的</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
     </li>
     
@@ -417,14 +425,6 @@
         <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/11/16/others/powershell.html" title="批量删除电脑上客厅的奇异果媒体设备">批量删除电脑上客厅的奇异果媒体设备</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -434,7 +434,7 @@
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (3)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
     
@@ -448,7 +448,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (40)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
     
@@ -456,7 +456,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (2)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (4)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
     
@@ -530,6 +530,8 @@
     <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
     
     <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PXE/">PXE</a>
     
     <a href="https://blog.xmlwch.cn/tags/Prism/">Prism</a>
     

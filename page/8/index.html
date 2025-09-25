@@ -70,6 +70,56 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html" title=" Docker简单使用"> Docker简单使用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月8日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/Docker'>Docker</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            Docker常见命令 容器相关操作 docker create # 创建一个容器但是不启动它 docker run # 创建并启动一个容器 docker stop # 停止容器运行，发送信号SIGTERM docker start # 启动一个停止状态的容器 docker restart # 重启一个容器 docker rm # 删除一个容器 docker kill # 发送信号给容器，默认SIGKILL docker attach # 连接(进入)到一个正在运行的容器 docker wait # 阻塞……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/07/06/chlinux/supervisord.html" title="Supervisord 使用">Supervisord 使用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年7月6日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/Python'>Python</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            0.Supervisor说明 Supervisor（http://supervisord.org/）是用Python开发的一个client/server服务，是Linux/Unix系统下的一个进程管理工具，不支持Windows系统。它可以很方便的监听、启动、停止、重启一个或多个进程……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/06/chlinux/supervisord.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/28/php/session.html" title="PHP Session浅析">PHP Session浅析</a>
             </h1>
         </header>
@@ -257,52 +307,6 @@
         <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html">阅读全文</a></p>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html" title="Failed to allocate directory watch: Too many open files">Failed to allocate directory watch: Too many open files</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月9日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            uos上运行systemctl启动服务时报错： Failed to allocate directory watch: Too many open files 解决方法： vi /etc/sysctl.conf cat /etc/sysctl.conf # 添加一下配置 fs.inotify.max_user_instances=512 fs.inotify.max_user_watches=262144 生效 sysctl -p 分析： 可能是 inotify 数量限制了，修改后服务可以正常启动 inotify介绍： 它是一个内核用于通知用户空间程序文件系统变化的机制。 众所周知，Linux 桌面系统与 MAC 或 Windows 相比有许多不如人……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html">阅读全文</a></p>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/port-listening.html" title="查看端口监听状态">查看端口监听状态</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年6月9日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            netstat命令 使用netstat命令可查看端口占用情况 netstat命令各个参数说明如下: -t : 指明显示TCP端口 -u : 指明显示UDP端口 -l : 仅显示监听套接字(所谓套接字就是使应用程序能够读写与收发通讯协议(protocol)与资料的程序) -p : 显示进程标识符和程序名称，每一个套接……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/09/chlinux/port-listening.html">阅读全文</a></p>
-    </article>
-    
     
 
 
@@ -366,7 +370,7 @@
                     <footer id="footer">
     <div>
 		<p>
-            &copy; 2024 <a href="https://xmlwch.cn">xmlwch.cn</a>
+            &copy; 2025 <a href="https://xmlwch.cn">xmlwch.cn</a>
 		
 		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
 		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
@@ -408,6 +412,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html" title="DHCP和PXE是怎么工作的">DHCP和PXE是怎么工作的</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
     </li>
     
@@ -439,14 +451,6 @@
         <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/11/16/others/powershell.html" title="批量删除电脑上客厅的奇异果媒体设备">批量删除电脑上客厅的奇异果媒体设备</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.xmlwch.cn/2022/09/28/chlinux/everything-is-a-file.md.html" title="[转]彻底搞懂「一切皆文件」的UNIX哲学">[转]彻底搞懂「一切皆文件」的UNIX哲学</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -456,7 +460,7 @@
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (2)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (3)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
     
@@ -470,7 +474,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (40)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
     
@@ -478,7 +482,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (2)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (4)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
     
@@ -552,6 +556,8 @@
     <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
     
     <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PXE/">PXE</a>
     
     <a href="https://blog.xmlwch.cn/tags/Prism/">Prism</a>
     

@@ -6,7 +6,16 @@
     <description>Recent content in Docker on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 16 Jul 2021 15:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Sep 2025 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>通过静态文件部署Docker环境 </title>
+      <link>https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html</link>
+      <pubDate>Thu, 11 Sep 2025 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html</guid>
+      <description>一、静态文件获取 架构 Docker 二进制包 获取地址 buildx compose x86_64 官方 GitHub GitHub AArch64 官方 GitHub GitHub LoongArch64 非官方 loong64 GitHub loong64 GitHub 二、部署使用 根据上步地址获取二进制包，之后将二进制包保存在同一个目录下； 在二进制包所在目录按以下内容生成 install.sh； 执行./install.sh docker-xx.xx.x.tgz (注意需要对 install.sh 赋予执行权限；xx.x.x 应替换</description>
+    </item>
+    
     <item>
       <title> Docker Compose 模板文件</title>
       <link>https://blog.xmlwch.cn/2021/07/16/chlinux/docker-compose-yml.html</link>

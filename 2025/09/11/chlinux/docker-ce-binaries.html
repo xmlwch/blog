@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>通过静态文件部署Docker环境  | xmlwch的博客</title>
+    <meta property="og:title" content="通过静态文件部署Docker环境  - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2025-09-11T11:40:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2025-09-11T11:40:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">通过静态文件部署Docker环境 </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2025年9月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/Docker'>Docker</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共876字</span>，阅读约<span class="more-meta"> 2 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="一静态文件获取">一、静态文件获取</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">架构</th>
+<th style="text-align:center">Docker 二进制包 <br/> 获取地址</th>
+<th style="text-align:center">buildx</th>
+<th style="text-align:center">compose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">x86_64</td>
+<td style="text-align:center"><a href="https://download.docker.com/linux/static/stable/x86_64/">官方</a></td>
+<td style="text-align:center"><a href="https://github.com/docker/buildx/releases">GitHub</a></td>
+<td style="text-align:center"><a href="https://github.com/docker/compose/releases">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align:center">AArch64</td>
+<td style="text-align:center"><a href="https://download.docker.com/linux/static/stable/aarch64/">官方</a></td>
+<td style="text-align:center"><a href="https://github.com/docker/buildx/releases">GitHub</a></td>
+<td style="text-align:center"><a href="https://github.com/docker/compose/releases">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align:center">LoongArch64</td>
+<td style="text-align:center"><a href="https://github.com/loong64/docker-ce-packaging/releases">非官方</a></td>
+<td style="text-align:center"><a href="https://github.com/loong64/buildx/releases">loong64 GitHub</a></td>
+<td style="text-align:center"><a href="https://github.com/loong64/compose/releases">loong64 GitHub</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="二部署使用">二、部署使用</h2>
+<ol>
+<li>根据上步地址获取二进制包，之后将二进制包保存在同一个目录下；</li>
+<li>在二进制包所在目录按以下内容生成  <code>install.sh</code>；</li>
+<li>执行<code>./install.sh docker-xx.xx.x.tgz</code>  (注意需要对 <code>install.sh</code>  赋予执行权限；xx.x.x 应替换为具体版本号；普通用户应添加  <code>sudo</code>  提权 ) ；</li>
+<li>自由使用docker环境。</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/sh
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#0086b3">set</span> -e <span style="color:#998;font-style:italic"># 遇错退出</span>
+
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> <span style="color:#d14">&#34;</span><span style="color:#008080">$#</span><span style="color:#d14">&#34;</span> -lt <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;用法: </span><span style="color:#008080">$0</span><span style="color:#d14"> docker-xxx.tgz&#34;</span>
+    <span style="color:#0086b3">exit</span> <span style="color:#099">1</span>
+<span style="color:#000;font-weight:bold">fi</span>
+
+<span style="color:#008080">TAR_FILE</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;</span><span style="color:#008080">$1</span><span style="color:#d14">&#34;</span>
+
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;解压 tar 包...&#39;</span>
+tar -xvf <span style="color:#d14">&#34;</span><span style="color:#008080">$TAR_FILE</span><span style="color:#d14">&#34;</span>
+
+<span style="color:#998;font-style:italic"># 自动查找包含 dockerd 的目录（通常是 docker/）</span>
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> -d <span style="color:#d14">&#34;docker&#34;</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#008080">DOCKER_DIR</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;docker&#34;</span>
+<span style="color:#000;font-weight:bold">elif</span> <span style="color:#000;font-weight:bold">[</span> -d <span style="color:#d14">&#34;</span><span style="color:#000;font-weight:bold">$(</span>tar -tf <span style="color:#d14">&#34;</span><span style="color:#008080">$TAR_FILE</span><span style="color:#d14">&#34;</span> | head -1 | cut -d<span style="color:#d14">&#39;/&#39;</span> -f1<span style="color:#000;font-weight:bold">)</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#998;font-style:italic"># 尝试从 tar 包名推断目录</span>
+    <span style="color:#008080">DOCKER_DIR</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;</span><span style="color:#000;font-weight:bold">$(</span>tar -tf <span style="color:#d14">&#34;</span><span style="color:#008080">$TAR_FILE</span><span style="color:#d14">&#34;</span> | head -1 | cut -d<span style="color:#d14">&#39;/&#39;</span> -f1<span style="color:#000;font-weight:bold">)</span><span style="color:#d14">&#34;</span>
+<span style="color:#000;font-weight:bold">else</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;错误：未找到 docker 目录，请确保 tar 包结构正确。&#34;</span>
+    <span style="color:#0086b3">exit</span> <span style="color:#099">1</span>
+<span style="color:#000;font-weight:bold">fi</span>
+
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;将 </span><span style="color:#008080">$DOCKER_DIR</span><span style="color:#d14"> 目录下所有文件复制到 /usr/bin...&#34;</span>
+cp <span style="color:#d14">&#34;</span><span style="color:#008080">$DOCKER_DIR</span><span style="color:#d14">&#34;</span>/* /usr/bin/
+
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;生成 docker.service...&#39;</span>
+cat &gt;/etc/systemd/system/docker.service <span style="color:#d14">&lt;&lt;&#39;EOF&#39;
+</span><span style="color:#d14">[Unit]
+</span><span style="color:#d14">Description=Docker Application Container Engine
+</span><span style="color:#d14">Documentation=https://docs.docker.com
+</span><span style="color:#d14">After=network-online.target firewalld.service
+</span><span style="color:#d14">Wants=network-online.target
+</span><span style="color:#d14">
+</span><span style="color:#d14">[Service]
+</span><span style="color:#d14">Type=notify
+</span><span style="color:#d14">ExecStart=/usr/bin/dockerd --default-ulimit nofile=65535:65535 --selinux-enabled=false
+</span><span style="color:#d14">ExecReload=/bin/kill -s HUP $MAINPID
+</span><span style="color:#d14">LimitNOFILE=infinity
+</span><span style="color:#d14">LimitNPROC=infinity
+</span><span style="color:#d14">LimitCORE=infinity
+</span><span style="color:#d14">TimeoutStartSec=0
+</span><span style="color:#d14">Delegate=yes
+</span><span style="color:#d14">KillMode=process
+</span><span style="color:#d14">Restart=on-failure
+</span><span style="color:#d14">StartLimitBurst=3
+</span><span style="color:#d14">StartLimitInterval=60s
+</span><span style="color:#d14">
+</span><span style="color:#d14">[Install]
+</span><span style="color:#d14">WantedBy=multi-user.target
+</span><span style="color:#d14">EOF</span>
+chmod +x /etc/systemd/system/docker.service
+
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;重新加载 systemd 配置...&#39;</span>
+systemctl daemon-reload
+
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;启动 Docker...&#39;</span>
+systemctl start docker
+
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;设置开机自启...&#39;</span>
+systemctl <span style="color:#0086b3">enable</span> docker.service
+
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;验证 Docker 版本...&#39;</span>
+docker -v
+
+<span style="color:#998;font-style:italic"># === 配置 docker 用户组 ===</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;配置 docker 用户组...&#39;</span>
+
+<span style="color:#998;font-style:italic"># 创建 docker 组（如果不存在）</span>
+<span style="color:#000;font-weight:bold">if</span> ! getent group docker &gt;/dev/null 2&gt;&amp;1; <span style="color:#000;font-weight:bold">then</span>
+    groupadd docker
+<span style="color:#000;font-weight:bold">fi</span>
+
+<span style="color:#998;font-style:italic"># 将当前用户（调用者）加入 docker 组</span>
+<span style="color:#998;font-style:italic"># 注意：$SUDO_USER 在 sudo 下有效，否则用 $USER</span>
+<span style="color:#008080">CURRENT_USER</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;</span><span style="color:#d14">${</span><span style="color:#008080">SUDO_USER</span><span style="color:#000;font-weight:bold">:-</span><span style="color:#008080">$USER</span><span style="color:#d14">}</span><span style="color:#d14">&#34;</span>
+<span style="color:#000;font-weight:bold">if</span> id <span style="color:#d14">&#34;</span><span style="color:#008080">$CURRENT_USER</span><span style="color:#d14">&#34;</span> &gt;/dev/null 2&gt;&amp;1; <span style="color:#000;font-weight:bold">then</span>
+    usermod -aG docker <span style="color:#d14">&#34;</span><span style="color:#008080">$CURRENT_USER</span><span style="color:#d14">&#34;</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;已将用户 </span><span style="color:#008080">$CURRENT_USER</span><span style="color:#d14"> 加入 docker 组。&#34;</span>
+<span style="color:#000;font-weight:bold">else</span>
+    <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;警告：用户 </span><span style="color:#008080">$CURRENT_USER</span><span style="color:#d14"> 不存在，跳过用户组添加。&#34;</span>
+<span style="color:#000;font-weight:bold">fi</span>
+
+<span style="color:#998;font-style:italic"># === 安装 CLI 插件（可选，带存在性检查）===</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;安装 Docker CLI 插件（如果存在）...&#39;</span>
+
+mkdir -p ~/.docker/cli-plugins/
+
+<span style="color:#998;font-style:italic"># 处理 buildx</span>
+<span style="color:#0086b3">set</span> -- buildx-*
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> -f <span style="color:#d14">&#34;</span><span style="color:#008080">$1</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    cp <span style="color:#d14">&#34;</span><span style="color:#008080">$1</span><span style="color:#d14">&#34;</span> ~/.docker/cli-plugins/docker-buildx
+    chmod +x ~/.docker/cli-plugins/docker-buildx
+<span style="color:#000;font-weight:bold">fi</span>
+
+<span style="color:#998;font-style:italic"># 处理 docker-compose</span>
+<span style="color:#0086b3">set</span> -- docker-compose-*
+<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> -f <span style="color:#d14">&#34;</span><span style="color:#008080">$1</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    cp <span style="color:#d14">&#34;</span><span style="color:#008080">$1</span><span style="color:#d14">&#34;</span> ~/.docker/cli-plugins/docker-compose
+    chmod +x ~/.docker/cli-plugins/docker-compose
+<span style="color:#000;font-weight:bold">fi</span>
+
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;&#34;</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;✅ Docker 安装完成！&#34;</span>
+<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;💡 请重新登录终端（或运行 &#39;newgrp docker&#39;）以应用用户组变更。&#34;</span>
+
+</code></pre></div><h2 id="三镜像仓库">三、镜像仓库</h2>
+<p><strong>x86_64/AArch64 仓库</strong> ：略</p>
+<p><strong>LoongArch64仓库</strong>： <a href="https://github.com/loong64/docker-library">loong64 GitHub</a> 、<a href="https://cr.loongnix.cn/search">龙芯中科（内核版本 &lt; 5.10）</a>、<a href="https://lcr.loongnix.cn/search">龙芯中科（内核版本 &gt;=5.10）</a></p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html">https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh"> 知识共享 署名-相同方式共享 4.0 国际(CC BY-SA 4.0)许可协议 </a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2021/07/16/chlinux/docker-compose-yml.html"> Docker Compose 模板文件</a></li>
+        
+        <li><a href="/2021/07/08/chlinux/docker.html"> Docker简单使用</a></li>
+        
+        <li><a href="/2022/09/28/chlinux/everything-is-a-file.md.html">[转]彻底搞懂「一切皆文件」的UNIX哲学</a></li>
+        
+        <li><a href="/2022/09/27/chlinux/system-contents.html">Linux 文件系统</a></li>
+        
+        <li><a href="/2022/09/15/chlinux/os-time.html">修改系统时间</a></li>
+        
+    </ul>
+</div>
+
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Docker'>Docker</a></li>
+                
+                <li><a href='/tags/Linux'>Linux</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2025 <a href="https://xmlwch.cn">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html" title="DHCP和PXE是怎么工作的">DHCP和PXE是怎么工作的</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html" title="PE 制作过程">PE 制作过程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/09/06/http/restful-api.html" title="RESTful API 实践与常见陷阱">RESTful API 实践与常见陷阱</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html" title="linux 的防火墙 ufw、firwalld、iptables ">linux 的防火墙 ufw、firwalld、iptables </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html" title="mysql数据库中某张表一直打不开">mysql数据库中某张表一直打不开</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (7)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/smb/">smb (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/">防火墙 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/API/">API</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/CA%E8%AF%81%E4%B9%A6/">CA证书</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Cuda/">Cuda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Httpd/">Httpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/LVM/">LVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/">Nvidia显卡</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PE/">PE</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PXE/">PXE</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Prism/">Prism</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SMTP/">SMTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell/">Shell</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Ubuntu-Nvidia%E9%A9%B1%E5%8A%A8/">Ubuntu Nvidia驱动</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WSL/">WSL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/command/">command</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/conda/">conda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/du/">du</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/kernel/">kernel</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/powershell/">powershell</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/proxy/">proxy</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rewrite/">rewrite </a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rsync/">rsync</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/signal/">signal</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/smb/">smb</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/virsh/">virsh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/">vi异常</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vmrun/">vmrun</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%A1%AC%E7%9B%98%E6%B5%8B%E9%80%9F/">硬盘测速</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">远程桌面</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
