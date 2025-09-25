@@ -70,6 +70,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html" title="chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作">chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年6月12日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            root用户执行 # chmod 755 redis-server 时报错： chmod: 正在更改 &#39;redis-server&#39; 的权限: 不允许的操作 解决方法： # 使用lsattr命令显示文件属性 lsattr redis-server ----i--------------- redis-server # 修改文件属性 chattr -i redis-server # 修改文件执行权限(此时就可以了) chmod 777 redis-server chattr +i redis-server 相关知识引用： chattr命令： https://www.runoob.com/linux/linux-comm-chattr.html lsattr命令： https://www.runoob.com/linux/linux-comm-lsattr.html 由于时间仓促，错误与疏忽之处在所难免，希望各……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2021/06/12/chlinux/question2.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/06/09/chlinux/question1.html" title="Failed to allocate directory watch: Too many open files">Failed to allocate directory watch: Too many open files</a>
             </h1>
         </header>
@@ -322,6 +345,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
     </li>
     
@@ -357,10 +384,6 @@
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -386,7 +409,9 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     

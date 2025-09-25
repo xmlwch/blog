@@ -6,7 +6,16 @@
     <description>Recent content on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 11 Sep 2025 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Sep 2025 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用 Event &#43; 存储过程 实现 MySQL 自动添加分区</title>
+      <link>https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html</link>
+      <pubDate>Fri, 19 Sep 2025 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html</guid>
+      <description>一、为什么要自动添加分区？ 想象一下你有一个记录用户操作的日志表，每天新增上万条数据。如果所有数据都在一张表里： 查询慢 删除旧数据麻烦 备份恢复困难 解决方案：使用“分区表”（Partitioning）** 但问题来了： 分区是静态的！比如你只建到 1月31号，2月1号的数据就没地方存了！ 所以</description>
+    </item>
+    
     <item>
       <title>通过静态文件部署Docker环境 </title>
       <link>https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html</link>

@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2025年9月19日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Mysql'>Mysql</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            一、为什么要自动添加分区？ 想象一下你有一个记录用户操作的日志表，每天新增上万条数据。如果所有数据都在一张表里： 查询慢 删除旧数据麻烦 备份恢复困难 解决方案：使用“分区表”（Partitioning）** 但问题来了： 分区是静态的！比如你只建到 1月31号，2月1号的数据就没地方存了！ 所以……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
             </h1>
         </header>
@@ -296,31 +321,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2023年4月17日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Nginx'>Nginx</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            区别 reload：重新加载，reload会重新加载配置文件，Nginx服务不会中断。而且reload时会测试conf语法等，如果出错会rollback用上一次正确配置文件保持正常运行。 restart：重启（先stop后start），会重启Nginx服务。这个重启会造成服务一瞬间的……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -421,6 +421,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
     </li>
     
@@ -456,10 +460,6 @@
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -485,7 +485,9 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     

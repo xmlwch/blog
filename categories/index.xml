@@ -6,7 +6,16 @@
     <description>Recent content in Categories on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 11 Sep 2025 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Sep 2025 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql</title>
+      <link>https://blog.xmlwch.cn/categories/Mysql/</link>
+      <pubDate>Fri, 19 Sep 2025 11:40:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/categories/Mysql/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Docker</title>
       <link>https://blog.xmlwch.cn/categories/Docker/</link>
@@ -49,15 +58,6 @@
       <pubDate>Fri, 25 Aug 2023 11:40:00 +0800</pubDate>
       
       <guid>https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MySQL</title>
-      <link>https://blog.xmlwch.cn/categories/MySQL/</link>
-      <pubDate>Sun, 23 Apr 2023 12:40:00 +0800</pubDate>
-      
-      <guid>https://blog.xmlwch.cn/categories/MySQL/</guid>
       <description></description>
     </item>
     

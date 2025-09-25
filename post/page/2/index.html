@@ -72,6 +72,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2023年4月17日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Nginx'>Nginx</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            区别 reload：重新加载，reload会重新加载配置文件，Nginx服务不会中断。而且reload时会测试conf语法等，如果出错会rollback用上一次正确配置文件保持正常运行。 restart：重启（先stop后start），会重启Nginx服务。这个重启会造成服务一瞬间的……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2022/11/16/others/powershell.html" title="批量删除电脑上客厅的奇异果媒体设备">批量删除电脑上客厅的奇异果媒体设备</a>
             </h1>
         </header>
@@ -296,31 +321,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html" title="命令行模式启动VMWare虚拟机">命令行模式启动VMWare虚拟机</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2022年3月28日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            工作中使用到在CentOS服务器中安装VMWare Workstation部署虚拟机，但服务器无显示器，故记录vmrun 帮助文档。 # vmrun vmrun version 1.17.0 build-16894299 Usage: vmrun [AUTHENTICATION-FLAGS] COMMAND [PARAMETERS] AUTHENTICATION-FLAGS # 身份验证标志 -------------------- These must appear before the command and any command parameters. # 这些参数必须出现在命令和任何命令参数之前。 -T &lt;hostType&gt; (ws|fusion||player) -vp &lt;password for encrypted virtual machine&gt; # 加密虚拟机的密码 -gu &lt;userName in guest OS&gt; #……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2022/03/28/chlinux/linux-comm-vmrun.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -425,6 +425,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
     </li>
     
@@ -460,10 +464,6 @@
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2023/04/17/others/nginx-reload-restart.html" title="Nginx  reload 和 restart 的区别">Nginx  reload 和 restart 的区别</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -489,7 +489,9 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/MySQL/">MySQL (6)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (1)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
     

@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>用 Event &#43; 存储过程 实现 MySQL 自动添加分区 | xmlwch的博客</title>
+    <meta property="og:title" content="用 Event &#43; 存储过程 实现 MySQL 自动添加分区 - xmlwch的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2025-09-19T11:40:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2025-09-19T11:40:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content=" ">
+        
+    <meta name="author" content="xmlwch">
+    <meta property="og:url" content="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/prism.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.xmlwch.cn/">
+                        xmlwch的博客
+                    </a>
+                
+                <p class="description">未经他人事，莫劝他人善！</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.xmlwch.cn/">首页</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.xmlwch.cn/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <link rel="stylesheet" href="/css/sidebar_menu.css">
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/post_category.1.js"></script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2025年9月19日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Mysql'>Mysql</a></span>
+            
+        </div>
+        
+        <div class="post-meta">
+            |<span class="post-date"> 本文共2816字</span>，阅读约<span class="more-meta"> 6 分钟 </span>
+        </div>
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">| 本文阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="一为什么要自动添加分区">一、为什么要自动添加分区？</h2>
+<p>想象一下你有一个记录用户操作的日志表，每天新增上万条数据。如果所有数据都在一张表里：</p>
+<ul>
+<li>查询慢</li>
+<li>删除旧数据麻烦</li>
+<li>备份恢复困难</li>
+</ul>
+<p>解决方案：使用“分区表”（Partitioning）**</p>
+<p>但问题来了：</p>
+<blockquote>
+<p>分区是静态的！比如你只建到 1月31号，2月1号的数据就没地方存了！</p>
+</blockquote>
+<p>所以我们要： 自动提前创建未来几天的分区** —— 这就是本文要解决的问题！</p>
+<h2 id="二准备工作">二、准备工作</h2>
+<p>确认你的 MySQL 支持并启用了 <code>event_scheduler</code>（事件调度器）</p>
+<p>打开你的 MySQL 客户端（如 Navicat、MySQL Workbench 或命令行），运行：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">SHOW</span><span style="color:#bbb"> </span>VARIABLES<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">LIKE</span><span style="color:#bbb"> </span><span style="color:#d14">&#39;event_scheduler&#39;</span>;<span style="color:#bbb">
+</span></code></pre></div><p>你会看到类似结果：</p>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_scheduler</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>如果值是 <code>OFF</code>，说明事件功能没开，必须开启它：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">GLOBAL</span><span style="color:#bbb"> </span>event_scheduler<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">ON</span>;<span style="color:#bbb">
+</span></code></pre></div><p>再次检查是否已开启：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">SHOW</span><span style="color:#bbb"> </span>VARIABLES<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">LIKE</span><span style="color:#bbb"> </span><span style="color:#d14">&#39;event_scheduler&#39;</span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic">-- 正确输出应为：ON
+</span></code></pre></div><blockquote>
+<p>注意：这个设置重启后可能失效。若要永久生效，请修改 <code>my.cnf</code> 配置文件，在  <code>[mysqld]</code> 下添加：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#008080">event_scheduler</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">ON</span>
+</code></pre></div></blockquote>
+<h2 id="三创建一个带分区的测试表">三、创建一个带分区的测试表</h2>
+<p>我们来创建一个叫 <code>user_log</code> 的日志表，按 <strong>日期字段 create_time</strong> 每天一个分区。</p>
+<h3 id="1-创建数据库可选">1. 创建数据库（可选）</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">CREATE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DATABASE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">IF</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NOT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">EXISTS</span><span style="color:#bbb"> </span>test_partition;<span style="color:#bbb">
+</span><span style="color:#bbb"></span>USE<span style="color:#bbb"> </span>test_partition;<span style="color:#bbb">
+</span></code></pre></div><h3 id="2-创建分区表">2. 创建分区表</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">CREATE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">TABLE</span><span style="color:#bbb"> </span>user_log<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>id<span style="color:#bbb"> </span><span style="color:#0086b3">INT</span><span style="color:#bbb"> </span>AUTO_INCREMENT<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">PRIMARY</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">KEY</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>user_id<span style="color:#bbb"> </span><span style="color:#0086b3">INT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NOT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NULL</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>action<span style="color:#bbb"> </span><span style="color:#0086b3">VARCHAR</span>(<span style="color:#099">100</span>)<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NOT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NULL</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>create_time<span style="color:#bbb"> </span>DATETIME<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NOT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NULL</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DEFAULT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">CURRENT_TIMESTAMP</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>)<span style="color:#bbb">
+</span><span style="color:#bbb"></span>PARTITION<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">BY</span><span style="color:#bbb"> </span>RANGE<span style="color:#bbb"> </span>(TO_DAYS(create_time))<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>PARTITION<span style="color:#bbb"> </span>p20240101<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">VALUES</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">LESS</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">THAN</span><span style="color:#bbb"> </span>(TO_DAYS(<span style="color:#d14">&#39;2024-01-02&#39;</span>)),<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>PARTITION<span style="color:#bbb"> </span>p20240102<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">VALUES</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">LESS</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">THAN</span><span style="color:#bbb"> </span>(TO_DAYS(<span style="color:#d14">&#39;2024-01-03&#39;</span>))<span style="color:#bbb">
+</span><span style="color:#bbb"></span>);<span style="color:#bbb">
+</span></code></pre></div><p>解释：</p>
+<ul>
+<li><code>TO_DAYS(create_time)</code>：把日期转成数字（例如 2024-01-01 → 739252）</li>
+<li><code>RANGE</code> 分区：根据数值范围划分</li>
+<li>当前只有两天分区（2024-01-01 和 2024-01-02）</li>
+</ul>
+<p>现在这张表只能接收这两天的数据。超过就会报错！</p>
+<p>我们要做的就是：<strong>每天自动加一个新的分区，比如 p20240103, p20240104&hellip;</strong></p>
+<h2 id="四编写存储过程自动添加未来-n-天的分区">四、编写存储过程：自动添加未来 N 天的分区</h2>
+<p>我们将写一个通用的存储过程，它可以：</p>
+<ul>
+<li>自动找出当前最后一个分区</li>
+<li>计算接下来需要创建哪些天的分区</li>
+<li>动态执行 SQL 添加这些分区</li>
+</ul>
+<h3 id="1-设置分隔符重要因为里面有分号">1. 设置分隔符（重要！因为里面有分号）</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">DELIMITER</span><span style="color:#bbb"> </span><span style="color:#a61717;background-color:#e3d2d2">$$</span><span style="color:#bbb">
+</span></code></pre></div><blockquote>
+<p>含义：告诉 MySQL 把结束符从 <code>;</code> 改成 <code>$$</code>，这样内部的 <code>;</code> 不会提前结束定义。</p>
+</blockquote>
+<h3 id="2-创建存储过程">2. 创建存储过程</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">DROP</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">PROCEDURE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">IF</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">EXISTS</span><span style="color:#bbb"> </span>AddPartitionsForLogTable$$<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">CREATE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">PROCEDURE</span><span style="color:#bbb"> </span>AddPartitionsForLogTable(<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">IN</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">schema_name</span><span style="color:#bbb"> </span><span style="color:#0086b3">VARCHAR</span>(<span style="color:#099">64</span>),<span style="color:#bbb">       </span><span style="color:#998;font-style:italic">-- 数据库名，比如 &#39;test_partition&#39;
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">IN</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table_name</span><span style="color:#bbb">   </span><span style="color:#0086b3">VARCHAR</span>(<span style="color:#099">64</span>),<span style="color:#bbb">      </span><span style="color:#998;font-style:italic">-- 表名，比如 &#39;user_log&#39;
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">IN</span><span style="color:#bbb"> </span>future_days<span style="color:#bbb">  </span><span style="color:#0086b3">INT</span><span style="color:#bbb">               </span><span style="color:#998;font-style:italic">-- 提前创建多少天的分区（建议7）
+</span><span style="color:#998;font-style:italic"></span>)<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">BEGIN</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">DECLARE</span><span style="color:#bbb"> </span>done<span style="color:#bbb"> </span><span style="color:#0086b3">INT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DEFAULT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">FALSE</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">DECLARE</span><span style="color:#bbb"> </span>max_partition_value<span style="color:#bbb"> </span><span style="color:#0086b3">INT</span>;<span style="color:#bbb">   </span><span style="color:#998;font-style:italic">-- 最大分区对应的 TO_DAYS 值
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">DECLARE</span><span style="color:#bbb"> </span>next_date<span style="color:#bbb"> </span><span style="color:#0086b3">DATE</span>;<span style="color:#bbb">            </span><span style="color:#998;font-style:italic">-- 下一个要创建分区的起始日期
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">DECLARE</span><span style="color:#bbb"> </span>new_partition_name<span style="color:#bbb"> </span><span style="color:#0086b3">VARCHAR</span>(<span style="color:#099">64</span>);<span style="color:#bbb"> </span><span style="color:#998;font-style:italic">-- 新分区名，如 p20240103
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">DECLARE</span><span style="color:#bbb"> </span>new_partition_value<span style="color:#bbb"> </span><span style="color:#0086b3">INT</span>;<span style="color:#bbb">   </span><span style="color:#998;font-style:italic">-- 新分区上限值（TO_DAYS(次日)）
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic">-- 用于拼接 SQL 语句
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">DECLARE</span><span style="color:#bbb"> </span>sql_stmt<span style="color:#bbb"> </span><span style="color:#0086b3">TEXT</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic">-- 定义游标：查询当前最大的分区边界值
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">DECLARE</span><span style="color:#bbb"> </span>cur<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">CURSOR</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">FOR</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">SELECT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">MAX</span>(<span style="color:#000;font-weight:bold">CAST</span>(PARTITION_DESCRIPTION<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">AS</span><span style="color:#bbb"> </span>UNSIGNED))<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">FROM</span><span style="color:#bbb"> </span>information_schema.PARTITIONS<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">WHERE</span><span style="color:#bbb"> </span>TABLE_SCHEMA<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">schema_name</span><span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#000;font-weight:bold">AND</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">TABLE_NAME</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table_name</span><span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#000;font-weight:bold">AND</span><span style="color:#bbb"> </span>PARTITION_NAME<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">IS</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NOT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NULL</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic">-- 如果没查到数据，设 done=TRUE
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">DECLARE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">CONTINUE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">HANDLER</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">FOR</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">NOT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">FOUND</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span>done<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">TRUE</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic">-- 开始事务（安全操作）
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">START</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">TRANSACTION</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic">-- 打开游标获取最大分区值
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">OPEN</span><span style="color:#bbb"> </span>cur;<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">FETCH</span><span style="color:#bbb"> </span>cur<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">INTO</span><span style="color:#bbb"> </span>max_partition_value;<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">CLOSE</span><span style="color:#bbb"> </span>cur;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic">-- 判断是否有现有分区
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">IF</span><span style="color:#bbb"> </span>done<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">THEN</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#998;font-style:italic">-- 没有分区 → 从今天开始建
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span>next_date<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span>CURDATE();<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">ELSE</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#998;font-style:italic">-- 有分区 → 从“最后一天+1”开始建
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span>next_date<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span>DATE_ADD(FROM_DAYS(max_partition_value),<span style="color:#bbb"> </span><span style="color:#0086b3">INTERVAL</span><span style="color:#bbb"> </span><span style="color:#099">1</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DAY</span>);<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">END</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">IF</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic">-- 循环添加 future_days 天内的分区
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span>WHILE<span style="color:#bbb"> </span>DATEDIFF(next_date,<span style="color:#bbb"> </span>CURDATE())<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#bbb"> </span>future_days<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DO</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#998;font-style:italic">-- 生成分区名：pYYYYMMDD 格式
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span>new_partition_name<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span>DATE_FORMAT(next_date,<span style="color:#bbb"> </span><span style="color:#d14">&#39;p%Y%m%d&#39;</span>);<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#998;font-style:italic">-- 分区上限 = 明天的 TO_DAYS 值
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span>new_partition_value<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span>TO_DAYS(DATE_ADD(next_date,<span style="color:#bbb"> </span><span style="color:#0086b3">INTERVAL</span><span style="color:#bbb"> </span><span style="color:#099">1</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DAY</span>));<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#998;font-style:italic">-- 拼接 ALTER TABLE ADD PARTITION 语句
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span>sql_stmt<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span>CONCAT(<span style="color:#bbb">
+</span><span style="color:#bbb">            </span><span style="color:#d14">&#39;ALTER TABLE `&#39;</span>,<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">schema_name</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#39;`.`&#39;</span>,<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table_name</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#39;` &#39;</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">            </span><span style="color:#d14">&#39;ADD PARTITION (&#39;</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">            </span><span style="color:#d14">&#39;PARTITION &#39;</span>,<span style="color:#bbb"> </span>new_partition_name,<span style="color:#bbb"> 
+</span><span style="color:#bbb">            </span><span style="color:#d14">&#39; VALUES LESS THAN (&#39;</span>,<span style="color:#bbb"> </span>new_partition_value,<span style="color:#bbb"> </span><span style="color:#d14">&#39;)&#39;</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">            </span><span style="color:#d14">&#39;)&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span>);<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#998;font-style:italic">-- 执行动态 SQL
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">@</span><span style="color:#000;font-weight:bold">sql</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span>sql_stmt;<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">PREPARE</span><span style="color:#bbb"> </span>stmt<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">FROM</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">@</span><span style="color:#000;font-weight:bold">sql</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">EXECUTE</span><span style="color:#bbb"> </span>stmt;<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">DEALLOCATE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">PREPARE</span><span style="color:#bbb"> </span>stmt;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#998;font-style:italic">-- 时间递增一天
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">SET</span><span style="color:#bbb"> </span>next_date<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span>DATE_ADD(next_date,<span style="color:#bbb"> </span><span style="color:#0086b3">INTERVAL</span><span style="color:#bbb"> </span><span style="color:#099">1</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DAY</span>);<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">END</span><span style="color:#bbb"> </span>WHILE;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic">-- 提交事务
+</span><span style="color:#998;font-style:italic"></span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">COMMIT</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">END</span><span style="color:#a61717;background-color:#e3d2d2">$$</span><span style="color:#bbb">
+</span></code></pre></div><h3 id="3-恢复默认分隔符">3. 恢复默认分隔符</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">DELIMITER</span><span style="color:#bbb"> </span>;<span style="color:#bbb">
+</span></code></pre></div><h3 id="4存储过程调用参数说明">4.存储过程调用参数说明：</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>示例值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>schema_name</code></td>
+<td><code>'test_partition'</code></td>
+<td>你要操作的数据库名（字符串加引号）</td>
+</tr>
+<tr>
+<td><code>table_name</code></td>
+<td><code>'user_log'</code></td>
+<td>要加分区的表名</td>
+</tr>
+<tr>
+<td><code>future_days</code></td>
+<td><code>7</code></td>
+<td>提前创建未来几天的分区</td>
+</tr>
+</tbody>
+</table>
+<h2 id="五测试存储过程是否正常工作">五、测试存储过程是否正常工作</h2>
+<p>先手动调用一次看看效果：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">CALL</span><span style="color:#bbb"> </span>AddPartitionsForLogTable(<span style="color:#d14">&#39;test_partition&#39;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#39;user_log&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">7</span>);<span style="color:#bbb">
+</span></code></pre></div><p>然后查看现在的分区情况：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">SELECT</span><span style="color:#bbb"> 
+</span><span style="color:#bbb">    </span>PARTITION_NAME,<span style="color:#bbb"> 
+</span><span style="color:#bbb">    </span>PARTITION_DESCRIPTION,<span style="color:#bbb"> 
+</span><span style="color:#bbb">    </span>TABLE_ROWS<span style="color:#bbb"> 
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">FROM</span><span style="color:#bbb"> </span>information_schema.PARTITIONS<span style="color:#bbb"> 
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">WHERE</span><span style="color:#bbb"> </span>TABLE_SCHEMA<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span><span style="color:#d14">&#39;test_partition&#39;</span><span style="color:#bbb"> 
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">AND</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">TABLE_NAME</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#bbb"> </span><span style="color:#d14">&#39;user_log&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">ORDER</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">BY</span><span style="color:#bbb"> </span>PARTITION_NAME;<span style="color:#bbb">
+</span></code></pre></div><p>你应该能看到类似这样的结果：</p>
+<table>
+<thead>
+<tr>
+<th>PARTITION_NAME</th>
+<th>PARTITION_DESCRIPTION</th>
+<th>TABLE_ROWS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>p20240101</td>
+<td>739253</td>
+<td>0</td>
+</tr>
+<tr>
+<td>p20240102</td>
+<td>739254</td>
+<td>0</td>
+</tr>
+<tr>
+<td>p20240103</td>
+<td>739255</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>p20240104</td>
+<td>739256</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td>p20240108</td>
+<td>739260</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>成功！已经自动创建了未来 7 天的分区！</p>
+<h2 id="六创建-event让系统每天自动执行">六、创建 Event：让系统每天自动执行</h2>
+<p>现在我们让 MySQL 每天凌晨自动调用这个存储过程。</p>
+<h3 id="1-创建-event">1. 创建 Event</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">DELIMITER</span><span style="color:#bbb"> </span><span style="color:#a61717;background-color:#e3d2d2">$$</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">DROP</span><span style="color:#bbb"> </span>EVENT<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">IF</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">EXISTS</span><span style="color:#bbb"> </span>AutoAddPartitionsDaily$$<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">CREATE</span><span style="color:#bbb"> </span>EVENT<span style="color:#bbb"> </span>AutoAddPartitionsDaily<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">ON</span><span style="color:#bbb"> </span>SCHEDULE<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">EVERY</span><span style="color:#bbb"> </span><span style="color:#099">1</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DAY</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>STARTS<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">TIMESTAMP</span>(CURDATE()<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">+</span><span style="color:#bbb"> </span><span style="color:#0086b3">INTERVAL</span><span style="color:#bbb"> </span><span style="color:#099">1</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DAY</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#39;02:00:00&#39;</span>)<span style="color:#bbb">  </span><span style="color:#998;font-style:italic">-- 明天凌晨2点开始
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">ON</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">COMPLETION</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">PRESERVE</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic">-- 保留事件（即使执行完也不删除）
+</span><span style="color:#998;font-style:italic"></span>ENABLE<span style="color:#bbb">                  </span><span style="color:#998;font-style:italic">-- 启用状态
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">COMMENT</span><span style="color:#bbb"> </span><span style="color:#d14">&#39;每天凌晨2点为 user_log 表添加未来7天的分区&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">DO</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">BEGIN</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">CALL</span><span style="color:#bbb"> </span>AddPartitionsForLogTable(<span style="color:#d14">&#39;test_partition&#39;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#39;user_log&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">7</span>);<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">END</span><span style="color:#a61717;background-color:#e3d2d2">$$</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">DELIMITER</span><span style="color:#bbb"> </span>;<span style="color:#bbb">
+</span></code></pre></div><p>参数解释：</p>
+<ul>
+<li><code>EVERY 1 DAY</code>：每隔一天执行一次</li>
+<li><code>STARTS ... 02:00:00</code>：每天凌晨2点执行（避开高峰期）</li>
+<li><code>ON COMPLETION PRESERVE</code>：事件不会被自动删除</li>
+<li><code>ENABLE</code>：立即启用</li>
+<li><code>DO BEGIN ... END</code>：要执行的操作</li>
+</ul>
+<h3 id="2-查看-event-是否创建成功">2. 查看 Event 是否创建成功</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">SHOW</span><span style="color:#bbb"> </span>EVENTS<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">FROM</span><span style="color:#bbb"> </span>test_partition;<span style="color:#bbb">
+</span></code></pre></div><p>你应该看到：</p>
+<table>
+<thead>
+<tr>
+<th>Db</th>
+<th>Name</th>
+<th>Status</th>
+<th>Schedule</th>
+<th>Starts</th>
+<th>Ends</th>
+<th>OnCompletion</th>
+<th>SqlStatement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test_partition</td>
+<td>AutoAddPartitionsDaily</td>
+<td>ENABLED</td>
+<td>EVERY 1 DAY</td>
+<td>2024-01-02 02:00:00</td>
+<td>NULL</td>
+<td>PRESERVE</td>
+<td>CALL AddPartitionsForLogTable(&hellip;)</td>
+</tr>
+</tbody>
+</table>
+<p>状态为 <code>ENABLED</code> 表示一切就绪！</p>
+<h2 id="七验证自动化是否成功">七、验证自动化是否成功</h2>
+<p>你可以做以下几件事来验证：</p>
+<h3 id="1方法1">1.方法1：</h3>
+<p>等待明天凌晨2点自动运行（最真实）</p>
+<p>或者……</p>
+<h3 id="2方法2">2.方法2：</h3>
+<p>手动触发 Event 测试</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">CALL</span><span style="color:#bbb"> </span>AddPartitionsForLogTable(<span style="color:#d14">&#39;test_partition&#39;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#39;user_log&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">7</span>);<span style="color:#bbb">
+</span></code></pre></div><p>再次查询分区列表，确认是否有新的分区加入。</p>
+<h2 id="八进阶建议可选">八、进阶建议（可选）</h2>
+<h3 id="1-添加日志记录功能推荐">1. 添加日志记录功能（推荐）</h3>
+<p>创建一个日志表，记录每次添加分区的情况：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">CREATE</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">TABLE</span><span style="color:#bbb"> </span>partition_maintenance_log<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>id<span style="color:#bbb"> </span><span style="color:#0086b3">INT</span><span style="color:#bbb"> </span>AUTO_INCREMENT<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">PRIMARY</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">KEY</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">operation</span><span style="color:#bbb"> </span><span style="color:#0086b3">VARCHAR</span>(<span style="color:#099">100</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>details<span style="color:#bbb"> </span><span style="color:#0086b3">TEXT</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>exec_time<span style="color:#bbb"> </span>DATETIME<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DEFAULT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">CURRENT_TIMESTAMP</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>);<span style="color:#bbb">
+</span></code></pre></div><p>然后修改存储过程，在关键位置插入日志：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">INSERT</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">INTO</span><span style="color:#bbb"> </span>partition_maintenance_log(<span style="color:#000;font-weight:bold">operation</span>,<span style="color:#bbb"> </span>details)<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">VALUES</span><span style="color:#bbb"> </span>(<span style="color:#d14">&#39;Add Partition&#39;</span>,<span style="color:#bbb"> </span>CONCAT(<span style="color:#d14">&#39;Added partition up to &#39;</span>,<span style="color:#bbb"> </span>next_date));<span style="color:#bbb">
+</span></code></pre></div><h3 id="2-删除过期分区清理历史数据">2. 删除过期分区（清理历史数据）</h3>
+<p>你也应该定期删除超过 X 天的旧分区（比如保留30天）：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">ALTER</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">TABLE</span><span style="color:#bbb"> </span>user_log<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">DROP</span><span style="color:#bbb"> </span>PARTITION<span style="color:#bbb"> </span>p20240101;<span style="color:#bbb">
+</span></code></pre></div><p>也可以写另一个 Event 来自动完成。</p>
+<h2 id="九常见问题与注意事项">九、常见问题与注意事项</h2>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>解决办法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ERROR 1569 (HY000): Too many partitions</code></td>
+<td>MySQL 5.7 单表最多支持 1024 个分区，注意不要无限添加</td>
+</tr>
+<tr>
+<td><code>Cannot execute statement: impossible to write to binary log</code></td>
+<td>使用<code>ROW</code>格式的 binlog 或设置<code>binlog_format=ROW</code></td>
+</tr>
+<tr>
+<td>分区名重复导致错误</td>
+<td>当前逻辑不会重复添加（基于最大分区推算），但如果手工删过需注意</td>
+</tr>
+<tr>
+<td>存储过程权限不足</td>
+<td>用户需有<code>ALTER</code>,<code>CREATE</code>,<code>EXECUTE</code>权限</td>
+</tr>
+</tbody>
+</table>
+<p>整个流程就像给你的数据库装了一个“智能闹钟”，每天早上自动准备第二天要用的“抽屉”（分区），再也不用手动维护！</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>MySQL 官方文档 - <a href="https://dev.mysql.com/doc/refman/5.7/en/partitioning.html">Partitioning</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/events.html">Events in MySQL</a></li>
+<li><code>TO_DAYS()</code> 函数说明：将日期转为整数天数</li>
+</ul>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>作者：</strong><a rel="author" href="https://blog.xmlwch.cn/">xmlwch</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html">https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh"> 知识共享 署名-相同方式共享 4.0 国际(CC BY-SA 4.0)许可协议 </a>进行许可，转载无需与我联系，但请注明出处。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+</div>
+
+                    <footer id="footer">
+    <div>
+		<p>
+            &copy; 2025 <a href="https://xmlwch.cn">xmlwch.cn</a>
+		
+		</p><p>Powered by <a href="http://gohugo.io" target="_blank" rel="nofollow">Hugo</a>.
+		| Theme based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+		</p>
+	</div>
+</footer>
+
+
+
+    
+    
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>	
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/pope.js'></script>
+
+    <script src='/js/prism.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.xmlwch.cn/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.xmlwch.cn/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html" title="通过静态文件部署Docker环境 ">通过静态文件部署Docker环境 </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2025/08/03/others/dhcp-pxe.html" title="DHCP和PXE是怎么工作的">DHCP和PXE是怎么工作的</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2024/11/11/chlinux/make-cert-multiple.html" title="使用 OpenSSL 生成多域名/IP的自签名证书">使用 OpenSSL 生成多域名/IP的自签名证书</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2024/07/03/others/make-pe-iso.html" title="PE 制作过程">PE 制作过程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/09/06/http/restful-api.html" title="RESTful API 实践与常见陷阱">RESTful API 实践与常见陷阱</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/08/25/chlinux/firewalld.html" title="linux 的防火墙 ufw、firwalld、iptables ">linux 的防火墙 ufw、firwalld、iptables </a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-00.html" title="mysql数据库中某张表一直打不开">mysql数据库中某张表一直打不开</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Git/">Git (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTML/">HTML (5)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/HTTP/">HTTP (7)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Network/">Network (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Nginx/">Nginx (2)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Others/">Others (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/PHP/">PHP (6)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Python/">Python (3)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Redis/">Redis (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Shell/">Shell (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vagrant/">Vagrant (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Vue/">Vue (4)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/Windows/">Windows (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/smb/">smb (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/systemd/">systemd (1)</a></li>
+    
+    <li><a href="https://blog.xmlwch.cn/categories/%E9%98%B2%E7%81%AB%E5%A2%99/">防火墙 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.xmlwch.cn/tags/API/">API</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/CA%E8%AF%81%E4%B9%A6/">CA证书</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Composer/">Composer</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Content-Type/">Content Type</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Cuda/">Cuda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/GeoJSON/">GeoJSON</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Git/">Git</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTML/">HTML</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/HTTP/">HTTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Header/">Header</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Httpd/">Httpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/KVM/">KVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/LVM/">LVM</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/NAT/">NAT</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Nvidia%E6%98%BE%E5%8D%A1/">Nvidia显卡</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/OSI-%E6%A8%A1%E5%9E%8B/">OSI 模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PE/">PE</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHP/">PHP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PHPWord/">PHPWord</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/PXE/">PXE</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Prism/">Prism</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Python/">Python</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Qemu/">Qemu</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SELinux/">SELinux</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/SMTP/">SMTP</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Session/">Session</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell/">Shell</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Shell%E6%8B%AC%E5%8F%B7%E5%9C%BA%E6%99%AF/">Shell括号场景</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Supervisor/">Supervisor</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/TCP/IP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B/">TCP/IP协议模型</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Too-many-open-files/">Too many open files</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/UOS/">UOS</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Ubuntu-Nvidia%E9%A9%B1%E5%8A%A8/">Ubuntu Nvidia驱动</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vagrant/">Vagrant</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/Vue/">Vue</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WSL/">WSL</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/WebSocket/">WebSocket</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/awk/">awk</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/axios/">axios</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/chmod/">chmod</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/command/">command</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/conda/">conda</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/cross/">cross</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/du/">du</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/firewalld/">firewalld</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/fpm/">fpm</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/golang/">golang</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/grep/">grep</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/http-request/">http request</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/kernel/">kernel</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/math/">math</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/powershell/">powershell</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/proxy/">proxy</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-0/">psr-0</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/psr-4/">psr-4</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/regexp/">regexp</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rewrite/">rewrite </a>
+    
+    <a href="https://blog.xmlwch.cn/tags/rsync/">rsync</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/sed/">sed</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/signal/">signal</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/smb/">smb</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/socket-lock-file/">socket lock file</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/ssh/">ssh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/status-codes/">status codes</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/systemd/">systemd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/virsh/">virsh</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vi%E5%BC%82%E5%B8%B8/">vi异常</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vmrun/">vmrun</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/vsftpd/">vsftpd</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%9D%83%E9%99%90/">权限</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3/">汉字转拼音</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98/">添加硬盘</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%A1%AC%E7%9B%98%E6%B5%8B%E9%80%9F/">硬盘测速</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC%E6%9F%A5%E7%9C%8B/">端口监听查看</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E5%A4%B4/">请求头</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">请求方法</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">远程桌面</a>
+    
+    <a href="https://blog.xmlwch.cn/tags/%E9%81%97%E5%BF%98%E5%AF%86%E7%A0%81/">遗忘密码</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="mailto:admin@xmlwch.cn" title="添加友链,请发邮件至admin@xmlwch.cn">添加友链</a>
+        </li>
+    </ul>
+</section>
+
+
+   
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
