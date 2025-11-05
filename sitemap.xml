@@ -3,34 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.xmlwch.cn/categories/</loc>
-    <lastmod>2025-09-19T11:40:00+08:00</lastmod>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/Docker/</loc>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/categories/Docker/</loc>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html</loc>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/Linux/</loc>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/categories/Linux/</loc>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/post/</loc>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/tags/</loc>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.xmlwch.cn/</loc>
+    <lastmod>2025-11-05T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/categories/Mysql/</loc>
     <lastmod>2025-09-19T11:40:00+08:00</lastmod>
   </url><url>
-    <loc>https://blog.xmlwch.cn/post/</loc>
-    <lastmod>2025-09-19T11:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/</loc>
-    <lastmod>2025-09-19T11:40:00+08:00</lastmod>
-  </url><url>
     <loc>https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html</loc>
     <lastmod>2025-09-19T11:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/tags/Docker/</loc>
-    <lastmod>2025-09-11T11:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/categories/Docker/</loc>
-    <lastmod>2025-09-11T11:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/tags/Linux/</loc>
-    <lastmod>2025-09-11T11:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/categories/Linux/</loc>
-    <lastmod>2025-09-11T11:40:00+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.xmlwch.cn/tags/</loc>
-    <lastmod>2025-09-11T11:40:00+08:00</lastmod>
   </url><url>
     <loc>https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html</loc>
     <lastmod>2025-09-11T11:40:00+08:00</lastmod>

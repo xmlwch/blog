@@ -79,6 +79,29 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html">KVM 使用 | 在 Centos 8 中创建桥接网卡</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2021年9月13日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+        </div>
+        
+        <div class="post-content">
+            请确保用户有访问服务器显示器的权限，不然出错ssh连接不上。 1 创建网桥 br0 设备 nmcli c add type bridge con-name br0 ifname br0 autoconnect yes 2 网桥 br0 桥接到 eth0 设备（请自己替换自己的设备名） nmcli c add type bridge-slave ifname eth0 master br0 3 查看配置是否成功自动创建了配置文件 ls /etc/sysconfig/network-scripts/ifcfg-br* ifcfg-br0 ifcfg-bridge-slave-eth0 4 将原来的网卡，设置为开启不启动 vi /etc/sysconfig/network-scripts/ifcfg-eth0 #将ONBOOT=yes 改成ONBOO……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/09/13/chlinux/create-bridge-network.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2021/09/09/chlinux/add-disk2.html">Linux添加新硬盘(2T以上)</a>
             </h1>
         </header>
@@ -295,31 +318,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html"> Docker简单使用</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年7月8日
-        </date>
-        
-        <div class="post-meta meta-category">
-            |
-            
-            <a href='/categories/Linux'>Linux</a>
-            
-            <a href='/categories/Docker'>Docker</a>
-            
-        </div>
-        
-        <div class="post-content">
-            Docker常见命令 容器相关操作 docker create # 创建一个容器但是不启动它 docker run # 创建并启动一个容器 docker stop # 停止容器运行，发送信号SIGTERM docker start # 启动一个停止状态的容器 docker restart # 重启一个容器 docker rm # 删除一个容器 docker kill # 发送信号给容器，默认SIGKILL docker attach # 连接(进入)到一个正在运行的容器 docker wait # 阻塞……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/07/08/chlinux/docker.html">阅读全文</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -410,6 +408,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html" title="docker 容器启动后添加/修改端口映射 ">docker 容器启动后添加/修改端口映射 </a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
     </li>
     
@@ -445,10 +447,6 @@
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -458,7 +456,7 @@
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (4)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
     
@@ -472,7 +470,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (42)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (6)</a></li>
     

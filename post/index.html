@@ -72,6 +72,33 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html" title="docker 容器启动后添加/修改端口映射 ">docker 容器启动后添加/修改端口映射 </a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2025年11月5日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
+            
+            <span class="meta-category"><a href='/categories/Docker'>Docker</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            一、需求场景 当我们的宿主机端口号被占用，想修改为另一个端口号去映射时 或者要增加一个端口映射时 二、添加端口映射 2.1 关闭docker 服务 # 修改文件之前，一定先关闭docker服务，否则将不生效（重点） $ systemctl stop docker 2.2 查找配置文件路径 # 端口、外部域名映射修改文件名称 hostconfig.json 及 config.v2.json # 有两种方式查找 配置文……
+        </div>
+        <p class="readmore"><a href="https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
             </h1>
         </header>
@@ -296,31 +323,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2023年4月23日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/MySQL'>MySQL</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            OS error code 1: Operation not permitted OS error code 2: No such file or directory OS error code 3: No such process OS error code 4: Interrupted system call OS error code 5: Input/output error OS error code 6: No such device or address OS error code 7: Argument list too long OS error code 8: Exec format error OS error code 9: Bad file descriptor OS error code 10: No child processes OS error code 11: Resource temporarily unavailable OS error code 12: Cannot allocate memory OS error code 13: Permission denied OS error code 14: Bad address OS error code 15: Block device required OS error code 16: Device or resource busy OS error code 17: File exists OS error code 18: Invalid cross-device link OS error code 19: No such device OS error code 20: Not……
-        </div>
-        <p class="readmore"><a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -421,6 +423,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html" title="docker 容器启动后添加/修改端口映射 ">docker 容器启动后添加/修改端口映射 </a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
     </li>
     
@@ -456,10 +462,6 @@
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -469,7 +471,7 @@
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (4)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
     
@@ -483,7 +485,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (42)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (6)</a></li>
     

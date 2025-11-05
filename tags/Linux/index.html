@@ -79,6 +79,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html">docker 容器启动后添加/修改端口映射 </a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2025年11月5日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Linux'>Linux</a>
+            
+            <a href='/categories/Docker'>Docker</a>
+            
+        </div>
+        
+        <div class="post-content">
+            一、需求场景 当我们的宿主机端口号被占用，想修改为另一个端口号去映射时 或者要增加一个端口映射时 二、添加端口映射 2.1 关闭docker 服务 # 修改文件之前，一定先关闭docker服务，否则将不生效（重点） $ systemctl stop docker 2.2 查找配置文件路径 # 端口、外部域名映射修改文件名称 hostconfig.json 及 config.v2.json # 有两种方式查找 配置文……
+            <p class="readmore"><a href="https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html">通过静态文件部署Docker环境 </a>
             </h1>
         </header>
@@ -287,31 +312,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html">systemd详解</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2021年8月5日
-        </date>
-        
-        <div class="post-meta meta-category">
-            |
-            
-            <a href='/categories/Linux'>Linux</a>
-            
-            <a href='/categories/systemd'>systemd</a>
-            
-        </div>
-        
-        <div class="post-content">
-            说明 systemd 是 Linux 系统工具，用来启动守护进程，已成为大多数发行版的标准配置；主要用于服务管理和自定义服务的管理，方便运维工作管理。 systemctl systemctl是 Systemd 的主命令，用于管理系统 # 重启系统 sudo systemctl reboot # 关闭系统，切断电源 sudo systemctl poweroff # CPU停止工作 sudo systemctl halt # 暂停系统 sudo systemctl suspend # 让系统进入冬眠状态 sudo systemctl hibernate # 让系……
-            <p class="readmore"><a href="https://blog.xmlwch.cn/2021/08/05/chlinux/systemd.html">阅读全文</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -386,6 +386,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html" title="docker 容器启动后添加/修改端口映射 ">docker 容器启动后添加/修改端口映射 </a>
+    </li>
+    
+    <li>
         <a href="https://blog.xmlwch.cn/2025/09/19/mysql/mysql-partitioning.html" title="用 Event &#43; 存储过程 实现 MySQL 自动添加分区">用 Event &#43; 存储过程 实现 MySQL 自动添加分区</a>
     </li>
     
@@ -421,10 +425,6 @@
         <a href="https://blog.xmlwch.cn/2023/04/23/mysql/fix-err-01.html" title="Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复">Table &#39;xxx&#39;is marked as crashed and last (automatic) repair failed 修复</a>
     </li>
     
-    <li>
-        <a href="https://blog.xmlwch.cn/2023/04/23/mysql/error-codes.html" title="MYSQL的错误代码">MYSQL的错误代码</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -434,7 +434,7 @@
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (3)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Docker/">Docker (4)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/FTP/">FTP (2)</a></li>
     
@@ -448,7 +448,7 @@
     
     <li><a href="https://blog.xmlwch.cn/categories/Httpd/">Httpd (1)</a></li>
     
-    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (41)</a></li>
+    <li><a href="https://blog.xmlwch.cn/categories/Linux/">Linux (42)</a></li>
     
     <li><a href="https://blog.xmlwch.cn/categories/Mysql/">Mysql (6)</a></li>
     

@@ -6,7 +6,16 @@
     <description>Recent content in Linux on xmlwch的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 11 Sep 2025 11:40:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Nov 2025 10:00:00 +0800</lastBuildDate><atom:link href="https://blog.xmlwch.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker 容器启动后添加/修改端口映射 </title>
+      <link>https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html</link>
+      <pubDate>Wed, 05 Nov 2025 10:00:00 +0800</pubDate>
+      
+      <guid>https://blog.xmlwch.cn/2025/11/05/chlinux/docker-edit-running-port.html</guid>
+      <description>一、需求场景 当我们的宿主机端口号被占用，想修改为另一个端口号去映射时 或者要增加一个端口映射时 二、添加端口映射 2.1 关闭docker 服务 # 修改文件之前，一定先关闭docker服务，否则将不生效（重点） $ systemctl stop docker 2.2 查找配置文件路径 # 端口、外部域名映射修改文件名称 hostconfig.json 及 config.v2.json # 有两种方式查找 配置文</description>
+    </item>
+    
     <item>
       <title>通过静态文件部署Docker环境 </title>
       <link>https://blog.xmlwch.cn/2025/09/11/chlinux/docker-ce-binaries.html</link>
